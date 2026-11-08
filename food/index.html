@@ -40,7 +40,8 @@ h1{margin:6px 0 0;font-size:22px;font-weight:900;letter-spacing:-.6px;line-heigh
 .tool.hero .ic{background:var(--yellow);color:var(--ink);width:44px;height:44px;flex-shrink:0}
 .tool.hero span{color:#C9CFDB}
 .tool.hero[aria-pressed="true"]{box-shadow:0 0 0 3px var(--yellow) inset}
-.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:2px dashed #CFC5AE;border-radius:16px;padding:26px 12px;background:var(--ivory);text-align:center;cursor:pointer}
+.file-cover{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0}
+.drop{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:2px dashed #CFC5AE;border-radius:16px;padding:26px 12px;background:var(--ivory);text-align:center;cursor:pointer}
 .drop b{font-size:15px}.drop span{font-size:12.5px;color:var(--muted)}
 .ph-wrap{position:relative}
 .ph-wrap img{width:100%;display:block;border-radius:14px;border:1px solid var(--line);background:#eee}
@@ -374,7 +375,7 @@ var CFG = {
     var P = CFG.photo; pick = { topic:P.topics[0], ch:'인스타' };
     var h = '<h2>사진 올리고 홍보하기</h2>';
     h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">1</span>사진 올리기</p>';
-    h += '<label class="drop" id="drop" for="phFile"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg><b>사진 고르기</b><span>' + P.hint + '</span></label><input type="file" id="phFile" accept="image/*" class="hidden">';
+    h += '<div class="drop" id="drop"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg><b>사진 고르기</b><span>' + P.hint + '</span><input type="file" id="phFile" accept="image/*" aria-label="사진 고르기" class="file-cover"></div>';
     h += '<div id="phBody" class="hidden" style="display:flex;flex-direction:column;gap:14px">';
     h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">2</span>어떤 사진으로 만들까요?</p><div class="outs" role="group" aria-label="결과물 종류">' + P.outputs.map(function(o){ return '<button type="button" class="out-c" data-out="' + o.key + '" aria-pressed="' + (o.key === ph.out) + '"><em class="' + (o.live ? '' : 'soon') + '">' + (o.live ? '지금 사용' : '연결 예정') + '</em><b>' + o.name + '</b><span>' + o.desc + '</span></button>'; }).join('') + '</div>';
     h += '<div class="soon-box hidden" id="phSoon"></div>';
@@ -396,7 +397,7 @@ var CFG = {
     h += '<button class="go" type="button" id="go">이 사진으로 홍보글 만들기</button>';
     h += '<div class="result hidden" id="result"></div></div>';
     $('#panel').innerHTML = h;
-    $('#phFile').addEventListener('change', function(e){ var f = e.target.files && e.target.files[0]; if (f) loadPhoto(f); });
+    $('#phFile').addEventListener('change', function(e){ var f = e.target.files && e.target.files[0]; if (f) loadPhoto(f); e.target.value = ''; });
     var drop = $('#drop');
     ['dragover','dragenter'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); }); });
     drop.addEventListener('drop', function(e){ e.preventDefault(); var f = e.dataTransfer.files && e.dataTransfer.files[0]; if (f) loadPhoto(f); });
@@ -417,11 +418,14 @@ var CFG = {
   function markPreset(){ document.querySelectorAll('[data-pre]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.pre === ph.preset); }); var tag = $('#phTag'); if (tag) tag.textContent = {auto:'자동 보정됨', bright:'밝게 보정됨', warm:'따뜻하게 보정됨', orig:'원본', custom:'직접 조절'}[ph.preset]; }
   function syncSliders(){ ['bri','con','sat','warm'].forEach(function(k){ var r = $('#sl_' + k); if (r){ r.value = ph.adj[k]; $('#ov_' + k).textContent = ph.adj[k]; } }); }
   async function loadPhoto(file){
-    if (!/^image\//.test(file.type)){ toast('사진 파일만 올릴 수 있어요'); return; }
+    if (file.type && !/^image\//.test(file.type)){ toast('사진 파일만 올릴 수 있어요'); return; }
     var url = URL.createObjectURL(file);
     var img = new Image(); img.decoding = 'async';
     img.onload = function(){ ph.img = img; analyse(); applyPreset('auto'); $('#drop').classList.add('hidden'); $('#phBody').classList.remove('hidden'); };
-    img.onerror = function(){ toast('이 사진은 열 수 없어요. JPG나 PNG로 다시 골라주세요'); };
+    img.onerror = function(){
+      if (img._tried){ toast('이 사진은 열 수 없어요. JPG나 PNG로 다시 골라주세요'); return; }
+      img._tried = true; var fr = new FileReader(); fr.onload = function(){ img.src = fr.result; }; fr.onerror = function(){ toast('사진을 읽지 못했어요. 다른 사진으로 해주세요'); }; fr.readAsDataURL(file);
+    };
     img.src = url;
   }
   function analyse(){
@@ -584,7 +588,7 @@ var CFG = {
     if (t.dataset.out){ ph.out = t.dataset.out; document.querySelectorAll('.out-c').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.out === ph.out); }); showOut(); return; }
     if (t.dataset.pre){ applyPreset(t.dataset.pre); return; }
     if (t.dataset.ratio){ ph.ratio = t.dataset.ratio; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); draw(); return; }
-    if (t.dataset.act === 'phnew'){ $('#phFile').value = ''; $('#phFile').click(); return; }
+    if (t.dataset.act === 'phnew'){ $('#drop').classList.remove('hidden'); $('#drop').scrollIntoView({behavior:'smooth', block:'center'}); toast('위 칸을 눌러 사진을 골라주세요'); return; }
     if (t.dataset.act === 'phsave'){
       var b = await photoBlob(2160, .92);
       if (downloads){ try { await downloads.save({filename:(studio.name || CFG.title) + '_사진.jpg', data:b}); toast('저장했어요'); } catch(err){ toast(err && err.code === 'declined' ? '저장을 취소했어요' : '사진을 길게 눌러 저장해 주세요'); } }
