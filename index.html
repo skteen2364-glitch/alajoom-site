@@ -1142,14 +1142,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     });
     // pv-screen auto scroll demo
     Array.prototype.forEach.call(root.querySelectorAll('.pv-screen'), function (sc, idx) {
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       var vis = false, hold = 0, dir = 1, pauseUntil = Date.now() + 1200 + idx * 700;
-      if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { vis = en[0].isIntersecting; }, { threshold: 0.5 }).observe(sc);
       var stop = function () { hold = Date.now() + 8000; };
       sc.addEventListener('touchstart', stop, { passive: true }); sc.addEventListener('wheel', stop, { passive: true }); sc.addEventListener('pointerdown', stop);
       var pos = 0;
       var step = function () {
         var now = Date.now(), max = sc.scrollHeight - sc.clientHeight;
+        var b = sc.getBoundingClientRect(), vw = window.innerWidth || document.documentElement.clientWidth, vh = window.innerHeight || document.documentElement.clientHeight;
+        vis = b.width > 0 && b.left > -b.width * .5 && b.right < vw + b.width * .5 && b.top < vh - b.height * .3 && b.bottom > b.height * .3;
         if (vis && now > hold && now > pauseUntil && max > 4) {
           if (Math.abs(sc.scrollTop - pos) > 2) pos = sc.scrollTop;
           pos += dir * 0.9; pos = Math.max(0, Math.min(max, pos)); sc.scrollTop = pos;
@@ -1163,12 +1163,12 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     // pv-row auto advance (mobile carousel)
     (function () {
       var row = root.querySelector('.pv-row'); if (!row) return;
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var rv = false, held = 0;
-      if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { rv = en[0].isIntersecting; }, { threshold: 0.5 }).observe(row);
-      var h = function () { held = Date.now() + 9000; };
+      var held = 0;
+      var h = function () { held = Date.now() + 6000; };
       row.addEventListener('touchstart', h, { passive: true }); row.addEventListener('pointerdown', h);
       setInterval(function () {
+        var rb = row.getBoundingClientRect(), vh = window.innerHeight || document.documentElement.clientHeight;
+        var rv = rb.height > 0 && rb.top < vh - rb.height * .4 && rb.bottom > rb.height * .4;
         if (!rv || Date.now() < held || row.scrollWidth <= row.clientWidth + 4) return;
         var cards = row.children, cur = 0, best = 1e9;
         var rr = row.getBoundingClientRect();
