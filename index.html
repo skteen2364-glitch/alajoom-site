@@ -295,6 +295,22 @@ section[id]{scroll-margin-top:72px}
 .dz-root [aria-hidden="true"][style*="filter: blur"]{filter:none !important;opacity:.08 !important}
 }
 .dz-root section:not(.dz-vis) *,.dz-root section:not(.dz-vis) *::before,.dz-root section:not(.dz-vis) *::after{animation-play-state:paused !important}
+.dz-sr{opacity:0;transform:translateY(44px) scale(.93);transform-origin:50% 0;transition:opacity .5s ease,transform .6s cubic-bezier(.2,.85,.25,1)}
+.dz-sr.dz-in{opacity:1;transform:none}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.dz-pager{position:fixed;right:3px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:7px;padding:4px 0}
+.dz-pdot{display:block;width:6px;height:6px;box-shadow:0 0 0 1.5px rgba(255,255,255,.85);padding:0;border:0;border-radius:999px;background:#C9CFDB;cursor:pointer;transition:height .3s ease,background .3s ease}
+.dz-pdot.on{height:20px;background:#3B5B92}
+.dz-cdots{display:none;justify-content:center;gap:6px;margin-top:10px}
+.dz-cdots i{display:block;width:6px;height:6px;border-radius:999px;background:#D5D9E2;transition:width .3s ease,background .3s ease}
+.dz-cdots i.on{width:18px;background:#3B5B92}
+.swipe-hint.dz-hide{display:none !important}
+.dz-status{white-space:nowrap}
+@media (max-width: 720px){
+.dz-status{font-size:14px !important;padding:8px 13px 8px 11px}
+#video .cta-row a,#beau .cta-row a,#funi .cta-row a{white-space:nowrap;font-size:13.5px !important;letter-spacing:-.3px;padding:0 6px !important}
+}
+@media (prefers-reduced-motion: reduce){.dz-sr{opacity:1;transform:none;transition:none}}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
@@ -954,6 +970,53 @@ section[id]{scroll-margin-top:72px}
       .catch(function(){ btn.disabled = false; btn.textContent = '문의 보내기'; alert('전송에 실패했어요. 잠시 후 다시 시도해 주세요.'); });
   });
   render();
+  // pager + carousel dots
+  ((function (root) {
+  try {
+    var doc = root.ownerDocument || document;
+    // side page dots
+    var secs = Array.prototype.slice.call(root.querySelectorAll('section')).filter(function (s) { return !s.hasAttribute('aria-label'); });
+    if (secs.length > 1 && !doc.querySelector('.dz-pager')) {
+      var nav = doc.createElement('nav'); nav.className = 'dz-pager'; nav.setAttribute('aria-label', '페이지 위치');
+      var dots = secs.map(function (s, i) {
+        var b = doc.createElement('button'); b.type = 'button'; b.className = 'dz-pdot'; b.setAttribute('aria-label', (i + 1) + '번째 화면으로');
+        b.addEventListener('click', function () { var y = s.getBoundingClientRect().top + (window.pageYOffset || 0) - (i === 0 ? 0 : 64); window.scrollTo({ top: y, behavior: 'smooth' }); });
+        nav.appendChild(b); return b;
+      });
+      doc.body.appendChild(nav);
+      var cur = -1, tick = false;
+      var upd = function () {
+        tick = false;
+        var mid = window.innerHeight * 0.45, best = 0, bd = 1e9;
+        secs.forEach(function (s, i) { var r = s.getBoundingClientRect(); var d = (r.top <= mid && r.bottom >= mid) ? 0 : Math.min(Math.abs(r.top - mid), Math.abs(r.bottom - mid)); if (d < bd) { bd = d; best = i; } });
+        if (best !== cur) { if (dots[cur]) dots[cur].classList.remove('on'); dots[best].classList.add('on'); cur = best; }
+      };
+      window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
+      window.addEventListener('resize', upd); upd();
+    }
+    // carousel dots
+    var sels = ['.mate-grid', '#features > div:last-of-type', '#trust .wrap > div:nth-of-type(1)', '#trust .wrap > div:nth-of-type(2)'];
+    sels.forEach(function (sel) {
+      var g = root.querySelector(sel); if (!g || g.nextElementSibling && g.nextElementSibling.classList.contains('dz-cdots')) return;
+      var box = doc.createElement('div'); box.className = 'dz-cdots'; box.setAttribute('aria-hidden', 'true');
+      var n = g.children.length, ds = [];
+      for (var i = 0; i < n; i++) { var d = doc.createElement('i'); box.appendChild(d); ds.push(d); }
+      g.parentNode.insertBefore(box, g.nextSibling);
+      var last = -1;
+      var upd2 = function () {
+        var over = g.scrollWidth > g.clientWidth + 4; box.style.display = over ? 'flex' : 'none'; if (!over) return;
+        var c = g.children[0]; var step = c ? c.getBoundingClientRect().width + 12 : 1;
+        var k = Math.round(g.scrollLeft / step);
+        if (g.scrollLeft + g.clientWidth >= g.scrollWidth - 6) k = n - 1;
+        k = Math.max(0, Math.min(n - 1, k));
+        if (k !== last) { if (ds[last]) ds[last].classList.remove('on'); ds[k].classList.add('on'); last = k; }
+      };
+      g.addEventListener('scroll', function () { requestAnimationFrame(upd2); }, { passive: true });
+      window.addEventListener('resize', upd2); setTimeout(upd2, 50);
+    });
+    var hint = root.querySelector('.swipe-hint'); if (hint) hint.classList.add('dz-hide');
+  } catch (err) {}
+}))(document);
   // section visibility: pause offscreen animations & videos
   try {
     var allSecs = document.querySelectorAll('section');
@@ -996,9 +1059,9 @@ section[id]{scroll-margin-top:72px}
     var secs = Array.prototype.slice.call(document.querySelectorAll('section:not(#top):not([aria-label])'));
     var boxOf = function(sec){ return sec.classList.contains('wrap') ? sec : (sec.querySelector(':scope > .wrap') || sec); };
     var io = new IntersectionObserver(function(entries){ entries.forEach(function(en){ if(!en.isIntersecting) return;
-      Array.prototype.slice.call(boxOf(en.target).children).forEach(function(k,i){ k.style.transitionDelay=(Math.min(i,3)*140)+'ms'; k.classList.add('dz-in'); });
+      en.target.classList.add('dz-in'); Array.prototype.slice.call(boxOf(en.target).children).forEach(function(k){ k.classList.add('dz-in'); });
       io.unobserve(en.target); }); }, {threshold:0.3});
-    secs.forEach(function(sec){ Array.prototype.forEach.call(boxOf(sec).children, function(k){ k.classList.add('dz-rv'); }); io.observe(sec); });
+    secs.forEach(function(sec){ sec.classList.add('dz-sr'); io.observe(sec); });
   } catch(err) {}
 })();
 </script>
