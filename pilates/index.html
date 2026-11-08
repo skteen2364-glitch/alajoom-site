@@ -51,6 +51,16 @@ summary{font-size:13px;font-weight:700;color:var(--muted);cursor:pointer}
 .sl{display:grid;grid-template-columns:56px 1fr 34px;align-items:center;gap:8px;font-size:13px;margin-top:8px}
 .sl input{width:100%;accent-color:var(--blue)}
 .sl output{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.outs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.out-c{text-align:left;border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:4px;position:relative}
+.out-c[aria-pressed="true"]{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue) inset}
+.out-c b{font-size:14px}.out-c span{font-size:12px;color:var(--muted);line-height:1.4}
+.out-c em{align-self:flex-start;margin-bottom:2px;font-style:normal;font-size:10.5px;font-weight:900;padding:2px 7px;border-radius:999px;background:#EAF6EF;color:#0B6B3A}
+.out-c em.soon{background:#F1EEE6;color:#7A7365}
+.stepno{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--yellow);font-size:11px;font-weight:900;margin-right:6px}
+.soon-box{border:1px dashed #CFC5AE;border-radius:14px;background:var(--ivory);padding:16px;display:flex;flex-direction:column;gap:8px}
+.soon-box b{font-size:15px}.soon-box p{margin:0;font-size:13px;color:var(--muted)}
+.ex{display:flex;flex-wrap:wrap;gap:6px}.ex span{font-size:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 10px}
 .ck{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700}
 .tool{text-align:left;border:1px solid var(--line);background:#fff;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:8px;min-height:116px;transition:transform .15s ease,border-color .15s ease}
 .tool:active{transform:scale(.98)}
@@ -156,7 +166,14 @@ var CFG = {
     '당근':'당근 동네생활/비즈프로필 소식. 이웃에게 말하듯 담백하게 5~7줄. 이모지는 1개 이하, 해시태그 없음.',
     '네이버 플레이스':'네이버 플레이스 소식. 3~5줄로 짧고 핵심만. 해시태그 없음.'
   },
-  photo:{ hint:'수업 장면, 스튜디오 공간, 기구 사진 모두 좋아요', warm:3, textPh:'예: 11월 체험 모집', detailPh:'예: 평일 저녁 4인 그룹, 2자리 남았어요',
+  photo:{
+    outputs:[
+      {key:'enhance', live:true, name:'보정 원본', desc:'찍은 사진을 밝고 깨끗하게'},
+      {key:'space', live:false, name:'공간 연출', desc:'밝은 자연광 스튜디오처럼', long:'어둡거나 어수선하게 찍힌 스튜디오를 밝은 자연광이 드는 정돈된 공간으로 연출해요. 네이버 플레이스 대표 사진에 좋아요.', examples:['플레이스 대표 사진','체험 모집']},
+      {key:'equip', live:false, name:'기구 깔끔 배경', desc:'기구·소품만 돋보이게', long:'리포머·체어 같은 기구나 소품을 깨끗한 배경으로 정리해요. 새 기구 소개, 시설 안내에 좋아요.', examples:['새 기구 소개','시설 안내']},
+      {key:'mood', live:false, name:'감성 연출컷', desc:'화보처럼 분위기 있게', long:'따뜻한 빛과 차분한 톤으로 잡지 화보처럼 연출해요. 인스타 피드에 좋아요.', examples:['인스타 피드','브랜드 이미지']}
+    ],
+    hint:'수업 장면, 스튜디오 공간, 기구 사진 모두 좋아요', warm:3, textPh:'예: 11월 체험 모집', detailPh:'예: 평일 저녁 4인 그룹, 2자리 남았어요',
     see:'공간 분위기, 기구, 빛, 동작',
     privacy:'회원 얼굴이 나온 사진은 꼭 본인 동의를 받고 올려주세요.',
     topics:['수업 모습','스튜디오 공간','새 기구·소품','체험 수업 모집','원장 소개'],
@@ -352,12 +369,16 @@ var CFG = {
 
 
   /* ---------- 사진 보정 + 홍보 ---------- */
-  var ph = { img:null, adj:{lo:0,hi:255,bri:0,con:0,sat:0,warm:0}, preset:'auto', ratio:'4:5', text:'', name:true, url:'', orig:'', small:null };
+  var ph = { out:'enhance', img:null, adj:{lo:0,hi:255,bri:0,con:0,sat:0,warm:0}, preset:'auto', ratio:'4:5', text:'', name:true, url:'', orig:'', small:null };
   function renderPhoto(){
     var P = CFG.photo; pick = { topic:P.topics[0], ch:'인스타' };
     var h = '<h2>사진 올리고 홍보하기</h2>';
+    h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">1</span>사진 올리기</p>';
     h += '<label class="drop" id="drop" for="phFile"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg><b>사진 고르기</b><span>' + P.hint + '</span></label><input type="file" id="phFile" accept="image/*" class="hidden">';
     h += '<div id="phBody" class="hidden" style="display:flex;flex-direction:column;gap:14px">';
+    h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">2</span>어떤 사진으로 만들까요?</p><div class="outs" role="group" aria-label="결과물 종류">' + P.outputs.map(function(o){ return '<button type="button" class="out-c" data-out="' + o.key + '" aria-pressed="' + (o.key === ph.out) + '"><em class="' + (o.live ? '' : 'soon') + '">' + (o.live ? '지금 사용' : '연결 예정') + '</em><b>' + o.name + '</b><span>' + o.desc + '</span></button>'; }).join('') + '</div>';
+    h += '<div class="soon-box hidden" id="phSoon"></div>';
+    h += '<div id="phEdit" style="display:flex;flex-direction:column;gap:14px">';
     h += '<div class="ph-wrap"><img id="phImg" alt="보정한 사진 미리보기"><span class="tag" id="phTag">자동 보정됨</span><button type="button" class="hold" id="phHold">누르고 있으면 원본</button></div>';
     h += '<div class="step"><p id="lb_pre">보정</p><div class="chips" role="group" aria-labelledby="lb_pre">' + [['auto','자동 보정'],['bright','밝고 깨끗하게'],['warm','따뜻하고 선명하게'],['orig','원본 그대로']].map(function(o){ return '<button type="button" class="chip" data-pre="' + o[0] + '" aria-pressed="' + (o[0]===ph.preset) + '">' + o[1] + '</button>'; }).join('') + '</div></div>';
     h += '<details><summary>밝기·색감 직접 조절</summary>' + [['bri','밝기'],['con','대비'],['sat','선명도'],['warm','따뜻함']].map(function(o){ return '<label class="sl" for="sl_' + o[0] + '"><span>' + o[1] + '</span><input type="range" id="sl_' + o[0] + '" min="-50" max="50" step="1" data-sl="' + o[0] + '"><output id="ov_' + o[0] + '">0</output></label>'; }).join('') + '</details>';
@@ -366,7 +387,9 @@ var CFG = {
     h += '<label class="ck" for="phName"><input type="checkbox" id="phName" checked> 사진 아래에 가게 이름 넣기</label>';
     h += '<div class="row"><button type="button" class="sub primary" data-act="phsave">' + '사진 저장' + '</button><button type="button" class="sub" data-act="phnew">다른 사진</button></div>';
     h += '<p class="note">' + P.privacy + '</p>';
+    h += '</div>';
     h += '<hr style="border:0;border-top:1px solid var(--line);margin:2px 0">';
+    h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">3</span>홍보글 만들기</p>';
     h += '<div class="step"><p id="lb_topic">이 사진으로 무엇을 알릴까요?</p><div class="chips" role="group" aria-labelledby="lb_topic">' + P.topics.map(function(o, i){ return '<button type="button" class="chip" data-k="topic" data-v="' + esc(o) + '" aria-pressed="' + (i===0) + '">' + esc(o) + '</button>'; }).join('') + '</div></div>';
     h += '<div class="step"><p id="lb_ch">어디에 올릴까요?</p><div class="chips" role="group" aria-labelledby="lb_ch">' + Object.keys(CH).map(function(o, i){ return '<button type="button" class="chip" data-k="ch" data-v="' + esc(o) + '" aria-pressed="' + (i===0) + '">' + esc(o) + '</button>'; }).join('') + '</div></div>';
     h += '<div class="step"><label for="detail">한 줄로 더 알려주세요 (선택)</label><input type="text" id="detail" placeholder="' + esc(P.detailPh) + '"></div>';
@@ -384,6 +407,12 @@ var CFG = {
     hold.addEventListener('pointerdown', function(e){ e.preventDefault(); show(true); });
     ['pointerup','pointerleave','pointercancel'].forEach(function(ev){ hold.addEventListener(ev, function(){ show(false); }); });
     if (ph.img){ $('#drop').classList.add('hidden'); $('#phBody').classList.remove('hidden'); syncSliders(); draw(); }
+  }
+  function showOut(){
+    var o = CFG.photo.outputs.filter(function(x){ return x.key === ph.out; })[0], soon = $('#phSoon'), ed = $('#phEdit');
+    if (!o || o.live){ soon.classList.add('hidden'); ed.style.display = 'flex'; return; }
+    ed.style.display = 'none'; soon.classList.remove('hidden');
+    soon.innerHTML = '<b>' + o.name + '</b><p>' + o.long + '</p><div class="ex">' + o.examples.map(function(e){ return '<span>' + e + '</span>'; }).join('') + '</div><p>퍼니메이트와 같은 사진 AI 엔진을 연결하면 버튼 한 번에 한 장씩 만들어져요. 마음에 들 때까지 다시 만들 수 있고, 만든 사진에는 \'연출 이미지\' 표시가 자동으로 들어가요.</p><button type="button" class="go" disabled>연결 예정</button><button type="button" class="sub" data-out="enhance">지금은 보정 원본으로 만들기</button>';
   }
   function markPreset(){ document.querySelectorAll('[data-pre]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.pre === ph.preset); }); var tag = $('#phTag'); if (tag) tag.textContent = {auto:'자동 보정됨', bright:'밝게 보정됨', warm:'따뜻하게 보정됨', orig:'원본', custom:'직접 조절'}[ph.preset]; }
   function syncSliders(){ ['bri','con','sat','warm'].forEach(function(k){ var r = $('#sl_' + k); if (r){ r.value = ph.adj[k]; $('#ov_' + k).textContent = ph.adj[k]; } }); }
@@ -552,6 +581,7 @@ var CFG = {
     if (t.dataset.tool){ tool = t.dataset.tool; document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); renderPanel(); $('#panel').scrollIntoView({behavior:'smooth', block:'start'}); return; }
     if (t.classList.contains('chip') && t.dataset.k){ pick[t.dataset.k] = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); return; }
     if (t.id === 'go') return generate();
+    if (t.dataset.out){ ph.out = t.dataset.out; document.querySelectorAll('.out-c').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.out === ph.out); }); showOut(); return; }
     if (t.dataset.pre){ applyPreset(t.dataset.pre); return; }
     if (t.dataset.ratio){ ph.ratio = t.dataset.ratio; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); draw(); return; }
     if (t.dataset.act === 'phnew'){ $('#phFile').value = ''; $('#phFile').click(); return; }
