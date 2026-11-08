@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>알아줌 | 1인 사장님 무료 AI 비서</title>
+<meta name="description" content="혼자 다 하는 사장님, 말만 하세요. 홍보글·카톡 문의 답장·예약 정리까지 알아줌이 알아서 해줘요. 카드 등록 없이 무료.">
+<meta property="og:title" content="알아줌 | 1인 사장님 무료 AI 비서">
+<meta property="og:description" content="혼자 다 하는 사장님, 말만 하세요. 알아서 해줌.">
+<meta property="og:image" content="assets/alajoom-poster.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0E1017">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232F5BFF'/%3E%3Ctext x='32' y='44' font-size='34' font-weight='900' text-anchor='middle' fill='white' font-family='sans-serif'%3E%EC%95%8C%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#14161F}a:hover{color:#2F5BFF}
+html{scroll-behavior:smooth}
+@keyframes dz-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee{animation:dz-marquee 40s linear infinite}
+@media (prefers-reduced-motion: reduce){.marquee{animation:none}}
+@media (max-width: 720px){
+html{scroll-snap-type:y mandatory;scroll-padding-top:64px}
+section:not([aria-label]){scroll-snap-align:start;scroll-snap-stop:always;min-height:calc(100svh - 64px);box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
+footer{scroll-snap-align:end}
+}
+.dz-rv{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.dz-rv.dz-in{opacity:1;transform:none}
+.mate-card.dz-in:hover{transform:translateY(-4px)}
+
+section[id]{scroll-margin-top:72px}
+.mate-card{transition:transform .2s ease, box-shadow .2s ease}
+.mate-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(20,22,31,.10)}
+@media (max-width: 1024px){
+.mate-grid{grid-template-columns:repeat(3, minmax(0, 1fr)) !important}
+}
+@media (max-width: 720px){
+.nav-hide{display:none !important}
+.wrap{padding-left:18px !important;padding-right:18px !important}
+.sec{padding-top:56px !important;padding-bottom:56px !important}
+.hero{padding-top:36px !important;padding-bottom:56px !important;gap:40px !important}
+.hero-title{font-size:34px !important;letter-spacing:-1px !important}
+.hero-lead{font-size:16px !important;margin-bottom:24px !important}
+.cta-row a{flex:1 1 100%;justify-content:center}
+.float-chip{display:none !important}
+.h2{font-size:26px !important}
+.lead{font-size:15px !important;margin-bottom:28px !important}
+.card{padding:24px !important;border-radius:20px !important}
+.mate-grid{grid-template-columns:repeat(2, minmax(0, 1fr)) !important;gap:12px !important}
+.mate-en{left:10px !important;top:8px !important;font-size:9px !important;letter-spacing:1.5px !important}
+.mate-ico{width:32px;height:32px}
+.mate-body{padding:12px !important;gap:10px !important}
+.mate-name{font-size:15px !important}
+.mate-btn{font-size:13px !important}
+.price{font-size:30px !important}
+.form-box{padding:22px !important}
+.cta-box{padding:36px 22px !important;border-radius:24px !important}
+}
+</style>
+</head>
+<body>
+<div style="min-height: 100vh; background: #FFFFFF; color: #14161F; font-family: 'Noto Sans KR', system-ui, sans-serif; line-height: 1.6; word-break: keep-all; overflow-x: hidden">
+
+<!-- 헤더 -->
+<header style="position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #22263A; background: rgba(14, 16, 23, 0.94)">
+<div class="wrap" style="max-width: 1200px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<a href="#top" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #FFFFFF">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #2F5BFF; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 17px; position: relative">알<span style="position: absolute; right: -3px; top: -3px; width: 10px; height: 10px; border-radius: 50%; background: #FFE45C; border: 2px solid #0E1017"></span></span>
+<span style="font-size: 22px; font-weight: 900; letter-spacing: -0.5px">알아줌</span>
+</a>
+<nav aria-label="주요 메뉴" style="display: flex; align-items: center; gap: 20px; font-size: 15px; font-weight: 500">
+<a class="nav-hide" href="#how" style="text-decoration: none; padding: 10px 0; color: #C8CCD8">음성 비서</a>
+<a class="nav-hide" href="#features" style="text-decoration: none; padding: 10px 0; color: #C8CCD8">서비스</a>
+<a class="nav-hide" href="#mates" style="text-decoration: none; padding: 10px 0; color: #C8CCD8">AI 직원</a>
+<a class="nav-hide" href="#pricing" style="text-decoration: none; padding: 10px 0; color: #C8CCD8">요금제</a>
+<a class="nav-hide" href="#contact" style="text-decoration: none; padding: 10px 0; color: #C8CCD8">문의하기</a>
+<a href="#mates" style="display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; padding: 0 18px; border-radius: 999px; background: #FFFFFF; color: #14161F; font-weight: 700">무료 시작</a>
+</nav>
+</div>
+</header>
+
+<!-- 히어로 -->
+<section id="top" style="background: #0E1017; color: #FFFFFF; position: relative; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; left: -200px; bottom: -260px; width: 520px; height: 520px; border-radius: 50%; background: #FFE45C; opacity: 0.10; filter: blur(90px)"></div>
+<div class="wrap hero" style="max-width: 1200px; margin: 0 auto; padding: 80px 24px 96px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px; position: relative">
+<div style="flex: 1 1 460px; min-width: 0">
+<p style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 22px; padding: 6px 14px; border-radius: 999px; border: 1px solid #343A50; background: #161925; font-size: 14px; font-weight: 700; color: #E6E8EE"><span style="font-size: 11px; font-weight: 900; color: #14161F; background: #FFE45C; padding: 1px 7px; border-radius: 999px">1인 사장님 전용</span>무료 AI 비서</p>
+<h1 class="hero-title" style="margin: 0 0 22px; font-size: 60px; line-height: 1.18; font-weight: 900; letter-spacing: -2px">혼자 다 하는 사장님,<br>말만 하세요.<br><span style="color: #FFE45C">알아서 해줌</span></h1>
+<p class="hero-lead" style="margin: 0 0 34px; font-size: 18px; color: #B9BECC; max-width: 540px">AI도 인스타도 몰라도 괜찮아요. 홍보글, 카톡 문의 답장, 예약·매출 정리까지 알아줌이 알아서 챙기고, 사장님은 확인만 누르면 돼요.</p>
+<div class="cta-row" style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="#mates" style="display: inline-flex; align-items: center; gap: 8px; min-height: 54px; padding: 0 28px; border-radius: 14px; background: #2F5BFF; color: #FFFFFF; font-size: 17px; font-weight: 700; text-decoration: none">무료로 시작하기<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#contact" style="display: inline-flex; align-items: center; min-height: 54px; padding: 0 24px; border-radius: 14px; border: 1px solid #3A3F52; color: #FFFFFF; font-size: 17px; font-weight: 700; text-decoration: none">음성 비서 출시 알림</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 28px; font-size: 14px; color: #B9BECC">
+<span style="display: inline-flex; align-items: center; gap: 6px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>카드 등록 없이 무료</span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>하루 10회 콘텐츠</span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>사장님 확인 후에만 실행</span>
+</div>
+</div>
+<div style="flex: 1 1 380px; min-width: 0; max-width: 500px; position: relative">
+<div aria-hidden="true" style="position: absolute; inset: 40px; border-radius: 50%; background: #2F5BFF; opacity: 0.45; filter: blur(70px)"></div>
+<div class="form-box" style="position: relative; background: #1A1D29; border: 1px solid #343A50; border-radius: 28px; padding: 26px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45)">
+<div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px">
+<span style="position: relative; width: 52px; height: 52px; border-radius: 50%; background: #2F5BFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 0 8px rgba(47, 91, 255, 0.22)"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></span>
+<span style="display: flex; align-items: flex-end; gap: 3px; height: 24px" aria-hidden="true">
+<span style="width: 4px; height: 10px; border-radius: 2px; background: #6E8BFF"></span><span style="width: 4px; height: 20px; border-radius: 2px; background: #6E8BFF"></span><span style="width: 4px; height: 14px; border-radius: 2px; background: #6E8BFF"></span><span style="width: 4px; height: 24px; border-radius: 2px; background: #6E8BFF"></span><span style="width: 4px; height: 12px; border-radius: 2px; background: #6E8BFF"></span><span style="width: 4px; height: 18px; border-radius: 2px; background: #6E8BFF"></span><span style="width: 4px; height: 8px; border-radius: 2px; background: #6E8BFF"></span>
+</span>
+<span style="font-size: 13px; color: #B9BECC">듣고 있어요…</span>
+</div>
+<div role="group" aria-label="음성 지시 예시" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px">
+<button type="button" data-action="pickPromo" data-vtab="promo" style="">홍보 올리기</button>
+<button type="button" data-action="pickKakao" data-vtab="kakao" style="">카톡 문의 확인</button>
+<button type="button" data-action="pickDay" data-vtab="day" style="">오늘 일정·매출</button>
+</div>
+<div data-show="vPromo" style="display:contents">
+<div style="background: #FFFFFF; color: #14161F; border-radius: 16px 16px 16px 4px; padding: 14px 16px; margin-bottom: 18px">
+<p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; color: #5B6070">사장님 음성</p>
+<p style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5">"이번 주말 수분관리 이벤트, 인스타에 올리고 단골 고객한테 문자 보내줘"</p>
+</div>
+<p style="margin: 0 0 4px; font-size: 13px; font-weight: 700; color: #B9BECC">AI 비서가 정리한 할 일</p>
+<ul style="list-style: none; margin: 0; padding: 0">
+<li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #2E3242"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">이벤트 홍보글 작성</span><span style="font-size: 12px; color: #8FD9AE; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #2E3242"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">인스타용 이미지 제작</span><span style="font-size: 12px; color: #8FD9AE; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #2E3242"><span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid #FFE45C; flex-shrink: 0; box-sizing: border-box"></span><span style="flex-grow: 1; font-size: 15px">인스타 게시 예약</span><span style="font-size: 12px; color: #14161F; background: #FFE45C; padding: 2px 8px; border-radius: 999px; font-weight: 700; white-space: nowrap">확인 대기</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #2E3242"><span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid #FFE45C; flex-shrink: 0; box-sizing: border-box"></span><span style="flex-grow: 1; font-size: 15px">단골 고객 문자 발송</span><span style="font-size: 12px; color: #14161F; background: #FFE45C; padding: 2px 8px; border-radius: 999px; font-weight: 700; white-space: nowrap">확인 대기</span></li>
+</ul>
+</div>
+<div data-show="vKakao" style="display:contents">
+<div style="background: #FFFFFF; color: #14161F; border-radius: 16px 16px 16px 4px; padding: 14px 16px; margin-bottom: 18px">
+<p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; color: #5B6070">사장님 음성</p>
+<p style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5">"카톡 문의 들어온 거 확인하고 답장 써줘"</p>
+</div>
+<p style="margin: 0 0 4px; font-size: 13px; font-weight: 700; color: #B9BECC">AI 비서가 정리한 할 일</p>
+<ul style="list-style: none; margin: 0; padding: 0">
+<li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #2E3242"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">새 카톡 문의 확인·요약</span><span style="font-size: 12px; color: #8FD9AE; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #2E3242"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">예약·가격 문의 분류</span><span style="font-size: 12px; color: #8FD9AE; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #2E3242"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">답장 초안 작성</span><span style="font-size: 12px; color: #8FD9AE; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #2E3242"><span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid #FFE45C; flex-shrink: 0; box-sizing: border-box"></span><span style="flex-grow: 1; font-size: 15px">답장 보내기</span><span style="font-size: 12px; color: #14161F; background: #FFE45C; padding: 2px 8px; border-radius: 999px; font-weight: 700; white-space: nowrap">확인 대기</span></li>
+</ul>
+</div>
+<div data-show="vDay" style="display:contents">
+<div style="background: #FFFFFF; color: #14161F; border-radius: 16px 16px 16px 4px; padding: 14px 16px; margin-bottom: 18px">
+<p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; color: #5B6070">사장님 음성</p>
+<p style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5">"오늘 예약이랑 이번 주 매출 알려줘"</p>
+</div>
+<p style="margin: 0 0 4px; font-size: 13px; font-weight: 700; color: #B9BECC">AI 비서가 정리한 할 일</p>
+<ul style="list-style: none; margin: 0; padding: 0">
+<li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #2E3242"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">오늘 예약 고객 정리</span><span style="font-size: 12px; color: #8FD9AE; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #2E3242"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">이번 주 매출 요약</span><span style="font-size: 12px; color: #8FD9AE; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #2E3242"><span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid #FFE45C; flex-shrink: 0; box-sizing: border-box"></span><span style="flex-grow: 1; font-size: 15px">노쇼 방지 알림 문자</span><span style="font-size: 12px; color: #14161F; background: #FFE45C; padding: 2px 8px; border-radius: 999px; font-weight: 700; white-space: nowrap">확인 대기</span></li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- 업종 띠 -->
+<section aria-label="지원 업종: 뷰티·에스테틱, 가구·인테리어, 네일, 헤어, 카페, 베이커리, 꽃집, 필라테스, 애견미용, 음식점" style="background: #14161F; color: #E6E8EE; overflow: hidden">
+<div style="padding: 16px 0; overflow: hidden">
+<div class="marquee" aria-hidden="true" style="display: flex; width: max-content; font-size: 15px; font-weight: 500; letter-spacing: -0.2px">
+<div style="display: flex"><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">뷰티·에스테틱<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">가구·인테리어<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">네일<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">헤어<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">카페<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">베이커리<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">꽃집<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">필라테스<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">애견미용<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">음식점<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span></div><div style="display: flex"><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">뷰티·에스테틱<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">가구·인테리어<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">네일<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">헤어<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">카페<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">베이커리<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">꽃집<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">필라테스<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">애견미용<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span><span style="display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap">음식점<span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 50%; background: #FFE45C"></span></span></div>
+</div>
+</div>
+</section>
+
+<!-- 이용 방법 -->
+<section id="how" style="background: #F5F7FC">
+<div class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
+<p style="margin: 0 0 8px; font-size: 15px; font-weight: 700; color: #2F5BFF">이렇게 일해요</p>
+<h2 class="h2" style="margin: 0 0 40px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">말하고, 확인하면 끝</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<div class="card" style="flex: 1 1 260px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E6E8ED; position: relative">
+<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #A9B1C4">STEP 1</span>
+<span style="width: 52px; height: 52px; border-radius: 16px; background: #14161F; color: #FFE45C; display: flex; align-items: center; justify-content: center; margin-bottom: 20px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></span>
+<h3 style="margin: 0 0 8px; font-size: 20px; font-weight: 700">말로 시켜요</h3>
+<p style="margin: 0; font-size: 15px; color: #4A5060">음성이나 글로 오늘 할 일을 말해요. 시술 중이어도 한마디면 돼요.</p>
+</div>
+<div class="card" style="flex: 1 1 260px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E6E8ED; position: relative">
+<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #A9B1C4">STEP 2</span>
+<span style="width: 52px; height: 52px; border-radius: 16px; background: #14161F; color: #FFE45C; display: flex; align-items: center; justify-content: center; margin-bottom: 20px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"></path><circle cx="18" cy="16" r="3"></circle></svg></span>
+<h3 style="margin: 0 0 8px; font-size: 20px; font-weight: 700">AI 비서가 처리해요</h3>
+<p style="margin: 0; font-size: 15px; color: #4A5060">할 일을 나누고, 업종 AI 직원들이 글·이미지·답장을 준비해요.</p>
+</div>
+<div class="card" style="flex: 1 1 260px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E6E8ED; position: relative">
+<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #A9B1C4">STEP 3</span>
+<span style="width: 52px; height: 52px; border-radius: 16px; background: #14161F; color: #FFE45C; display: flex; align-items: center; justify-content: center; margin-bottom: 20px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+<h3 style="margin: 0 0 8px; font-size: 20px; font-weight: 700">확인 누르면 끝</h3>
+<p style="margin: 0; font-size: 15px; color: #4A5060">결과를 보고 확인을 누르면 게시·발송돼요. 마음대로 나가지 않아요.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 알아줌 영상 -->
+<section id="video" style="background: #0E1017; color: #FFFFFF; position: relative; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; left: 8%; top: 18%; width: 420px; height: 420px; border-radius: 50%; background: #2F5BFF; opacity: 0.30; filter: blur(110px)"></div>
+<div class="wrap sec" style="position: relative; max-width: 1100px; margin: 0 auto; padding: 96px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 0 1 340px; min-width: 0; margin: 0 auto">
+<div style="width: 100%; max-width: 320px; margin: 0 auto; padding: 10px; border-radius: 42px; background: #05060A; border: 1px solid #2E3242; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55)">
+<video src="assets/alajoom-reels.mp4" poster="assets/alajoom-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="알아줌 소개 영상" style="display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 32px; background: #05060A; object-fit: cover"></video>
+</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0">
+<p style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 16px; padding: 5px 12px; border-radius: 999px; border: 1px solid #3A3F52; font-size: 13px; font-weight: 700; color: #FFE45C">23초 영상으로 보기</p>
+<h2 class="h2" style="margin: 0 0 14px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">퇴근 후 홍보글,<br>이제 <span style="color: #FFE45C">말 한마디</span>로 끝</h2>
+<p class="lead" style="margin: 0 0 24px; font-size: 17px; color: #B9BECC">사장님이 말하면 AI 비서가 할 일을 정리하고, 확인 버튼 하나로 게시와 발송까지 마쳐요.</p>
+<ul style="list-style: none; margin: 0 0 32px; padding: 0">
+<li style="display: flex; gap: 14px; padding: 16px 0; border-top: 1px solid #2E3242"><span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #FFE45C; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 17px; color: #FFFFFF; margin-bottom: 2px">말로 시키기</b><span style="font-size: 15px; color: #B9BECC">"인스타에 올리고 단골한테 문자 보내줘"</span></span></li>
+<li style="display: flex; gap: 14px; padding: 16px 0; border-top: 1px solid #2E3242"><span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #FFE45C; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 17px; color: #FFFFFF; margin-bottom: 2px">AI 비서가 정리</b><span style="font-size: 15px; color: #B9BECC">홍보글·이미지는 바로, 게시·발송은 확인 대기</span></span></li>
+<li style="display: flex; gap: 14px; padding: 16px 0; border-top: 1px solid #2E3242"><span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #FFE45C; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 17px; color: #FFFFFF; margin-bottom: 2px">확인 누르면 끝</b><span style="font-size: 15px; color: #B9BECC">카톡 답장, 예약·매출 정리도 같은 방식으로</span></span></li>
+</ul>
+<div class="cta-row" style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="#mates" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; border-radius: 14px; background: #FFE45C; color: #14161F; font-size: 17px; font-weight: 700; text-decoration: none">무료로 시작하기</a>
+<a href="#contact" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 14px; border: 1px solid #3A3F52; color: #FFFFFF; font-size: 17px; font-weight: 700; text-decoration: none">음성 비서 출시 알림</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- AI 팀 -->
+<section id="team" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 104px 24px 120px">
+<div class="hero" style="display: flex; flex-wrap: wrap; align-items: center; gap: 64px">
+<div style="flex: 1 1 400px; min-width: 0">
+<p style="margin: 0 0 8px; font-size: 15px; font-weight: 700; color: #2F5BFF">AI 직원 팀</p>
+<h2 class="h2" style="margin: 0 0 14px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">의뢰 하나에<br>AI 직원 4명이 붙어요</h2>
+<p class="lead" style="margin: 0 0 28px; font-size: 17px; color: #4A5060">자료 조사, 전략, 카피, 검토까지 나눠서 처리해요. 혼자 쓰는 AI보다 꼼꼼하고, 우리 가게에 맞게 나와요.</p>
+<ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px; font-size: 15px">
+<li><b style="display: block">자료 담당</b><span style="color: #5B6070">상권·고객·시즌 정보 조사</span></li>
+<li><b style="display: block">전략 담당</b><span style="color: #5B6070">채널과 메시지 방향 결정</span></li>
+<li><b style="display: block">카피 담당</b><span style="color: #5B6070">사장님 말투로 글 작성</span></li>
+<li><b style="display: block">검토 담당</b><span style="color: #5B6070">광고 주의 표현 자동 수정</span></li>
+</ul>
+</div>
+<div style="flex: 1 1 340px; min-width: 0; max-width: 470px; position: relative">
+<div aria-hidden="true" style="position: absolute; inset: 18px -14px -14px 18px; border-radius: 28px; background: #FFE45C; transform: rotate(4deg)"></div>
+
+<div class="form-box" style="position: relative; z-index: 1; background: #FFFFFF; border-radius: 24px; border: 1px solid #E3E6EE; box-shadow: 0 20px 48px rgba(20, 22, 31, 0.10); padding: 22px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 14px">
+<span style="font-size: 13px; font-weight: 700; color: #5B6070">의뢰서 · No.0027</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: #2F5BFF; background: #E3EAFF; padding: 3px 10px; border-radius: 999px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #2F5BFF"></span>진행 중</span>
+</div>
+
+<div style="display: flex; gap: 8px; padding: 4px; background: #F0F2F7; border-radius: 12px; margin-bottom: 14px" role="group" aria-label="업종 예시 선택">
+<div data-show="isBeau" style="display:contents">
+<button type="button" style="flex: 1; min-height: 40px; border: 0; border-radius: 9px; font-family: inherit; font-size: 14px; font-weight: 700; background: #FFFFFF; color: #14161F; box-shadow: 0 1px 3px rgba(20, 22, 31, 0.12)">뷰메이트</button>
+<button type="button" data-action="pickFuni" style="flex: 1; min-height: 40px; border: 0; border-radius: 9px; font-family: inherit; font-size: 14px; font-weight: 700; background: transparent; color: #5B6070; cursor: pointer">퍼니메이트</button>
+</div>
+<div data-show="isFuni" style="display:contents">
+<button type="button" data-action="pickBeau" style="flex: 1; min-height: 40px; border: 0; border-radius: 9px; font-family: inherit; font-size: 14px; font-weight: 700; background: transparent; color: #5B6070; cursor: pointer">뷰메이트</button>
+<button type="button" style="flex: 1; min-height: 40px; border: 0; border-radius: 9px; font-family: inherit; font-size: 14px; font-weight: 700; background: #FFFFFF; color: #14161F; box-shadow: 0 1px 3px rgba(20, 22, 31, 0.12)">퍼니메이트</button>
+</div>
+</div>
+
+<p style="margin: 0 0 6px; font-size: 12px; font-weight: 700; color: #5B6070">사장님 의뢰</p>
+<div style="background: #14161F; color: #FFFFFF; border-radius: 16px 16px 16px 4px; padding: 14px 16px; margin-bottom: 10px">
+<div data-show="isBeau" style="display:contents">
+<p style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5">"고덕동 맘카페에 첫 방문 20% 할인 글 써줘"</p>
+</div>
+<div data-show="isFuni" style="display:contents">
+<p style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5">"새로 들어온 원목 식탁, 인스타에 올려줘"</p>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px">
+<span style="font-size: 12px; color: #3A3F4C; background: #F4F3F0; padding: 3px 10px; border-radius: 999px">인스타그램</span>
+<span style="font-size: 12px; color: #3A3F4C; background: #F4F3F0; padding: 3px 10px; border-radius: 999px">블로그</span>
+<span style="font-size: 12px; color: #3A3F4C; background: #F4F3F0; padding: 3px 10px; border-radius: 999px">맘카페</span>
+<span style="font-size: 12px; color: #3A3F4C; background: #F4F3F0; padding: 3px 10px; border-radius: 999px">문자·카톡</span>
+</div>
+
+<p style="margin: 0 0 12px; font-size: 13px; font-weight: 700">AI 직원 4명이 바로 일을 시작해요</p>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0">
+<span style="width: 44px; height: 44px; border-radius: 50%; background: #F4F3F0; color: #14161F; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-4.5-4.5"></path></svg></span>
+<span style="font-size: 12px; font-weight: 700; white-space: nowrap">자료 담당</span>
+<span style="display: block; height: 4px; border-radius: 2px; background: #12A150; width: 100%"></span>
+<span style="font-size: 11px; font-weight: 700; color: #0B6B3A">완료</span>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0">
+<span style="width: 44px; height: 44px; border-radius: 50%; background: #F4F3F0; color: #14161F; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="4"></circle><circle cx="12" cy="12" r="0.8"></circle></svg></span>
+<span style="font-size: 12px; font-weight: 700; white-space: nowrap">전략 담당</span>
+<span style="display: block; height: 4px; border-radius: 2px; background: #12A150; width: 100%"></span>
+<span style="font-size: 11px; font-weight: 700; color: #0B6B3A">완료</span>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0">
+<span style="width: 44px; height: 44px; border-radius: 50%; background: #F4F3F0; color: #14161F; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"></path><path d="M13.5 6.5l4 4"></path></svg></span>
+<span style="font-size: 12px; font-weight: 700; white-space: nowrap">카피 담당</span>
+<span style="display: block; height: 4px; border-radius: 2px; background: #12A150; width: 100%"></span>
+<span style="font-size: 11px; font-weight: 700; color: #0B6B3A">완료</span>
+</div><div style="display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0">
+<span style="width: 44px; height: 44px; border-radius: 50%; background: #E3EAFF; color: #2F5BFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 12px; font-weight: 700; white-space: nowrap">검토 담당</span>
+<span style="display: block; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #2F5BFF 60%, #E3E6EE 60%); width: 100%"></span>
+<span style="font-size: 11px; font-weight: 700; color: #2F5BFF">검토 중</span>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; background: #F8F9FC; font-size: 13px; color: #3A3F4C">
+<span style="width: 16px; height: 16px; border-radius: 50%; border: 2px solid #C9D3FF; border-top-color: #2F5BFF; flex-shrink: 0"></span>
+광고 표현·가격 마지막 검토 중
+</div>
+</div>
+
+<div class="float-chip" style="position: absolute; right: -36px; bottom: -40px; z-index: 2; width: 230px; padding: 14px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E3E6EE; box-shadow: 0 16px 32px rgba(20, 22, 31, 0.14)">
+<p style="display: flex; align-items: center; gap: 6px; margin: 0 0 10px; font-size: 13px; font-weight: 700; color: #2F5BFF"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg>검토 담당이 고쳤어요</p>
+<p style="margin: 0 0 6px; font-size: 12px; color: #5B6070"><s>드라마틱 효과</s> → <b style="color: #14161F">피부 컨디션 정돈</b></p>
+<p style="margin: 0 0 6px; font-size: 12px; color: #5B6070"><s>효과 보장</s> → <b style="color: #14161F">문구 삭제</b></p>
+<p style="margin: 0; font-size: 12px; color: #5B6070">+ <b style="color: #14161F">(광고) 표시 추가</b></p>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- 신뢰 -->
+<section id="trust" style="background: #0E1017; color: #FFFFFF">
+<div class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
+<p style="margin: 0 0 8px; font-size: 15px; font-weight: 700; color: #FFE45C">믿고 맡길 수 있는 이유</p>
+<h2 class="h2" style="margin: 0 0 12px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">AI에게 맡겨도 안심되게</h2>
+<p class="lead" style="margin: 0 0 40px; font-size: 17px; color: #B9BECC">돈 들까 봐, 사기당할까 봐 걱정되시죠. 알아줌은 이렇게 지켜요.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<div class="card" style="flex: 1 1 240px; min-width: 0; padding: 28px; border-radius: 20px; background: #1A1D29; border: 1px solid #2E3242">
+<span style="width: 48px; height: 48px; border-radius: 14px; background: #FFE45C; color: #14161F; display: flex; align-items: center; justify-content: center; margin-bottom: 18px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+<h3 style="margin: 0 0 8px; font-size: 19px; font-weight: 700">사장님 확인 후에만 실행</h3>
+<p style="margin: 0; font-size: 15px; color: #C8CCD8">게시·발송·답장은 사장님이 확인을 눌러야 나가요.</p>
+</div>
+<div class="card" style="flex: 1 1 240px; min-width: 0; padding: 28px; border-radius: 20px; background: #1A1D29; border: 1px solid #2E3242">
+<span style="width: 48px; height: 48px; border-radius: 14px; background: #FFE45C; color: #14161F; display: flex; align-items: center; justify-content: center; margin-bottom: 18px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M4 12h7M4 17h12"></path><path d="M16 5l4 4M20 5l-4 4"></path></svg></span>
+<h3 style="margin: 0 0 8px; font-size: 19px; font-weight: 700">광고 표현 자동 검토</h3>
+<p style="margin: 0; font-size: 15px; color: #C8CCD8">과장·주의 표현은 검토 담당 AI가 먼저 고쳐요.</p>
+</div>
+<div class="card" style="flex: 1 1 240px; min-width: 0; padding: 28px; border-radius: 20px; background: #1A1D29; border: 1px solid #2E3242">
+<span style="width: 48px; height: 48px; border-radius: 14px; background: #FFE45C; color: #14161F; display: flex; align-items: center; justify-content: center; margin-bottom: 18px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6v10H3z"></path><path d="M9 20v-6h6v6"></path></svg></span>
+<h3 style="margin: 0 0 8px; font-size: 19px; font-weight: 700">업종을 아는 AI 직원</h3>
+<p style="margin: 0; font-size: 15px; color: #C8CCD8">업종별 질문과 템플릿, 우리 가게 말투 그대로.</p>
+</div>
+<div class="card" style="flex: 1 1 240px; min-width: 0; padding: 28px; border-radius: 20px; background: #1A1D29; border: 1px solid #2E3242">
+<span style="width: 48px; height: 48px; border-radius: 14px; background: #FFE45C; color: #14161F; display: flex; align-items: center; justify-content: center; margin-bottom: 18px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M3 10h18M7 15h4"></path></svg></span>
+<h3 style="margin: 0 0 8px; font-size: 19px; font-weight: 700">숨은 비용 없는 무료</h3>
+<p style="margin: 0; font-size: 15px; color: #C8CCD8">카드 등록 없이 하루 10회, ERP는 계속 무료.</p>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px">
+<div class="card" style="flex: 1 1 380px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFE45C; color: #14161F">
+<p style="margin: 0 0 10px; font-size: 13px; font-weight: 900; letter-spacing: 1px">알아줌을 만든 사람</p>
+<p style="margin: 0 0 12px; font-size: 22px; font-weight: 900; line-height: 1.4">"저도 인스타 하나 못 하던<br>1인 사장이에요."</p>
+<p style="margin: 0; font-size: 15px; color: #3A3200">혼자 일하느라 홍보를 미루던 제가 필요해서 만들었어요. 같은 처지의 사장님이 돈 걱정, 사기 걱정 없이 시작할 수 있게요. — 대표 [이름]</p>
+</div>
+<div class="card" style="flex: 1 1 380px; min-width: 0; padding: 28px; border-radius: 20px; background: #1A1D29; border: 1px solid #2E3242">
+<p style="margin: 0 0 14px; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #FFE45C">알아줌이 절대 하지 않는 것</p>
+<ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; font-size: 15px; color: #E6E8EE">
+<li>✕ 영업 전화</li><li>✕ 장기 계약</li><li>✕ 선결제 요구</li><li>✕ 팔로워 판매</li><li>✕ "매출 3배" 약속</li><li>✕ 몰래 게시·발송</li>
+</ul>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; padding: 22px 26px; border-radius: 18px; border: 1px solid #2E3242">
+<p style="margin: 0; font-size: 16px; color: #E6E8EE"><b style="color: #FFFFFF">지금 직접 써볼 수 있어요.</b> 뷰메이트·퍼니메이트 테스트 버전 운영 중</p>
+<a href="#mates" style="display: inline-flex; align-items: center; min-height: 46px; padding: 0 20px; border-radius: 12px; background: #FFFFFF; color: #14161F; font-size: 15px; font-weight: 700; text-decoration: none">테스트하러 가기</a>
+</div>
+</div>
+</section>
+
+<!-- 서비스 -->
+<section id="features" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
+<div style="margin-bottom: 32px; max-width: 680px">
+<p style="margin: 0 0 8px; font-size: 15px; font-weight: 700; color: #2F5BFF">알아줌 서비스</p>
+<h2 class="h2" style="margin: 0; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">만들고, 알리고, 관리까지 알아서 해줌</h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+<div class="card" style="flex: 1 1 300px; min-width: 0; padding: 26px; border-radius: 20px; border: 1px solid #E6E8ED; background: #FFFFFF">
+<p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #2F5BFF">01 CREATE</p>
+<h3 style="margin: 0 0 4px; font-size: 22px; font-weight: 900; letter-spacing: -0.5px">만들기</h3>
+<p style="margin: 0 0 16px; font-size: 14px; color: #5B6070">오늘 올릴 콘텐츠를 대신 만들어요</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #E3EAFF; color: #1F3FBF">인스타 홍보글</span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #E3EAFF; color: #1F3FBF">블로그 글</span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #E3EAFF; color: #1F3FBF">홍보 이미지</span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">릴스 영상<span style="color: #8A8F9C"> · 예정</span></span></div>
+</div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; padding: 26px; border-radius: 20px; border: 1px solid #E6E8ED; background: #FFFFFF">
+<p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #2F5BFF">02 PUBLISH</p>
+<h3 style="margin: 0 0 4px; font-size: 22px; font-weight: 900; letter-spacing: -0.5px">알리기</h3>
+<p style="margin: 0 0 16px; font-size: 14px; color: #5B6070">올리고, 고객에게 알려요</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">인스타 자동 게시<span style="color: #8A8F9C"> · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">고객 알림 문자·톡<span style="color: #8A8F9C"> · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">재방문 알림<span style="color: #8A8F9C"> · 예정</span></span></div>
+</div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; padding: 26px; border-radius: 20px; border: 1px solid #E6E8ED; background: #FFFFFF">
+<p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #2F5BFF">03 MANAGE</p>
+<h3 style="margin: 0 0 4px; font-size: 22px; font-weight: 900; letter-spacing: -0.5px">관리하기</h3>
+<p style="margin: 0 0 16px; font-size: 14px; color: #5B6070">고객과 매장을 한 곳에서</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">고객관리 CRM<span style="color: #8A8F9C"> · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">예약 관리<span style="color: #8A8F9C"> · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">매출·운영 ERP<span style="color: #8A8F9C"> · 무료 · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #E3EAFF; color: #1F3FBF">브랜드 정보 저장</span></div>
+</div>
+</div>
+</section>
+
+<!-- AI 직원 (메이트) 카드 -->
+<section id="mates" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
+<div style="margin-bottom: 32px; max-width: 640px">
+<p style="margin: 0 0 8px; font-size: 15px; font-weight: 700; color: #2F5BFF">업종별 AI 직원</p>
+<h2 class="h2" style="margin: 0 0 12px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">우리 가게 AI 직원을 골라보세요</h2>
+<p class="lead" style="margin: 0; font-size: 17px; color: #4A5060">테스트할 수 있는 업종은 바로 써보고, 준비 중인 업종은 문의로 먼저 안내받으세요.</p>
+</div>
+<div class="mate-grid" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
+<article class="mate-card" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
+<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #EFE3E0; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
+<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">BEAUTY</span>
+<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"></path></svg>
+</div>
+<div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
+<div style="flex-grow: 1">
+<p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">뷰메이트</p>
+<p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">뷰티·에스테틱</p>
+</div>
+<a class="mate-btn" href="https://beaumate-pro.netlify.app/" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; background: #14161F; color: #FFFFFF; font-size: 14px; font-weight: 700; text-decoration: none">테스트하기</a>
+</div>
+</article>
+<article class="mate-card" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
+<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #E8E2D8; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
+<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">FURNITURE</span>
+<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3"></path><path d="M3 13a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v4H3z"></path><path d="M5 17v2M19 17v2"></path></svg>
+</div>
+<div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
+<div style="flex-grow: 1">
+<p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">퍼니메이트</p>
+<p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">가구·인테리어</p>
+</div>
+<a class="mate-btn" href="https://funnymate.co.kr/" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; background: #14161F; color: #FFFFFF; font-size: 14px; font-weight: 700; text-decoration: none">테스트하기</a>
+</div>
+</article>
+<article class="mate-card" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
+<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #EEE4E9; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
+<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">NAIL</span>
+<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v5h-4z"></path><path d="M8 9h8l1 3v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-8z"></path></svg>
+</div>
+<div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
+<div style="flex-grow: 1">
+<p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">네일메이트</p>
+<p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">네일샵</p>
+</div>
+<a class="mate-btn" href="#contact" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; border: 1px solid #D5D9E2; color: #14161F; font-size: 14px; font-weight: 700; text-decoration: none">문의하기</a>
+</div>
+</article>
+<article class="mate-card" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
+<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #E3E5EA; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
+<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">HAIR</span>
+<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M20 4L8.1 15.9M14.5 14.5L20 20M8.1 8.1L12 12"></path></svg>
+</div>
+<div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
+<div style="flex-grow: 1">
+<p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">헤어메이트</p>
+<p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">헤어샵</p>
+</div>
+<a class="mate-btn" href="#contact" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; border: 1px solid #D5D9E2; color: #14161F; font-size: 14px; font-weight: 700; text-decoration: none">문의하기</a>
+</div>
+</article>
+<article class="mate-card" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
+<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #EAE2D7; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
+<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">CAFE</span>
+<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 9h1a3 3 0 0 1 0 6h-1"></path><path d="M3 9h14v7a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"></path><path d="M7 3v3M11 3v3M15 3v3"></path></svg>
+</div>
+<div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
+<div style="flex-grow: 1">
+<p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">카페메이트</p>
+<p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">카페</p>
+</div>
+<a class="mate-btn" href="#contact" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; border: 1px solid #D5D9E2; color: #14161F; font-size: 14px; font-weight: 700; text-decoration: none">문의하기</a>
+</div>
+</article>
+<article class="mate-card" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
+<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #F0E9D9; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
+<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">BAKERY</span>
+<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 5 0 0 1 16 0v6H4z"></path><path d="M8 10v3M12 9v4M16 10v3"></path></svg>
+</div>
+<div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
+<div style="flex-grow: 1">
+<p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">베이커리메이트</p>
+<p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">베이커리</p>
+</div>
+<a class="mate-btn" href="#contact" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; border: 1px solid #D5D9E2; color: #14161F; font-size: 14px; font-weight: 700; text-decoration: none">문의하기</a>
+</div>
+</article>
+<article class="mate-card" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
+<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #E2E9DF; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
+<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">FLOWER</span>
+<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"></circle><path d="M12 10v11"></path><path d="M12 16c-3 0-5-2-5-4 3 0 5 2 5 4z"></path><path d="M12 16c3 0 5-2 5-4-3 0-5 2-5 4z"></path></svg>
+</div>
+<div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
+<div style="flex-grow: 1">
+<p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">플라워메이트</p>
+<p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">꽃집</p>
+</div>
+<a class="mate-btn" href="#contact" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; border: 1px solid #D5D9E2; color: #14161F; font-size: 14px; font-weight: 700; text-decoration: none">문의하기</a>
+</div>
+</article>
+<article class="mate-card" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
+<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #E1E6EE; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
+<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">FITNESS</span>
+<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"></path></svg>
+</div>
+<div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
+<div style="flex-grow: 1">
+<p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">핏메이트</p>
+<p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">필라테스·요가</p>
+</div>
+<a class="mate-btn" href="#contact" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; border: 1px solid #D5D9E2; color: #14161F; font-size: 14px; font-weight: 700; text-decoration: none">문의하기</a>
+</div>
+</article>
+<article class="mate-card" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
+<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #EEE5DC; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
+<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">PET</span>
+<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="10" r="2"></circle><circle cx="10" cy="5" r="2"></circle><circle cx="14" cy="5" r="2"></circle><circle cx="18" cy="10" r="2"></circle><path d="M12 12c-3 0-5 3-5 5.5 0 1.5 1 2.5 2.5 2.5h5c1.5 0 2.5-1 2.5-2.5 0-2.5-2-5.5-5-5.5z"></path></svg>
+</div>
+<div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
+<div style="flex-grow: 1">
+<p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">펫메이트</p>
+<p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">애견미용</p>
+</div>
+<a class="mate-btn" href="#contact" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; border: 1px solid #D5D9E2; color: #14161F; font-size: 14px; font-weight: 700; text-decoration: none">문의하기</a>
+</div>
+</article>
+<article class="mate-card" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
+<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #E9E0D9; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
+<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">RESTAURANT</span>
+<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0z"></path><path d="M8 7c0-1 1-2 1-3M12 7c0-1 1-2 1-3M16 7c0-1 1-2 1-3"></path></svg>
+</div>
+<div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
+<div style="flex-grow: 1">
+<p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">푸드메이트</p>
+<p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">음식점</p>
+</div>
+<a class="mate-btn" href="#contact" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; border: 1px solid #D5D9E2; color: #14161F; font-size: 14px; font-weight: 700; text-decoration: none">문의하기</a>
+</div>
+</article>
+</div>
+<p style="margin: 24px 0 0; font-size: 14px; color: #5B6070; text-align: center">찾는 업종이 없나요? <a href="#contact" style="font-weight: 700">문의하기</a>에 남겨주세요.</p>
+</section>
+
+<!-- 요금제 -->
+<section id="pricing" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
+<p style="margin: 0 0 8px; font-size: 15px; font-weight: 700; color: #2F5BFF">요금제</p>
+<h2 class="h2" style="margin: 0 0 32px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">구독료 0원, 부담 없이 시작하세요</h2>
+<div class="card" style="display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: center; padding: 40px; border-radius: 28px; border: 2px solid #2F5BFF; background: #F8FAFF">
+<div style="flex: 1 1 260px; min-width: 0">
+<p style="display: inline-block; margin: 0 0 12px; padding: 3px 12px; border-radius: 999px; background: #2F5BFF; color: #FFFFFF; font-size: 13px; font-weight: 700">무료 플랜</p>
+<p style="margin: 0 0 4px"><span class="price" style="font-size: 56px; font-weight: 900; letter-spacing: -2px">0원</span><span style="font-size: 16px; color: #5B6070"> / 월</span></p>
+<p style="margin: 0 0 24px; font-size: 15px; color: #4A5060">카드 등록 없이 가입만 하면 바로 써요.</p>
+<div class="cta-row" style="display: flex; flex-wrap: wrap; gap: 10px">
+<a href="#mates" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 14px; background: #2F5BFF; color: #FFFFFF; font-size: 16px; font-weight: 700; text-decoration: none">무료로 시작하기</a>
+<a href="#contact" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1px solid #C9CEDA; background: #FFFFFF; color: #14161F; font-size: 16px; font-weight: 700; text-decoration: none">문의하기</a>
+</div>
+</div>
+<ul style="flex: 1 1 340px; min-width: 0; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px">
+<li style="display: flex; gap: 12px; align-items: flex-start"><span style="flex-shrink: 0; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2F5BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 16px">하루 10회 글·콘텐츠 만들기</b><span style="font-size: 14px; color: #5B6070">홍보글, 블로그, 이미지 등 매일 10회까지</span></span></li>
+<li style="display: flex; gap: 12px; align-items: flex-start"><span style="flex-shrink: 0; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2F5BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 16px">ERP는 계속 무료</b><span style="font-size: 14px; color: #5B6070">매출·운영 관리는 앞으로도 구독료 없이</span></span></li>
+<li style="display: flex; gap: 12px; align-items: flex-start"><span style="flex-shrink: 0; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2F5BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 16px">브랜드 정보 저장</b><span style="font-size: 14px; color: #5B6070">매장명·지역·톤을 기억해 매번 설명할 필요 없이</span></span></li>
+<li style="display: flex; gap: 12px; align-items: flex-start"><span style="flex-shrink: 0; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2F5BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 16px">업종별 AI 직원</b><span style="font-size: 14px; color: #5B6070">뷰메이트·퍼니메이트 테스트 버전 바로 사용</span></span></li>
+</ul>
+</div>
+</section>
+
+<!-- 문의하기 -->
+<section id="contact" style="background: #F5F7FC">
+<div class="wrap sec" style="max-width: 640px; margin: 0 auto; padding: 96px 24px">
+<p style="margin: 0 0 8px; font-size: 15px; font-weight: 700; color: #2F5BFF; text-align: center">문의하기</p>
+<h2 class="h2" style="margin: 0 0 12px; font-size: 36px; line-height: 1.3; font-weight: 900; letter-spacing: -1px; text-align: center">우리 가게 AI 직원, 물어보세요</h2>
+<p class="lead" style="margin: 0 0 32px; font-size: 16px; color: #4A5060; text-align: center">업종 문의, 도입 상담, 새 기능 소식까지 편하게 남겨주세요.</p>
+
+<div data-show="notSubmitted" style="display:contents">
+<form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm" class="form-box" style="background: #FFFFFF; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 18px; border: 1px solid #E3E6EE">
+<input type="hidden" name="form-name" value="contact">
+<p hidden><label>bot <input name="bot-field"></label></p>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="shop" style="font-size: 14px; font-weight: 700">매장명</label>
+<input id="shop" name="shop" type="text" placeholder="예: 알아줌 피부관리실" style="min-height: 48px; padding: 0 14px; border: 1px solid #C9CEDA; border-radius: 12px; font-family: inherit; font-size: 16px; box-sizing: border-box; width: 100%">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="biz" style="font-size: 14px; font-weight: 700">업종</label>
+<select id="biz" name="biz" style="min-height: 48px; padding: 0 12px; border: 1px solid #C9CEDA; border-radius: 12px; font-family: inherit; font-size: 16px; background: #FFFFFF; color: #14161F; box-sizing: border-box; width: 100%">
+<option>뷰티·에스테틱</option>
+<option>가구·인테리어</option>
+<option>네일샵</option>
+<option>헤어샵</option>
+<option>카페</option>
+<option>베이커리</option>
+<option>꽃집</option>
+<option>필라테스·요가</option>
+<option>애견미용</option>
+<option>음식점</option>
+<option>기타</option>
+</select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="phone" style="font-size: 14px; font-weight: 700">휴대폰 번호</label>
+<input id="phone" name="phone" type="tel" required placeholder="010-0000-0000" style="min-height: 48px; padding: 0 14px; border: 1px solid #C9CEDA; border-radius: 12px; font-family: inherit; font-size: 16px; box-sizing: border-box; width: 100%">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="msg" style="font-size: 14px; font-weight: 700">문의 내용 <span style="font-weight: 500; color: #5B6070">(선택)</span></label>
+<textarea id="msg" name="msg" rows="4" placeholder="예: 네일샵인데 언제 쓸 수 있나요?" style="padding: 12px 14px; border: 1px solid #C9CEDA; border-radius: 12px; font-family: inherit; font-size: 16px; box-sizing: border-box; width: 100%; resize: vertical"></textarea>
+</div>
+<label style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #3A3F4C">
+<input type="checkbox" name="agree" value="yes" required style="width: 20px; height: 20px; margin: 2px 0 0; flex-shrink: 0">
+<span>문의 답변과 소식 안내를 위한 개인정보 수집·이용에 동의합니다. <a href="#privacy">자세히 보기</a></span>
+</label>
+<button type="submit" style="min-height: 52px; border: 0; border-radius: 14px; background: #2F5BFF; color: #FFFFFF; font-family: inherit; font-size: 17px; font-weight: 700; cursor: pointer">문의 보내기</button>
+</form>
+</div>
+
+<div data-show="submitted" style="display:contents">
+<div style="background: #FFFFFF; border-radius: 24px; padding: 40px 24px; text-align: center; border: 1px solid #E3E6EE">
+<span style="width: 56px; height: 56px; border-radius: 50%; background: #E3F6EA; color: #12A150; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+<p style="margin: 0 0 8px; font-size: 22px; font-weight: 900">문의가 접수됐어요</p>
+<p style="margin: 0; font-size: 16px; color: #4A5060">빠르게 연락드릴게요. 그동안 테스트 버전을 써보세요.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 마지막 CTA -->
+<section class="wrap" style="max-width: 1200px; margin: 0 auto; padding: 72px 24px">
+<div class="cta-box" style="position: relative; overflow: hidden; border-radius: 32px; background: #0E1017; color: #FFFFFF; padding: 64px 48px; text-align: center">
+<div aria-hidden="true" style="position: absolute; left: 50%; top: -180px; width: 520px; height: 360px; margin-left: -260px; border-radius: 50%; background: #2F5BFF; opacity: 0.45; filter: blur(80px)"></div>
+<h2 class="h2" style="position: relative; margin: 0 0 12px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">오늘 할 일,<br>말로 맡겨보세요</h2>
+<p style="position: relative; margin: 0 0 30px; font-size: 17px; color: #C8CCD8">사장님은 장사에 집중하세요. 나머지는 알아줌이 알아서 해줌.</p>
+<div class="cta-row" style="position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px">
+<a href="#mates" style="display: inline-flex; align-items: center; min-height: 54px; padding: 0 28px; border-radius: 14px; background: #FFE45C; color: #14161F; font-size: 17px; font-weight: 700; text-decoration: none">무료로 시작하기</a>
+<a href="#contact" style="display: inline-flex; align-items: center; min-height: 54px; padding: 0 24px; border-radius: 14px; border: 1px solid #3A3F52; color: #FFFFFF; font-size: 17px; font-weight: 700; text-decoration: none">문의하기</a>
+</div>
+</div>
+</section>
+
+<!-- 푸터 -->
+<footer id="privacy" style="background: #14161F; color: #C8CCD8">
+<div class="wrap" style="max-width: 1200px; margin: 0 auto; padding: 48px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; font-size: 14px">
+<div style="flex: 1 1 300px; min-width: 0">
+<p style="margin: 0 0 6px; font-size: 20px; font-weight: 900; color: #FFFFFF">알아줌</p>
+<p style="margin: 0 0 16px">혼자 다 하는 사장님, 알아줌이 알아요</p>
+<p style="margin: 0">상호 [상호명] · 대표 [대표자명] · 사업자등록번호 [000-00-00000]<br>통신판매업 신고 [번호] · 문의 [이메일 또는 카카오 채널]</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 20px; align-items: flex-start">
+<a href="#privacy" style="color: #FFFFFF; text-decoration: none; padding: 8px 0">이용약관</a>
+<a href="#privacy" style="color: #FFFFFF; text-decoration: none; padding: 8px 0">개인정보처리방침</a>
+<a href="#top" style="color: #FFFFFF; text-decoration: none; padding: 8px 0">인스타그램 [계정]</a>
+</div>
+</div>
+</footer>
+
+</div>
+<script>
+(function(){
+  var state = {mate:'beau', v:'promo', submitted:false};
+  var ON = 'flex: 1 1 auto; min-height: 40px; padding: 0 12px; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; border: 0; background: #FFFFFF; color: #14161F;', OFF = 'flex: 1 1 auto; min-height: 40px; padding: 0 12px; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; border: 1px solid #3A3F52; background: transparent; color: #C8CCD8;';
+  function render(){
+    var flags = {isBeau: state.mate==='beau', isFuni: state.mate==='funi',
+      vPromo: state.v==='promo', vKakao: state.v==='kakao', vDay: state.v==='day',
+      submitted: state.submitted, notSubmitted: !state.submitted};
+    document.querySelectorAll('[data-show]').forEach(function(el){ el.style.display = flags[el.getAttribute('data-show')] ? 'contents' : 'none'; });
+    document.querySelectorAll('[data-vtab]').forEach(function(el){ el.setAttribute('style', el.getAttribute('data-vtab')===state.v ? ON : OFF); });
+  }
+  var actions = {
+    pickBeau: function(){ state.mate='beau'; }, pickFuni: function(){ state.mate='funi'; },
+    pickPromo: function(){ state.v='promo'; }, pickKakao: function(){ state.v='kakao'; }, pickDay: function(){ state.v='day'; }
+  };
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-action]'); if(!t) return;
+    var a = actions[t.getAttribute('data-action')]; if(a){ a(); render(); }
+  });
+  var form = document.getElementById('contactForm');
+  if (form) form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = '보내는 중…';
+    fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(new FormData(form)).toString()})
+      .then(function(r){ if(!r.ok) throw new Error(r.status); state.submitted = true; render(); })
+      .catch(function(){ btn.disabled = false; btn.textContent = '문의 보내기'; alert('전송에 실패했어요. 잠시 후 다시 시도해 주세요.'); });
+  });
+  render();
+  // section reveal
+  try {
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var els = Array.prototype.slice.call(document.querySelectorAll('section:not(#top):not([aria-label])')).map(function(sec){
+      if (sec.classList.contains('wrap')) return sec; return sec.querySelector(':scope > .wrap') || sec; });
+    var io = new IntersectionObserver(function(entries){ entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('dz-in'); io.unobserve(en.target);} }); }, {threshold:0.15});
+    els.forEach(function(el){ el.classList.add('dz-rv'); io.observe(el); });
+  } catch(err) {}
+})();
+</script>
+</body>
+</html>
