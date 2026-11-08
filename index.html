@@ -218,8 +218,10 @@ footer{margin-top:12px}
 @keyframes dz-st3k{0%,78%{width:0}81%,100%{width:100%}}
 #team .dz-in .dz-fx3{animation:dz-fx3k 8s ease infinite}
 #team .dz-in .dz-fx3 s::after{animation:dz-st3k 8s ease infinite}
-@media (prefers-reduced-motion: reduce){#team *,#team *::after,.dz-status{animation:none !important}}
-.dz-status{display:inline-flex;align-items:center;padding:7px 13px;border-radius:14px 14px 14px 4px;background:#3B5B92;color:#FFFFFF !important;font-weight:700;font-size:13px !important;box-shadow:0 6px 14px rgba(46,72,119,.22);animation:dz-bubbob 2.4s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){#team *,#team *::after,.dz-status,.dz-rec{animation:none !important}}
+.dz-status{display:inline-flex;align-items:center;gap:7px;padding:9px 15px 9px 12px;border-radius:16px 16px 16px 4px;background:#FFD43B;color:#14161F !important;font-weight:900;font-size:15px !important;letter-spacing:-.2px;box-shadow:0 8px 18px rgba(200,150,0,.28),inset 0 0 0 1.5px #14161F;animation:dz-bubbob 2.4s ease-in-out infinite}
+.dz-rec{width:8px;height:8px;border-radius:50%;background:#E5484D;flex-shrink:0;animation:dz-recp 1.2s ease-in-out infinite}
+@keyframes dz-recp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
 @keyframes dz-bubbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @keyframes dz-ringk{0%{transform:scale(1);opacity:.45}100%{transform:scale(2.1);opacity:0}}
 .dz-ring{position:absolute;inset:0;border-radius:50%;background:#3B5B92;animation:dz-ringk 2.2s cubic-bezier(.2,.6,.3,1) infinite}
@@ -328,7 +330,7 @@ section[id]{scroll-margin-top:72px}
 <span style="display: flex; align-items: flex-end; gap: 3px; height: 24px" aria-hidden="true">
 <span class="dz-bar" style="width: 4px; height: 10px; border-radius: 2px; background: #7D95C0"></span><span class="dz-bar" style="width: 4px; height: 20px; border-radius: 2px; background: #7D95C0"></span><span class="dz-bar" style="width: 4px; height: 14px; border-radius: 2px; background: #7D95C0"></span><span class="dz-bar" style="width: 4px; height: 24px; border-radius: 2px; background: #7D95C0"></span><span class="dz-bar" style="width: 4px; height: 12px; border-radius: 2px; background: #7D95C0"></span><span class="dz-bar" style="width: 4px; height: 18px; border-radius: 2px; background: #7D95C0"></span><span class="dz-bar" style="width: 4px; height: 8px; border-radius: 2px; background: #7D95C0"></span>
 </span>
-<span class="dz-status" style="font-size: 13px; color: #5B6070">듣고 있어요<span class="dz-dots"><i>.</i><i>.</i><i>.</i></span></span>
+<span class="dz-status" style="font-size: 13px; color: #5B6070"><span class="dz-rec" aria-hidden="true"></span>듣고 있어요<span class="dz-dots"><i>.</i><i>.</i><i>.</i></span></span>
 </div>
 <div role="group" aria-label="음성 지시 예시" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px">
 <button type="button" data-action="pickPromo" data-vtab="promo" style="">홍보 올리기</button>
@@ -570,6 +572,34 @@ section[id]{scroll-margin-top:72px}
 </div>
 </section>
 
+<!-- 서비스 -->
+<section id="features" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
+<div style="margin-bottom: 32px; max-width: 680px">
+<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>알아줌 서비스</p>
+<h2 class="h2" style="margin: 0; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">만들고, 알리고, 관리까지 알아서 해줌</h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+<div class="card" style="flex: 1 1 300px; min-width: 0; padding: 26px; border-radius: 20px; border: 1px solid #E6E8ED; background: #FFFFFF">
+<p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #3B5B92">01 CREATE</p>
+<h3 style="margin: 0 0 4px; font-size: 22px; font-weight: 900; letter-spacing: -0.5px">만들기</h3>
+<p style="margin: 0 0 16px; font-size: 14px; color: #5B6070">오늘 올릴 콘텐츠를 대신 만들어요</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #E6ECF5; color: #1F3FBF">인스타 홍보글</span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #E6ECF5; color: #1F3FBF">블로그 글</span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #E6ECF5; color: #1F3FBF">홍보 이미지</span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">릴스 영상<span style="color: #8A8F9C"> · 예정</span></span></div>
+</div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; padding: 26px; border-radius: 20px; border: 1px solid #E6E8ED; background: #FFFFFF">
+<p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #3B5B92">02 PUBLISH</p>
+<h3 style="margin: 0 0 4px; font-size: 22px; font-weight: 900; letter-spacing: -0.5px">알리기</h3>
+<p style="margin: 0 0 16px; font-size: 14px; color: #5B6070">올리고, 고객에게 알려요</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">인스타 자동 게시<span style="color: #8A8F9C"> · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">고객 알림 문자·톡<span style="color: #8A8F9C"> · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">재방문 알림<span style="color: #8A8F9C"> · 예정</span></span></div>
+</div>
+<div class="card" style="flex: 1 1 300px; min-width: 0; padding: 26px; border-radius: 20px; border: 1px solid #E6E8ED; background: #FFFFFF">
+<p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #3B5B92">03 MANAGE</p>
+<h3 style="margin: 0 0 4px; font-size: 22px; font-weight: 900; letter-spacing: -0.5px">관리하기</h3>
+<p style="margin: 0 0 16px; font-size: 14px; color: #5B6070">고객과 매장을 한 곳에서</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">고객관리 CRM<span style="color: #8A8F9C"> · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">예약 관리<span style="color: #8A8F9C"> · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">매출·운영 ERP<span style="color: #8A8F9C"> · 무료 · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #E6ECF5; color: #1F3FBF">브랜드 정보 저장</span></div>
+</div>
+</div>
+</section>
+
 <!-- AI 직원 (메이트) 카드 -->
 <section id="mates" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
 <div style="margin-bottom: 32px; max-width: 640px">
@@ -711,34 +741,6 @@ section[id]{scroll-margin-top:72px}
 </div>
 <p class="swipe-hint" style="display: none; margin: 4px 0 0; font-size: 12px; color: #8A8F9C; text-align: right">옆으로 밀어서 더 보기 →</p>
 <p style="margin: 18px 0 0; font-size: 14px; color: #5B6070; text-align: center">찾는 업종이 없나요? <a href="#contact" style="font-weight: 700">문의하기</a>에 남겨주세요.</p>
-</section>
-
-<!-- 서비스 -->
-<section id="features" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
-<div style="margin-bottom: 32px; max-width: 680px">
-<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>알아줌 서비스</p>
-<h2 class="h2" style="margin: 0; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">만들고, 알리고, 관리까지 알아서 해줌</h2>
-</div>
-<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
-<div class="card" style="flex: 1 1 300px; min-width: 0; padding: 26px; border-radius: 20px; border: 1px solid #E6E8ED; background: #FFFFFF">
-<p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #3B5B92">01 CREATE</p>
-<h3 style="margin: 0 0 4px; font-size: 22px; font-weight: 900; letter-spacing: -0.5px">만들기</h3>
-<p style="margin: 0 0 16px; font-size: 14px; color: #5B6070">오늘 올릴 콘텐츠를 대신 만들어요</p>
-<div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #E6ECF5; color: #1F3FBF">인스타 홍보글</span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #E6ECF5; color: #1F3FBF">블로그 글</span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #E6ECF5; color: #1F3FBF">홍보 이미지</span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">릴스 영상<span style="color: #8A8F9C"> · 예정</span></span></div>
-</div>
-<div class="card" style="flex: 1 1 300px; min-width: 0; padding: 26px; border-radius: 20px; border: 1px solid #E6E8ED; background: #FFFFFF">
-<p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #3B5B92">02 PUBLISH</p>
-<h3 style="margin: 0 0 4px; font-size: 22px; font-weight: 900; letter-spacing: -0.5px">알리기</h3>
-<p style="margin: 0 0 16px; font-size: 14px; color: #5B6070">올리고, 고객에게 알려요</p>
-<div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">인스타 자동 게시<span style="color: #8A8F9C"> · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">고객 알림 문자·톡<span style="color: #8A8F9C"> · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">재방문 알림<span style="color: #8A8F9C"> · 예정</span></span></div>
-</div>
-<div class="card" style="flex: 1 1 300px; min-width: 0; padding: 26px; border-radius: 20px; border: 1px solid #E6E8ED; background: #FFFFFF">
-<p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #3B5B92">03 MANAGE</p>
-<h3 style="margin: 0 0 4px; font-size: 22px; font-weight: 900; letter-spacing: -0.5px">관리하기</h3>
-<p style="margin: 0 0 16px; font-size: 14px; color: #5B6070">고객과 매장을 한 곳에서</p>
-<div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">고객관리 CRM<span style="color: #8A8F9C"> · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">예약 관리<span style="color: #8A8F9C"> · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #F4F3F0; color: #3A3F4C">매출·운영 ERP<span style="color: #8A8F9C"> · 무료 · 예정</span></span><span style="font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: #E6ECF5; color: #1F3FBF">브랜드 정보 저장</span></div>
-</div>
-</div>
 </section>
 
 <!-- 업종 띠 -->
