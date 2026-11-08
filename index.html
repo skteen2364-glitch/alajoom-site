@@ -342,11 +342,12 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .pv-cap b{font-size:16px}.pv-cap span{font-size:13.5px;color:#5B6070}
 .pv-note{margin:22px 0 0;text-align:center;font-size:12.5px;color:#8A8F9C}
 @media (max-width: 720px){
-.pv-row{flex-wrap:nowrap !important;justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-right:-18px;padding:2px 18px 8px 0;scrollbar-width:none}
+.pv-row{flex-wrap:nowrap !important;justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;margin:0;padding:0 0 6px;scrollbar-width:none}
 .pv-row::-webkit-scrollbar{display:none}
-.pv-card{scroll-snap-align:none start;width:210px;gap:8px}
-.pv-phone{width:244px;padding:7px;border-radius:30px}
-.pv-screen{height:400px;border-radius:24px;font-size:11px}
+.pv-card{scroll-snap-align:center;flex:0 0 100%;width:100%;align-items:center;gap:6px}
+.pv-phone{width:200px;padding:6px;border-radius:28px;margin:0 auto}
+.pv-screen{height:330px;border-radius:22px;font-size:10.5px}
+.pv-hint{font-size:11px;margin:2px 0 0}
 .pv-bl-title{font-size:13px}
 .pv-cap b{font-size:14px}.pv-cap span{font-size:12px}
 .pv-note{margin-top:10px;font-size:11.5px}
@@ -1170,9 +1171,10 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       setInterval(function () {
         if (!rv || Date.now() < held || row.scrollWidth <= row.clientWidth + 4) return;
         var cards = row.children, cur = 0, best = 1e9;
-        for (var i = 0; i < cards.length; i++) { var d = Math.abs(cards[i].offsetLeft - row.offsetLeft - row.scrollLeft); if (d < best) { best = d; cur = i; } }
+        var rr = row.getBoundingClientRect();
+        for (var i = 0; i < cards.length; i++) { var d = Math.abs(cards[i].getBoundingClientRect().left - rr.left); if (d < best) { best = d; cur = i; } }
         var nx = (cur + 1) % cards.length;
-        row.scrollTo({ left: cards[nx].offsetLeft - row.offsetLeft, behavior: 'smooth' });
+        row.scrollTo({ left: row.scrollLeft + cards[nx].getBoundingClientRect().left - rr.left, behavior: 'smooth' });
       }, 5500);
     })();
     var hint = root.querySelector('.swipe-hint'); if (hint) hint.classList.add('dz-hide');
