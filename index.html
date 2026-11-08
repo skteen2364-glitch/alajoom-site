@@ -53,7 +53,8 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 .eyebrow{margin-bottom:10px !important;font-size:12px !important;padding:4px 10px !important}
 .hero-title{font-size:30px !important}
 .hero-lead{font-size:14.5px !important;margin-bottom:18px !important}
-.hero-checks{display:none !important}
+.hero-checks{margin-top:12px !important;gap:4px 12px !important;font-size:12.5px !important}
+.hero-checks svg{width:13px;height:13px}
 #top .hero{padding-top:22px !important;padding-bottom:78px !important;gap:24px !important}
 #how .wrap>div{gap:20px !important}
 #how .dz-v{grid-column:1 / -1;margin-top:8px !important;height:38px}
@@ -311,6 +312,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 #video .cta-row a,#beau .cta-row a,#funi .cta-row a{white-space:nowrap;font-size:13.5px !important;letter-spacing:-.3px;padding:0 6px !important}
 }
 @media (prefers-reduced-motion: reduce){.dz-sr{opacity:1;transform:none;transition:none}}
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-item{border:1px solid #EADFC8;border-radius:16px;background:#FFFFFF;padding:0 20px}
+.faq-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0;font-size:17px;font-weight:700}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-plus{font-size:22px;font-weight:500;color:#3B5B92;transition:transform .2s ease;flex-shrink:0}
+.faq-item[open] .faq-plus{transform:rotate(45deg)}
+.faq-item p{margin:0 0 18px;font-size:15px;line-height:1.7;color:#4A5060}
+@media (max-width: 720px){.faq-item{padding:0 14px;border-radius:14px}.faq-item summary{padding:13px 0;font-size:14.5px}.faq-item p{font-size:13.5px;margin-bottom:14px}.faq-list{gap:7px}#faq .h2{margin-bottom:16px !important}}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
@@ -853,6 +862,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 </div>
 </section>
 
+<!-- 자주 묻는 질문 -->
+<section id="faq" style="background: #FFFFFF; color: #14161F">
+<div class="wrap sec" style="max-width: 860px; margin: 0 auto; padding: 96px 24px">
+<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>자주 묻는 질문</p>
+<h2 class="h2" style="margin: 0 0 28px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">궁금한 것부터 풀어드릴게요</h2>
+<div class="faq-list"><details class="faq-item"><summary>정말 무료인가요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>지금은 베타 기간이라 무료예요. 하루 10회까지 글과 사진을 만들 수 있고, 매장 관리(ERP)는 앞으로도 무료예요. 유료 기능이 생기면 미리 알려드리고, 동의 없이 결제되는 일은 없어요.</p></details><details class="faq-item"><summary>AI나 인스타를 몰라도 쓸 수 있나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>네. 만들 것을 고르고 버튼을 누르면 글과 사진이 나와요. 사장님은 확인하고 복사해서 붙여 넣기만 하면 돼요.</p></details><details class="faq-item"><summary>네이버·인스타에 자동으로 올라가나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>지금은 알아줌이 만들어 드리면 사장님이 확인하고 올리는 방식이에요. 사장님 확인 없이 올라가는 일은 없어요. 네이버 톡톡 문의 자동 응답처럼 공식으로 연결할 수 있는 기능부터 차례로 붙일 예정이에요.</p></details><details class="faq-item"><summary>사진은 어떻게 찍어야 하나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>휴대폰으로 밝은 곳에서, 메뉴나 공간이 화면에 꽉 차게 찍어주세요. 어둡거나 누렇게 찍혀도 자동으로 보정해 드려요.</p></details><details class="faq-item"><summary>음성 비서와 카톡 문의 답장은 언제 되나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>지금 준비 중이에요. 출시 알림을 신청하시면 가장 먼저 알려드릴게요.</p></details><details class="faq-item"><summary>우리 업종도 쓸 수 있나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>뷰티, 가구, 필라테스, 음식점은 지금 바로 체험할 수 있어요. 다른 업종은 문의를 남겨주시면 순서대로 만들어요.</p></details><details class="faq-item"><summary>제 정보는 안전한가요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>네이버·인스타 아이디와 비밀번호는 받지 않아요. 문의로 남긴 연락처는 답변에만 써요.</p></details></div>
+</div>
+</section>
 <!-- 문의하기 -->
 <section id="contact" style="background: #FBF7EE">
 <div class="wrap sec" style="max-width: 640px; margin: 0 auto; padding: 96px 24px">
