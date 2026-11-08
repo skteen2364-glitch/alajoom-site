@@ -320,6 +320,36 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .faq-item[open] .faq-plus{transform:rotate(45deg)}
 .faq-item p{margin:0 0 18px;font-size:15px;line-height:1.7;color:#4A5060}
 @media (max-width: 720px){.faq-item{padding:0 14px;border-radius:14px}.faq-item summary{padding:13px 0;font-size:14.5px}.faq-item p{font-size:13.5px;margin-bottom:14px}.faq-list{gap:7px}#faq .h2{margin-bottom:16px !important}}
+.pv-row{display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.pv-card{display:flex;flex-direction:column;align-items:center;gap:14px;flex:0 0 auto}
+.pv-phone{width:280px;padding:9px;border-radius:38px;background:#0B0C10;box-shadow:0 26px 50px rgba(20,22,31,.2)}
+.pv-screen{border-radius:30px;overflow:hidden;background:#FFFFFF;height:520px;font-size:12px;line-height:1.5}
+.pv-ig-top{display:flex;align-items:center;gap:8px;padding:12px 12px 10px}
+.pv-av{width:26px;height:26px;border-radius:50%;background:#FFD43B;color:#14161F;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center}
+.pv-ig-top b{font-size:12.5px}.pv-dots{margin-left:auto;color:#8A8F9C}
+.pv-ig-icons{display:flex;gap:14px;padding:10px 12px 4px;font-size:17px;color:#14161F}
+.pv-ig-cap{margin:4px 12px 0;color:#14161F}.pv-ig-cap b{margin-right:4px}
+.pv-ig-tag{margin:4px 12px 0;color:#2E5BA8}
+.pv-bl-top{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#EAF6EF;color:#0B6B3A;font-size:11.5px}
+.pv-bl-top b{font-size:13px}
+.pv-bl-title{margin:14px 14px 4px;font-size:15px;font-weight:900;line-height:1.4}
+.pv-bl-meta{margin:0 14px 10px;color:#8A8F9C;font-size:11px}
+.pv-bl-h{margin:12px 14px 2px;font-weight:900;font-size:13px}
+.pv-bl-p{margin:0 14px;color:#4A5060}
+.pv-cap{margin:0;text-align:center;display:flex;flex-direction:column;gap:2px}
+.pv-cap b{font-size:16px}.pv-cap span{font-size:13.5px;color:#5B6070}
+.pv-note{margin:22px 0 0;text-align:center;font-size:12.5px;color:#8A8F9C}
+@media (max-width: 720px){
+.pv-row{flex-wrap:nowrap !important;justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-right:-18px;padding:2px 18px 8px 0;scrollbar-width:none}
+.pv-row::-webkit-scrollbar{display:none}
+.pv-card{scroll-snap-align:none start;width:210px;gap:8px}
+.pv-phone{width:210px;padding:7px;border-radius:30px}
+.pv-screen{height:340px;border-radius:24px;font-size:10.5px}
+.pv-bl-title{font-size:13px}
+.pv-cap b{font-size:14px}.pv-cap span{font-size:12px}
+.pv-note{margin-top:10px;font-size:11.5px}
+#preview .h2{font-size:24px !important}
+}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
@@ -444,6 +474,32 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 </div>
 </section>
 
+<!-- 결과물 미리보기 -->
+<section id="preview" style="background: #FBF7EE; color: #14161F">
+<div class="wrap sec" style="max-width: 1100px; margin: 0 auto; padding: 96px 24px">
+<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>이렇게 만들어져요</p>
+<h2 class="h2" style="margin: 0 0 12px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">사진 한 장이면<br>인스타도 블로그도 끝</h2>
+<p class="lead" style="margin: 0 0 36px; font-size: 17px; color: #4A5060">음식점 '골목밥상'이 사진 한 장으로 만든 결과예요. 복사해서 붙이기만 하면 돼요.</p>
+<div class="pv-row"><div class="pv-card"><div class="pv-phone"><div class="pv-screen">
+<div class="pv-ig-top"><span class="pv-av">골</span><b>golmok_bapsang</b><span class="pv-dots">···</span></div>
+<svg viewBox="0 0 300 300" width="100%" style="display:block" role="img" aria-label="제육볶음 정식 예시 그림"><defs><linearGradient id="wooda" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C89B6D"></stop><stop offset="1" stop-color="#A97A4E"></stop></linearGradient></defs><rect width="300" height="300" fill="url(#wooda)"></rect><g opacity=".18" stroke="#6B4423" stroke-width="2"><path d="M0 40h300M0 95h300M0 150h300M0 205h300M0 260h300"></path></g><rect x="22" y="38.0" width="256" height="224" rx="18" fill="#2B2B2E"></rect><circle cx="98" cy="188.0" r="46" fill="#F4F1EA"></circle><circle cx="98" cy="188.0" r="38" fill="#FFFFFF"></circle><g fill="#F7F4EC"><circle cx="88" cy="182.0" r="9"></circle><circle cx="104" cy="178.0" r="10"></circle><circle cx="98" cy="196.0" r="11"></circle><circle cx="112" cy="194.0" r="8"></circle><circle cx="84" cy="198.0" r="8"></circle></g><circle cx="196" cy="180.0" r="56" fill="#F4F1EA"></circle><circle cx="196" cy="180.0" r="46" fill="#B8441F"></circle><g fill="#8E2E12"><ellipse cx="180" cy="168.0" rx="12" ry="7"></ellipse><ellipse cx="208" cy="172.0" rx="13" ry="7"></ellipse><ellipse cx="192" cy="194.0" rx="12" ry="7"></ellipse><ellipse cx="214" cy="194.0" rx="9" ry="6"></ellipse></g><g fill="#E9EFD9"><rect x="176" y="178.0" width="16" height="4" rx="2" transform="rotate(-20 184 180.0)"></rect><rect x="200" y="158.0" width="14" height="4" rx="2"></rect></g><g fill="#5FA04E"><circle cx="186" cy="156.0" r="3"></circle><circle cx="218" cy="184.0" r="3"></circle><circle cx="198" cy="206.0" r="3"></circle></g><circle cx="70" cy="94.0" r="26" fill="#F4F1EA"></circle><circle cx="70" cy="94.0" r="20" fill="#6BA34F"></circle><circle cx="130" cy="88.0" r="26" fill="#F4F1EA"></circle><circle cx="130" cy="88.0" r="20" fill="#E8C14B"></circle><circle cx="190" cy="92.0" r="26" fill="#F4F1EA"></circle><circle cx="190" cy="92.0" r="20" fill="#C9472B"></circle><g fill="#A8D08D" opacity=".9"><circle cx="64" cy="90.0" r="5"></circle><circle cx="76" cy="100.0" r="5"></circle></g><rect x="236" y="60.0" width="6" height="150" rx="3" fill="#D9B98C" transform="rotate(8 239 135.0)"></rect><rect x="250" y="60.0" width="6" height="150" rx="3" fill="#D9B98C" transform="rotate(8 253 135.0)"></rect></svg>
+<div class="pv-ig-icons"><span>♡</span><span>💬</span><span>➤</span></div>
+<p class="pv-ig-cap"><b>golmok_bapsang</b> ✨ 매일 아침 직접 담그는 반찬, 오늘도 정성껏 준비했어요. 불맛 가득 제육볶음 정식으로 든든한 점심 어떠세요?</p>
+<p class="pv-ig-cap">📍 연남동 · 전화 예약 가능</p>
+<p class="pv-ig-tag">#연남동맛집 #연남동밥집 #혼밥 #점심메뉴 #제육볶음</p>
+</div></div><p class="pv-cap"><b>인스타 게시물</b><span>사진 보정 + 글 + 해시태그까지</span></p></div><div class="pv-card"><div class="pv-phone"><div class="pv-screen pv-blog">
+<div class="pv-bl-top"><b>네이버 블로그</b><span>골목밥상 사장 일기</span></div>
+<p class="pv-bl-title">[연남동 맛집] 골목밥상 제육볶음 정식, 매일 담그는 반찬</p>
+<p class="pv-bl-meta">골목밥상 · 방금 전</p>
+<svg viewBox="0 0 300 190" width="100%" style="display:block" role="img" aria-label="제육볶음 정식 예시 그림"><defs><linearGradient id="woodb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C89B6D"></stop><stop offset="1" stop-color="#A97A4E"></stop></linearGradient></defs><rect width="300" height="190" fill="url(#woodb)"></rect><g opacity=".18" stroke="#6B4423" stroke-width="2"><path d="M0 40h300M0 95h300M0 150h300M0 205h300M0 260h300"></path></g><rect x="22" y="-17.0" width="256" height="224" rx="18" fill="#2B2B2E"></rect><circle cx="98" cy="133.0" r="46" fill="#F4F1EA"></circle><circle cx="98" cy="133.0" r="38" fill="#FFFFFF"></circle><g fill="#F7F4EC"><circle cx="88" cy="127.0" r="9"></circle><circle cx="104" cy="123.0" r="10"></circle><circle cx="98" cy="141.0" r="11"></circle><circle cx="112" cy="139.0" r="8"></circle><circle cx="84" cy="143.0" r="8"></circle></g><circle cx="196" cy="125.0" r="56" fill="#F4F1EA"></circle><circle cx="196" cy="125.0" r="46" fill="#B8441F"></circle><g fill="#8E2E12"><ellipse cx="180" cy="113.0" rx="12" ry="7"></ellipse><ellipse cx="208" cy="117.0" rx="13" ry="7"></ellipse><ellipse cx="192" cy="139.0" rx="12" ry="7"></ellipse><ellipse cx="214" cy="139.0" rx="9" ry="6"></ellipse></g><g fill="#E9EFD9"><rect x="176" y="123.0" width="16" height="4" rx="2" transform="rotate(-20 184 125.0)"></rect><rect x="200" y="103.0" width="14" height="4" rx="2"></rect></g><g fill="#5FA04E"><circle cx="186" cy="101.0" r="3"></circle><circle cx="218" cy="129.0" r="3"></circle><circle cx="198" cy="151.0" r="3"></circle></g><circle cx="70" cy="39.0" r="26" fill="#F4F1EA"></circle><circle cx="70" cy="39.0" r="20" fill="#6BA34F"></circle><circle cx="130" cy="33.0" r="26" fill="#F4F1EA"></circle><circle cx="130" cy="33.0" r="20" fill="#E8C14B"></circle><circle cx="190" cy="37.0" r="26" fill="#F4F1EA"></circle><circle cx="190" cy="37.0" r="20" fill="#C9472B"></circle><g fill="#A8D08D" opacity=".9"><circle cx="64" cy="35.0" r="5"></circle><circle cx="76" cy="45.0" r="5"></circle></g><rect x="236" y="5.0" width="6" height="150" rx="3" fill="#D9B98C" transform="rotate(8 239 80.0)"></rect><rect x="250" y="5.0" width="6" height="150" rx="3" fill="#D9B98C" transform="rotate(8 253 80.0)"></rect></svg>
+<p class="pv-bl-h">① 오늘의 메뉴</p>
+<p class="pv-bl-p">센 불에 볶아 불향이 살아 있는 제육볶음에 계절 반찬 세 가지를 곁들였어요.</p>
+<p class="pv-bl-h">② 위치 · 영업시간</p>
+<p class="pv-bl-p">연남동 골목 안쪽, 평일 11:00~21:00</p>
+</div></div><p class="pv-cap"><b>블로그 글</b><span>제목 · 소제목 · 위치 안내까지</span></p></div></div>
+<p class="pv-note">이해를 돕기 위한 예시 화면이에요.</p>
+</div>
+</section>
 <!-- 알아줌 영상 -->
 <section id="video" style="background: #EEF2F8; color: #14161F; position: relative; overflow: hidden">
 <div aria-hidden="true" style="position: absolute; left: 8%; top: 18%; width: 420px; height: 420px; border-radius: 50%; background: #3B5B92; opacity: 0.12; filter: blur(110px)"></div>
@@ -1012,7 +1068,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       window.addEventListener('resize', upd); upd();
     }
     // carousel dots
-    var sels = ['.mate-grid', '#features > div:last-of-type', '#trust .wrap > div:nth-of-type(1)', '#trust .wrap > div:nth-of-type(2)'];
+    var sels = ['.pv-row', '.mate-grid', '#features > div:last-of-type', '#trust .wrap > div:nth-of-type(1)', '#trust .wrap > div:nth-of-type(2)'];
     sels.forEach(function (sel) {
       var g = root.querySelector(sel); if (!g || g.nextElementSibling && g.nextElementSibling.classList.contains('dz-cdots')) return;
       var box = doc.createElement('div'); box.className = 'dz-cdots'; box.setAttribute('aria-hidden', 'true');
