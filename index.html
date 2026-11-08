@@ -54,7 +54,7 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 .hero-title{font-size:30px !important}
 .hero-lead{font-size:14.5px !important;margin-bottom:18px !important}
 .hero-checks{display:none !important}
-#top .hero{padding-top:22px !important;padding-bottom:40px !important;gap:24px !important}
+#top .hero{padding-top:22px !important;padding-bottom:78px !important;gap:24px !important}
 #how .wrap>div{gap:8px !important}
 #how .card{display:grid !important;grid-template-columns:40px 1fr;column-gap:12px;row-gap:2px;padding:14px !important}
 #how .card>span:first-child{display:none !important}
@@ -127,6 +127,33 @@ footer{margin-top:12px}
 .dz-rv{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}
 @keyframes dz-bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
 .next-hint{animation:dz-bob 1.8s ease-in-out infinite}
+@keyframes dz-ringk{0%{transform:scale(1);opacity:.45}100%{transform:scale(2.1);opacity:0}}
+.dz-ring{position:absolute;inset:0;border-radius:50%;background:#3B5B92;animation:dz-ringk 2.2s cubic-bezier(.2,.6,.3,1) infinite}
+.dz-r2{animation-delay:1.1s}
+#top .form-box ul{min-height:196px}
+.dz-mic{animation:dz-breathe 2.2s ease-in-out infinite}
+@keyframes dz-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.dz-bar{transform-origin:bottom;animation:dz-wave .9s ease-in-out infinite}
+.dz-bar:nth-child(2){animation-delay:.12s}.dz-bar:nth-child(3){animation-delay:.24s}.dz-bar:nth-child(4){animation-delay:.36s}.dz-bar:nth-child(5){animation-delay:.18s}.dz-bar:nth-child(6){animation-delay:.3s}.dz-bar:nth-child(7){animation-delay:.06s}
+@keyframes dz-wave{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.dz-dots i{font-style:normal;animation:dz-dot 1.2s infinite}.dz-dots i:nth-child(2){animation-delay:.2s}.dz-dots i:nth-child(3){animation-delay:.4s}
+@keyframes dz-dot{0%,60%,100%{opacity:.2}30%{opacity:1}}
+.dz-bubble{animation:dz-bubk .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes dz-bubk{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+.dz-w{display:inline-block;opacity:0;animation:dz-word .45s ease forwards}
+@keyframes dz-word{from{opacity:0;transform:translateY(6px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+.dz-fade{opacity:0;animation:dz-fadek .35s ease forwards}
+@keyframes dz-fadek{to{opacity:1}}
+.dz-li{opacity:0;animation:dz-lik .5s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes dz-lik{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
+.dz-ok{transform:scale(0);animation:dz-pop .5s cubic-bezier(.3,1.7,.5,1) forwards}
+@keyframes dz-pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.dz-pend{animation:dz-spin 4s linear infinite}
+@keyframes dz-spin{to{transform:rotate(360deg)}}
+.dz-badge{opacity:0;animation:dz-pop .5s cubic-bezier(.3,1.7,.5,1) forwards,dz-glow 1.6s ease-in-out infinite}
+@keyframes dz-glow{0%,100%{box-shadow:0 0 0 0 rgba(255,212,59,.0)}50%{box-shadow:0 0 0 6px rgba(255,212,59,.45)}}
+@media (prefers-reduced-motion: reduce){.dz-ring,.dz-mic,.dz-bar,.dz-dots i,.dz-pend,.next-hint{animation:none !important}.dz-bubble,.dz-w,.dz-fade,.dz-li,.dz-ok,.dz-badge{animation:none !important;opacity:1 !important;transform:none !important;filter:none !important}}
+
 .dz-rv.dz-in{opacity:1;transform:none}
 .mate-card.dz-in:hover{transform:translateY(-4px)}
 
@@ -203,11 +230,11 @@ section[id]{scroll-margin-top:72px}
 <div aria-hidden="true" style="position: absolute; inset: 40px; border-radius: 50%; background: #3B5B92; opacity: 0.14; filter: blur(70px)"></div>
 <div class="form-box" style="position: relative; background: #FFFFFF; border: 1px solid #EADFC8; border-radius: 28px; padding: 26px; box-shadow: 0 30px 80px rgba(120, 90, 20, 0.12)">
 <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px">
-<span style="position: relative; width: 52px; height: 52px; border-radius: 50%; background: #3B5B92; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 0 8px rgba(59, 91, 146, 0.22)"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></span>
+<span class="dz-micwrap" style="position: relative; width: 52px; height: 52px; flex-shrink: 0"><span class="dz-ring" aria-hidden="true"></span><span class="dz-ring dz-r2" aria-hidden="true"></span><span class="dz-mic" style="position: relative; width: 52px; height: 52px; border-radius: 50%; background: #3B5B92; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 0 8px rgba(59, 91, 146, 0.22)"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></span></span>
 <span style="display: flex; align-items: flex-end; gap: 3px; height: 24px" aria-hidden="true">
-<span style="width: 4px; height: 10px; border-radius: 2px; background: #7D95C0"></span><span style="width: 4px; height: 20px; border-radius: 2px; background: #7D95C0"></span><span style="width: 4px; height: 14px; border-radius: 2px; background: #7D95C0"></span><span style="width: 4px; height: 24px; border-radius: 2px; background: #7D95C0"></span><span style="width: 4px; height: 12px; border-radius: 2px; background: #7D95C0"></span><span style="width: 4px; height: 18px; border-radius: 2px; background: #7D95C0"></span><span style="width: 4px; height: 8px; border-radius: 2px; background: #7D95C0"></span>
+<span class="dz-bar" style="width: 4px; height: 10px; border-radius: 2px; background: #7D95C0"></span><span class="dz-bar" style="width: 4px; height: 20px; border-radius: 2px; background: #7D95C0"></span><span class="dz-bar" style="width: 4px; height: 14px; border-radius: 2px; background: #7D95C0"></span><span class="dz-bar" style="width: 4px; height: 24px; border-radius: 2px; background: #7D95C0"></span><span class="dz-bar" style="width: 4px; height: 12px; border-radius: 2px; background: #7D95C0"></span><span class="dz-bar" style="width: 4px; height: 18px; border-radius: 2px; background: #7D95C0"></span><span class="dz-bar" style="width: 4px; height: 8px; border-radius: 2px; background: #7D95C0"></span>
 </span>
-<span style="font-size: 13px; color: #5B6070">듣고 있어요…</span>
+<span class="dz-status" style="font-size: 13px; color: #5B6070">듣고 있어요<span class="dz-dots"><i>.</i><i>.</i><i>.</i></span></span>
 </div>
 <div role="group" aria-label="음성 지시 예시" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px">
 <button type="button" data-action="pickPromo" data-vtab="promo" style="">홍보 올리기</button>
@@ -215,40 +242,40 @@ section[id]{scroll-margin-top:72px}
 <button type="button" data-action="pickDay" data-vtab="day" style="">오늘 일정·매출</button>
 </div>
 <div data-show="vPromo" style="display:contents">
-<div style="background: #EEF2F8; color: #14161F; border-radius: 16px 16px 16px 4px; padding: 14px 16px; margin-bottom: 18px">
+<div class="dz-bubble" style="background: #EEF2F8; color: #14161F; border-radius: 16px 16px 16px 4px; padding: 14px 16px; margin-bottom: 18px">
 <p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; color: #5B6070">사장님 음성</p>
-<p style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5">"이번 주말 수분관리 이벤트, 인스타에 올리고 단골 고객한테 문자 보내줘"</p>
+<p style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5"><span class="dz-w" style="animation-delay: 200ms">"이번</span> <span class="dz-w" style="animation-delay: 275ms">주말</span> <span class="dz-w" style="animation-delay: 350ms">수분관리</span> <span class="dz-w" style="animation-delay: 425ms">이벤트,</span> <span class="dz-w" style="animation-delay: 500ms">인스타에</span> <span class="dz-w" style="animation-delay: 575ms">올리고</span> <span class="dz-w" style="animation-delay: 650ms">단골</span> <span class="dz-w" style="animation-delay: 725ms">고객한테</span> <span class="dz-w" style="animation-delay: 800ms">문자</span> <span class="dz-w" style="animation-delay: 875ms">보내줘"</span></p>
 </div>
-<p style="margin: 0 0 4px; font-size: 13px; font-weight: 700; color: #5B6070">AI 비서가 정리한 할 일</p>
+<p class="dz-fade" style="animation-delay: 1100ms; margin: 0 0 4px; font-size: 13px; font-weight: 700; color: #5B6070">AI 비서가 정리한 할 일</p>
 <ul style="list-style: none; margin: 0; padding: 0">
-<li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">이벤트 홍보글 작성</span><span style="font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">인스타용 이미지 제작</span><span style="font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid #3B5B92; flex-shrink: 0; box-sizing: border-box"></span><span style="flex-grow: 1; font-size: 15px">인스타 게시 예약</span><span style="font-size: 12px; color: #14161F; background: #FFE45C; padding: 2px 8px; border-radius: 999px; font-weight: 700; white-space: nowrap">확인 대기</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid #3B5B92; flex-shrink: 0; box-sizing: border-box"></span><span style="flex-grow: 1; font-size: 15px">단골 고객 문자 발송</span><span style="font-size: 12px; color: #14161F; background: #FFE45C; padding: 2px 8px; border-radius: 999px; font-weight: 700; white-space: nowrap">확인 대기</span></li>
+<li class="dz-li" style="animation-delay: 1300ms; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span class="dz-ok" style="animation-delay: 1680ms; width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">이벤트 홍보글 작성</span><span class="dz-fade" style="animation-delay: 1680ms; font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li class="dz-li" style="animation-delay: 1780ms; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span class="dz-ok" style="animation-delay: 2160ms; width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">인스타용 이미지 제작</span><span class="dz-fade" style="animation-delay: 2160ms; font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li class="dz-li" style="animation-delay: 2260ms; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span class="dz-pend" style="width: 22px; height: 22px; border-radius: 50%; border: 2px dashed #3B5B92; flex-shrink: 0; box-sizing: border-box"></span><span style="flex-grow: 1; font-size: 15px">인스타 게시 예약</span><span class="dz-badge" style="animation-delay: 2640ms, 3140ms; font-size: 12px; color: #14161F; background: #FFE45C; padding: 2px 8px; border-radius: 999px; font-weight: 700; white-space: nowrap">확인 대기</span></li><li class="dz-li" style="animation-delay: 2740ms; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span class="dz-pend" style="width: 22px; height: 22px; border-radius: 50%; border: 2px dashed #3B5B92; flex-shrink: 0; box-sizing: border-box"></span><span style="flex-grow: 1; font-size: 15px">단골 고객 문자 발송</span><span class="dz-badge" style="animation-delay: 3120ms, 3620ms; font-size: 12px; color: #14161F; background: #FFE45C; padding: 2px 8px; border-radius: 999px; font-weight: 700; white-space: nowrap">확인 대기</span></li>
 </ul>
 </div>
 <div data-show="vKakao" style="display:contents">
-<div style="background: #EEF2F8; color: #14161F; border-radius: 16px 16px 16px 4px; padding: 14px 16px; margin-bottom: 18px">
+<div class="dz-bubble" style="background: #EEF2F8; color: #14161F; border-radius: 16px 16px 16px 4px; padding: 14px 16px; margin-bottom: 18px">
 <p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; color: #5B6070">사장님 음성</p>
-<p style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5">"카톡 문의 들어온 거 확인하고 답장 써줘"</p>
+<p style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5"><span class="dz-w" style="animation-delay: 200ms">"카톡</span> <span class="dz-w" style="animation-delay: 275ms">문의</span> <span class="dz-w" style="animation-delay: 350ms">들어온</span> <span class="dz-w" style="animation-delay: 425ms">거</span> <span class="dz-w" style="animation-delay: 500ms">확인하고</span> <span class="dz-w" style="animation-delay: 575ms">답장</span> <span class="dz-w" style="animation-delay: 650ms">써줘"</span></p>
 </div>
-<p style="margin: 0 0 4px; font-size: 13px; font-weight: 700; color: #5B6070">AI 비서가 정리한 할 일</p>
+<p class="dz-fade" style="animation-delay: 875ms; margin: 0 0 4px; font-size: 13px; font-weight: 700; color: #5B6070">AI 비서가 정리한 할 일</p>
 <ul style="list-style: none; margin: 0; padding: 0">
-<li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">새 카톡 문의 확인·요약</span><span style="font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">예약·가격 문의 분류</span><span style="font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">답장 초안 작성</span><span style="font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid #3B5B92; flex-shrink: 0; box-sizing: border-box"></span><span style="flex-grow: 1; font-size: 15px">답장 보내기</span><span style="font-size: 12px; color: #14161F; background: #FFE45C; padding: 2px 8px; border-radius: 999px; font-weight: 700; white-space: nowrap">확인 대기</span></li>
+<li class="dz-li" style="animation-delay: 1075ms; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span class="dz-ok" style="animation-delay: 1455ms; width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">새 카톡 문의 확인·요약</span><span class="dz-fade" style="animation-delay: 1455ms; font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li class="dz-li" style="animation-delay: 1555ms; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span class="dz-ok" style="animation-delay: 1935ms; width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">예약·가격 문의 분류</span><span class="dz-fade" style="animation-delay: 1935ms; font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li class="dz-li" style="animation-delay: 2035ms; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span class="dz-ok" style="animation-delay: 2415ms; width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">답장 초안 작성</span><span class="dz-fade" style="animation-delay: 2415ms; font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li class="dz-li" style="animation-delay: 2515ms; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span class="dz-pend" style="width: 22px; height: 22px; border-radius: 50%; border: 2px dashed #3B5B92; flex-shrink: 0; box-sizing: border-box"></span><span style="flex-grow: 1; font-size: 15px">답장 보내기</span><span class="dz-badge" style="animation-delay: 2895ms, 3395ms; font-size: 12px; color: #14161F; background: #FFE45C; padding: 2px 8px; border-radius: 999px; font-weight: 700; white-space: nowrap">확인 대기</span></li>
 </ul>
 </div>
 <div data-show="vDay" style="display:contents">
-<div style="background: #EEF2F8; color: #14161F; border-radius: 16px 16px 16px 4px; padding: 14px 16px; margin-bottom: 18px">
+<div class="dz-bubble" style="background: #EEF2F8; color: #14161F; border-radius: 16px 16px 16px 4px; padding: 14px 16px; margin-bottom: 18px">
 <p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; color: #5B6070">사장님 음성</p>
-<p style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5">"오늘 예약이랑 이번 주 매출 알려줘"</p>
+<p style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5"><span class="dz-w" style="animation-delay: 200ms">"오늘</span> <span class="dz-w" style="animation-delay: 275ms">예약이랑</span> <span class="dz-w" style="animation-delay: 350ms">이번</span> <span class="dz-w" style="animation-delay: 425ms">주</span> <span class="dz-w" style="animation-delay: 500ms">매출</span> <span class="dz-w" style="animation-delay: 575ms">알려줘"</span></p>
 </div>
-<p style="margin: 0 0 4px; font-size: 13px; font-weight: 700; color: #5B6070">AI 비서가 정리한 할 일</p>
+<p class="dz-fade" style="animation-delay: 800ms; margin: 0 0 4px; font-size: 13px; font-weight: 700; color: #5B6070">AI 비서가 정리한 할 일</p>
 <ul style="list-style: none; margin: 0; padding: 0">
-<li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">오늘 예약 고객 정리</span><span style="font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span style="width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">이번 주 매출 요약</span><span style="font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid #3B5B92; flex-shrink: 0; box-sizing: border-box"></span><span style="flex-grow: 1; font-size: 15px">노쇼 방지 알림 문자</span><span style="font-size: 12px; color: #14161F; background: #FFE45C; padding: 2px 8px; border-radius: 999px; font-weight: 700; white-space: nowrap">확인 대기</span></li>
+<li class="dz-li" style="animation-delay: 1000ms; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span class="dz-ok" style="animation-delay: 1380ms; width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">오늘 예약 고객 정리</span><span class="dz-fade" style="animation-delay: 1380ms; font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li class="dz-li" style="animation-delay: 1480ms; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span class="dz-ok" style="animation-delay: 1860ms; width: 22px; height: 22px; border-radius: 50%; background: #12A150; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span style="flex-grow: 1; font-size: 15px">이번 주 매출 요약</span><span class="dz-fade" style="animation-delay: 1860ms; font-size: 12px; color: #0B6B3A; font-weight: 700">완료</span></li><li class="dz-li" style="animation-delay: 1960ms; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #EADFC8"><span class="dz-pend" style="width: 22px; height: 22px; border-radius: 50%; border: 2px dashed #3B5B92; flex-shrink: 0; box-sizing: border-box"></span><span style="flex-grow: 1; font-size: 15px">노쇼 방지 알림 문자</span><span class="dz-badge" style="animation-delay: 2340ms, 2840ms; font-size: 12px; color: #14161F; background: #FFE45C; padding: 2px 8px; border-radius: 999px; font-weight: 700; white-space: nowrap">확인 대기</span></li>
 </ul>
 </div>
 </div>
 </div>
 
 </div>
-<a class="next-hint" href="#how" aria-label="다음으로" style="display: none; position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); flex-direction: column; align-items: center; gap: 2px; font-size: 12px; font-weight: 700; color: #5B6070; text-decoration: none"><span>아래로 넘겨보세요</span><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></a>
+<a class="next-hint" href="#how" aria-label="다음으로" style="display: none; position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); flex-direction: column; align-items: center; gap: 2px; font-size: 13px; font-weight: 800; color: #2E4877; text-decoration: none"><span style="padding: 6px 14px; border-radius: 999px; background: #FFFFFF; border: 1px solid #EADFC8; box-shadow: 0 6px 16px rgba(46,72,119,.14)">아래로 넘겨보세요</span><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></a>
 </section>
 
 <!-- 업종 띠 -->
@@ -786,7 +813,7 @@ section[id]{scroll-margin-top:72px}
 </div>
 <script>
 (function(){
-  var state = {mate:'beau', v:'promo', submitted:false};
+  var state = {mate:'beau', v:'promo', submitted:false}; var hold = 0;
   var ON = 'flex: 1 1 auto; min-height: 40px; padding: 0 12px; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; border: 0; background: #3B5B92; color: #FFFFFF;', OFF = 'flex: 1 1 auto; min-height: 40px; padding: 0 12px; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; border: 1px solid #D9CFB8; background: #FFFFFF; color: #4A5060;';
   function render(){
     var flags = {isBeau: state.mate==='beau', isFuni: state.mate==='funi',
@@ -797,7 +824,7 @@ section[id]{scroll-margin-top:72px}
   }
   var actions = {
     pickBeau: function(){ state.mate='beau'; }, pickFuni: function(){ state.mate='funi'; },
-    pickPromo: function(){ state.v='promo'; }, pickKakao: function(){ state.v='kakao'; }, pickDay: function(){ state.v='day'; }
+    pickPromo: function(){ hold=Date.now()+14000; state.v='promo'; }, pickKakao: function(){ hold=Date.now()+14000; state.v='kakao'; }, pickDay: function(){ hold=Date.now()+14000; state.v='day'; }
   };
   document.addEventListener('click', function(e){
     var t = e.target.closest('[data-action]'); if(!t) return;
@@ -812,6 +839,14 @@ section[id]{scroll-margin-top:72px}
       .catch(function(){ btn.disabled = false; btn.textContent = '문의 보내기'; alert('전송에 실패했어요. 잠시 후 다시 시도해 주세요.'); });
   });
   render();
+  // hero tab cycle
+  try {
+    if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      var order=['promo','kakao','day'], hv=true, topEl=document.getElementById('top');
+      if (topEl && 'IntersectionObserver' in window) new IntersectionObserver(function(en){ hv = en[0].isIntersecting; }, {threshold:0.35}).observe(topEl);
+      setInterval(function(){ if(!hv || Date.now()<hold) return; state.v = order[(order.indexOf(state.v)+1)%3]; render(); }, 7000);
+    }
+  } catch(err) {}
   // mate carousel auto-scroll
   try {
     var g = document.querySelector('.mate-grid');
