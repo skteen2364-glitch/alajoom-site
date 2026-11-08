@@ -1175,7 +1175,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
         for (var i = 0; i < cards.length; i++) { var d = Math.abs(cards[i].getBoundingClientRect().left - rr.left); if (d < best) { best = d; cur = i; } }
         var nx = (cur + 1) % cards.length;
         row.scrollTo({ left: row.scrollLeft + cards[nx].getBoundingClientRect().left - rr.left, behavior: 'smooth' });
-      }, 5500);
+      }, 3000);
     })();
     var hint = root.querySelector('.swipe-hint'); if (hint) hint.classList.add('dz-hide');
   } catch (err) {}
