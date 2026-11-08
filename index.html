@@ -39,8 +39,44 @@ html{scroll-behavior:smooth}
 @media (max-width: 720px){
 html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 .dz-root>section:not([aria-label]){scroll-snap-align:start;scroll-snap-stop:always}
-.dz-root>section:not([aria-label]):not(#top){min-height:calc(100svh - 84px);display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
-#top{min-height:calc(100svh - 64px);scroll-margin-top:64px}
+.snap-pt{scroll-snap-align:start}
+.dz-root>section:not([aria-label]):not(#top):not(#cta){margin:8px 10px 0 !important}
+.dz-root>section:not([aria-label]):not(#top):not(#cta).sec,.dz-root>section:not([aria-label]):not(#top):not(#cta)>.sec{padding:22px 16px !important}
+.dz-root>section:not([aria-label]):not(#top) .wrap{padding-left:16px !important;padding-right:16px !important}
+.dz-root .h2{font-size:20px !important;margin-bottom:8px !important}
+.dz-root .lead{font-size:13.5px !important;line-height:1.55 !important;margin-bottom:14px !important}
+.eyebrow{margin-bottom:10px !important;font-size:12px !important;padding:4px 10px !important}
+.hero-title{font-size:30px !important}
+.hero-lead{font-size:14.5px !important;margin-bottom:18px !important}
+.hero-checks{display:none !important}
+#top .hero{padding-top:22px !important;padding-bottom:40px !important;gap:24px !important}
+#how .wrap>div{gap:8px !important}
+#how .card{display:grid !important;grid-template-columns:40px 1fr;column-gap:12px;row-gap:2px;padding:14px !important}
+#how .card>span:first-child{display:none !important}
+#how .card>span:nth-child(2){width:40px !important;height:40px !important;margin:0 !important;grid-row:1 / span 2;border-radius:12px !important}
+#how .card h3{margin:0 !important;font-size:16px !important}
+#how .card p{grid-column:2;font-size:13px !important}
+#video .wrap>div:first-child{max-width:150px !important}
+#video .cta-row a{min-height:46px !important;font-size:15px !important}
+#team .lead{display:none !important}
+#trust .wrap>div:nth-of-type(3){display:none !important}
+#trust .card{padding:16px !important}
+#trust .card p{font-size:13px !important}
+#pricing li>span:last-child>span{display:none !important}
+#pricing ul{gap:10px !important;margin-bottom:0 !important}
+#pricing .card{padding:20px !important;gap:16px !important}
+#pricing .price{font-size:38px !important}
+#contact .form-box{gap:12px !important;padding:18px !important}
+#contact input,#contact select{min-height:44px !important}
+#contact textarea{height:60px}
+.mate-body{gap:8px !important}
+#video .lead{display:none !important}
+#video .wrap>div:first-child{max-width:130px !important}
+#video .cta-row{flex-wrap:nowrap !important}
+#video .cta-row a{flex:1 1 0 !important;padding:0 10px !important;font-size:14px !important;justify-content:center}
+#team .form-box>div[role="group"],#team .form-box>div:last-child,#team .form-box>div[style*="flex-wrap: wrap; gap: 6px"]{display:none !important}
+#team .hero{gap:18px !important}
+#contact .form-box>div:nth-of-type(4){display:none !important}
 footer{scroll-snap-align:end}
 .mate-grid{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px !important;margin-right:-18px;padding:2px 18px 8px 0;scrollbar-width:none}
 .mate-grid::-webkit-scrollbar,.dz-hs::-webkit-scrollbar{display:none}
@@ -49,7 +85,7 @@ footer{scroll-snap-align:end}
 #features>div:last-of-type>.card{flex:0 0 84% !important;scroll-snap-align:start}
 #trust .wrap>div:nth-of-type(1)>.card,#trust .wrap>div:nth-of-type(2)>.card{flex:0 0 78% !important;scroll-snap-align:start}
 #trust .wrap>div:nth-of-type(2){margin-top:12px !important}
-#video .wrap>div:first-child{max-width:200px !important;flex:0 0 auto !important}
+#video .wrap>div:first-child{max-width:130px !important;flex:0 0 auto !important}
 #video ul,#team ul{display:none !important}
 #video .wrap{gap:24px !important}
 .swipe-hint{display:block !important}
@@ -140,13 +176,13 @@ section[id]{scroll-margin-top:72px}
 <a href="#mates" style="display: inline-flex; align-items: center; gap: 8px; min-height: 54px; padding: 0 28px; border-radius: 14px; background: #3B5B92; color: #FFFFFF; font-size: 17px; font-weight: 700; text-decoration: none">무료로 시작하기<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
 <a href="#contact" style="display: inline-flex; align-items: center; min-height: 54px; padding: 0 24px; border-radius: 14px; border: 1px solid #D9CFB8; color: #14161F; font-size: 17px; font-weight: 700; text-decoration: none">음성 비서 출시 알림</a>
 </div>
-<div style="display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 28px; font-size: 14px; color: #5B6070">
+<div class="hero-checks" style="display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 28px; font-size: 14px; color: #5B6070">
 <span style="display: inline-flex; align-items: center; gap: 6px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>카드 등록 없이 무료</span>
 <span style="display: inline-flex; align-items: center; gap: 6px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>하루 10회 콘텐츠</span>
 <span style="display: inline-flex; align-items: center; gap: 6px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>사장님 확인 후에만 실행</span>
 </div>
 </div>
-<div style="flex: 1 1 380px; min-width: 0; max-width: 500px; position: relative">
+<div class="snap-pt" style="flex: 1 1 380px; min-width: 0; max-width: 500px; position: relative">
 <div aria-hidden="true" style="position: absolute; inset: 40px; border-radius: 50%; background: #3B5B92; opacity: 0.14; filter: blur(70px)"></div>
 <div class="form-box" style="position: relative; background: #FFFFFF; border: 1px solid #EADFC8; border-radius: 28px; padding: 26px; box-shadow: 0 30px 80px rgba(120, 90, 20, 0.12)">
 <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px">
@@ -210,7 +246,7 @@ section[id]{scroll-margin-top:72px}
 <!-- 이용 방법 -->
 <section id="how" style="background: #FBF7EE">
 <div class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
-<p style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>이렇게 일해요</p>
+<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>이렇게 일해요</p>
 <h2 class="h2" style="margin: 0 0 40px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">말하고, 확인하면 끝</h2>
 <div style="display: flex; flex-wrap: wrap; gap: 16px">
 <div class="card" style="flex: 1 1 260px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E6E8ED; position: relative">
@@ -265,7 +301,7 @@ section[id]{scroll-margin-top:72px}
 <section id="team" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 104px 24px 120px">
 <div class="hero" style="display: flex; flex-wrap: wrap; align-items: center; gap: 64px">
 <div style="flex: 1 1 400px; min-width: 0">
-<p style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>AI 직원 팀</p>
+<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>AI 직원 팀</p>
 <h2 class="h2" style="margin: 0 0 14px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">의뢰 하나에<br>AI 직원 4명이 붙어요</h2>
 <p class="lead" style="margin: 0 0 28px; font-size: 17px; color: #4A5060">자료 조사, 전략, 카피, 검토까지 나눠서 처리해요. 혼자 쓰는 AI보다 꼼꼼하고, 우리 가게에 맞게 나와요.</p>
 <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px; font-size: 15px">
@@ -355,7 +391,7 @@ section[id]{scroll-margin-top:72px}
 <!-- 신뢰 -->
 <section id="trust" style="background: #FFF8E7; color: #14161F">
 <div class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
-<p style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>믿고 맡길 수 있는 이유</p>
+<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>믿고 맡길 수 있는 이유</p>
 <h2 class="h2" style="margin: 0 0 12px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">AI에게 맡겨도 안심되게</h2>
 <p class="lead" style="margin: 0 0 40px; font-size: 17px; color: #5B6070">돈 들까 봐, 사기당할까 봐 걱정되시죠. 알아줌은 이렇게 지켜요.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 16px">
@@ -403,7 +439,7 @@ section[id]{scroll-margin-top:72px}
 <!-- 서비스 -->
 <section id="features" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
 <div style="margin-bottom: 32px; max-width: 680px">
-<p style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>알아줌 서비스</p>
+<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>알아줌 서비스</p>
 <h2 class="h2" style="margin: 0; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">만들고, 알리고, 관리까지 알아서 해줌</h2>
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
@@ -431,7 +467,7 @@ section[id]{scroll-margin-top:72px}
 <!-- AI 직원 (메이트) 카드 -->
 <section id="mates" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
 <div style="margin-bottom: 32px; max-width: 640px">
-<p style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>업종별 AI 직원</p>
+<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>업종별 AI 직원</p>
 <h2 class="h2" style="margin: 0 0 12px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">우리 가게 AI 직원을 골라보세요</h2>
 <p class="lead" style="margin: 0; font-size: 17px; color: #4A5060">테스트할 수 있는 업종은 바로 써보고, 준비 중인 업종은 문의로 먼저 안내받으세요.</p>
 </div>
@@ -573,7 +609,7 @@ section[id]{scroll-margin-top:72px}
 
 <!-- 요금제 -->
 <section id="pricing" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
-<p style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>요금제</p>
+<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>요금제</p>
 <h2 class="h2" style="margin: 0 0 32px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">구독료 0원, 부담 없이 시작하세요</h2>
 <div class="card" style="display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: center; padding: 40px; border-radius: 28px; border: 2px solid #3B5B92; background: #F4F6FA">
 <div style="flex: 1 1 260px; min-width: 0">
@@ -597,7 +633,7 @@ section[id]{scroll-margin-top:72px}
 <!-- 문의하기 -->
 <section id="contact" style="background: #FBF7EE">
 <div class="wrap sec" style="max-width: 640px; margin: 0 auto; padding: 96px 24px">
-<div style="text-align: center"><p style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>문의하기</p></div>
+<div style="text-align: center"><p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>문의하기</p></div>
 <h2 class="h2" style="margin: 0 0 12px; font-size: 36px; line-height: 1.3; font-weight: 900; letter-spacing: -1px; text-align: center">우리 가게 AI 직원, 물어보세요</h2>
 <p class="lead" style="margin: 0 0 32px; font-size: 16px; color: #4A5060; text-align: center">업종 문의, 도입 상담, 새 기능 소식까지 편하게 남겨주세요.</p>
 
