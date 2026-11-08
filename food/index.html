@@ -396,25 +396,40 @@ var CFG = {
     img.src = url;
   }
   function analyse(){
-    var c = document.createElement('canvas'), w = 160, h = Math.max(1, Math.round(160 * ph.img.naturalHeight / ph.img.naturalWidth));
+    var c = document.createElement('canvas'), w = 256, h = Math.max(1, Math.round(256 * ph.img.naturalHeight / ph.img.naturalWidth));
     c.width = w; c.height = h; var x = c.getContext('2d'); x.drawImage(ph.img, 0, 0, w, h);
-    var d = x.getImageData(0, 0, w, h).data, hist = new Array(256).fill(0), n = 0, sum = 0;
-    for (var i = 0; i < d.length; i += 4){ var L = Math.round(.299*d[i] + .587*d[i+1] + .114*d[i+2]); hist[L]++; n++; }
-    var acc = 0, lo = 0, hi = 255;
-    for (var v = 0; v < 256; v++){ acc += hist[v]; if (acc >= n * .01){ lo = v; break; } }
-    acc = 0; for (v = 255; v >= 0; v--){ acc += hist[v]; if (acc >= n * .01){ hi = v; break; } }
-    if (hi - lo < 60){ var mid = (hi + lo) / 2; lo = Math.max(0, mid - 30); hi = Math.min(255, mid + 30); }
-    for (v = 0; v < 256; v++){ var s2 = Math.min(255, Math.max(0, (v - lo) * 255 / (hi - lo))); sum += s2 * hist[v]; }
-    ph.auto = { lo: Math.min(lo, 40), hi: Math.max(hi, 215), mean: sum / n / 255 };
+    var d = x.getImageData(0, 0, w, h).data, H = [new Array(256).fill(0), new Array(256).fill(0), new Array(256).fill(0)], n = d.length / 4;
+    for (var i = 0; i < d.length; i += 4){ H[0][d[i]]++; H[1][d[i+1]]++; H[2][d[i+2]]++; }
+    function pct(hh, p, fromTop){ var acc = 0, t = n * p; if (!fromTop){ for (var v = 0; v < 256; v++){ acc += hh[v]; if (acc >= t) return v; } return 0; } for (v = 255; v >= 0; v--){ acc += hh[v]; if (acc >= t) return v; } return 255; }
+    var lo = [], hi = [];
+    for (var ch = 0; ch < 3; ch++){ lo[ch] = pct(H[ch], .005, false); hi[ch] = pct(H[ch], .005, true); if (hi[ch] - lo[ch] < 90){ var m = (hi[ch] + lo[ch]) / 2; lo[ch] = Math.max(0, m - 45); hi[ch] = Math.min(255, m + 45); } }
+    // 색 틀어짐 보정: 채널별 늘이기를 70%만 적용 (나머지는 공통 범위)
+    var Lo = Math.min(lo[0], lo[1], lo[2]), Hi = Math.max(hi[0], hi[1], hi[2]);
+    for (ch = 0; ch < 3; ch++){ lo[ch] = lo[ch] * .7 + Lo * .3; hi[ch] = hi[ch] * .7 + Hi * .3; }
+    // 늘인 뒤 평균 밝기 → 감마로 중간톤 맞추기
+    var sum = 0;
+    for (i = 0; i < d.length; i += 4){
+      var r = (d[i] - lo[0]) / (hi[0] - lo[0]), g = (d[i+1] - lo[1]) / (hi[1] - lo[1]), bb = (d[i+2] - lo[2]) / (hi[2] - lo[2]);
+      sum += Math.min(1, Math.max(0, .299*r + .587*g + .114*bb));
+    }
+    var mean = sum / n, gamma = Math.log(.5) / Math.log(Math.min(.95, Math.max(.05, mean)));
+    ph.auto = { lo:lo, hi:hi, gamma:Math.min(1.25, Math.max(.45, gamma)), mean:mean };
   }
   function applyPreset(p){
-    ph.preset = p; var a = ph.auto || {lo:0, hi:255, mean:.5}, W = CFG.photo.warm;
-    var bri = a.mean < .48 ? Math.min(22, Math.round((.52 - a.mean) * 110)) : (a.mean > .62 ? -6 : 0);
-    if (p === 'orig') ph.adj = {lo:0, hi:255, bri:0, con:0, sat:0, warm:0};
-    if (p === 'auto') ph.adj = {lo:a.lo, hi:a.hi, bri:bri, con:6, sat:12, warm:W};
-    if (p === 'bright') ph.adj = {lo:a.lo, hi:a.hi, bri:bri + 12, con:4, sat:6, warm:0};
-    if (p === 'warm') ph.adj = {lo:a.lo, hi:a.hi, bri:bri + 4, con:10, sat:22, warm:W + 12};
+    ph.preset = p; var W = CFG.photo.warm;
+    if (p === 'orig') ph.adj = {auto:0, bri:0, con:0, sat:0, warm:0, sharp:0};
+    if (p === 'auto') ph.adj = {auto:1, bri:4, con:8, sat:18, warm:W, sharp:1};
+    if (p === 'bright') ph.adj = {auto:1, bri:12, con:10, sat:14, warm:Math.round(W / 3) - 2, sharp:1};
+    if (p === 'warm') ph.adj = {auto:1, bri:8, con:14, sat:32, warm:W + 12, sharp:1};
     markPreset(); syncSliders(); draw();
+  }
+  function boxBlur(src, w, h, r){
+    var out = new Float32Array(src.length), tmp = new Float32Array(src.length), x, y, acc, i, dv = 2 * r + 1;
+    for (y = 0; y < h; y++){ var row = y * w; acc = 0; for (x = -r; x <= r; x++) acc += src[row + Math.min(w - 1, Math.max(0, x))];
+      for (x = 0; x < w; x++){ tmp[row + x] = acc / dv; acc += src[row + Math.min(w - 1, x + r + 1)] - src[row + Math.max(0, x - r)]; } }
+    for (x = 0; x < w; x++){ acc = 0; for (y = -r; y <= r; y++) acc += tmp[Math.min(h - 1, Math.max(0, y)) * w + x];
+      for (y = 0; y < h; y++){ out[y * w + x] = acc / dv; acc += tmp[Math.min(h - 1, y + r + 1) * w + x] - tmp[Math.max(0, y - r) * w + x]; } }
+    return out;
   }
   var _t = 0; function schedule(){ clearTimeout(_t); _t = setTimeout(draw, 60); }
   function cropRect(iw, ih){
@@ -428,11 +443,35 @@ var CFG = {
     var W = Math.round(cr[2] * sc), H = Math.round(cr[3] * sc), c = document.createElement('canvas'); c.width = W; c.height = H;
     var x = c.getContext('2d'); x.imageSmoothingQuality = 'high'; x.drawImage(im, cr[0], cr[1], cr[2], cr[3], 0, 0, W, H);
     if (withAdj){
-      var A = ph.adj, id = x.getImageData(0, 0, W, H), d = id.data, lut = new Uint8ClampedArray(256), k = 1 + A.con / 100, sat = 1 + A.sat / 100, wr = A.warm * .55;
-      for (var v = 0; v < 256; v++){ var t = (v - A.lo) * 255 / Math.max(1, A.hi - A.lo); t += A.bri * 1.5; t = (t - 128) * k + 128; lut[v] = t; }
-      for (var i = 0; i < d.length; i += 4){
-        var r = lut[d[i]], g = lut[d[i+1]], b = lut[d[i+2]], L = .299*r + .587*g + .114*b;
-        d[i] = L + (r - L) * sat + wr; d[i+1] = L + (g - L) * sat + wr * .25; d[i+2] = L + (b - L) * sat - wr;
+      var A = ph.adj, Au = ph.auto, id = x.getImageData(0, 0, W, H), d = id.data, N = W * H, luts = [];
+      var k = 1 + A.con / 100, g = A.auto && Au ? Au.gamma : 1, bri = A.bri / 100;
+      for (var ch = 0; ch < 3; ch++){
+        var lut = new Float32Array(256), lo = A.auto && Au ? Au.lo[ch] : 0, hi = A.auto && Au ? Au.hi[ch] : 255;
+        for (var v = 0; v < 256; v++){
+          var t = Math.min(1, Math.max(0, (v - lo) / Math.max(1, hi - lo)));
+          t = Math.pow(t, g);
+          t = t + bri * (1 - t) * (bri > 0 ? 1 : t * 2);          // 밝기: 그림자 위주로 올려 하이라이트 보호
+          t = (t - .5) * k + .5;                                   // 대비
+          t = t + (t - t * t) * .0;                                // (자리 유지)
+          lut[v] = t * 255;
+        }
+        luts.push(lut);
+      }
+      var vib = A.sat / 100, wr = A.warm * .5, L = new Float32Array(N);
+      for (var i = 0, j = 0; i < d.length; i += 4, j++){
+        var r = luts[0][d[i]], gg = luts[1][d[i+1]], b = luts[2][d[i+2]];
+        r += wr; gg += wr * .2; b -= wr;
+        var mx = Math.max(r, gg, b), mn = Math.min(r, gg, b), lum = .299*r + .587*gg + .114*b, satNow = mx > 0 ? (mx - mn) / mx : 0;
+        var f = 1 + vib * (1 - satNow);                            // 생동감: 덜 선명한 색을 더 많이
+        r = lum + (r - lum) * f; gg = lum + (gg - lum) * f; b = lum + (b - lum) * f;
+        d[i] = r; d[i+1] = gg; d[i+2] = b; L[j] = .299*d[i] + .587*d[i+1] + .114*d[i+2];
+      }
+      if (A.sharp){
+        var big = boxBlur(L, W, H, Math.max(2, Math.round(W / 220))), small = boxBlur(L, W, H, 1);
+        for (i = 0, j = 0; i < d.length; i += 4, j++){
+          var add = (L[j] - big[j]) * .32 + (L[j] - small[j]) * .55; // 또렷함(큰 반경) + 선명도(작은 반경)
+          d[i] = d[i] + add; d[i+1] = d[i+1] + add; d[i+2] = d[i+2] + add;
+        }
       }
       x.putImageData(id, 0, 0);
     }
@@ -452,8 +491,8 @@ var CFG = {
   }
   function draw(){
     if (!ph.img) return;
-    var c = render(1440, true); ph.url = c.toDataURL('image/jpeg', .9);
-    ph.orig = render(1440, false).toDataURL('image/jpeg', .85);
+    var c = render(1200, true); ph.url = c.toDataURL('image/jpeg', .9);
+    ph.orig = render(1200, false).toDataURL('image/jpeg', .85);
     $('#phImg').src = ph.url;
   }
   function photoBlob(maxSide, q){ return new Promise(function(res){ render(maxSide, true).toBlob(function(b){ res(b); }, 'image/jpeg', q); }); }
