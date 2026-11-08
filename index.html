@@ -171,6 +171,56 @@ footer{margin-top:12px}
 .dz-steps.dz-in .dz-btn{animation:dz-press 6s ease infinite}
 .dz-steps.dz-in .dz-done{animation:dz-donek 6s ease infinite}
 @media (prefers-reduced-motion: reduce){.dz-steps *,.dz-steps *::after{animation:none !important}}
+.dz-tc .dz-staff>div>span:nth-child(3){transform-origin:left center}
+.dz-fc s{text-decoration:none;position:relative;color:#8A8F9C}
+.dz-fc s::after{content:"";position:absolute;left:0;top:52%;height:1.5px;width:100%;background:#D9493B}
+@keyframes dz-livek{0%,100%{box-shadow:0 0 0 0 rgba(59,91,146,.5)}50%{box-shadow:0 0 0 5px rgba(59,91,146,0)}}
+#team .dz-in .dz-live{animation:dz-livek 1.4s ease-out infinite}
+#team .dz-in .dz-spin{animation:dz-spin 1s linear infinite}
+@keyframes dz-chk{0%,2%{opacity:0;transform:scale(.6)}6%,96%{opacity:1;transform:none}100%{opacity:0}}
+#team .dz-in .dz-chs span{animation:dz-chk 8s cubic-bezier(.3,1.5,.5,1) infinite}
+#team .dz-in .dz-chs span:nth-child(2){animation-delay:.12s}#team .dz-in .dz-chs span:nth-child(3){animation-delay:.24s}#team .dz-in .dz-chs span:nth-child(4){animation-delay:.36s}
+@keyframes dz-bar1{0%,8%{transform:scaleX(0)}20%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+@keyframes dz-ic1{0%,8%{transform:scale(1);box-shadow:none}10%,19%{transform:scale(1.14);box-shadow:0 0 0 5px rgba(255,212,59,.55)}22%,100%{transform:scale(1);box-shadow:none}}
+@keyframes dz-lb1{0%,19%{opacity:0;transform:translateY(4px)}22%,96%{opacity:1;transform:none}100%{opacity:0}}
+#team .dz-in .dz-staff>div:nth-child(1)>span:nth-child(1){animation:dz-ic1 8s ease infinite}
+#team .dz-in .dz-staff>div:nth-child(1)>span:nth-child(3){animation:dz-bar1 8s ease infinite}
+#team .dz-in .dz-staff>div:nth-child(1)>span:nth-child(4){animation:dz-lb1 8s ease infinite}
+@keyframes dz-bar2{0%,20%{transform:scaleX(0)}32%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+@keyframes dz-ic2{0%,20%{transform:scale(1);box-shadow:none}22%,31%{transform:scale(1.14);box-shadow:0 0 0 5px rgba(255,212,59,.55)}34%,100%{transform:scale(1);box-shadow:none}}
+@keyframes dz-lb2{0%,31%{opacity:0;transform:translateY(4px)}34%,96%{opacity:1;transform:none}100%{opacity:0}}
+#team .dz-in .dz-staff>div:nth-child(2)>span:nth-child(1){animation:dz-ic2 8s ease infinite}
+#team .dz-in .dz-staff>div:nth-child(2)>span:nth-child(3){animation:dz-bar2 8s ease infinite}
+#team .dz-in .dz-staff>div:nth-child(2)>span:nth-child(4){animation:dz-lb2 8s ease infinite}
+@keyframes dz-bar3{0%,32%{transform:scaleX(0)}44%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+@keyframes dz-ic3{0%,32%{transform:scale(1);box-shadow:none}34%,43%{transform:scale(1.14);box-shadow:0 0 0 5px rgba(255,212,59,.55)}46%,100%{transform:scale(1);box-shadow:none}}
+@keyframes dz-lb3{0%,43%{opacity:0;transform:translateY(4px)}46%,96%{opacity:1;transform:none}100%{opacity:0}}
+#team .dz-in .dz-staff>div:nth-child(3)>span:nth-child(1){animation:dz-ic3 8s ease infinite}
+#team .dz-in .dz-staff>div:nth-child(3)>span:nth-child(3){animation:dz-bar3 8s ease infinite}
+#team .dz-in .dz-staff>div:nth-child(3)>span:nth-child(4){animation:dz-lb3 8s ease infinite}
+@keyframes dz-bar4{0%,44%{transform:scaleX(0)}54%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+@keyframes dz-ic4{0%,44%{transform:scale(1);box-shadow:none}46%,53%{transform:scale(1.14);box-shadow:0 0 0 5px rgba(255,212,59,.55)}56%,100%{transform:scale(1);box-shadow:none}}
+@keyframes dz-lb4{0%,53%{opacity:0;transform:translateY(4px)}56%,96%{opacity:1;transform:none}100%{opacity:0}}
+#team .dz-in .dz-staff>div:nth-child(4)>span:nth-child(1){animation:dz-ic4 8s ease infinite}
+#team .dz-in .dz-staff>div:nth-child(4)>span:nth-child(3){animation:dz-bar4 8s ease infinite}
+#team .dz-in .dz-staff>div:nth-child(4)>span:nth-child(4){animation:dz-lb4 8s ease infinite}
+@keyframes dz-fck{0%,56%{opacity:0;transform:translateY(16px) scale(.96)}61%,95%{opacity:1;transform:none}100%{opacity:0;transform:translateY(8px)}}
+#team .dz-in .dz-fc{animation:dz-fck 8s cubic-bezier(.2,.8,.2,1) infinite}
+@keyframes dz-fx1k{0%,64%{opacity:.25}67%,100%{opacity:1}}
+@keyframes dz-st1k{0%,64%{width:0}67%,100%{width:100%}}
+#team .dz-in .dz-fx1{animation:dz-fx1k 8s ease infinite}
+#team .dz-in .dz-fx1 s::after{animation:dz-st1k 8s ease infinite}
+@keyframes dz-fx2k{0%,71%{opacity:.25}74%,100%{opacity:1}}
+@keyframes dz-st2k{0%,71%{width:0}74%,100%{width:100%}}
+#team .dz-in .dz-fx2{animation:dz-fx2k 8s ease infinite}
+#team .dz-in .dz-fx2 s::after{animation:dz-st2k 8s ease infinite}
+@keyframes dz-fx3k{0%,78%{opacity:.25}81%,100%{opacity:1}}
+@keyframes dz-st3k{0%,78%{width:0}81%,100%{width:100%}}
+#team .dz-in .dz-fx3{animation:dz-fx3k 8s ease infinite}
+#team .dz-in .dz-fx3 s::after{animation:dz-st3k 8s ease infinite}
+@media (prefers-reduced-motion: reduce){#team *,#team *::after,.dz-status{animation:none !important}}
+.dz-status{display:inline-flex;align-items:center;padding:7px 13px;border-radius:14px 14px 14px 4px;background:#3B5B92;color:#FFFFFF !important;font-weight:700;font-size:13px !important;box-shadow:0 6px 14px rgba(46,72,119,.22);animation:dz-bubbob 2.4s ease-in-out infinite}
+@keyframes dz-bubbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @keyframes dz-ringk{0%{transform:scale(1);opacity:.45}100%{transform:scale(2.1);opacity:0}}
 .dz-ring{position:absolute;inset:0;border-radius:50%;background:#3B5B92;animation:dz-ringk 2.2s cubic-bezier(.2,.6,.3,1) infinite}
 .dz-r2{animation-delay:1.1s}
@@ -396,10 +446,10 @@ section[id]{scroll-margin-top:72px}
 <div style="flex: 1 1 340px; min-width: 0; max-width: 470px; position: relative">
 <div aria-hidden="true" style="position: absolute; inset: 18px -14px -14px 18px; border-radius: 28px; background: #FFE45C; transform: rotate(4deg)"></div>
 
-<div class="form-box" style="position: relative; z-index: 1; background: #FFFFFF; border-radius: 24px; border: 1px solid #E3E6EE; box-shadow: 0 20px 48px rgba(20, 22, 31, 0.10); padding: 22px">
+<div class="form-box dz-tc" style="position: relative; z-index: 1; background: #FFFFFF; border-radius: 24px; border: 1px solid #E3E6EE; box-shadow: 0 20px 48px rgba(20, 22, 31, 0.10); padding: 22px">
 <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 14px">
 <span style="font-size: 13px; font-weight: 700; color: #5B6070">의뢰서 · No.0027</span>
-<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: #3B5B92; background: #E6ECF5; padding: 3px 10px; border-radius: 999px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #3B5B92"></span>진행 중</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: #3B5B92; background: #E6ECF5; padding: 3px 10px; border-radius: 999px"><span class="dz-live" style="width: 6px; height: 6px; border-radius: 50%; background: #3B5B92"></span>진행 중</span>
 </div>
 
 <div style="display: flex; gap: 8px; padding: 4px; background: #F3EFE6; border-radius: 12px; margin-bottom: 14px" role="group" aria-label="업종 예시 선택">
@@ -422,7 +472,7 @@ section[id]{scroll-margin-top:72px}
 <p style="margin: 0; font-size: 16px; font-weight: 700; line-height: 1.5">"새로 들어온 원목 식탁, 인스타에 올려줘"</p>
 </div>
 </div>
-<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px">
+<div class="dz-chs" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px">
 <span style="font-size: 12px; color: #3A3F4C; background: #F4F3F0; padding: 3px 10px; border-radius: 999px">인스타그램</span>
 <span style="font-size: 12px; color: #3A3F4C; background: #F4F3F0; padding: 3px 10px; border-radius: 999px">블로그</span>
 <span style="font-size: 12px; color: #3A3F4C; background: #F4F3F0; padding: 3px 10px; border-radius: 999px">맘카페</span>
@@ -430,7 +480,7 @@ section[id]{scroll-margin-top:72px}
 </div>
 
 <p style="margin: 0 0 12px; font-size: 13px; font-weight: 700">AI 직원 4명이 바로 일을 시작해요</p>
-<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px">
+<div class="dz-staff" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px">
 <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0">
 <span style="width: 44px; height: 44px; border-radius: 50%; background: #F4F3F0; color: #14161F; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-4.5-4.5"></path></svg></span>
 <span style="font-size: 12px; font-weight: 700; white-space: nowrap">자료 담당</span>
@@ -454,16 +504,16 @@ section[id]{scroll-margin-top:72px}
 </div>
 </div>
 <div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; background: #F8F9FC; font-size: 13px; color: #3A3F4C">
-<span style="width: 16px; height: 16px; border-radius: 50%; border: 2px solid #C7D3E6; border-top-color: #3B5B92; flex-shrink: 0"></span>
+<span class="dz-spin" style="width: 16px; height: 16px; border-radius: 50%; border: 2px solid #C7D3E6; border-top-color: #3B5B92; flex-shrink: 0"></span>
 광고 표현·가격 마지막 검토 중
 </div>
 </div>
 
-<div class="float-chip" style="position: absolute; right: -36px; bottom: -40px; z-index: 2; width: 230px; padding: 14px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E3E6EE; box-shadow: 0 16px 32px rgba(20, 22, 31, 0.14)">
+<div class="float-chip dz-fc" style="position: absolute; right: -36px; bottom: -40px; z-index: 2; width: 230px; padding: 14px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E3E6EE; box-shadow: 0 16px 32px rgba(20, 22, 31, 0.14)">
 <p style="display: flex; align-items: center; gap: 6px; margin: 0 0 10px; font-size: 13px; font-weight: 700; color: #3B5B92"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg>검토 담당이 고쳤어요</p>
-<p style="margin: 0 0 6px; font-size: 12px; color: #5B6070"><s>드라마틱 효과</s> → <b style="color: #14161F">피부 컨디션 정돈</b></p>
-<p style="margin: 0 0 6px; font-size: 12px; color: #5B6070"><s>효과 보장</s> → <b style="color: #14161F">문구 삭제</b></p>
-<p style="margin: 0; font-size: 12px; color: #5B6070">+ <b style="color: #14161F">(광고) 표시 추가</b></p>
+<p class="dz-fx dz-fx1" style="margin: 0 0 6px; font-size: 12px; color: #5B6070"><s>드라마틱 효과</s> → <b style="color: #14161F">피부 컨디션 정돈</b></p>
+<p class="dz-fx dz-fx2" style="margin: 0 0 6px; font-size: 12px; color: #5B6070"><s>효과 보장</s> → <b style="color: #14161F">문구 삭제</b></p>
+<p class="dz-fx dz-fx3" style="margin: 0; font-size: 12px; color: #5B6070">+ <b style="color: #14161F">(광고) 표시 추가</b></p>
 </div>
 </div>
 
