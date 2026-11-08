@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>필라테스메이트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 알아줌 브랜드: 차분한 블루 + 노랑 포인트, 아이보리 바탕. 모바일 한 손 사용 기준 단일 열 앱 */
+  --blue:#3B5B92; --blue-deep:#2E4877; --blue-tint:#E6ECF5;
+  --yellow:#FFD43B; --ivory:#FBF7EE; --ink:#14161F; --muted:#5B6070; --line:#E8E1D0;
+  --ok:#12A150; --warn:#C2410C; --warn-tint:#FFF1E8;
+  --font:'Noto Sans KR', system-ui, -apple-system, 'Apple SD Gothic Neo', sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--font);line-height:1.6;word-break:keep-all;-webkit-text-size-adjust:100%}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.app{max-width:460px;margin:0 auto;min-height:100vh;padding:0 16px 40px;display:flex;flex-direction:column;gap:14px}
+header{position:sticky;top:0;z-index:5;background:var(--ivory);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 0 10px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:36px;height:36px;border-radius:12px 12px 12px 4px;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px}
+.brand b{display:block;font-size:17px;font-weight:900;letter-spacing:-.4px;line-height:1.2}
+.brand small{display:block;font-size:12px;color:var(--muted)}
+.quota{font-size:12px;font-weight:700;color:var(--blue-deep);background:var(--blue-tint);padding:5px 10px;border-radius:999px;white-space:nowrap}
+.studio{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 14px}
+.studio .av{width:40px;height:40px;border-radius:50%;background:var(--blue-tint);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--blue)}
+.studio>div:not(.av){flex:1;min-width:0}
+.studio b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.studio span{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.link-btn{border:0;background:none;color:var(--blue);font-weight:700;font-size:13px;padding:8px 4px;white-space:nowrap}
+h1{margin:6px 0 0;font-size:22px;font-weight:900;letter-spacing:-.6px;line-height:1.35;text-wrap:balance}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tool{text-align:left;border:1px solid var(--line);background:#fff;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:8px;min-height:116px;transition:transform .15s ease,border-color .15s ease}
+.tool:active{transform:scale(.98)}
+.tool[aria-pressed="true"]{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue) inset}
+.tool .ic{width:36px;height:36px;border-radius:11px;background:var(--ink);color:var(--yellow);display:flex;align-items:center;justify-content:center}
+.tool b{font-size:15px;line-height:1.3}
+.tool span{font-size:12px;color:var(--muted);line-height:1.4}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px 16px;display:flex;flex-direction:column;gap:14px}
+.panel h2{margin:0;font-size:18px;font-weight:900;letter-spacing:-.4px}
+.step{display:flex;flex-direction:column;gap:8px}
+.step>label,.step>p{margin:0;font-size:13px;font-weight:700;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font-size:13.5px;font-weight:700;color:#3A3F4C}
+.chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+input[type=text],textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font-size:15px;background:#fff}
+textarea{min-height:88px;resize:vertical}
+.go{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:900;font-size:16px;min-height:52px;display:flex;align-items:center;justify-content:center;gap:8px}
+.go:disabled{opacity:.55}
+.result{display:flex;flex-direction:column;gap:10px}
+.out{white-space:pre-wrap;background:var(--ivory);border:1px solid var(--line);border-radius:14px;padding:14px;font-size:15px;line-height:1.7;min-height:80px}
+.out.thinking{color:var(--muted)}
+.check{display:flex;align-items:flex-start;gap:8px;font-size:13px;border-radius:12px;padding:10px 12px;background:#EAF6EF;color:#0B6B3A;font-weight:700}
+.check.bad{background:var(--warn-tint);color:var(--warn)}
+.check ul{margin:4px 0 0;padding-left:18px;font-weight:500}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.sub{flex:1 1 0;min-width:96px;border:1px solid var(--line);background:#fff;border-radius:12px;min-height:44px;font-size:14px;font-weight:700;padding:0 10px}
+.sub.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.note{font-size:12px;color:var(--muted);margin:0}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:13.5px;font-weight:700;opacity:0;pointer-events:none;transition:all .25s ease;z-index:20}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.card-prev{width:100%;border-radius:16px;border:1px solid var(--line);display:block;background:#eee}
+.themes{display:flex;gap:8px}
+.sw{width:38px;height:38px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--blue)}
+.fields{display:grid;gap:8px}
+dialog{border:0;border-radius:22px;padding:0;width:min(440px,calc(100% - 24px));max-height:calc(100% - 40px)}
+dialog::backdrop{background:rgba(20,22,31,.45)}
+.dlg{padding:20px 18px;display:flex;flex-direction:column;gap:12px}
+.dlg h2{margin:0;font-size:18px;font-weight:900}
+.dlg label{font-size:13px;font-weight:700;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+.mode{font-size:12px;color:var(--muted);text-align:center;margin:4px 0 0}
+.hidden{display:none !important}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand"><div class="logo" aria-hidden="true">알</div><div><b>필라테스메이트</b><small>알아줌 · 필라테스·요가 원장님 AI 직원</small></div></div>
+    <span class="quota" id="quota">오늘 10회 남음</span>
+  </header>
+
+  <section class="studio" aria-label="가게 정보">
+    <div class="av" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 7v6M8 21l4-8 4 8M6 11h12"/></svg></div>
+    <div><b id="stName"></b><span id="stMeta"></span></div>
+    <button class="link-btn" id="editStudio" type="button">정보 수정</button>
+  </section>
+
+  <h1>원장님, 오늘은 뭘 만들까요?</h1>
+
+  <div class="tools" role="group" aria-label="만들 것 고르기">
+    <button class="tool" type="button" data-tool="post" aria-pressed="true"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></span><b>홍보글</b><span>인스타·블로그·당근·플레이스</span></button>
+    <button class="tool" type="button" data-tool="card" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 15l5-4 4 3 3-2 6 4"/></svg></span><b>안내 카드</b><span>시간표·체험·휴강 이미지</span></button>
+    <button class="tool" type="button" data-tool="sms" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg></span><b>회원 문자</b><span>재등록·리마인드·안부</span></button>
+    <button class="tool" type="button" data-tool="review" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.9 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg></span><b>리뷰 답글</b><span>네이버·카카오 리뷰</span></button>
+  </div>
+
+  <section class="panel" id="panel" aria-live="polite"></section>
+  <p class="mode" id="mode"></p>
+  <p class="mode"><a href="https://alajoom-site.pages.dev/" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">알아줌 홈으로</a></p>
+</div>
+
+<dialog id="dlg">
+  <form class="dlg" id="stForm" method="dialog">
+    <h2>스튜디오 정보</h2>
+    <p class="note">한 번만 적어두면 모든 글에 자동으로 들어가요.</p>
+    <label for="fName">스튜디오 이름<input type="text" id="fName" maxlength="30"></label>
+    <label for="fArea">동네<input type="text" id="fArea" maxlength="30" placeholder="예: 망원동"></label>
+    <label for="fClass">대표 수업<input type="text" id="fClass" maxlength="60" placeholder="예: 1:1 기구 필라테스, 4인 그룹"></label>
+    <label for="fFeat">우리만의 특징<input type="text" id="fFeat" maxlength="80" placeholder="예: 원장 직강, 산후 회복 클래스"></label>
+    <label for="fContact">예약 방법<input type="text" id="fContact" maxlength="60" placeholder="예: 인스타 DM, 네이버 예약"></label>
+    <div class="step"><p>말투</p><div class="chips" id="fTone" role="group" aria-label="말투"></div></div>
+    <div class="row"><button class="sub" type="button" id="stCancel">닫기</button><button class="sub primary" type="submit" id="stSave">저장</button></div>
+  </form>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+var CFG = {
+  title:'필라테스메이트', sub:'알아줌 · 필라테스·요가 원장님 AI 직원', h1:'원장님, 오늘은 뭘 만들까요?', prof:'스튜디오 정보',
+  offline:'체험판 · 예시 문구로 보여드려요',
+  studio:{ name:'하루필라테스', area:'망원동', cls:'1:1 기구 필라테스, 4인 소그룹', feat:'원장 직강, 바른 자세 습관 만들기', contact:'인스타 DM · 네이버 예약', tone:'다정하게' },
+  clsName:'대표 수업', who:'회원', blogTag:'필라테스',
+  role:'너는 1인 필라테스 스튜디오 원장의 마케팅 비서야. 원장님이 직접 쓴 것처럼 자연스러운 한국어로 써.',
+  rule:'살 빠짐 약속, 효과 보장, 체형·척추 교정, 통증 치료, 100%, 최고·1위 같은 과장·의료 표현은 쓰지 마. 대신 "몸이 가벼워지는", "바른 자세 습관", "편안한 움직임" 같은 표현을 써.',
+  reviewRule:'리뷰에 건강 효과가 적혀 있어도 효과를 약속하는 말은 하지 마.',
+  tags:['{동네}필라테스','{동네}','필라테스','기구필라테스','소그룹필라테스','자세습관','운동기록'],
+  ch:{
+    '인스타':'인스타그램 게시글. 첫 줄은 눈길 끄는 한 문장. 본문 4~7줄, 이모지 2~4개. 마지막 줄에 예약 방법. 맨 아래 해시태그 8~10개(동네+필라테스 포함).',
+    '블로그':'네이버 블로그 글. 첫 줄에 제목. 소제목 3개로 나눠 500~700자. 마지막에 위치·예약 안내.',
+    '당근':'당근 동네생활/비즈프로필 소식. 이웃에게 말하듯 담백하게 5~7줄. 이모지는 1개 이하, 해시태그 없음.',
+    '네이버 플레이스':'네이버 플레이스 소식. 3~5줄로 짧고 핵심만. 해시태그 없음.'
+  },
+  tools:{
+    post:{ title:'홍보글 만들기', steps:[ {key:'topic', label:'무엇을 알릴까요?', opts:['체험 수업 모집','이달의 클래스','신규 회원 이벤트','강사 소개','원장의 운동 팁','휴강·일정 안내']}, {key:'ch', label:'어디에 올릴까요?', opts:['인스타','블로그','당근','네이버 플레이스']} ], detail:'한 줄로 더 알려주세요 (선택)', ph:'예: 11월 평일 저녁 체험 2만원, 선착순 5명' },
+    card:{ title:'안내 카드 만들기', steps:[ {key:'topic', label:'어떤 카드인가요?', opts:['체험 수업','이번 주 시간표','이벤트','휴강 안내']} ], detail:'카드에 넣을 내용 (선택)', ph:'예: 11/23(토) 휴강, 24일부터 정상 수업' },
+    sms:{ title:'회원 문자 만들기', steps:[ {key:'topic', label:'어떤 문자인가요?', opts:['재등록 안내','내일 수업 리마인드','오랜만에 안부','신규 회원 환영','생일 축하','휴강 안내']} ], detail:'덧붙일 내용 (선택)', ph:'예: 이번 달 재등록 시 1회 추가' },
+    review:{ title:'리뷰 답글 만들기', steps:[ {key:'topic', label:'어떤 리뷰인가요?', opts:['좋은 리뷰','아쉬운 리뷰']} ], detail:'받은 리뷰를 붙여 넣어주세요', ph:'예: 원장님이 자세를 하나하나 봐주셔서 좋았어요!', area:true }
+  },
+  risk:[
+    { re:/살\s?(이\s?)?(쭉\s?)?빠(져요|집니다|짐|진다|지는|져)/g, why:'체중 감량을 약속하는 표현', fix:'몸이 한결 가벼워지는' },
+    { re:/(효과|결과)\s?(를\s?)?보장/g, why:'효과 보장은 과장 광고', fix:'꾸준히 하면 달라지는' },
+    { re:/(체형|골반|척추|거북목)\s?교정/g, why:'의료적 교정으로 오해될 수 있음', fix:'바른 자세 습관' },
+    { re:/(통증\s?(치료|개선|해소|완화))|치료|완치/g, why:'치료 효과는 의료 광고 영역', fix:'편안한 움직임' },
+    { re:/100\s?%|무조건|확실(히|한)?|반드시/g, why:'단정적인 표현', fix:'' },
+    { re:/(지역|동네|업계)?\s?(최고|1위|No\.?\s?1|넘버원)/gi, why:'근거 없는 최상급 표현', fix:'' }
+  ],
+  fallback:function(s){ return {
+    '체험 수업 모집':'필라테스, 처음이라 망설여지셨나요?\n' + s.name + '에서 부담 없이 체험 수업부터 시작해 보세요.\n' + s.cls + '로 한 분 한 분 움직임을 살펴드려요.',
+    '이달의 클래스':'이번 달 ' + s.name + ' 클래스를 소개해요.\n' + s.cls + ', 원하는 시간에 맞춰 골라보세요.',
+    '신규 회원 이벤트':'새로 오시는 분들을 위한 작은 선물을 준비했어요.\n' + s.name + '에서 바른 자세 습관을 함께 만들어가요.',
+    '강사 소개':s.name + '을 이끄는 원장을 소개합니다.\n' + s.feat + '을 가장 중요하게 생각해요.',
+    '원장의 운동 팁':'하루 5분, 앉은 자리에서 해보세요.\n어깨를 귀에서 멀리 내리고 숨을 길게 내쉬기만 해도 몸이 한결 가벼워져요.',
+    '휴강·일정 안내':s.name + ' 일정 안내드려요.\n[날짜]는 휴강이며, 이후 정상 수업합니다.',
+    '재등록 안내':'[회원님], ' + s.name + '이에요. 이용권이 곧 끝나요. 지금처럼 꾸준히 이어가실 수 있게 재등록 안내드려요.',
+    '내일 수업 리마인드':'[회원님], 내일 [시간] 수업 잊지 않으셨죠? 편한 복장으로 오세요. - ' + s.name,
+    '오랜만에 안부':'[회원님], 요즘 잘 지내세요? 매트가 기다리고 있어요. 편할 때 다시 뵈어요. - ' + s.name,
+    '신규 회원 환영':'[회원님], ' + s.name + '에 오신 걸 환영해요! 첫 수업은 천천히, 몸 상태부터 함께 살펴볼게요.',
+    '생일 축하':'[회원님], 생일 축하드려요! 오늘 하루 몸도 마음도 가볍게 보내세요. - ' + s.name,
+    '휴강 안내':'[회원님], [날짜]는 휴강이에요. 다음 수업에서 반갑게 뵐게요. - ' + s.name,
+    '좋은 리뷰':'소중한 후기 정말 감사해요. 수업 시간에 집중해 주셔서 저도 즐거웠어요. 다음 수업에서도 편안한 움직임 함께 만들어가요. - ' + s.name + ' 원장',
+    '아쉬운 리뷰':'불편을 드려 죄송합니다. 말씀해 주신 부분은 바로 살펴보고 고치겠습니다. 괜찮으시다면 ' + s.contact + '로 연락 주시면 직접 듣고 싶어요. - ' + s.name + ' 원장'
+  }; },
+  cards:function(s){ return {
+    '체험 수업':{kicker:'체험 수업', title:'처음이어도\n괜찮아요', lines:['한 분 한 분 자세를 살펴드려요', s.cls, '체험 [가격] · 선착순 [인원]명']},
+    '이번 주 시간표':{kicker:'이번 주', title:'수업 시간표', lines:['평일 오전 10:00 · 11:00','평일 저녁 19:00 · 20:00','토요일 오전 10:00']},
+    '이벤트':{kicker:'이벤트', title:'신규 회원\n이벤트', lines:['첫 등록 시 [혜택]','기간 [날짜]까지']},
+    '휴강 안내':{kicker:'공지', title:'휴강 안내', lines:['[날짜]는 하루 쉬어가요','다음 날부터 정상 수업']}
+  }; }
+};
+
+(function(){
+  var $ = function(s, r){ return (r||document).querySelector(s); };
+  var esc = function(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var store = {
+    get: function(k, d){ try { var v = localStorage.getItem('pm_'+CFG.title+'_'+k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+    set: function(k, v){ try { localStorage.setItem('pm_'+CFG.title+'_'+k, JSON.stringify(v)); } catch(e){} }
+  };
+  var TONES = ['다정하게','밝고 경쾌하게','차분하고 전문적으로'];
+  var studio = store.get('studio', CFG.studio);
+  var today = new Date().toISOString().slice(0,10);
+  var quota = store.get('quota', {d:today, left:10}); if (quota.d !== today) quota = {d:today, left:10};
+  var sample = null, downloads = null;
+
+  function toast(t){ var el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(function(){ el.classList.remove('on'); }, 1800); }
+  function renderStudio(){ $('#stName').textContent = studio.name || '스튜디오 이름을 적어주세요'; $('#stMeta').textContent = [studio.area, studio.cls].filter(Boolean).join(' · '); }
+  function renderQuota(){ $('#quota').textContent = quota.left > 0 ? '오늘 ' + quota.left + '회 남음' : '오늘 횟수를 다 썼어요'; }
+  function useQuota(){ if (quota.left <= 0) return false; quota.left--; store.set('quota', quota); renderQuota(); return true; }
+
+  /* ---------- 광고 표현 검사 ---------- */
+  var RISK = CFG.risk;
+  function scan(text){ var hits = []; RISK.forEach(function(r){ var m = text.match(r.re); if (m) m.forEach(function(w){ hits.push({w:w.trim(), why:r.why, fix:r.fix}); }); }); return hits; }
+  function autofix(text){ RISK.forEach(function(r){ text = text.replace(r.re, r.fix); }); return text.replace(/[ \t]{2,}/g,' ').replace(/ +([.,!?])/g,'$1'); }
+
+  /* ---------- 도구 정의 ---------- */
+  var TOOLS = CFG.tools;
+  var tool = 'post', pick = {}, lastText = '', lastCard = null, theme = 0;
+
+  function renderPanel(){
+    var t = TOOLS[tool]; pick = {}; t.steps.forEach(function(s){ pick[s.key] = s.opts[0]; });
+    var h = '<h2>' + t.title + '</h2>';
+    t.steps.forEach(function(s){
+      h += '<div class="step"><p id="lb_'+s.key+'">'+s.label+'</p><div class="chips" role="group" aria-labelledby="lb_'+s.key+'">';
+      s.opts.forEach(function(o, i){ h += '<button type="button" class="chip" data-k="'+s.key+'" data-v="'+esc(o)+'" aria-pressed="'+(i===0)+'">'+esc(o)+'</button>'; });
+      h += '</div></div>';
+    });
+    h += '<div class="step"><label for="detail">'+t.detail+'</label>' + (t.area ? '<textarea id="detail" placeholder="'+esc(t.ph)+'"></textarea>' : '<input type="text" id="detail" placeholder="'+esc(t.ph)+'">') + '</div>';
+    h += '<button class="go" type="button" id="go">만들기<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>';
+    h += '<div class="result hidden" id="result"></div>';
+    $('#panel').innerHTML = h;
+  }
+
+  /* ---------- 프롬프트 ---------- */
+  function base(){
+    return CFG.role + '\n' +
+      '가게: ' + studio.name + ' / 동네: ' + studio.area + ' / ' + CFG.clsName + ': ' + studio.cls + ' / 특징: ' + studio.feat + ' / 예약·주문: ' + studio.contact + '\n' +
+      '말투: ' + studio.tone + '\n' +
+      '꼭 지킬 것:\n- ' + CFG.rule + '\n' +
+      '- 가격·날짜·인원은 사장님이 준 정보만 써. 없으면 [가격], [날짜]처럼 빈칸으로 남겨.\n- 결과물만 출력해. 설명, 머리말, 따옴표로 감싸기 없이.\n';
+  }
+  var CH = CFG.ch;
+  function prompt(detail){
+    var p = base();
+    if (tool === 'post') p += '\n작업: "' + pick.topic + '" 내용을 알리는 글을 써줘.\n형식: ' + CH[pick.ch] + '\n';
+    if (tool === 'sms') p += '\n작업: ' + CFG.who + '에게 보낼 "' + pick.topic + '" 문자를 써줘.\n형식: 2~4문장, 90자 안팎. 이름 자리는 [' + CFG.who + '님]으로. 끝에 가게 이름. 이모지는 0~1개.\n';
+    if (tool === 'review') p += '\n작업: 아래 ' + pick.topic + '에 다는 사장님 답글을 써줘.\n형식: 3~5문장. 리뷰에 나온 내용을 구체적으로 짚어서 감사 인사. ' + (pick.topic.indexOf('아쉬운') === 0 ? '변명하지 말고 사과 → 개선 약속 → 직접 연락 부탁 순서로.' : '다음 방문을 반기는 인사로 마무리.') + ' ' + CFG.reviewRule + '\n리뷰: """' + (detail || '(리뷰 없음)') + '"""\n';
+    if (tool !== 'review' && detail) p += '사장님이 준 정보: ' + detail + '\n';
+    return p;
+  }
+  function cardPrompt(detail){
+    return base() + '\n작업: 인스타용 "' + pick.topic + '" 안내 카드 문구를 만들어줘.' + (detail ? ' 사장님이 준 정보: ' + detail : '') +
+      '\nJSON으로만 답해: {"kicker":"6자 이내 머리말","title":"14자 이내 큰 제목, 줄바꿈은 \\n 한 번까지","lines":["18자 이내 안내 줄", "..." 최대 4개],"footer":"예약 방법 짧게"}';
+  }
+
+  /* ---------- 예시 문구 (AI 연결이 안 될 때) ---------- */
+  function fallback(detail){
+    var s = studio, d = detail ? '\n' + detail : '';
+    var t = CFG.fallback(s)[pick.topic] || '';
+    if (tool === 'post' && t) t += d;
+    if (tool === 'post'){
+      var area = (s.area || '').replace(/\s/g,'');
+      if (pick.ch === '인스타') t = '✨ ' + t + '\n\n📍 ' + s.area + ' · ' + s.contact + '\n\n' + CFG.tags.map(function(x){ return '#' + x.replace('{동네}', area); }).join(' ') + ' #' + s.name.replace(/\s/g,'');
+      else if (pick.ch === '블로그') t = '[' + s.area + ' ' + CFG.blogTag + '] ' + s.name + ' ' + pick.topic + '\n\n' + t + '\n\n위치: ' + s.area + '\n예약·문의: ' + s.contact;
+      else t = t + '\n문의: ' + s.contact;
+    }
+    return t;
+  }
+  function cardFallback(detail){
+    var c = JSON.parse(JSON.stringify(CFG.cards(studio)[pick.topic]));
+    if (detail) c.lines = [detail].concat(c.lines).slice(0, 4);
+    c.footer = studio.contact; return c;
+  }
+
+  /* ---------- 카드 그리기 ---------- */
+  var THEMES = [
+    {bg:'#F3EDE2', blob:'#E3D5BE', ink:'#1F2230', acc:'#3B5B92', pill:'#1F2230', pillT:'#FFD43B', name:'베이지'},
+    {bg:'#2E4877', blob:'#3B5B92', ink:'#FFFFFF', acc:'#FFD43B', pill:'#FFD43B', pillT:'#14161F', name:'블루'},
+    {bg:'#FFE45C', blob:'#FFD43B', ink:'#14161F', acc:'#2E4877', pill:'#14161F', pillT:'#FFE45C', name:'옐로'}
+  ];
+  function wrap(ctx, text, maxW){ var out = []; String(text).split('\n').forEach(function(par){ var line = ''; Array.from(par).forEach(function(ch){ var test = line + ch; if (ctx.measureText(test).width > maxW && line){ out.push(line); line = ch; } else line = test; }); out.push(line); }); return out; }
+  function drawCard(c){
+    var th = THEMES[theme], W = 1080, H = 1350, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    var x = cv.getContext('2d'), F = "'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif";
+    x.fillStyle = th.bg; x.fillRect(0,0,W,H);
+    x.fillStyle = th.blob; x.beginPath(); x.arc(W-120, 210, 330, 0, Math.PI*2); x.fill();
+    x.beginPath(); x.arc(110, H-90, 220, 0, Math.PI*2); x.fill();
+    var y = 190;
+    x.font = '900 40px ' + F; var kw = x.measureText(c.kicker || '').width + 64;
+    x.fillStyle = th.pill; roundRect(x, 90, y, kw, 76, 38); x.fill();
+    x.fillStyle = th.pillT; x.textBaseline = 'middle'; x.fillText(c.kicker || '', 122, y + 39);
+    y += 150; x.textBaseline = 'alphabetic';
+    x.font = '900 118px ' + F; x.fillStyle = th.ink;
+    wrap(x, c.title || '', W - 180).slice(0, 3).forEach(function(l){ y += 128; x.fillText(l, 90, y); });
+    y += 70; x.fillStyle = th.acc; x.fillRect(90, y, 120, 12); y += 40;
+    x.font = '500 48px ' + F;
+    (c.lines || []).slice(0, 4).forEach(function(l){
+      wrap(x, l, W - 240).slice(0, 2).forEach(function(seg, i){ y += 78; if (i === 0){ x.fillStyle = th.acc; x.beginPath(); x.arc(108, y - 16, 10, 0, Math.PI*2); x.fill(); } x.fillStyle = th.ink; x.fillText(seg, 140, y); });
+      y += 10;
+    });
+    x.font = '900 46px ' + F; x.fillStyle = th.ink; x.fillText(studio.name, 90, H - 150);
+    x.font = '500 36px ' + F; x.globalAlpha = .8; x.fillText([studio.area, c.footer].filter(Boolean).join('  ·  '), 90, H - 92); x.globalAlpha = 1;
+    return cv;
+  }
+  function roundRect(x, l, t, w, h, r){ x.beginPath(); x.moveTo(l+r, t); x.arcTo(l+w, t, l+w, t+h, r); x.arcTo(l+w, t+h, l, t+h, r); x.arcTo(l, t+h, l, t, r); x.arcTo(l, t, l+w, t, r); x.closePath(); }
+
+  /* ---------- 결과 렌더 ---------- */
+  function showText(text, streaming){
+    var r = $('#result'); r.classList.remove('hidden');
+    if (!$('#out')) r.innerHTML = '<div class="out" id="out"></div><div id="chk"></div><div class="row" id="acts"></div>';
+    var out = $('#out'); out.textContent = text || '쓰는 중…'; out.classList.toggle('thinking', !text);
+    if (streaming) return;
+    lastText = text;
+    var hits = scan(text), chk = $('#chk');
+    if (!hits.length) chk.innerHTML = '<div class="check"><span>✓</span><span>광고 표현 검사 통과. 과장·의료 표현이 없어요.</span></div>';
+    else chk.innerHTML = '<div class="check bad"><span>!</span><span>광고 주의 표현 ' + hits.length + '개<ul>' + hits.map(function(h){ return '<li>"' + esc(h.w) + '" · ' + h.why + '</li>'; }).join('') + '</ul></span></div>';
+    var a = '<button type="button" class="sub primary" data-act="copy">복사하기</button>';
+    if (hits.length) a += '<button type="button" class="sub" data-act="fix">안전하게 고치기</button>';
+    a += '<button type="button" class="sub" data-act="again">다시 만들기</button>';
+    if (tool !== 'review') a += '<button type="button" class="sub" data-act="short">더 짧게</button>';
+    $('#acts').innerHTML = a;
+  }
+  function showCard(c){
+    lastCard = c; var r = $('#result'); r.classList.remove('hidden');
+    var cv = drawCard(c), url = cv.toDataURL('image/png');
+    var h = '<img class="card-prev" id="cardImg" alt="' + esc((c.title||'').replace(/\n/g,' ')) + ' 안내 카드" src="' + url + '">';
+    h += '<div class="step"><p>색상</p><div class="themes" role="group" aria-label="카드 색상">' + THEMES.map(function(t, i){ return '<button type="button" class="sw" data-th="' + i + '" aria-pressed="' + (i===theme) + '" aria-label="' + t.name + '" style="background:' + t.bg + '"></button>'; }).join('') + '</div></div>';
+    h += '<div class="fields"><input type="text" id="cTitle" aria-label="큰 제목" value="' + esc((c.title||'').replace(/\n/g,' / ')) + '">';
+    (c.lines||[]).forEach(function(l, i){ h += '<input type="text" class="cLine" aria-label="안내 줄 ' + (i+1) + '" value="' + esc(l) + '">'; });
+    h += '</div><div class="row"><button type="button" class="sub" data-act="redraw">문구 반영</button>' + (downloads ? '<button type="button" class="sub primary" data-act="save">이미지 저장</button>' : '') + '<button type="button" class="sub" data-act="again">다시 만들기</button></div>';
+    h += '<p class="note">' + (downloads ? '' : '이미지를 길게 누르면 저장할 수 있어요. ') + '제목의 " / "는 줄바꿈이에요. [ ] 칸은 꼭 채워주세요.</p>';
+    r.innerHTML = h;
+    var hits = scan([c.title].concat(c.lines||[]).join(' '));
+    if (hits.length) r.insertAdjacentHTML('afterbegin', '<div class="check bad"><span>!</span><span>광고 주의 표현: ' + hits.map(function(x){ return esc(x.w); }).join(', ') + '</span></div>');
+  }
+
+  /* ---------- 생성 ---------- */
+  var busy = false;
+  async function generate(extra){
+    if (busy) return;
+    var detail = ($('#detail') && $('#detail').value.trim()) || '';
+    if (tool === 'review' && !detail){ toast('받은 리뷰를 먼저 붙여 넣어주세요'); $('#detail').focus(); return; }
+    if (!useQuota()){ toast('오늘 횟수를 다 썼어요. 내일 다시 10회가 생겨요'); return; }
+    busy = true; var go = $('#go'); go.disabled = true;
+    try {
+      if (tool === 'card'){
+        var c = null;
+        if (sample){ try { c = await sample.json(cardPrompt(detail), {modelTier:'quick'}); } catch(e){ c = null; } }
+        if (!c || !c.title) c = cardFallback(detail);
+        c.lines = (c.lines || []).filter(Boolean).slice(0, 4);
+        if (document.fonts && document.fonts.load) { try { await Promise.all([document.fonts.load("900 40px 'Noto Sans KR'"), document.fonts.load("500 40px 'Noto Sans KR'")]); } catch(e){} }
+        showCard(c);
+      } else {
+        showText('', true);
+        var text = '';
+        if (sample){
+          try {
+            var res = await sample(prompt(detail) + (extra || ''), { modelTier:'quick', cache:false, onText:function(e){ if (e.text) showText(e.text, true); } });
+            text = (res && res.text || '').trim();
+          } catch(e){ if (e && e.code === 'rate_limited') toast('잠시 후 다시 눌러주세요'); text = ''; }
+        }
+        if (!text) text = fallback(detail);
+        showText(text, false);
+      }
+    } finally { busy = false; go.disabled = false; }
+  }
+
+  /* ---------- 이벤트 ---------- */
+  document.addEventListener('click', async function(e){
+    var t = e.target.closest('button'); if (!t) return;
+    if (t.dataset.tool){ tool = t.dataset.tool; document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); renderPanel(); $('#panel').scrollIntoView({behavior:'smooth', block:'start'}); return; }
+    if (t.classList.contains('chip') && t.dataset.k){ pick[t.dataset.k] = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); return; }
+    if (t.id === 'go') return generate();
+    var act = t.dataset.act;
+    if (act === 'copy'){ try { await navigator.clipboard.writeText(lastText); toast('복사했어요. 붙여 넣기만 하세요'); } catch(err){ toast('글을 길게 눌러 복사해 주세요'); } }
+    if (act === 'fix'){ showText(autofix(lastText), false); toast('주의 표현을 바꿨어요'); }
+    if (act === 'again') generate();
+    if (act === 'short') generate('\n추가 요청: 지금보다 절반 길이로 더 짧게.');
+    if (t.dataset.th){ theme = +t.dataset.th; readCardInputs(); showCard(lastCard); }
+    if (act === 'redraw'){ readCardInputs(); showCard(lastCard); toast('카드에 반영했어요'); }
+    if (act === 'save' && downloads){
+      readCardInputs(); var cv = drawCard(lastCard);
+      cv.toBlob(async function(b){ try { await downloads.save({filename:(studio.name || CFG.title) + '_안내카드.png', data:b}); toast('저장했어요'); } catch(err){ toast(err && err.code === 'declined' ? '저장을 취소했어요' : '이미지를 길게 눌러 저장해 주세요'); } }, 'image/png');
+    }
+  });
+  function readCardInputs(){ if (!lastCard || !$('#cTitle')) return; lastCard.title = $('#cTitle').value.split(/\s*\/\s*/).join('\n'); lastCard.lines = Array.prototype.map.call(document.querySelectorAll('.cLine'), function(i){ return i.value.trim(); }).filter(Boolean); }
+
+  /* 스튜디오 정보 */
+  var dlg = $('#dlg'), toneSel = studio.tone;
+  $('#fTone').innerHTML = TONES.map(function(t){ return '<button type="button" class="chip" data-tone="' + t + '" aria-pressed="false">' + t + '</button>'; }).join('');
+  $('#fTone').addEventListener('click', function(e){ var b = e.target.closest('[data-tone]'); if (!b) return; toneSel = b.dataset.tone; this.querySelectorAll('.chip').forEach(function(c){ c.setAttribute('aria-pressed', c === b); }); });
+  $('#editStudio').addEventListener('click', function(){
+    $('#fName').value = studio.name; $('#fArea').value = studio.area; $('#fClass').value = studio.cls; $('#fFeat').value = studio.feat; $('#fContact').value = studio.contact; toneSel = studio.tone;
+    $('#fTone').querySelectorAll('.chip').forEach(function(c){ c.setAttribute('aria-pressed', c.dataset.tone === toneSel); });
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+  });
+  $('#stCancel').addEventListener('click', function(){ dlg.close ? dlg.close() : dlg.removeAttribute('open'); });
+  $('#stForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    studio = { name:$('#fName').value.trim() || '우리 가게', area:$('#fArea').value.trim(), cls:$('#fClass').value.trim(), feat:$('#fFeat').value.trim(), contact:$('#fContact').value.trim() || '전화 문의', tone:toneSel };
+    store.set('studio', studio); renderStudio(); dlg.close ? dlg.close() : dlg.removeAttribute('open'); toast('저장했어요');
+  });
+
+  renderStudio(); renderQuota(); renderPanel();
+  $('#mode').textContent = CFG.offline;
+  if (window.claude && window.claude.use){
+    window.claude.use('sample').then(function(s){ sample = s; $('#mode').textContent = s ? 'AI 직원이 연결돼 있어요 · 시제품' : CFG.offline; }).catch(function(){});
+    window.claude.use('downloads').then(function(d){ downloads = d; }).catch(function(){});
+  }
+})();
+</script>
+</body>
+</html>
