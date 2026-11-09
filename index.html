@@ -430,6 +430,57 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .mate-card .mv-tile{padding:34px 12px 12px !important;gap:3px !important;justify-content:flex-start !important}
 .mate-card .mv-tile small{font-size:10px !important}.mate-card .mv-tile b{font-size:13px !important}.mate-card .mv-tile em{display:none !important}
 }
+
+/* ERP section */
+#erp{position:relative;overflow:hidden}
+.erp-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.erp-list{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:10px}
+.erp-list li{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:16px;background:#FFFFFF;border:1px solid #E6E8ED}
+.erp-list i{font-style:normal;font-size:22px;line-height:1}
+.erp-list b{display:block;font-size:16px;font-weight:800;letter-spacing:-.3px}
+.erp-list span{display:block;margin-top:2px;font-size:14px;color:#5B6070;line-height:1.45}
+.erp-cta{display:inline-flex;align-items:center;min-height:52px;padding:0 26px;border-radius:14px;background:#14161F;color:#fff;font-size:16px;font-weight:800;text-decoration:none}
+.erp-visual{display:flex;flex-direction:column;align-items:center}
+.erp-ph{width:300px;padding:14px;border-radius:34px;background:#0B0C10;box-shadow:0 26px 50px rgba(20,22,31,.2);box-sizing:border-box}
+.erp-ph>*{background:#F6F7FA}
+.erp-top{display:flex;justify-content:space-between;align-items:baseline;padding:16px 16px 10px;border-radius:22px 22px 0 0;background:#FFFFFF !important}
+.erp-top b{font-size:15px;font-weight:900}.erp-top span{font-size:11.5px;color:#8A8F9C}
+.erp-tabs{display:flex;gap:4px;padding:0 12px 10px;background:#FFFFFF !important;border-bottom:1px solid #EEF0F4}
+.erp-tabs button{flex:1;border:0;border-radius:10px;padding:8px 0;font:inherit;font-size:13px;font-weight:700;color:#6A6F7C;background:#F2F3F6;cursor:pointer}
+.erp-tabs button.on{background:#3B5B92;color:#fff}
+.erp-panels{position:relative;height:300px;border-radius:0 0 22px 22px;overflow:hidden}
+.erp-pn{position:absolute;inset:0;padding:12px;display:flex;flex-direction:column;gap:8px;opacity:0;transform:translateX(16px);transition:opacity .35s,transform .35s;pointer-events:none}
+.erp-pn.on{opacity:1;transform:none;pointer-events:auto}
+.erp-sum{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.erp-sum>div{padding:10px 12px;border-radius:12px;background:#FFFFFF}
+.erp-sum small,.erp-row small{display:block;font-size:11px;color:#8A8F9C}
+.erp-sum b{font-size:17px;font-weight:900;letter-spacing:-.4px}.erp-sum b.r{color:#C2410C}
+.erp-net{padding:8px 12px;border-radius:12px;background:#FFF4C2;font-size:12.5px;color:#5A4A00}.erp-net b{font-size:15px;color:#14161F}
+.erp-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;background:#FFFFFF}
+.erp-row>div{flex:1;min-width:0}.erp-row b{font-size:13.5px;font-weight:700}
+.erp-av{flex:none;width:30px;height:30px;border-radius:50%;background:#E6ECF5;color:#2E4877;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.erp-row em{flex:none;font-style:normal;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:#F2F3F6;color:#5B6070}
+.erp-row em.g{background:#E3F4EA;color:#17803D}.erp-row em.y{background:#FFF1C2;color:#8A5A00}
+.erp-row em.p{background:none;color:#17803D;font-size:13px;padding:0}.erp-row em.m{background:none;color:#C2410C;font-size:13px;padding:0}
+.erp-alert{margin-top:auto;padding:10px 12px;border-radius:12px;background:#14161F;color:#fff;font-size:12.5px;font-weight:700}
+.erp-note{margin:12px 0 0;font-size:12px;color:#8A8F9C}
+@media (max-width:720px){
+.erp-grid{grid-template-columns:1fr;gap:14px}
+#erp .h2{font-size:26px !important}#erp .lead{font-size:14.5px !important;margin-bottom:0 !important}
+.erp-copy{display:contents}
+.erp-copy>.eyebrow{order:1}.erp-copy>.h2{order:2}.erp-copy>.lead{order:3}
+.erp-visual{order:4}.erp-list{order:5;margin:0 !important;gap:6px !important}.erp-cta{order:6;justify-content:center}
+.erp-ph{width:236px;padding:9px;border-radius:28px}
+.erp-top{padding:11px 12px 8px;border-radius:20px 20px 0 0}.erp-tabs{padding:0 9px 8px}.erp-tabs button{padding:6px 0;font-size:12px}
+.erp-panels{height:212px;border-radius:0 0 20px 20px}.erp-pn{padding:9px;gap:6px}
+.erp-sum b{font-size:14px}.erp-row{padding:7px 10px}.erp-row b{font-size:12px}.erp-av{width:24px;height:24px;font-size:11px}
+.erp-pn .erp-row:nth-of-type(n+5){display:none}.erp-alert{font-size:11px;padding:7px 10px}
+.erp-note{margin-top:6px;font-size:11px}
+.erp-copy>.eyebrow{justify-self:start}
+.erp-list{grid-template-columns:repeat(3,1fr) !important}
+.erp-list li{flex-direction:column;align-items:center;text-align:center;padding:9px 4px;border-radius:12px;gap:4px}.erp-list i{font-size:18px}.erp-list b{font-size:12.5px;letter-spacing:-.4px}.erp-list span{display:none !important}
+.erp-cta{min-height:46px;font-size:15px}
+}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
@@ -933,6 +984,51 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 </div>
 </section>
 
+<!-- 매장관리 ERP -->
+<section id="erp" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
+<div class="erp-grid">
+<div class="erp-copy">
+<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>매장관리 ERP · 출시 예정</p>
+<h2 class="h2" style="margin: 0 0 12px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">매장관리도<br><span style="color:#3B5B92">평생 무료</span>로 해줌</h2>
+<p class="lead" style="margin: 0 0 22px; font-size: 17px; color: #4A5060">공책·엑셀에 흩어진 고객, 장부, 거래처를 휴대폰 하나로. 구독료 없이 계속 써요.</p>
+<ul class="erp-list">
+<li><i>👥</i><div><b>고객관리</b><span>방문 횟수·마지막 방문일을 기록하고, 뜸한 단골은 재방문 문자로</span></div></li>
+<li><i>📒</i><div><b>매출·매입 장부</b><span>카드·현금 매출과 재료비를 입력하면 오늘·이번 달 순이익이 바로</span></div></li>
+<li><i>🤝</i><div><b>거래처 관리</b><span>거래처별 미지급금과 결제일을 한눈에, 결제일 전에 알려줘요</span></div></li>
+</ul>
+<a href="#contact" data-notify="" data-mname="매장관리 ERP" class="erp-cta">출시 알림 받기</a>
+</div>
+<div class="erp-visual" aria-label="매장관리 ERP 화면 예시">
+<div class="erp-ph">
+<div class="erp-top"><b>연남해장국</b><span>11월 9일 (월)</span></div>
+<div class="erp-tabs" role="tablist"><button type="button" class="on" data-t="0">고객</button><button type="button" data-t="1">장부</button><button type="button" data-t="2">거래처</button></div>
+<div class="erp-panels">
+<div class="erp-pn on">
+<div class="erp-sum"><div><small>전체 고객</small><b>248명</b></div><div><small>이번 달 재방문</small><b>61%</b></div></div>
+<div class="erp-row"><span class="erp-av">민</span><div><b>김민지</b><small>방문 12회 · 3일 전</small></div><em class="g">단골</em></div>
+<div class="erp-row"><span class="erp-av">서</span><div><b>이서준</b><small>방문 4회 · 23일 전</small></div><em class="y">문자 추천</em></div>
+<div class="erp-row"><span class="erp-av">하</span><div><b>박하늘</b><small>첫 방문 · 오늘</small></div><em>신규</em></div>
+</div>
+<div class="erp-pn">
+<div class="erp-sum"><div><small>오늘 매출</small><b>482,000</b></div><div><small>오늘 매입</small><b class="r">126,000</b></div></div>
+<div class="erp-net">순이익 <b>356,000원</b></div>
+<div class="erp-row"><div><b>카드 매출</b><small>34건</small></div><em class="p">+320,000</em></div>
+<div class="erp-row"><div><b>현금·계좌</b><small>11건</small></div><em class="p">+162,000</em></div>
+<div class="erp-row"><div><b>식자재 · 연남상회</b><small>매입</small></div><em class="m">−126,000</em></div>
+</div>
+<div class="erp-pn">
+<div class="erp-row"><div><b>연남상회</b><small>식자재 · 결제일 25일</small></div><em class="y">미지급 126,000</em></div>
+<div class="erp-row"><div><b>한빛인쇄</b><small>전단·메뉴판</small></div><em class="g">정산 완료</em></div>
+<div class="erp-row"><div><b>그린세탁</b><small>앞치마·행주 · 월말</small></div><em>월 정산</em></div>
+<div class="erp-alert">🔔 연남상회 결제일이 3일 남았어요</div>
+</div>
+</div>
+</div>
+<p class="erp-note">화면 예시 · 실제 화면은 달라질 수 있어요</p>
+</div>
+</div>
+</section>
+
 <!-- 요금제 -->
 <section id="pricing" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
 <p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>요금제</p>
@@ -1264,6 +1360,13 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
         if (b) { for (var i = 0; i < b.options.length; i++) if (b.options[i].text.trim() === v) b.selectedIndex = i; }
         if (msg && !msg.value) msg.value = n + ' 출시되면 알려주세요.';
       });
+    });
+    // ERP mock tabs
+    Array.prototype.forEach.call(root.querySelectorAll('.erp-ph'), function (ph) {
+      var bs = ph.querySelectorAll('.erp-tabs button'), ps = ph.querySelectorAll('.erp-pn'), cur = 0, held = 0;
+      var go = function (k) { cur = k; for (var i = 0; i < bs.length; i++) { bs[i].classList.toggle('on', i === k); if (ps[i]) ps[i].classList.toggle('on', i === k); } };
+      Array.prototype.forEach.call(bs, function (b, i) { b.addEventListener('click', function () { held = Date.now() + 8000; go(i); }); });
+      setInterval(function () { var r = ph.getBoundingClientRect(), vh = window.innerHeight || 800; if (Date.now() < held || r.bottom < 0 || r.top > vh) return; go((cur + 1) % bs.length); }, 2600);
     });
     var hint = root.querySelector('.swipe-hint'); if (hint) hint.classList.add('dz-hide');
   } catch (err) {}
