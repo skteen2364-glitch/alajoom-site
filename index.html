@@ -481,6 +481,18 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .erp-list li{flex-direction:column;align-items:center;text-align:center;padding:9px 4px;border-radius:12px;gap:4px}.erp-list i{font-size:18px}.erp-list b{font-size:12.5px;letter-spacing:-.4px}.erp-list span{display:none !important}
 .erp-cta{min-height:46px;font-size:15px}
 }
+
+/* sheet sizing fix */
+.dz-ms-media{max-height:40vh}
+.dz-ms.has-v .dz-ms-media video{object-fit:contain;background:#0B0C10}
+@media (max-width:720px){.dz-ms.has-v .dz-ms-media{aspect-ratio:auto !important;height:40vh}}
+@media (min-width:721px){
+.dz-ms-pan{max-height:88vh}
+.dz-ms.has-v .dz-ms-pan{max-width:760px;display:grid;grid-template-columns:280px 1fr;column-gap:26px;align-content:start;padding:40px 28px 26px}
+.dz-ms.has-v .dz-ms-media{grid-column:1;grid-row:1 / span 8;aspect-ratio:9/16 !important;max-height:min(72vh,500px);margin:0;align-self:start}
+.dz-ms.has-v .dz-ms-pan>*:not(.dz-ms-media):not(.dz-ms-grip):not(.dz-ms-x){grid-column:2}
+.dz-ms.has-v .dz-ms-en{margin-top:6px}
+}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
@@ -1336,7 +1348,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       var openM = function (card) {
         var k = card.getAttribute('data-mate'), d = D[k]; if (!d) return;
         var med = q('.dz-ms-media'), vid = card.getAttribute('data-video'), img = card.querySelector('.mate-visual img'), tile = card.querySelector('.mv-tile');
-        if (vid) { var v = doc.createElement('video'); v.src = vid; if (img) v.poster = img.getAttribute('src'); v.muted = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.loop = true; v.autoplay = true; v.controls = true; med.style.aspectRatio = '9/12'; med.appendChild(v); setTimeout(function () { try { v.play(); } catch (e) {} }, 100); }
+        sh.classList.toggle('has-v', !!vid);
+        if (vid) { var v = doc.createElement('video'); v.src = vid; if (img) v.poster = img.getAttribute('src'); v.muted = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.loop = true; v.autoplay = true; v.controls = true; med.style.aspectRatio = ''; med.appendChild(v); setTimeout(function () { try { v.play(); } catch (e) {} }, 100); }
         else if (img) { med.style.aspectRatio = '16/11'; var im = doc.createElement('img'); im.src = img.getAttribute('src'); im.alt = img.alt; med.appendChild(im); }
         else if (tile) { med.style.aspectRatio = '16/9'; med.appendChild(tile.cloneNode(true)); }
         q('.dz-ms-en').textContent = d[0]; q('h3').textContent = d[1]; q('.dz-ms-sub').textContent = d[2];
