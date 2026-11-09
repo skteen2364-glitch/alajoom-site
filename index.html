@@ -10,6 +10,11 @@
 <meta property="og:image" content="https://alajoom-site.pages.dev/assets/alajoom-poster.jpg">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#FFF8E7">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="알아줌">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 2a30 30 0 0 1 30 30a30 30 0 0 1-30 30H6a4 4 0 0 1-4-4V32A30 30 0 0 1 32 2z' fill='%23FFD43B'/%3E%3Ctext x='33' y='44' font-size='32' font-weight='900' text-anchor='middle' fill='%2314161F' font-family='sans-serif'%3E%EC%95%8C%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap">
 <style>
@@ -1229,6 +1234,30 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       io.unobserve(en.target); }); }, {threshold:0.3});
     secs.forEach(function(sec){ sec.classList.add('dz-sr'); io.observe(sec); });
   } catch(err) {}
+})();
+</script>
+<div id="dz-install" role="dialog" aria-label="홈 화면에 추가" style="display:none;position:fixed;left:12px;right:12px;bottom:14px;z-index:9999;max-width:420px;margin:0 auto;padding:12px 12px 12px 14px;border-radius:18px;background:#14161F;color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.28);align-items:center;gap:12px;font-size:14px;line-height:1.4">
+<img src="/assets/icon-192.png" alt="" width="40" height="40" style="border-radius:10px;flex:none">
+<div style="flex:1;min-width:0"><b style="display:block;font-size:14.5px">알아줌을 바탕화면에</b><span id="dz-install-msg" style="color:#C9CCD6;font-size:12.5px">앱처럼 바로 열 수 있어요</span></div>
+<button id="dz-install-go" type="button" style="flex:none;border:0;border-radius:12px;background:#FFD43B;color:#14161F;font-weight:800;font-size:14px;padding:10px 14px;cursor:pointer">추가</button>
+<button id="dz-install-x" type="button" aria-label="닫기" style="flex:none;border:0;background:none;color:#8A8F9C;font-size:20px;padding:4px 6px;cursor:pointer">×</button>
+</div>
+<script>
+(function(){
+  if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
+  var box=document.getElementById('dz-install'),go=document.getElementById('dz-install-go'),x=document.getElementById('dz-install-x'),msg=document.getElementById('dz-install-msg');
+  var standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone;
+  var off=function(){try{return localStorage.getItem('dz_install_off')}catch(e){return null}};
+  if(standalone||off())return;
+  var show=function(){setTimeout(function(){box.style.display='flex';},4000);};
+  var deferred=null;
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;show();});
+  var ua=navigator.userAgent||'';
+  var ios=/iPhone|iPad|iPod/.test(ua)&&!/CriOS|FxiOS|KAKAOTALK|NAVER|Instagram/.test(ua);
+  if(ios){msg.textContent='아래 공유 버튼 → "홈 화면에 추가"';go.style.display='none';show();}
+  go.addEventListener('click',function(){if(!deferred)return;deferred.prompt();deferred.userChoice.finally(function(){deferred=null;box.style.display='none';});});
+  x.addEventListener('click',function(){box.style.display='none';try{localStorage.setItem('dz_install_off','1')}catch(e){}});
+  window.addEventListener('appinstalled',function(){box.style.display='none';});
 })();
 </script>
 </body>
