@@ -513,6 +513,25 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .pv-fx-chips{display:flex;flex-wrap:wrap;gap:5px;padding:10px 10px 0}.pv-fx-chips span{padding:4px 8px;border-radius:999px;background:#23262F;font-size:10.5px;color:#E3E5EA}
 .pv-fx-tag{margin:auto 10px 12px;padding:8px 10px;border-radius:10px;background:#1C1F27;font-size:10.5px;color:#A3A8B5;text-align:center}
 @media (min-width:1001px){.pv-row{gap:22px}.pv-phone{width:250px}}
+
+/* photo fix v2 + kakao */
+.pv-fx-box.sq{aspect-ratio:1/1}.pv-fx-box.wd{aspect-ratio:850/700;margin-top:4px}
+.pv-fx-box.d2 .aft,.pv-fx-box.d2 .ln{animation-delay:-2.5s}
+.pv-fx-lb{margin:6px 12px 8px;font-size:10.5px;color:#C9CCD6;font-weight:600}
+.pv-fx-tag{margin:10px 10px 12px !important}
+.pv-kt{background:#B2C7DA;display:flex;flex-direction:column;gap:8px;padding-bottom:12px}
+.pv-kt-top{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:8px;padding:12px 12px 10px;background:#B2C7DA}.pv-kt-top b{font-size:13.5px;flex:1}.pv-kt-ch{font-size:10px;padding:2px 6px;border-radius:6px;background:rgba(0,0,0,.12);color:#2A2D36}
+.pv-kt-day{align-self:center;margin:0;padding:3px 10px;border-radius:999px;background:rgba(0,0,0,.14);color:#fff;font-size:10px}
+.pv-kt-in{display:flex;gap:7px;padding:0 10px;align-items:flex-start}.pv-kt-in>div{min-width:0;max-width:82%}
+.pv-kt-av{flex:none;width:30px;height:30px;border-radius:11px;background:#FFE45C;color:#14161F;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.pv-kt-nm{margin:0 0 4px;font-size:10.5px;color:#3A3F4C}
+.pv-kt-card{background:#fff;border-radius:12px;overflow:hidden}.pv-kt-card img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.pv-kt-tx{padding:9px 10px;font-size:11.5px;line-height:1.5;color:#2A2D36}.pv-kt-tx b{display:block;margin-bottom:3px;font-size:12px}.pv-kt-tx small{color:#8A8F9C;font-size:10px}
+.pv-kt-btn{display:block;margin:0 10px 10px;padding:7px 0;border-radius:8px;background:#F2F3F6;text-align:center;font-size:11.5px;font-weight:700;color:#14161F}
+.pv-kt-time{margin:3px 0 0;font-size:9.5px;color:#4E5563;white-space:nowrap}
+.pv-kt-out{display:flex;justify-content:flex-end;align-items:flex-end;gap:5px;padding:0 10px}.pv-kt-out .pv-kt-time{margin:0}
+.pv-kt-bub{padding:8px 10px;border-radius:12px;background:#FEE500;font-size:11.5px;line-height:1.45;color:#14161F;max-width:78%}.pv-kt-bub.w{background:#fff;max-width:none}
+.pv-kt .pv-sm-tag{margin:6px 12px 0}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
@@ -642,40 +661,41 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <div class="wrap sec" style="max-width: 1240px; margin: 0 auto; padding: 96px 24px">
 <p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>이렇게 만들어져요</p>
 <h2 class="h2" style="margin: 0 0 12px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">사진 한 장이면<br>사진보정은 물론 인스타·블로그·<wbr>릴스대본·카페글까지</h2>
-<p class="lead" style="margin: 0 0 36px; font-size: 17px; color: #4A5060">MECHAI 화장품 사진 한 장으로 만든 결과예요. 복사해서 붙이기만 하면 돼요.</p>
+<p class="lead" style="margin: 0 0 36px; font-size: 17px; color: #4A5060">화장품·돈까스 사진으로 만든 결과예요. 복사해서 붙이기만 하면 돼요.</p>
 <div class="pv-row"><div class="pv-card"><div class="pv-phone"><div class="pv-screen pv-fx">
 <div class="pv-fx-top"><b>사진 보정</b><span>자동 · 3초</span></div>
-<div class="pv-fx-box"><img src="assets/mechai-before.jpg" alt="보정 전 화장품 사진"><img class="aft" src="assets/mechai-after.jpg" alt="보정 후 화장품 사진"><i class="ln"></i><em class="l">보정 전</em><em class="r">보정 후</em></div>
+<div class="pv-fx-box sq"><img src="assets/derma-before.jpg" alt="보정 전 클렌저 사진"><img class="aft" src="assets/derma-after.jpg" alt="보정 후 클렌저 사진"><i class="ln"></i><em class="l">보정 전</em><em class="r">보정 후</em></div>
+<p class="pv-fx-lb">🧴 화장품 · 배경 정리 + 선명하게</p>
+<div class="pv-fx-box wd d2"><img src="assets/katsu-before.jpg" alt="보정 전 돈까스 사진"><img class="aft" src="assets/katsu-after.jpg" alt="보정 후 돈까스 사진"><i class="ln"></i><em class="l">보정 전</em><em class="r">보정 후</em></div>
+<p class="pv-fx-lb">🍽️ 음식 · 밝고 먹음직스럽게</p>
 <div class="pv-fx-chips"><span>☀️ 밝기</span><span>🎨 색감</span><span>✨ 선명도</span><span>📐 1:1 · 4:5</span></div>
 <div class="pv-fx-tag">원본은 그대로 · 밝기와 색만 손봐요</div>
-</div></div><p class="pv-hint">↔ 보정 전·후를 자동으로 비교해요</p><p class="pv-cap"><b>사진 보정</b><span>밝기 · 색감 · 선명도 자동</span></p></div><div class="pv-card"><div class="pv-phone"><div class="pv-screen">
-<div class="pv-ig-top"><span class="pv-av">M</span><b>mechai_official</b><span class="pv-dots">···</span></div>
-<img src="assets/mechai-after.jpg" alt="MECHAI 시카 크림과 버블 에센스" style="display:block;width:100%;aspect-ratio:4/5;object-fit:cover">
+</div></div><p class="pv-hint">↔ 보정 전·후를 자동으로 비교해요</p><p class="pv-cap"><b>사진 보정</b><span>화장품 · 음식 사진 자동 보정</span></p></div><div class="pv-card"><div class="pv-phone"><div class="pv-screen">
+<div class="pv-ig-top"><span class="pv-av">D</span><b>dermarebone_official</b><span class="pv-dots">···</span></div>
+<img src="assets/derma-after.jpg" alt="더마리본 DR 퍼펙트 멀티 클렌저" style="display:block;width:100%;aspect-ratio:1/1;object-fit:cover">
 <div class="pv-ig-icons"><span>♡</span><span>💬</span><span>➤</span></div>
-<p class="pv-ig-cap"><b>mechai_official</b> 🫧 건조한 계절, 루틴은 가볍게. 세안 후 EGF 버블 에센스로 산뜻하게, 마무리는 CICA 살브 크림으로 촉촉하게.</p>
-<p class="pv-ig-cap">🛒 프로필 링크에서 만나보세요</p>
-<p class="pv-ig-tag">#MECHAI #메차이 #시카크림 #버블에센스 #데일리스킨케어 #건조한피부</p><p class="pv-ig-more">댓글 8개 모두 보기</p><p class="pv-ig-cm"><b>skin_log</b> 패키지 너무 예뻐요 🤍</p><p class="pv-ig-cm"><b>mechai_official</b> 감사해요! 지금 세트 구성도 있어요 😊</p><p class="pv-ig-time">1시간 전</p>
+<p class="pv-ig-cap"><b>dermarebone_official</b> 🫧 하루 끝, 세안은 부드럽게. DR 퍼펙트 멀티 클렌저의 쫀쫀한 미세 거품이 메이크업과 노폐물을 깨끗하게 씻어줘요.</p>
+<p class="pv-ig-cap">🌿 위치하젤·캐모마일 추출물을 담아 세안 후에도 당김 없이 촉촉하게 · 100ml</p>
+<p class="pv-ig-tag">#더마리본 #DERMAREBONE #클렌징폼 #폼클렌저추천 #데일리세안 #저자극클렌저</p><p class="pv-ig-more">댓글 9개 모두 보기</p><p class="pv-ig-cm"><b>clean_skin.j</b> 거품 진짜 쫀쫀해요 👍</p><p class="pv-ig-cm"><b>dermarebone_official</b> 감사해요! 아침저녁 데일리로 써보세요 😊</p><p class="pv-ig-time">1시간 전</p>
 </div></div><p class="pv-hint">↕ 화면 안을 밀어서 보세요</p><p class="pv-cap"><b>인스타 게시물</b><span>보정 사진 + 글 + 해시태그까지</span></p></div><div class="pv-card"><div class="pv-phone"><div class="pv-screen pv-blog">
-<div class="pv-bl-top"><b>네이버 블로그</b><span>MECHAI 스킨노트</span></div>
-<p class="pv-bl-title">[MECHAI] 시카 살브 크림 & EGF 버블 에센스, 건조한 날 데일리 루틴</p>
-<p class="pv-bl-meta">MECHAI · 방금 전</p>
-<img src="assets/mechai-after.jpg" alt="MECHAI 시카 크림과 버블 에센스" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover">
-<p class="pv-bl-h">① 오늘 소개할 제품</p>
-<p class="pv-bl-p">CICA 살브 크림 230ml와 EGF 버블 에센스 200ml. 넉넉한 용량이라 온 가족이 함께 쓰기 좋아요.</p>
-<p class="pv-bl-h">② 이렇게 써요</p>
-<p class="pv-bl-p">세안 후 버블 에센스를 손바닥에 덜어 얼굴에 가볍게 펴 바르고, 마지막에 살브 크림으로 촉촉하게 마무리해요.</p><p class="pv-bl-h">③ 이런 분께 추천해요</p><p class="pv-bl-p">아침저녁 루틴을 간단하게 줄이고 싶은 분, 찬 바람에 얼굴이 당기는 날이 많은 분께 추천해요.</p><div class="pv-bl-map">🛒 MECHAI 스마트스토어 · 오늘 주문 시 내일 도착</div><p class="pv-bl-tag">#MECHAI #시카크림추천 #버블에센스 #스킨케어루틴</p>
-</div></div><p class="pv-hint">↕ 화면 안을 밀어서 보세요</p><p class="pv-cap"><b>블로그 글</b><span>제목 · 소제목 · 구매 안내까지</span></p></div><div class="pv-card"><div class="pv-phone"><div class="pv-screen pv-sms">
-<div class="pv-sm-top"><span class="pv-sm-back">‹</span><div><b>이지은 고객님</b><span>문자 메시지</span></div></div>
-<p class="pv-sm-day">11월 9일 (월)</p>
-<div class="pv-sm-bub me">[MECHAI] 지은님, 지난달 구매하신 시카 살브 크림 잘 쓰고 계신가요?<br><br>이번 주 재구매하시면 버블 에센스 미니를 함께 보내드려요 🙂<br>(11월 30일까지)</div>
-<p class="pv-sm-time">오전 10:02</p>
-<div class="pv-sm-bub you">마침 다 써가요! 오늘 주문할게요</div>
-<p class="pv-sm-day">11월 10일 (화)</p>
-<div class="pv-sm-bub me">[MECHAI] 지은님, 주문하신 상품이 오늘 출고됐어요. 내일 도착 예정이에요!</div>
-<p class="pv-sm-time">오후 4:30</p>
+<div class="pv-bl-top"><b>네이버 블로그</b><span>바삭한끼 돈까스</span></div>
+<p class="pv-bl-title">[망원동 돈까스] 바삭한끼, 매일 아침 직접 빵가루 입히는 수제 돈까스</p>
+<p class="pv-bl-meta">바삭한끼 · 방금 전</p>
+<img src="assets/katsu1.jpg" alt="젓가락으로 든 두툼한 돈까스" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover">
+<p class="pv-bl-h">① 오늘의 메뉴</p>
+<p class="pv-bl-p">두툼한 국내산 등심에 생빵가루를 듬뿍 입혀 겉은 바삭, 속은 촉촉하게 튀겨내요. 밥·장국·샐러드까지 한 상으로 나가요.</p>
+<img src="assets/katsu2.jpg" alt="돈까스 정식 한 상" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;margin-top:8px">
+<p class="pv-bl-h">② 위치 · 영업시간</p>
+<p class="pv-bl-p">망원역 2번 출구 도보 5분, 매일 11:00~21:00 (브레이크 15:00~17:00)</p><p class="pv-bl-h">③ 이런 분께 추천해요</p><p class="pv-bl-p">든든한 점심 한 끼가 필요한 날, 아이와 함께 먹을 메뉴를 찾는 날 들러주세요. 포장도 돼요.</p><div class="pv-bl-map">📍 바삭한끼 돈까스 · 망원동 · 포장 가능</div><p class="pv-bl-tag">#망원동맛집 #망원동돈까스 #수제돈까스 #점심메뉴추천</p>
+</div></div><p class="pv-hint">↕ 화면 안을 밀어서 보세요</p><p class="pv-cap"><b>블로그 글</b><span>제목 · 소제목 · 위치 안내까지</span></p></div><div class="pv-card"><div class="pv-phone"><div class="pv-screen pv-kt">
+<div class="pv-kt-top"><span class="pv-sm-back">‹</span><b>바삭한끼 돈까스</b><span class="pv-kt-ch">채널</span></div>
+<p class="pv-kt-day">2026년 11월 9일 월요일</p>
+<div class="pv-kt-in"><span class="pv-kt-av">바</span><div><p class="pv-kt-nm">바삭한끼 돈까스</p><div class="pv-kt-card"><img src="assets/katsu1.jpg" alt="돈까스 사진"><div class="pv-kt-tx"><b>🎁 단골 고객님께만 드려요</b>이번 주 방문하시면 치즈돈까스 업그레이드 무료! 주문하실 때 이 메시지를 보여주세요.<br><small>~11월 15일(토)까지</small></div><span class="pv-kt-btn">쿠폰 받기</span></div><p class="pv-kt-time">오전 11:02</p></div></div>
+<div class="pv-kt-out"><p class="pv-kt-time">오전 11:20</p><div class="pv-kt-bub">와 오늘 점심에 갈게요! 2명이요 😊</div></div>
+<div class="pv-kt-in"><span class="pv-kt-av">바</span><div><div class="pv-kt-bub w">네! 12시 30분 2명 자리 맡아둘게요. 조심히 오세요 🙏</div><p class="pv-kt-time">오전 11:21</p></div></div>
 <div class="pv-sm-tag">알아줌이 만든 문구 · 복사해서 보내요</div>
-</div></div><p class="pv-hint">↕ 화면 안을 밀어서 보세요</p><p class="pv-cap"><b>고객 문자</b><span>재구매 혜택 · 배송 안내까지</span></p></div></div>
-<p class="pv-note">이해를 돕기 위한 예시 화면이에요.</p>
+</div></div><p class="pv-hint">↕ 화면 안을 밀어서 보세요</p><p class="pv-cap"><b>카톡 메시지</b><span>단골 쿠폰 · 예약 답장까지</span></p></div></div>
+<p class="pv-note">이해를 돕기 위한 예시 화면이에요. 보정 전 돈까스 사진은 비교를 위해 어둡게 만든 예시예요.</p>
 </div>
 </section>
 
