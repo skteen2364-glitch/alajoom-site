@@ -69,7 +69,7 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 #video .wrap>div:first-child{max-width:150px !important}
 #video .cta-row a{min-height:46px !important;font-size:15px !important}
 #team .lead{display:none !important}
-#trust .wrap>div:nth-of-type(3){display:none !important}
+#trust .trust-foot{display:none !important}
 #trust .card{padding:16px !important}
 #trust .card p{font-size:13px !important}
 #pricing li>span:last-child>span{display:none !important}
@@ -103,10 +103,13 @@ footer{scroll-snap-align:end}
 .mate-grid{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px !important;margin-right:-18px;padding:2px 18px 8px 0;scrollbar-width:none}
 .mate-grid::-webkit-scrollbar,.dz-hs::-webkit-scrollbar{display:none}
 .mate-card{flex:0 0 46%;scroll-snap-align:none start}
-#features>div:last-of-type,#trust .wrap>div:nth-of-type(1),#trust .wrap>div:nth-of-type(2){flex-wrap:nowrap !important;overflow-x:auto;scroll-snap-type:x mandatory;margin-right:-18px;padding:2px 18px 8px 0;scrollbar-width:none}
-#features>div:last-of-type>.card{flex:0 0 84% !important;scroll-snap-align:none start}
-#trust .wrap>div:nth-of-type(1)>.card,#trust .wrap>div:nth-of-type(2)>.card{flex:0 0 78% !important;scroll-snap-align:none start}
-#trust .wrap>div:nth-of-type(2){margin-top:12px !important}
+#features .feat-row,#trust .trust-row{flex-wrap:nowrap !important;overflow-x:auto;scroll-snap-type:x mandatory;margin-right:-18px;padding:2px 18px 8px 0;scrollbar-width:none}
+#features .feat-row{align-items:flex-start !important}
+#features .feat-row>.card{flex:0 0 84% !important;scroll-snap-align:none start;padding:20px !important}
+#features .feat-row>.card>div{gap:6px !important}
+#features .feat-row>.card span{font-size:13px !important;padding:5px 10px !important}
+#trust .trust-row>.card{flex:0 0 78% !important;scroll-snap-align:none start}
+#trust .trust-row+.dz-cdots+.trust-row,#trust .trust-row+.trust-row{margin-top:12px !important}
 #video .wrap>div:first-child{max-width:130px !important;flex:0 0 auto !important}
 #video ul,#team ul{display:none !important}
 #video .wrap{gap:24px !important}
@@ -713,7 +716,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>알아줌 서비스</p>
 <h2 class="h2" style="margin: 0; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">만들고, 알리고, 관리까지 알아서 해줌</h2>
 </div>
-<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+<div class="feat-row" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
 <div class="card" style="flex: 1 1 300px; min-width: 0; padding: 26px; border-radius: 20px; border: 1px solid #E6E8ED; background: #FFFFFF">
 <p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: #3B5B92">01 CREATE</p>
 <h3 style="margin: 0 0 4px; font-size: 22px; font-weight: 900; letter-spacing: -0.5px">만들기</h3>
@@ -916,7 +919,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>믿고 맡길 수 있는 이유</p>
 <h2 class="h2" style="margin: 0 0 12px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px">AI에게 맡겨도 안심되게</h2>
 <p class="lead" style="margin: 0 0 40px; font-size: 17px; color: #5B6070">돈 들까 봐, 사기당할까 봐 걱정되시죠. 알아줌은 이렇게 지켜요.</p>
-<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<div class="trust-row" style="display: flex; flex-wrap: wrap; gap: 16px">
 <div class="card" style="flex: 1 1 200px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #EADFC8">
 <span style="width: 48px; height: 48px; border-radius: 14px; background: #FFE45C; color: #14161F; display: flex; align-items: center; justify-content: center; margin-bottom: 18px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
 <h3 style="margin: 0 0 8px; font-size: 19px; font-weight: 700">사장님 확인 후에만 실행</h3>
@@ -938,7 +941,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <p style="margin: 0; font-size: 15px; color: #4A5060">카드 등록 없이 하루 10회, ERP는 계속 무료.</p>
 </div>
 </div>
-<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px">
+<div class="trust-row" style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px">
 <div class="card" style="flex: 1 1 380px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFE45C; color: #14161F">
 <p style="margin: 0 0 10px; font-size: 13px; font-weight: 900; letter-spacing: 1px">알아줌을 만든 사람</p>
 <p style="margin: 0 0 12px; font-size: 22px; font-weight: 900; line-height: 1.4">"저도 인스타 하나 못 하던<br>1인 사장이에요."</p>
@@ -951,7 +954,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 </ul>
 </div>
 </div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; padding: 22px 26px; border-radius: 18px; border: 1px solid #EADFC8">
+<div class="trust-foot" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; padding: 22px 26px; border-radius: 18px; border: 1px solid #EADFC8">
 <p style="margin: 0; font-size: 16px; color: #3A3F4C"><b style="color: #14161F">지금 직접 써볼 수 있어요.</b> 뷰메이트·퍼니메이트 테스트 버전 운영 중</p>
 <a href="#mates" style="display: inline-flex; align-items: center; min-height: 46px; padding: 0 20px; border-radius: 12px; background: #FFFFFF; color: #14161F; font-size: 15px; font-weight: 700; text-decoration: none">테스트하러 가기</a>
 </div>
@@ -1108,9 +1111,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       window.addEventListener('resize', upd); upd();
     }
     // carousel dots
-    var sels = ['.pv-row', '.mate-grid', '#features > div:last-of-type', '#trust .wrap > div:nth-of-type(1)', '#trust .wrap > div:nth-of-type(2)'];
+    var sels = ['.pv-row', '.mate-grid', '#features .feat-row', '#trust .trust-row'];
     sels.forEach(function (sel) {
-      var g = root.querySelector(sel); if (!g || g.nextElementSibling && g.nextElementSibling.classList.contains('dz-cdots')) return;
+      Array.prototype.forEach.call(root.querySelectorAll(sel), function (g) { if (g.nextElementSibling && g.nextElementSibling.classList.contains('dz-cdots')) return;
       var box = doc.createElement('div'); box.className = 'dz-cdots'; box.setAttribute('aria-hidden', 'true');
       var n = g.children.length, ds = [];
       for (var i = 0; i < n; i++) { var d = doc.createElement('i'); box.appendChild(d); ds.push(d); }
@@ -1126,7 +1129,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       };
       g.addEventListener('scroll', function () { requestAnimationFrame(upd2); }, { passive: true });
       window.addEventListener('resize', upd2); setTimeout(upd2, 50);
-    });
+    }); });
     // before-after slider
     Array.prototype.forEach.call(root.querySelectorAll('.ba'), function (ba) {
       var r = ba.querySelector('.ba-range'); if (!r) return; var touched = false;
