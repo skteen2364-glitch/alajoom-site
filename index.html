@@ -532,6 +532,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .pv-kt-out{display:flex;justify-content:flex-end;align-items:flex-end;gap:5px;padding:0 10px}.pv-kt-out .pv-kt-time{margin:0}
 .pv-kt-bub{padding:8px 10px;border-radius:12px;background:#FEE500;font-size:11.5px;line-height:1.45;color:#14161F;max-width:78%}.pv-kt-bub.w{background:#fff;max-width:none}
 .pv-kt .pv-sm-tag{margin:6px 12px 0}
+
+/* fullpage paging (all screens) */
+.dz-root{overflow-x:clip !important;overflow-y:visible !important}
+html{scroll-snap-type:none;scroll-padding-top:72px}
+@media (pointer:coarse){html{scroll-snap-type:y mandatory}}
+.dz-root>section:not([aria-label]){scroll-snap-align:start;scroll-snap-stop:always;min-height:calc(100vh - 72px);min-height:calc(100svh - 72px);display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
+.dz-root>section:not([aria-label])>*{width:100%;box-sizing:border-box}
+@media (max-width:720px){.dz-root>section:not([aria-label]):not(#top):not(#cta){min-height:calc(100svh - 84px)}}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
@@ -1449,6 +1457,34 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
           else if (now >= it.wait) { it.n = 0; render(it); }
         });
       }, 85);
+    })();
+    // desktop full-page paging (wheel / keys)
+    (function () {
+      var w = doc.defaultView || window; if (!w || w.__dzPaging) return; w.__dzPaging = 1;
+      if (!(w.matchMedia && w.matchMedia('(pointer:fine)').matches)) return;
+      var HDR = 72, busy = 0, acc = 0, accT = 0;
+      var secs = function () { return Array.prototype.slice.call(root.querySelectorAll('.dz-root>section:not([aria-label]), .dz-root>footer')); };
+      var at = function (el) { var y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; };
+      var box = function (el) { var t = at(el) - w.scrollY; return { top: t, bottom: t + el.offsetHeight }; };
+      var cur = function (L) { var k = 0; for (var i = 0; i < L.length; i++) if (box(L[i]).top <= HDR + 6) k = i; return k; };
+      var go = function (L, k) { k = Math.max(0, Math.min(L.length - 1, k)); var top = at(L[k]) - (L[k].tagName === 'FOOTER' ? w.innerHeight - L[k].offsetHeight : HDR); busy = Date.now() + 850; w.scrollTo({ top: Math.max(0, top), behavior: 'smooth' }); };
+      var tall = function (r, d) { if (r.bottom - r.top <= w.innerHeight - HDR + 140) return false; return (d > 0 && r.bottom > w.innerHeight + 4) || (d < 0 && r.top < HDR - 4); };
+      w.addEventListener('wheel', function (e) {
+        if (e.ctrlKey || Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+        var t = e.target, inPv = !!(t && t.closest && t.closest('.pv-screen'));
+        if (!inPv) { while (t && t !== doc.body && t.nodeType === 1) { if (t.classList.contains('dz-ms')) return; var cs = w.getComputedStyle(t); if (/(auto|scroll)/.test(cs.overflowY) && t.scrollHeight > t.clientHeight + 2) { var dn = e.deltaY > 0; if ((dn && t.scrollTop + t.clientHeight < t.scrollHeight - 1) || (!dn && t.scrollTop > 0)) return; } t = t.parentNode; } }
+        var d = e.deltaY > 0 ? 1 : -1, L = secs(); if (!L.length) return; var k = cur(L);
+        if (tall(box(L[k]), d)) { if (inPv) { e.preventDefault(); w.scrollBy(0, e.deltaY); } return; }
+        e.preventDefault(); if (Date.now() < busy) return;
+        var now = Date.now(); if (now - accT > 250) acc = 0; accT = now; acc += Math.abs(e.deltaY); if (acc < 25) return; acc = 0;
+        go(L, k + d);
+      }, { passive: false });
+      w.addEventListener('keydown', function (e) {
+        var tg = (e.target && e.target.tagName) || ''; if (/INPUT|TEXTAREA|SELECT|BUTTON/.test(tg) || (e.target && e.target.isContentEditable)) return;
+        var d = { PageDown: 1, ArrowDown: 1, ' ': 1, PageUp: -1, ArrowUp: -1 }[e.key]; if (e.shiftKey && e.key === ' ') d = -1; if (!d) return;
+        var L = secs(), k = cur(L); if (tall(box(L[k]), d)) return;
+        e.preventDefault(); if (Date.now() < busy) return; go(L, k + d);
+      });
     })();
     var hint = root.querySelector('.swipe-hint'); if (hint) hint.classList.add('dz-hide');
   } catch (err) {}
