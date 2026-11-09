@@ -493,6 +493,10 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .dz-ms.has-v .dz-ms-pan>*:not(.dz-ms-media):not(.dz-ms-grip):not(.dz-ms-x){grid-column:2}
 .dz-ms.has-v .dz-ms-en{margin-top:6px}
 }
+
+/* title typing */
+.dz-caret{display:inline-block;width:.08em;min-width:2px;height:.95em;margin-left:.06em;background:currentColor;vertical-align:-.1em;border-radius:1px;animation:dzBlink 1s steps(1) infinite}
+@keyframes dzBlink{50%{opacity:0}}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
@@ -1381,6 +1385,36 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       Array.prototype.forEach.call(bs, function (b, i) { b.addEventListener('click', function () { held = Date.now() + 8000; go(i); }); });
       setInterval(function () { var r = ph.getBoundingClientRect(), vh = window.innerHeight || 800; if (Date.now() < held || r.bottom < 0 || r.top > vh) return; go((cur + 1) % bs.length); }, 2600);
     });
+    // title typing loop
+    (function () {
+      var hs = root.querySelectorAll('section h1, section h2'); if (!hs.length) return;
+      var items = [];
+      Array.prototype.forEach.call(hs, function (h) {
+        if (h.closest('.dz-ms')) return;
+        var w = doc.createTreeWalker(h, 4, null), nodes = [], tot = 0, nd;
+        while ((nd = w.nextNode())) { var tx = nd.nodeValue; if (!tx.trim()) continue; nodes.push([nd, tx]); tot += Array.from(tx).length; }
+        if (!tot) return;
+        if (!h.getAttribute('aria-label')) h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
+        var c = doc.createElement('span'); c.className = 'dz-caret'; c.setAttribute('aria-hidden', 'true');
+        items.push({ h: h, nodes: nodes, tot: tot, n: tot, vis: false, wait: 0, caret: c, mh: 0 });
+      });
+      var render = function (it) {
+        var left = it.n, last = null;
+        it.nodes.forEach(function (p) { var ch = Array.from(p[1]); if (left >= ch.length) { p[0].nodeValue = p[1]; left -= ch.length; last = p[0]; } else if (left > 0) { p[0].nodeValue = ch.slice(0, left).join(''); left = 0; last = p[0]; } else p[0].nodeValue = ''; });
+        if (!last) last = it.nodes[0][0];
+        if (it.caret.previousSibling !== last || !it.caret.parentNode) last.parentNode.insertBefore(it.caret, last.nextSibling);
+      };
+      setInterval(function () {
+        var vh = window.innerHeight || 800, now = Date.now();
+        items.forEach(function (it) {
+          var r = it.h.getBoundingClientRect(), v = r.height > 0 && r.bottom > 0 && r.top < vh * 0.9;
+          if (!v) { if (it.vis) { it.vis = false; it.n = it.tot; render(it); if (it.caret.parentNode) it.caret.parentNode.removeChild(it.caret); it.h.style.minHeight = ''; } return; }
+          if (!it.vis) { it.vis = true; it.h.style.minHeight = r.height + 'px'; it.n = 0; it.wait = 0; render(it); return; }
+          if (it.n < it.tot) { it.n++; render(it); if (it.n === it.tot) it.wait = now + 2000; }
+          else if (now >= it.wait) { it.n = 0; render(it); }
+        });
+      }, 85);
+    })();
     var hint = root.querySelector('.swipe-hint'); if (hint) hint.classList.add('dz-hide');
   } catch (err) {}
 }))(document);
