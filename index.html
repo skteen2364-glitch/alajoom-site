@@ -1390,7 +1390,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       var hs = root.querySelectorAll('section h1, section h2'); if (!hs.length) return;
       var items = [];
       Array.prototype.forEach.call(hs, function (h) {
-        if (h.closest('.dz-ms, #beau, #funi')) return;
+        if (h.closest('.dz-ms, #beau, #funi, #faq, #cta')) return;
         var w = doc.createTreeWalker(h, 4, null), nodes = [], tot = 0, nd;
         while ((nd = w.nextNode())) { var tx = nd.nodeValue; if (!tx.trim()) continue; nodes.push([nd, tx]); tot += Array.from(tx).length; }
         if (!tot) return;
