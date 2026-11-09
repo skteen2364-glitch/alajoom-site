@@ -47,7 +47,7 @@ html{scroll-behavior:smooth}
 #how>*,#team>*,#features>*,#mates>*,#pricing>*,#contact>*,#trust>*,#video>*{position:relative;z-index:1}
 @media (prefers-reduced-motion: reduce){.marquee,.mq{animation:none}}
 @media (max-width: 720px){
-html{scroll-snap-type:y mandatory;scroll-padding-top:0}
+html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 .dz-root>section:not([aria-label]){scroll-snap-align:start}
 .snap-pt{scroll-snap-align:start}
 .dz-root>section:not([aria-label]):not(#top):not(#cta){margin:8px 10px 0 !important}
@@ -535,19 +535,19 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
 /* fullpage paging (all screens) */
 .dz-root{overflow-x:clip !important;overflow-y:visible !important}
-html{scroll-snap-type:none;scroll-padding-top:0}
+html{scroll-snap-type:none;scroll-padding-top:72px}
 @media (pointer:coarse){html{scroll-snap-type:y mandatory}}
-.dz-root>section:not([aria-label]){scroll-snap-align:start;scroll-snap-stop:always;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
+.dz-root>section:not([aria-label]){scroll-snap-align:start;scroll-snap-stop:always;min-height:calc(100vh - 72px);min-height:calc(100svh - 72px);display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
 .dz-root>section:not([aria-label])>*{width:100%;box-sizing:border-box}
 .dz-root>section:not([aria-label])>.eyebrow,.dz-root>section:not([aria-label]) .eyebrow{align-self:flex-start;width:auto !important}
-@media (max-width:720px){.dz-root>section:not([aria-label]):not(#top):not(#cta){min-height:calc(100svh - 16px)}}
+@media (max-width:720px){.dz-root>section:not([aria-label]):not(#top):not(#cta){min-height:calc(100svh - 84px)}}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
 <div class="dz-root" style="min-height: 100vh; background: #FFFFFF; color: #14161F; font-family: 'Noto Sans KR', system-ui, sans-serif; line-height: 1.6; word-break: keep-all; overflow-x: hidden">
 
 <!-- 헤더 -->
-<header style="position: relative; top: 0; z-index: 10; border-bottom: 1px solid #F0E8D6; background: rgba(255, 255, 255, 0.95)">
+<header style="position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #F0E8D6; background: rgba(255, 255, 255, 0.95)">
 <div class="wrap" style="max-width: 1200px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
 <a href="#top" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #14161F">
 <span style="width: 34px; height: 34px; border-radius: 12px 12px 12px 4px; background: #FFD43B; color: #14161F; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 17px">알</span>
@@ -1467,7 +1467,7 @@ html{scroll-snap-type:none;scroll-padding-top:0}
     (function () {
       var w = doc.defaultView || window; if (!w || w.__dzPaging) return; w.__dzPaging = 1;
       if (!(w.matchMedia && w.matchMedia('(pointer:fine)').matches)) return;
-      var HDR = 0, busy = 0, acc = 0, accT = 0;
+      var HDR = 72, busy = 0, acc = 0, accT = 0;
       var secs = function () { return Array.prototype.slice.call(root.querySelectorAll('.dz-root>section:not([aria-label]), .dz-root>footer')); };
       var at = function (el) { var y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; };
       var box = function (el) { var t = at(el) - w.scrollY; return { top: t, bottom: t + el.offsetHeight }; };
