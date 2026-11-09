@@ -558,6 +558,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 <a class="nav-hide" href="#mates" style="text-decoration: none; padding: 10px 0; color: #4A5060">AI 직원</a>
 <a class="nav-hide" href="#pricing" style="text-decoration: none; padding: 10px 0; color: #4A5060">요금제</a>
 <a class="nav-hide" href="#contact" style="text-decoration: none; padding: 10px 0; color: #4A5060">문의하기</a>
+<a href="#mates" style="display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; padding: 0 18px; border-radius: 999px; background: #3B5B92; color: #FFFFFF; font-weight: 700">무료 시작</a>
 
 </nav>
 </div>
@@ -1098,6 +1099,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 <p style="margin: 0 0 4px"><span class="price" style="font-size: 56px; font-weight: 900; letter-spacing: -2px">0원</span><span style="font-size: 16px; color: #5B6070"> / 월</span></p>
 <p style="margin: 0 0 24px; font-size: 15px; color: #4A5060">카드 등록 없이 가입만 하면 바로 써요.</p>
 <div class="cta-row" style="display: flex; flex-wrap: wrap; gap: 10px">
+<a href="#mates" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 14px; background: #3B5B92; color: #FFFFFF; font-size: 16px; font-weight: 700; text-decoration: none">무료로 시작하기</a>
 
 <a href="#contact" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1px solid #C9CEDA; background: #FFFFFF; color: #14161F; font-size: 16px; font-weight: 700; text-decoration: none">문의하기</a>
 </div>
@@ -1436,7 +1438,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
       var hs = root.querySelectorAll('section h1, section h2'); if (!hs.length) return;
       var items = [];
       Array.prototype.forEach.call(hs, function (h) {
-        if (h.closest('.dz-ms, #beau, #funi, #faq, #cta')) return;
+        if (h.closest('.dz-ms, #faq, #cta')) return;
         var w = doc.createTreeWalker(h, 4, null), nodes = [], tot = 0, nd;
         while ((nd = w.nextNode())) { var tx = nd.nodeValue; if (!tx.trim()) continue; nodes.push([nd, tx]); tot += Array.from(tx).length; }
         if (!tot) return;
