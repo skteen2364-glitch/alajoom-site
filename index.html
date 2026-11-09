@@ -1247,17 +1247,38 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
   var box=document.getElementById('dz-install'),go=document.getElementById('dz-install-go'),x=document.getElementById('dz-install-x'),msg=document.getElementById('dz-install-msg');
   var standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone;
-  var off=function(){try{return localStorage.getItem('dz_install_off')}catch(e){return null}};
-  if(standalone||off())return;
-  var show=function(){setTimeout(function(){box.style.display='flex';},4000);};
-  var deferred=null;
-  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;show();});
   var ua=navigator.userAgent||'';
-  var ios=/iPhone|iPad|iPod/.test(ua)&&!/CriOS|FxiOS|KAKAOTALK|NAVER|Instagram/.test(ua);
-  if(ios){msg.textContent='아래 공유 버튼 → "홈 화면에 추가"';go.style.display='none';show();}
+  var inapp=/KAKAOTALK|NAVER\(|Instagram|FBAN|FBAV|Line\/|DaumApps|everytimeApp/i.test(ua);
+  var ios=/iPhone|iPad|iPod/.test(ua);
+  var deferred=null;
+  var guide=function(){
+    if(inapp) return ios?'오른쪽 아래 ⋯ → "Safari로 열기" 후 공유 → "홈 화면에 추가"':'오른쪽 위 ⋮ → "다른 브라우저로 열기" 후 다시 눌러주세요';
+    if(ios) return '아래 공유 버튼(□↑) → "홈 화면에 추가"';
+    return '브라우저 오른쪽 위 ⋮ → "홈 화면에 추가"';
+  };
+  var open=function(manual){
+    if(deferred){msg.textContent='앱처럼 바로 열 수 있어요';go.style.display='';}
+    else{msg.textContent=guide();go.style.display='none';}
+    box.style.display='flex';
+  };
+  // visible button in CTA + footer
+  var mk=function(dark){var b=document.createElement('button');b.type='button';b.className='dz-addhome';
+    b.innerHTML='<span aria-hidden="true">📲</span> 바탕화면에 앱 추가';
+    b.style.cssText='display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;'+(dark?'border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.12);color:#fff':'border:1px solid #D9DCE3;background:#fff;color:#14161F');
+    b.addEventListener('click',function(){ if(deferred){deferred.prompt();deferred.userChoice.finally(function(){deferred=null;box.style.display='none';});} else open(true); });
+    return b;};
+  if(!standalone){
+    var row=document.querySelector('#cta .cta-row');
+    if(row){var w=document.createElement('div');w.style.cssText='position:relative;margin-top:16px;display:flex;justify-content:center';w.appendChild(mk(true));row.parentNode.insertBefore(w,row.nextSibling);}
+    var hero=document.querySelector('#top .cta-row, #top a[href="#mates"]');
+    if(hero){var hw=document.createElement('div');hw.style.cssText='margin-top:12px';hw.appendChild(mk(false));var host=hero.classList&&hero.classList.contains('cta-row')?hero:hero.parentNode;host.parentNode.insertBefore(hw,host.nextSibling);}
+  }
+  var off=function(){try{return localStorage.getItem('dz_install_off')}catch(e){return null}};
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;if(!standalone&&!off())setTimeout(function(){open(false);},4000);});
+  if(ios&&!inapp&&!standalone&&!off())setTimeout(function(){open(false);},4000);
   go.addEventListener('click',function(){if(!deferred)return;deferred.prompt();deferred.userChoice.finally(function(){deferred=null;box.style.display='none';});});
   x.addEventListener('click',function(){box.style.display='none';try{localStorage.setItem('dz_install_off','1')}catch(e){}});
-  window.addEventListener('appinstalled',function(){box.style.display='none';});
+  window.addEventListener('appinstalled',function(){box.style.display='none';Array.prototype.forEach.call(document.querySelectorAll('.dz-addhome'),function(b){b.parentNode.style.display='none';});});
 })();
 </script>
 </body>
