@@ -79,7 +79,7 @@ summary{font-size:13px;font-weight:700;color:var(--muted);cursor:pointer}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font-size:13.5px;font-weight:700;color:#3A3F4C}
 .chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
-input[type=text],textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font-size:15px;background:#fff}
+input[type=text],input[type=date],input[type=time],input[type=tel],input[type=number],select,textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font-size:15px;background:#fff}
 textarea{min-height:88px;resize:vertical}
 .go{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:900;font-size:16px;min-height:52px;display:flex;align-items:center;justify-content:center;gap:8px}
 .go:disabled{opacity:.55}
@@ -107,6 +107,52 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
 .dlg label{font-size:13px;font-weight:700;color:var(--muted);display:flex;flex-direction:column;gap:5px}
 .mode{font-size:12px;color:var(--muted);text-align:center;margin:4px 0 0}
 .hidden{display:none !important}
+/* 탭 · 내 메뉴 · 장부 · 보관함 */
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:4px}
+.tab{border:0;background:none;border-radius:12px;min-height:44px;font-size:14px;font-weight:700;color:var(--muted);padding:0 4px}
+.tab[aria-selected="true"]{background:var(--ink);color:#fff}
+.view{display:flex;flex-direction:column;gap:14px}
+.seg{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.seg::-webkit-scrollbar{display:none}
+.seg .chip{white-space:nowrap}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sec{margin:4px 0 -4px;font-size:13px;font-weight:900;color:var(--ink)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{background:var(--ivory);border:1px solid var(--line);border-radius:14px;padding:12px;min-width:0}
+.stat span{display:block;font-size:12px;color:var(--muted);font-weight:700}
+.stat b{display:block;font-size:18px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-.3px;overflow-wrap:anywhere}
+.stat.plus b{color:var(--blue-deep)}.stat.minus b{color:var(--warn)}
+.list{display:flex;flex-direction:column;gap:8px}
+.item{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;display:flex;gap:10px;align-items:flex-start}
+.item>div:first-child{flex:1;min-width:0}
+.item b{display:block;font-size:15px;line-height:1.4}
+.item span.m{display:block;font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:2px}
+.item .side{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.amt{font-weight:900;font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.badge{display:inline-block;vertical-align:1px;font-size:11px;font-weight:900;border-radius:999px;padding:2px 8px;margin-right:5px;background:var(--blue-tint);color:var(--blue-deep)}
+.badge.neg{background:var(--warn-tint);color:var(--warn)}.badge.wait{background:#FFF6CC;color:#7A5C00}.badge.done{background:#EAF6EF;color:#0B6B3A}
+.mini{border:1px solid var(--line);background:#fff;border-radius:10px;font-size:12.5px;font-weight:700;padding:6px 10px;min-height:36px;white-space:nowrap;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center}
+.mini.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.f{font-size:13px;font-weight:700;color:var(--muted);display:flex;flex-direction:column;gap:5px;min-width:0}
+.formbox{border:2px solid var(--blue);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;background:#fff}
+.formbox h3{margin:0;font-size:16px;font-weight:900}
+.empty{text-align:center;color:var(--muted);font-size:13.5px;padding:18px 10px;border:1px dashed #CFC5AE;border-radius:14px;background:var(--ivory)}
+.qrow{display:grid;grid-template-columns:1fr 54px 84px 36px;gap:6px;align-items:center}
+.qrow input{padding:9px 8px;font-size:14px}
+.qrow .x{border:0;background:none;font-size:20px;color:var(--muted);min-height:40px}
+.qsum{display:flex;justify-content:space-between;align-items:baseline;background:var(--ink);color:#fff;border-radius:14px;padding:12px 14px}
+.qsum b{font-size:22px;font-weight:900;color:var(--yellow);font-variant-numeric:tabular-nums}
+.clip{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap}
+.lead{background:var(--blue-tint);border-radius:14px;padding:12px 14px;font-size:13px;color:var(--blue-deep);font-weight:700}
+#printArea{display:none}
+@media print{
+  @page{size:A4;margin:0}
+  body.printing .app,body.printing dialog,body.printing .toast{display:none !important}
+  body.printing{background:#fff}
+  body.printing #printArea{display:block}
+  #printArea img{width:100%;display:block}
+}
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
 </style>
 <link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><meta name="theme-color" content="#FFF8E7"></head>
@@ -123,6 +169,14 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
     <button class="link-btn" id="editStudio" type="button">정보 수정</button>
   </section>
 
+  <nav class="tabs" role="tablist" aria-label="푸드메이트 메뉴">
+    <button class="tab" type="button" role="tab" data-view="promo" aria-selected="true">홍보</button>
+    <button class="tab" type="button" role="tab" data-view="menu" aria-selected="false">내 메뉴</button>
+    <button class="tab" type="button" role="tab" data-view="ledger" aria-selected="false">장부</button>
+    <button class="tab" type="button" role="tab" data-view="box" aria-selected="false">보관함</button>
+  </nav>
+
+  <div class="view" id="v-promo">
   <h1>사장님, 오늘은 뭘 만들까요?</h1>
 
   <div class="tools" role="group" aria-label="만들 것 고르기">
@@ -131,9 +185,15 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
     <button class="tool" type="button" data-tool="card" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 15l5-4 4 3 3-2 6 4"/></svg></span><b>안내 카드</b><span>신메뉴·오늘의 메뉴·휴무</span></button>
     <button class="tool" type="button" data-tool="sms" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg></span><b>손님 문자</b><span>예약 확인·재방문 쿠폰</span></button>
     <button class="tool" type="button" data-tool="review" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.9 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg></span><b>리뷰 답글</b><span>네이버·배달앱 리뷰</span></button>
+    <button class="tool" type="button" data-tool="board" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span><b>메뉴판·전단</b><span>내 메뉴로 바로 인쇄용</span></button>
+    <button class="tool" type="button" data-tool="pop" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg></span><b>가격표 POP</b><span>매장에 붙이는 가격표</span></button>
   </div>
 
   <section class="panel" id="panel" aria-live="polite"></section>
+  </div>
+  <div class="view hidden" id="v-menu"></div>
+  <div class="view hidden" id="v-ledger"></div>
+  <div class="view hidden" id="v-box"></div>
   <p class="mode" id="mode"></p>
   <p class="mode"><a href="https://alajoom-site.pages.dev/" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">알아줌 홈으로</a></p>
 </div>
@@ -152,6 +212,8 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
   </form>
 </dialog>
 <div class="toast" id="toast" role="status"></div>
+<div id="printArea" aria-hidden="true"></div>
+<datalist id="partyList"></datalist><datalist id="catList"></datalist>
 
 <script>
 var CFG = {
@@ -254,6 +316,8 @@ var CFG = {
 
   function renderPanel(){
     if (tool === 'photo') return renderPhoto();
+    if (tool === 'board') return renderBoard();
+    if (tool === 'pop') return renderPop();
     var t = TOOLS[tool]; pick = {}; t.steps.forEach(function(s){ pick[s.key] = s.opts[0]; });
     var h = '<h2>' + t.title + '</h2>';
     t.steps.forEach(function(s){
@@ -261,6 +325,7 @@ var CFG = {
       s.opts.forEach(function(o, i){ h += '<button type="button" class="chip" data-k="'+s.key+'" data-v="'+esc(o)+'" aria-pressed="'+(i===0)+'">'+esc(o)+'</button>'; });
       h += '</div></div>';
     });
+    if (tool === 'post' || tool === 'card') h += menuPick();
     h += '<div class="step"><label for="detail">'+t.detail+'</label>' + (t.area ? '<textarea id="detail" placeholder="'+esc(t.ph)+'"></textarea>' : '<input type="text" id="detail" placeholder="'+esc(t.ph)+'">') + '</div>';
     h += '<button class="go" type="button" id="go">만들기<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>';
     h += '<div class="result hidden" id="result"></div>';
@@ -271,6 +336,7 @@ var CFG = {
   function base(){
     return CFG.role + '\n' +
       '가게: ' + studio.name + ' / 동네: ' + studio.area + ' / ' + CFG.clsName + ': ' + studio.cls + ' / 특징: ' + studio.feat + ' / 예약·주문: ' + studio.contact + '\n' +
+      (DB.menus.length ? '메뉴판: ' + DB.menus.slice(0, 12).map(function(m){ return m.name + (m.price ? ' ' + fmtPrice(m.price) : ''); }).join(', ') + '\n' : '') +
       '말투: ' + studio.tone + '\n' +
       '꼭 지킬 것:\n- ' + CFG.rule + '\n' +
       '- 가격·날짜·인원은 사장님이 준 정보만 써. 없으면 [가격], [날짜]처럼 빈칸으로 남겨.\n- 결과물만 출력해. 설명, 머리말, 따옴표로 감싸기 없이.\n';
@@ -354,6 +420,7 @@ var CFG = {
     if (hits.length) a += '<button type="button" class="sub" data-act="fix">안전하게 고치기</button>';
     a += '<button type="button" class="sub" data-act="again">다시 만들기</button>';
     if (tool !== 'review') a += '<button type="button" class="sub" data-act="short">더 짧게</button>';
+    a += '<button type="button" class="sub" data-x="box-save">보관함 저장</button>';
     $('#acts').innerHTML = a;
   }
   function showCard(c){
@@ -396,6 +463,7 @@ var CFG = {
     h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">3</span>홍보글 만들기</p>';
     h += '<div class="step"><p id="lb_topic">이 사진으로 무엇을 알릴까요?</p><div class="chips" role="group" aria-labelledby="lb_topic">' + P.topics.map(function(o, i){ return '<button type="button" class="chip" data-k="topic" data-v="' + esc(o) + '" aria-pressed="' + (i===0) + '">' + esc(o) + '</button>'; }).join('') + '</div></div>';
     h += '<div class="step"><p id="lb_ch">어디에 올릴까요?</p><div class="chips" role="group" aria-labelledby="lb_ch">' + Object.keys(CH).map(function(o, i){ return '<button type="button" class="chip" data-k="ch" data-v="' + esc(o) + '" aria-pressed="' + (i===0) + '">' + esc(o) + '</button>'; }).join('') + '</div></div>';
+    h += menuPick();
     h += '<div class="step"><label for="detail">한 줄로 더 알려주세요 (선택)</label><input type="text" id="detail" placeholder="' + esc(P.detailPh) + '"></div>';
     h += '<button class="go" type="button" id="go">이 사진으로 홍보글 만들기</button>';
     h += '<div class="result hidden" id="result"></div></div>';
@@ -634,6 +702,584 @@ var CFG = {
     studio = { name:$('#fName').value.trim() || '우리 가게', area:$('#fArea').value.trim(), cls:$('#fClass').value.trim(), feat:$('#fFeat').value.trim(), contact:$('#fContact').value.trim() || '전화 문의', tone:toneSel };
     store.set('studio', studio); renderStudio(); dlg.close ? dlg.close() : dlg.removeAttribute('open'); toast('저장했어요');
   });
+
+  /* =====================================================================
+     확장: 내 메뉴 · 메뉴판·전단 · 가격표 POP · 장부(주문·납품/거래처/견적서) · 보관함
+     모든 데이터는 이 기기(localStorage)에만 저장. 장부는 AI 횟수를 쓰지 않음(무료)
+     ===================================================================== */
+  function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function num(v){ return +String(v == null ? '' : v).replace(/[^\d.-]/g, '') || 0; }
+  function won(n){ return Math.round(+n || 0).toLocaleString('ko-KR') + '원'; }
+  function fmtPrice(p){ var s = String(p == null ? '' : p).trim(); if (!s) return ''; return /^[\d,]+$/.test(s) ? won(num(s)) : s; }
+  function ymd(d){ d = d || new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10); }
+  function md(s){ return s ? (+s.slice(5, 7)) + '/' + (+s.slice(8, 10)) : ''; }
+  function addDays(n){ var d = new Date(); d.setDate(d.getDate() + n); return ymd(d); }
+  function uniq(a){ return a.filter(function(v, i){ return v && a.indexOf(v) === i; }); }
+  function sumOf(rows){ return rows.reduce(function(s, r){ return s + (+r.amount || 0); }, 0); }
+  function val(id){ var el = $('#' + id); return el ? el.value.trim() : ''; }
+  function setVal(id, v){ var el = $('#' + id); if (el) el.value = v == null ? '' : v; }
+
+  var mon0 = ymd().slice(0, 8);
+  var SEED = {
+    menus:[
+      {id:'m1', cat:'식사', name:'제육볶음 정식', price:'9000', desc:'불맛 나는 제육, 반찬 4가지', origin:'돼지고기 국내산', best:true},
+      {id:'m2', cat:'식사', name:'된장찌개', price:'8000', desc:'직접 담근 된장으로 끓여요', origin:'', best:true},
+      {id:'m3', cat:'식사', name:'들기름 막국수', price:'9000', desc:'11월 한정, 고소한 들기름', origin:'메밀 국내산', best:false},
+      {id:'m4', cat:'곁들임', name:'계란말이', price:'5000', desc:'두툼하게 말아요', origin:'', best:false},
+      {id:'m5', cat:'음료', name:'수제 식혜', price:'2000', desc:'매일 직접 만들어요', origin:'', best:false}
+    ],
+    parties:[
+      {id:'p1', kind:'식자재', name:'한빛축산', items:'돼지고기·소고기', phone:'010-0000-0001', day:'월·목', memo:'오후 4시 전 주문'},
+      {id:'p2', kind:'식자재', name:'싱싱청과', items:'채소·과일', phone:'010-0000-0002', day:'매일', memo:''},
+      {id:'p3', kind:'단체 손님', name:'연남초 학부모회', items:'도시락', phone:'010-0000-0003', day:'', memo:'매달 모임'}
+    ],
+    ledger:[
+      {id:'l1', date:mon0 + '02', type:'매입', party:'한빛축산', item:'돼지 앞다리 10kg', amount:128000, paid:true, memo:''},
+      {id:'l2', date:mon0 + '03', type:'매입', party:'싱싱청과', item:'채소 모음', amount:46000, paid:false, memo:'월말 정산'},
+      {id:'l3', date:mon0 + '05', type:'매출', party:'연남초 학부모회', item:'도시락 30개', amount:270000, paid:false, memo:'계좌이체 예정'},
+      {id:'l4', date:mon0 + '06', type:'매출', party:'홀·배달 매출', item:'하루 매출 합계', amount:612000, paid:true, memo:''}
+    ],
+    quotes:[
+      {id:'q1', customer:'연남초 학부모회', phone:'010-0000-0003', date:addDays(7), time:'12:00', people:30, place:'학교로 배달', items:[{name:'제육볶음 도시락', qty:30, price:9000}, {name:'수제 식혜', qty:30, price:2000}], discount:30000, memo:'수저·물티슈 포함', status:'확정', booked:false}
+    ]
+  };
+  var DB = {
+    menus: store.get('menus', null) || SEED.menus,
+    parties: store.get('parties', null) || SEED.parties,
+    ledger: store.get('ledger', null) || SEED.ledger,
+    quotes: store.get('quotes', null) || SEED.quotes,
+    box: store.get('box', [])
+  };
+  function save(k){ store.set(k, DB[k]); }
+  function menuById(id){ return DB.menus.filter(function(m){ return m.id === id; })[0]; }
+  function fillLists(){
+    $('#partyList').innerHTML = DB.parties.map(function(p){ return '<option value="' + esc(p.name) + '">'; }).join('');
+    $('#catList').innerHTML = uniq(['식사','곁들임','음료','주류'].concat(DB.menus.map(function(m){ return m.cat; }))).map(function(c){ return '<option value="' + esc(c) + '">'; }).join('');
+  }
+
+  /* 홍보 패널에서 메뉴 골라 넣기 */
+  function menuPick(){
+    if (!DB.menus.length) return '';
+    return '<div class="step"><p>내 메뉴에서 넣기 (선택)</p><div class="chips">' + DB.menus.slice(0, 10).map(function(m){ return '<button type="button" class="chip" data-x="mpick" data-id="' + m.id + '">' + esc(m.name) + '</button>'; }).join('') + '</div></div>';
+  }
+
+  /* 저장 · 인쇄 공통 */
+  async function saveCanvas(cv, filename){
+    var b = await new Promise(function(res){ cv.toBlob(res, 'image/png'); });
+    if (downloads){ try { await downloads.save({filename:filename, data:b}); toast('저장했어요'); return; } catch(err){ if (err && err.code === 'declined'){ toast('저장을 취소했어요'); return; } } }
+    try { var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = filename; document.body.appendChild(a); a.click(); a.remove(); toast('저장했어요. 안 되면 이미지를 길게 눌러 저장하세요'); }
+    catch(e){ toast('이미지를 길게 눌러 저장해 주세요'); }
+  }
+  function printCanvas(cv){
+    $('#printArea').innerHTML = '<img alt="" src="' + cv.toDataURL('image/png') + '">';
+    document.body.classList.add('printing');
+    setTimeout(function(){ try { window.print(); } catch(e){ toast('인쇄가 안 되면 이미지를 저장해서 인쇄해 주세요'); } setTimeout(function(){ document.body.classList.remove('printing'); }, 300); }, 120);
+  }
+  async function fontsReady(){ if (document.fonts && document.fonts.load){ try { await Promise.all(['900','700','500'].map(function(w){ return document.fonts.load(w + " 40px 'Noto Sans KR'"); })); } catch(e){} } }
+  var FONT = "'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif";
+  function fitFont(x, text, weight, size, maxW, min){ size = Math.round(size); x.font = weight + ' ' + size + 'px ' + FONT; while (size > (min || 18) && x.measureText(text).width > maxW){ size -= 2; x.font = weight + ' ' + size + 'px ' + FONT; } return size; }
+  function drawCover(x, img, dx, dy, dw, dh, r){
+    var iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height, s = Math.max(dw / iw, dh / ih), sw = dw / s, sh = dh / s;
+    x.save(); roundRect(x, dx, dy, dw, dh, r); x.clip(); x.drawImage(img, (iw - sw) / 2, (ih - sh) / 2, sw, sh, dx, dy, dw, dh); x.restore();
+  }
+  var lastImg = null;
+  function showImage(box, cv, filename, alt){
+    lastImg = {cv:cv, name:filename};
+    box.classList.remove('hidden');
+    box.innerHTML = '<img class="card-prev" alt="' + esc(alt) + '" src="' + cv.toDataURL('image/png') + '"><div class="row"><button type="button" class="sub primary" data-x="img-save">이미지 저장</button><button type="button" class="sub" data-x="img-print">인쇄하기</button></div><p class="note">' + (downloads ? '' : '저장이 안 되면 이미지를 길게 눌러 저장하세요. ') + '[ ] 칸이 있으면 채운 뒤 다시 만들어 주세요.</p>';
+    box.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  /* ---------- 메뉴판 · 전단 ---------- */
+  var BTH = [
+    {bg:'#FBF7EE', ink:'#14161F', acc:'#3B5B92', sub:'#5B6070', band:'#14161F', bandT:'#FFD43B', name:'아이보리'},
+    {bg:'#17191F', ink:'#FFFFFF', acc:'#FFD43B', sub:'#B9BFCC', band:'#FFD43B', bandT:'#14161F', name:'블랙'},
+    {bg:'#FFFFFF', ink:'#2B1D12', acc:'#C2410C', sub:'#7A6A5C', band:'#C2410C', bandT:'#FFFFFF', name:'화이트'}
+  ];
+  var bd = {kind:'메뉴판', theme:0, sel:null, usePh:true, img:null, head:'', sub:''};
+  function renderBoard(){
+    if (!bd.sel) bd.sel = DB.menus.map(function(m){ return m.id; });
+    bd.sel = bd.sel.filter(function(id){ return menuById(id); });
+    var h = '<h2>메뉴판·전단 만들기</h2>';
+    if (!DB.menus.length) { $('#panel').innerHTML = h + '<div class="empty">아직 메뉴가 없어요.<br><button type="button" class="mini" data-x="goview" data-v="menu" style="margin-top:8px">내 메뉴 적으러 가기</button></div>'; return; }
+    h += '<div class="step"><p>무엇을 만들까요?</p><div class="chips">' + ['메뉴판','전단'].map(function(k){ return '<button type="button" class="chip" data-x="bd-kind" data-v="' + k + '" aria-pressed="' + (bd.kind === k) + '">' + k + (k === '메뉴판' ? ' (매장·테이블용)' : ' (홍보·배포용)') + '</button>'; }).join('') + '</div></div>';
+    h += '<div class="step"><p>넣을 메뉴 ' + (bd.kind === '전단' ? '(앞의 4개가 크게 들어가요)' : '') + '</p><div class="chips">' + DB.menus.map(function(m){ return '<button type="button" class="chip" data-x="bd-sel" data-id="' + m.id + '" aria-pressed="' + (bd.sel.indexOf(m.id) > -1) + '">' + esc(m.name) + '</button>'; }).join('') + '</div></div>';
+    if (bd.kind === '메뉴판'){
+      h += '<div class="step"><label for="bdHead">맨 위 제목</label><input type="text" id="bdHead" maxlength="14" placeholder="MENU"></div>';
+    } else {
+      h += '<div class="step"><label for="bdHead">큰 제목</label><input type="text" id="bdHead" maxlength="16" placeholder="예: 신메뉴 출시!"></div>';
+      h += '<div class="step"><label for="bdSub">혜택·안내 한 줄</label><input type="text" id="bdSub" maxlength="30" placeholder="예: 11월 한 달 포장 10% 할인"></div>';
+      h += '<div class="step"><p>사진 (선택)</p>' + (ph.img ? '<label class="ck"><input type="checkbox" id="bdUsePh"' + (bd.usePh ? ' checked' : '') + '> \'사진 올리고 홍보하기\'에서 보정한 사진 넣기</label>' : '') + '<input type="file" id="bdFile" accept="image/*" aria-label="전단에 넣을 사진 고르기">' + (bd.img ? '<p class="note">고른 사진이 들어가요.</p>' : '') + '</div>';
+    }
+    h += '<div class="step"><p>색상</p><div class="themes">' + BTH.map(function(t, i){ return '<button type="button" class="sw" data-x="bd-th" data-i="' + i + '" aria-pressed="' + (i === bd.theme) + '" aria-label="' + t.name + '" style="background:' + t.bg + '"></button>'; }).join('') + '</div></div>';
+    h += '<button class="go" type="button" data-x="bd-make">' + bd.kind + ' 만들기</button><div class="result hidden" id="bdRes"></div>';
+    h += '<p class="note">A4 크기로 만들어져요. 가격·메뉴는 \'내 메뉴\'에서 고치면 바로 반영돼요.</p>';
+    $('#panel').innerHTML = h;
+    setVal('bdHead', bd.head); setVal('bdSub', bd.sub);
+    var f = $('#bdFile'); if (f) f.addEventListener('change', function(e){ var file = e.target.files && e.target.files[0]; if (!file) return; var im = new Image(); im.onload = function(){ bd.img = im; bd.usePh = false; var c = $('#bdUsePh'); if (c) c.checked = false; toast('사진을 넣었어요'); }; im.onerror = function(){ toast('이 사진은 열 수 없어요'); }; im.src = URL.createObjectURL(file); });
+  }
+  function boardPhoto(){
+    var c = $('#bdUsePh');
+    if (ph.img && c && c.checked){ var t = ph.text, n = ph.name; ph.text = ''; ph.name = false; var cv = render(1400, true); ph.text = t; ph.name = n; return cv; }
+    return bd.img;
+  }
+  function drawBoard(){
+    var th = BTH[bd.theme], W = 1240, H = 1754, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    var x = cv.getContext('2d'), items = bd.sel.map(menuById).filter(Boolean), M = 110;
+    x.fillStyle = th.bg; x.fillRect(0, 0, W, H);
+    x.textBaseline = 'alphabetic';
+    var origins = uniq(items.map(function(m){ return m.origin; }));
+    // 하단 띠: 가게 이름 · 연락처
+    var bandH = 150; x.fillStyle = th.band; x.fillRect(0, H - bandH, W, bandH);
+    x.fillStyle = th.bandT; x.textAlign = 'left'; fitFont(x, studio.name, '900', 52, W / 2 - M); x.fillText(studio.name, M, H - bandH / 2 + 18);
+    x.textAlign = 'right'; fitFont(x, [studio.area, studio.contact].filter(Boolean).join(' · '), '500', 32, W / 2 - 20); x.fillText([studio.area, studio.contact].filter(Boolean).join(' · '), W - M, H - bandH / 2 + 12);
+    x.textAlign = 'left';
+    var bottom = H - bandH - 40;
+    if (origins.length){ x.fillStyle = th.sub; fitFont(x, '원산지 · ' + origins.join(', '), '500', 26, W - M * 2, 16); x.fillText('원산지 · ' + origins.join(', '), M, bottom); bottom -= 50; }
+
+    if (bd.kind === '메뉴판'){
+      var head = bd.head || 'MENU', y = 200;
+      x.textAlign = 'center'; x.fillStyle = th.acc; x.font = '700 30px ' + FONT; x.fillText((studio.area ? studio.area + ' · ' : '') + studio.name, W / 2, y - 70);
+      x.fillStyle = th.ink; fitFont(x, head, '900', 128, W - M * 2); x.fillText(head, W / 2, y + 60);
+      x.fillStyle = th.acc; x.fillRect(W / 2 - 60, y + 100, 120, 10); x.textAlign = 'left';
+      y += 170;
+      var cats = uniq(items.map(function(m){ return m.cat || '메뉴'; }));
+      var need = cats.length * 92 + items.reduce(function(s, m){ return s + (m.desc ? 104 : 72); }, 0);
+      var s = Math.min(1.25, Math.max(.5, (bottom - y - 10) / need));
+      cats.forEach(function(c){
+        y += 24 * s; x.font = '900 ' + Math.round(30 * s) + 'px ' + FONT; var cw = x.measureText(c).width + 40 * s;
+        x.fillStyle = th.band; roundRect(x, M, y, cw, 50 * s, 25 * s); x.fill();
+        x.fillStyle = th.bandT; x.textBaseline = 'middle'; x.fillText(c, M + 20 * s, y + 26 * s); x.textBaseline = 'alphabetic';
+        y += 68 * s;
+        items.filter(function(m){ return (m.cat || '메뉴') === c; }).forEach(function(m){
+          y += 48 * s; var price = fmtPrice(m.price);
+          x.font = '700 ' + Math.round(40 * s) + 'px ' + FONT; var pw = x.measureText(price).width;
+          x.fillStyle = th.ink; var nameSize = fitFont(x, (m.best ? '★ ' : '') + m.name, '700', 44 * s, W - M * 2 - pw - 80, 18);
+          x.fillText((m.best ? '★ ' : '') + m.name, M, y); var nw = x.measureText((m.best ? '★ ' : '') + m.name).width;
+          x.font = '700 ' + Math.round(40 * s) + 'px ' + FONT; x.textAlign = 'right'; x.fillStyle = th.ink; x.fillText(price, W - M, y); x.textAlign = 'left';
+          x.fillStyle = th.sub; for (var dx = M + nw + 20; dx < W - M - pw - 20; dx += 16) x.fillRect(dx, y - 10 * s, 4, 4);
+          if (m.desc){ y += 42 * s; x.fillStyle = th.sub; fitFont(x, m.desc, '500', 28 * s, W - M * 2, 14); x.fillText(m.desc, M, y); }
+          y += 24 * s;
+        });
+      });
+    } else {
+      var hy = 140, img = boardPhoto();
+      x.textAlign = 'left'; x.fillStyle = th.acc; x.font = '900 34px ' + FONT; x.fillText((studio.area ? studio.area + ' ' : '') + studio.name, M, hy);
+      x.fillStyle = th.ink; x.font = '900 112px ' + FONT;
+      var lines = wrap(x, bd.head || '[큰 제목]', W - M * 2).slice(0, 2);
+      lines.forEach(function(l){ hy += 128; x.fillText(l, M, hy); });
+      hy += 40;
+      if (bd.sub){ x.font = '900 42px ' + FONT; var sw = Math.min(W - M * 2, x.measureText(bd.sub).width + 60); x.fillStyle = th.band; roundRect(x, M, hy, sw, 80, 40); x.fill(); x.fillStyle = th.bandT; x.textBaseline = 'middle'; fitFont(x, bd.sub, '900', 42, sw - 60); x.fillText(bd.sub, M + 30, hy + 42); x.textBaseline = 'alphabetic'; hy += 80; }
+      hy += 50;
+      var top4 = items.slice(0, 4), rows = Math.ceil(top4.length / 2), boxH = 190, gap = 24;
+      if (!img && rows){ boxH = Math.min(rows === 1 ? 420 : 380, (bottom - hy - 30 - (rows - 1) * gap) / rows); }
+      var gridH = rows ? rows * boxH + (rows - 1) * gap : 0;
+      var photoH = img ? Math.max(260, bottom - hy - gridH - (rows ? 50 : 0)) : 0;
+      if (img){ drawCover(x, img, M, hy, W - M * 2, photoH, 28); hy += photoH + 50; }
+      else if (rows){ hy = Math.max(hy, bottom - gridH - 30); }
+      var k = boxH / 190;
+      top4.forEach(function(m, i){
+        var bw = (W - M * 2 - gap) / 2, bx = M + (i % 2) * (bw + gap), by = hy + Math.floor(i / 2) * (boxH + gap), single = top4.length === 1;
+        if (single) bw = W - M * 2;
+        x.fillStyle = bd.theme === 1 ? '#262934' : (bd.theme === 2 ? '#FBF3EA' : '#FFFFFF'); roundRect(x, bx, by, bw, boxH, 24); x.fill();
+        x.strokeStyle = bd.theme === 1 ? '#3A3E4C' : '#E8E1D0'; x.lineWidth = 2; roundRect(x, bx, by, bw, boxH, 24); x.stroke();
+        var kk = Math.min(k, 1.7), p0 = 30 * kk, top = by + (boxH - 166 * kk - (m.best ? 34 * kk : 0)) / 2 - 10 * kk;
+        if (m.best){ x.fillStyle = th.acc; x.font = '900 ' + Math.round(24 * kk) + 'px ' + FONT; x.fillText('★ 대표 메뉴', bx + p0, top + 40 * kk); top += 34 * kk; }
+        x.fillStyle = th.ink; fitFont(x, m.name, '900', 44 * kk, bw - p0 * 2); x.fillText(m.name, bx + p0, top + 70 * kk);
+        if (m.desc){ x.fillStyle = th.sub; fitFont(x, m.desc, '500', 26 * kk, bw - p0 * 2, 14); x.fillText(m.desc, bx + p0, top + 112 * kk); }
+        x.fillStyle = th.acc; fitFont(x, fmtPrice(m.price), '900', 46 * kk, bw - p0 * 2); x.fillText(fmtPrice(m.price), bx + p0, top + 166 * kk);
+      });
+    }
+    return cv;
+  }
+
+  /* ---------- 가격표 POP ---------- */
+  var pp = {sel:[], tag:'추천', theme:0};
+  function renderPop(){
+    pp.sel = pp.sel.filter(function(id){ return menuById(id); });
+    if (!pp.sel.length && DB.menus.length) pp.sel = [(DB.menus.filter(function(m){ return m.best; })[0] || DB.menus[0]).id];
+    var h = '<h2>가격표(POP) 만들기</h2>';
+    if (!DB.menus.length) { $('#panel').innerHTML = h + '<div class="empty">아직 메뉴가 없어요.<br><button type="button" class="mini" data-x="goview" data-v="menu" style="margin-top:8px">내 메뉴 적으러 가기</button></div>'; return; }
+    h += '<div class="step"><p>어떤 메뉴인가요? (최대 4개)</p><div class="chips">' + DB.menus.map(function(m){ return '<button type="button" class="chip" data-x="pp-sel" data-id="' + m.id + '" aria-pressed="' + (pp.sel.indexOf(m.id) > -1) + '">' + esc(m.name) + '</button>'; }).join('') + '</div></div>';
+    h += '<div class="step"><p>머리말</p><div class="chips">' + ['추천','NEW','BEST','한정','사장님 추천','없음'].map(function(t){ return '<button type="button" class="chip" data-x="pp-tag" data-v="' + t + '" aria-pressed="' + (pp.tag === t) + '">' + t + '</button>'; }).join('') + '</div></div>';
+    h += '<div class="step"><p>색상</p><div class="themes">' + THEMES.map(function(t, i){ return '<button type="button" class="sw" data-x="pp-th" data-i="' + i + '" aria-pressed="' + (i === pp.theme) + '" aria-label="' + t.name + '" style="background:' + t.bg + '"></button>'; }).join('') + '</div></div>';
+    h += '<p class="note">1개를 고르면 큰 가격표 1장, 2~4개를 고르면 A4 한 장에 모아서 만들어요(점선대로 잘라 쓰세요).</p>';
+    h += '<button class="go" type="button" data-x="pp-make">가격표 만들기</button><div class="result hidden" id="ppRes"></div>';
+    $('#panel').innerHTML = h;
+  }
+  function drawPopCard(x, m, ox, oy, w, h, th){
+    var u = Math.min(w, h) / 900, pad = 70 * u;
+    x.save(); x.beginPath(); x.rect(ox, oy, w, h); x.clip();
+    x.fillStyle = th.bg; x.fillRect(ox, oy, w, h);
+    x.fillStyle = th.blob; x.beginPath(); x.arc(ox + w - 80 * u, oy + 90 * u, 260 * u, 0, Math.PI * 2); x.fill();
+    var y = oy + pad;
+    if (pp.tag !== '없음'){ x.font = '900 ' + Math.round(44 * u) + 'px ' + FONT; var tw = x.measureText(pp.tag).width + 60 * u; x.fillStyle = th.pill; roundRect(x, ox + pad, y, tw, 84 * u, 42 * u); x.fill(); x.fillStyle = th.pillT; x.textBaseline = 'middle'; x.fillText(pp.tag, ox + pad + 30 * u, y + 44 * u); x.textBaseline = 'alphabetic'; }
+    y += 84 * u + 40 * u;
+    var nsz = Math.round(120 * u); x.fillStyle = th.ink; x.font = '900 ' + nsz + 'px ' + FONT;
+    var nl = wrap(x, m.name, w - pad * 2);
+    if (nl.length > 2){ nsz = Math.round(90 * u); x.font = '900 ' + nsz + 'px ' + FONT; nl = wrap(x, m.name, w - pad * 2).slice(0, 2); }
+    var lh = nsz * 1.12;
+    nl.forEach(function(l){ y += lh; x.fillText(l, ox + pad, y); });
+    if (m.desc){ y += 64 * u; x.globalAlpha = .82; fitFont(x, m.desc, '500', 44 * u, w - pad * 2, 12); x.fillText(m.desc, ox + pad, y); x.globalAlpha = 1; }
+    var price = fmtPrice(m.price) || '[가격]';
+    x.textAlign = 'right'; x.fillStyle = th.acc; fitFont(x, price, '900', 150 * u, w - pad * 2, 20); x.fillText(price, ox + w - pad, oy + h - pad - (m.origin ? 50 * u : 0));
+    if (m.origin){ x.fillStyle = th.ink; x.globalAlpha = .7; x.font = '500 ' + Math.round(30 * u) + 'px ' + FONT; x.fillText('원산지 · ' + m.origin, ox + w - pad, oy + h - pad + 6 * u); x.globalAlpha = 1; }
+    x.textAlign = 'left'; x.restore();
+  }
+  function drawPop(){
+    var items = pp.sel.map(menuById).filter(Boolean), th = THEMES[pp.theme], cv = document.createElement('canvas'), x = cv.getContext('2d');
+    if (items.length === 1){ cv.width = 1200; cv.height = 900; x = cv.getContext('2d'); drawPopCard(x, items[0], 0, 0, 1200, 900, th); return cv; }
+    cv.width = 1240; cv.height = 1754; x = cv.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, 1240, 1754);
+    var cw = 620, ch = 877;
+    items.slice(0, 4).forEach(function(m, i){ drawPopCard(x, m, (i % 2) * cw, Math.floor(i / 2) * ch, cw, ch, th); });
+    x.strokeStyle = '#9AA0AE'; x.lineWidth = 2; x.setLineDash([14, 10]);
+    x.beginPath(); x.moveTo(cw, 0); x.lineTo(cw, 1754); x.moveTo(0, ch); x.lineTo(1240, ch); x.stroke(); x.setLineDash([]);
+    return cv;
+  }
+
+  /* ---------- 화면 전환 ---------- */
+  var view = 'promo';
+  function setView(v){
+    view = v;
+    ['promo','menu','ledger','box'].forEach(function(k){ $('#v-' + k).classList.toggle('hidden', k !== v); });
+    document.querySelectorAll('.tab').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.view === v); });
+    if (v === 'promo') renderPanel();
+    if (v === 'menu') renderMenus();
+    if (v === 'ledger') renderLedger();
+    if (v === 'box') renderBox();
+    window.scrollTo({top:0});
+  }
+
+  /* ---------- 내 메뉴 ---------- */
+  var editMenuId = null;
+  function renderMenus(){
+    var cats = uniq(DB.menus.map(function(m){ return m.cat || '메뉴'; }));
+    var h = '<section class="panel"><div class="hrow"><h2>내 메뉴 <small style="font-size:13px;color:var(--muted)">' + DB.menus.length + '개</small></h2><button type="button" class="mini on" data-x="menu-add">+ 메뉴 추가</button></div>';
+    h += '<p class="note">한 번 적어두면 홍보글·메뉴판·가격표·견적서에 자동으로 들어가요.</p><div id="menuForm"></div>';
+    if (!DB.menus.length) h += '<div class="empty">아직 메뉴가 없어요. \'+ 메뉴 추가\'를 눌러주세요.</div>';
+    cats.forEach(function(c){
+      h += '<p class="sec">' + esc(c) + '</p><div class="list">';
+      DB.menus.filter(function(m){ return (m.cat || '메뉴') === c; }).forEach(function(m){
+        h += '<div class="item"><div><b>' + (m.best ? '<span class="badge">대표</span>' : '') + esc(m.name) + '</b><span class="m">' + esc([m.desc, m.origin ? '원산지 ' + m.origin : ''].filter(Boolean).join(' · ')) + '</span></div><div class="side"><span class="amt">' + esc(fmtPrice(m.price)) + '</span><button type="button" class="mini" data-x="menu-edit" data-id="' + m.id + '">수정</button></div></div>';
+      });
+      h += '</div>';
+    });
+    h += '</section>';
+    $('#v-menu').innerHTML = h;
+  }
+  function menuForm(m){
+    editMenuId = m ? m.id : null; fillLists();
+    $('#menuForm').innerHTML = '<div class="formbox"><h3>' + (m ? '메뉴 수정' : '새 메뉴') + '</h3>' +
+      '<label class="f">메뉴 이름<input type="text" id="mName" maxlength="30" placeholder="예: 제육볶음 정식"></label>' +
+      '<div class="grid2"><label class="f">가격<input type="text" inputmode="numeric" id="mPrice" maxlength="12" placeholder="9000"></label><label class="f">분류<input type="text" id="mCat" list="catList" maxlength="12" placeholder="식사"></label></div>' +
+      '<label class="f">한 줄 설명 (선택)<input type="text" id="mDesc" maxlength="40" placeholder="예: 불맛 나는 제육, 반찬 4가지"></label>' +
+      '<label class="f">원산지 (선택)<input type="text" id="mOrigin" maxlength="40" placeholder="예: 돼지고기 국내산"></label>' +
+      '<label class="ck"><input type="checkbox" id="mBest"> 대표 메뉴로 표시</label>' +
+      '<div class="row">' + (m ? '<button type="button" class="sub" data-x="menu-del">삭제</button>' : '') + '<button type="button" class="sub" data-x="menu-cancel">닫기</button><button type="button" class="sub primary" data-x="menu-save">저장</button></div></div>';
+    m = m || {cat:'식사'};
+    setVal('mName', m.name); setVal('mPrice', m.price); setVal('mCat', m.cat); setVal('mDesc', m.desc); setVal('mOrigin', m.origin); $('#mBest').checked = !!m.best;
+    $('#menuForm').scrollIntoView({behavior:'smooth', block:'start'}); $('#mName').focus({preventScroll:true});
+  }
+
+  /* ---------- 장부 ---------- */
+  var lsub = 'sum', lmon = ymd().slice(0, 7), lfilter = '전체', wipeArm = false;
+  function monRows(m){ return DB.ledger.filter(function(r){ return r.date && r.date.slice(0, 7) === m; }); }
+  function shiftMon(m, d){ var dt = new Date(+m.slice(0, 4), +m.slice(5, 7) - 1 + d, 1); return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0'); }
+  function monTitle(m){ return (m.slice(0, 4) === ymd().slice(0, 4) ? '' : m.slice(0, 4) + '년 ') + (+m.slice(5, 7)) + '월'; }
+  function monNav(title){ return '<div class="hrow"><button type="button" class="mini" data-x="mon" data-d="-1" aria-label="지난달">◀</button><h2 style="text-align:center;flex:1">' + monTitle(lmon) + ' ' + title + '</h2><button type="button" class="mini" data-x="mon" data-d="1" aria-label="다음달">▶</button></div>'; }
+  function qTotal(q){ return Math.max(0, (q.items || []).reduce(function(s, it){ return s + num(it.qty) * num(it.price); }, 0) - num(q.discount)); }
+  function renderLedger(){
+    var tabs = [['sum','요약'],['book','주문·납품 장부'],['party','거래처'],['quote','견적서·단체주문']];
+    $('#v-ledger').innerHTML = '<div class="seg">' + tabs.map(function(t){ return '<button type="button" class="chip" data-x="lsub" data-v="' + t[0] + '" aria-pressed="' + (t[0] === lsub) + '">' + t[1] + '</button>'; }).join('') + '</div><section class="panel" id="lbody"></section><p class="mode">장부는 이 휴대폰(브라우저)에만 저장돼요 · 계속 무료</p>';
+    fillLists();
+    ({sum:renderSum, book:renderBook, party:renderParty, quote:renderQuotes})[lsub]();
+  }
+  function rowItem(r){
+    return '<div class="item"><div><b><span class="badge' + (r.type === '매입' ? ' neg' : '') + '">' + r.type + '</span>' + esc(r.party || '-') + '</b><span class="m">' + esc([md(r.date), r.item, r.memo].filter(Boolean).join(' · ')) + '</span></div><div class="side"><span class="amt">' + won(r.amount) + '</span><span style="display:flex;gap:4px"><button type="button" class="mini' + (r.paid ? '' : ' on') + '" data-x="paid" data-id="' + r.id + '" aria-label="정산 상태 바꾸기">' + (r.paid ? '정산 끝' : (r.type === '매출' ? '받을 돈' : '줄 돈')) + '</button><button type="button" class="mini" data-x="book-edit" data-id="' + r.id + '">수정</button></span></div></div>';
+  }
+  function renderSum(){
+    var rows = monRows(lmon), sale = sumOf(rows.filter(function(r){ return r.type === '매출'; })), buy = sumOf(rows.filter(function(r){ return r.type === '매입'; }));
+    var recv = DB.ledger.filter(function(r){ return r.type === '매출' && !r.paid; }), pay = DB.ledger.filter(function(r){ return r.type === '매입' && !r.paid; });
+    var up = DB.quotes.filter(function(q){ return q.status !== '완료' && q.date >= ymd(); }).sort(function(a, b){ return a.date < b.date ? -1 : 1; }).slice(0, 3);
+    var h = monNav('요약');
+    h += '<div class="stats"><div class="stat plus"><span>매출</span><b>' + won(sale) + '</b></div><div class="stat minus"><span>매입</span><b>' + won(buy) + '</b></div><div class="stat"><span>남은 돈 (매출−매입)</span><b>' + won(sale - buy) + '</b></div><div class="stat"><span>받을 돈 / 줄 돈</span><b style="font-size:15px">' + won(sumOf(recv)) + '<br>' + won(sumOf(pay)) + '</b></div></div>';
+    h += '<div class="row"><button type="button" class="sub primary" data-x="book-add">+ 장부 쓰기</button><button type="button" class="sub" data-x="quote-new">+ 견적서</button></div>';
+    h += '<p class="sec">다가오는 단체주문</p>' + (up.length ? '<div class="list">' + up.map(quoteItem).join('') + '</div>' : '<div class="empty">예정된 단체주문이 없어요.</div>');
+    h += '<p class="sec">아직 정산 안 된 거래</p>' + (recv.length + pay.length ? '<div class="list">' + recv.concat(pay).slice(0, 6).map(rowItem).join('') + '</div>' : '<div class="empty">모두 정산했어요 👍</div>');
+    h += '<details><summary>처음 보이는 예시 지우기</summary><p class="note" style="margin:8px 0">\'골목밥상\' 예시 장부·거래처·견적서를 모두 지우고 내 가게 것으로 시작해요. (내 메뉴는 그대로 둬요)</p><button type="button" class="sub" data-x="wipe">' + (wipeArm ? '한 번 더 누르면 지워져요' : '예시 모두 지우기') + '</button></details>';
+    $('#lbody').innerHTML = h;
+  }
+  function renderBook(){
+    var rows = monRows(lmon).filter(function(r){ return lfilter === '전체' || (lfilter === '정산 전' ? !r.paid : r.type === lfilter); }).sort(function(a, b){ return a.date < b.date ? 1 : -1; });
+    var all = monRows(lmon);
+    var h = monNav('장부') + '<div id="bookForm"></div>';
+    h += '<div class="row"><button type="button" class="sub primary" data-x="book-add">+ 장부 쓰기</button><button type="button" class="sub" data-x="csv">엑셀(CSV) 받기</button></div>';
+    h += '<div class="chips">' + ['전체','매출','매입','정산 전'].map(function(f){ return '<button type="button" class="chip" data-x="lf" data-v="' + f + '" aria-pressed="' + (lfilter === f) + '">' + f + '</button>'; }).join('') + '</div>';
+    h += '<p class="note">이달 매출 <b style="color:var(--blue-deep)">' + won(sumOf(all.filter(function(r){ return r.type === '매출'; }))) + '</b> · 매입 <b style="color:var(--warn)">' + won(sumOf(all.filter(function(r){ return r.type === '매입'; }))) + '</b></p>';
+    h += rows.length ? '<div class="list">' + rows.map(rowItem).join('') + '</div>' : '<div class="empty">이달 기록이 없어요. \'+ 장부 쓰기\'로 식자재 주문·납품, 매출을 적어보세요.</div>';
+    $('#lbody').innerHTML = h;
+  }
+  var bkType = '매입', editRowId = null;
+  function bookForm(r, pre){
+    if (lsub !== 'book'){ lsub = 'book'; renderLedger(); }
+    editRowId = r ? r.id : null; r = r || pre || {};
+    bkType = r.type || '매입';
+    $('#bookForm').innerHTML = '<div class="formbox"><h3>' + (editRowId ? '장부 수정' : '장부 쓰기') + '</h3>' +
+      '<div class="chips">' + ['매입','매출'].map(function(t){ return '<button type="button" class="chip" data-x="bk-type" data-v="' + t + '" aria-pressed="' + (bkType === t) + '">' + (t === '매입' ? '매입 (식자재 주문·납품받음)' : '매출 (팔았음·납품함)') + '</button>'; }).join('') + '</div>' +
+      '<div class="grid2"><label class="f">날짜<input type="date" id="bDate"></label><label class="f">금액(원)<input type="text" inputmode="numeric" id="bAmt" placeholder="0"></label></div>' +
+      '<label class="f">거래처·손님<input type="text" id="bParty" list="partyList" maxlength="30" placeholder="예: 한빛축산"></label>' +
+      '<label class="f">품목·내용<input type="text" id="bItem" maxlength="40" placeholder="예: 돼지 앞다리 10kg"></label>' +
+      '<label class="f">메모 (선택)<input type="text" id="bMemo" maxlength="40" placeholder="예: 월말 정산"></label>' +
+      '<label class="ck"><input type="checkbox" id="bPaid"> 돈 주고받기 끝났어요</label>' +
+      '<div class="row">' + (editRowId ? '<button type="button" class="sub" data-x="book-del">삭제</button>' : '') + '<button type="button" class="sub" data-x="book-cancel">닫기</button><button type="button" class="sub primary" data-x="book-save">저장</button></div></div>';
+    setVal('bDate', r.date || ymd()); setVal('bAmt', r.amount ? num(r.amount).toLocaleString('ko-KR') : ''); setVal('bParty', r.party); setVal('bItem', r.item); setVal('bMemo', r.memo); $('#bPaid').checked = !!r.paid;
+    $('#bookForm').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  function csv(){
+    var rows = monRows(lmon).sort(function(a, b){ return a.date < b.date ? -1 : 1; });
+    var q = function(v){ v = String(v == null ? '' : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+    var text = '﻿' + ['날짜,구분,거래처,품목,금액,정산,메모'].concat(rows.map(function(r){ return [r.date, r.type, r.party, r.item, r.amount, r.paid ? '완료' : '미정산', r.memo].map(q).join(','); })).join('\n');
+    var b = new Blob([text], {type:'text/csv;charset=utf-8'}), fn = studio.name + '_장부_' + lmon + '.csv';
+    if (downloads){ downloads.save({filename:fn, data:b}).then(function(){ toast('저장했어요'); }).catch(function(){ toast('저장하지 못했어요'); }); return; }
+    var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = fn; document.body.appendChild(a); a.click(); a.remove(); toast('엑셀에서 열 수 있는 파일로 받았어요');
+  }
+
+  /* 거래처 */
+  var ptKind = '식자재', editPartyId = null;
+  function renderParty(){
+    var kinds = uniq(['식자재','단체 손님','기타'].concat(DB.parties.map(function(p){ return p.kind; })));
+    var h = '<div class="hrow"><h2>거래처</h2><button type="button" class="mini on" data-x="party-add">+ 거래처 추가</button></div><div id="partyForm"></div>';
+    if (!DB.parties.length) h += '<div class="empty">식자재 거래처나 단골 단체 손님을 적어두면 장부·견적서 쓸 때 바로 골라져요.</div>';
+    kinds.forEach(function(k){
+      var ps = DB.parties.filter(function(p){ return (p.kind || '기타') === k; }); if (!ps.length) return;
+      h += '<p class="sec">' + esc(k) + '</p><div class="list">' + ps.map(function(p){
+        var tel = String(p.phone || '').replace(/[^\d+]/g, '');
+        return '<div class="item" style="flex-direction:column;align-items:stretch"><div><b>' + esc(p.name) + '</b><span class="m">' + esc([p.items, p.day ? '주문 ' + p.day : '', p.phone, p.memo].filter(Boolean).join(' · ')) + '</span></div>' +
+          '<div style="display:flex;gap:6px;flex-wrap:wrap">' + (tel ? '<a class="mini" href="tel:' + tel + '">전화</a>' : '') + (k === '식자재' ? '<button type="button" class="mini" data-x="party-msg" data-id="' + p.id + '">주문 문자</button>' : '') + '<button type="button" class="mini" data-x="party-book" data-id="' + p.id + '">장부 쓰기</button>' + (k === '단체 손님' ? '<button type="button" class="mini" data-x="party-quote" data-id="' + p.id + '">견적서</button>' : '') + '<button type="button" class="mini" data-x="party-edit" data-id="' + p.id + '">수정</button></div><div id="pm_' + p.id + '"></div></div>';
+      }).join('') + '</div>';
+    });
+    $('#lbody').innerHTML = h;
+  }
+  function partyForm(p){
+    editPartyId = p ? p.id : null; p = p || {kind:'식자재'}; ptKind = p.kind || '식자재';
+    $('#partyForm').innerHTML = '<div class="formbox"><h3>' + (editPartyId ? '거래처 수정' : '새 거래처') + '</h3>' +
+      '<div class="chips">' + ['식자재','단체 손님','기타'].map(function(k){ return '<button type="button" class="chip" data-x="pt-kind" data-v="' + k + '" aria-pressed="' + (ptKind === k) + '">' + k + '</button>'; }).join('') + '</div>' +
+      '<label class="f">이름<input type="text" id="pName" maxlength="30" placeholder="예: 한빛축산"></label>' +
+      '<div class="grid2"><label class="f">품목<input type="text" id="pItems" maxlength="30" placeholder="예: 돼지고기"></label><label class="f">주문 요일<input type="text" id="pDay" maxlength="12" placeholder="예: 월·목"></label></div>' +
+      '<label class="f">연락처<input type="tel" id="pPhone" maxlength="20" placeholder="010-0000-0000"></label>' +
+      '<label class="f">메모 (선택)<input type="text" id="pMemo" maxlength="40" placeholder="예: 오후 4시 전 주문"></label>' +
+      '<div class="row">' + (editPartyId ? '<button type="button" class="sub" data-x="party-del">삭제</button>' : '') + '<button type="button" class="sub" data-x="party-cancel">닫기</button><button type="button" class="sub primary" data-x="party-save">저장</button></div></div>';
+    setVal('pName', p.name); setVal('pItems', p.items); setVal('pDay', p.day); setVal('pPhone', p.phone); setVal('pMemo', p.memo);
+    $('#partyForm').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  function orderMsg(p){ return p.name + ' 사장님, 안녕하세요. ' + studio.name + '입니다.\n[날짜] 납품으로 아래 주문 부탁드려요.\n· ' + (p.items || '[품목]') + ' [수량]\n가능하신지 답장 부탁드립니다. 감사합니다!'; }
+
+  /* 견적서 · 단체주문 */
+  var editQ = null;
+  function quoteItem(q){
+    var st = q.status || '견적';
+    return '<div class="item"><div><b><span class="badge ' + (st === '확정' ? '' : st === '완료' ? 'done' : 'wait') + '">' + st + '</span>' + esc(q.customer || '이름 없음') + '</b><span class="m">' + md(q.date) + (q.time ? ' ' + esc(q.time) : '') + ' · ' + (num(q.people) || '-') + '명' + (q.place ? ' · ' + esc(q.place) : '') + '</span></div><div class="side"><span class="amt">' + won(qTotal(q)) + '</span><button type="button" class="mini" data-x="quote-open" data-id="' + q.id + '">열기</button></div></div>';
+  }
+  function renderQuotes(){
+    var list = DB.quotes.slice().sort(function(a, b){ return a.date < b.date ? 1 : -1; });
+    var h = '<div class="hrow"><h2>견적서·단체주문</h2><button type="button" class="mini on" data-x="quote-new">+ 새 견적서</button></div>';
+    h += '<p class="lead">단체 도시락·모임·케이터링 문의가 오면 견적서를 이미지로 보내고, 확정되면 장부에 매출로 넣어요.</p>';
+    h += list.length ? '<div class="list">' + list.map(quoteItem).join('') + '</div>' : '<div class="empty">아직 견적서가 없어요.</div>';
+    $('#lbody').innerHTML = h;
+  }
+  function quoteEditor(q){
+    if (lsub !== 'quote'){ lsub = 'quote'; renderLedger(); }
+    editQ = q ? JSON.parse(JSON.stringify(q)) : {id:null, customer:'', phone:'', date:addDays(3), time:'12:00', people:'', place:'', items:[], discount:'', memo:'', status:'견적', booked:false};
+    var h = '<div class="hrow"><button type="button" class="mini" data-x="lsub" data-v="quote">← 목록</button><h2 style="flex:1;text-align:center">' + (editQ.id ? '견적서 수정' : '새 견적서') + '</h2><span style="width:60px"></span></div><div id="qEd" style="display:flex;flex-direction:column;gap:10px">' +
+      '<div class="chips">' + ['견적','확정','완료'].map(function(s){ return '<button type="button" class="chip" data-x="q-st" data-v="' + s + '" aria-pressed="' + (editQ.status === s) + '">' + s + '</button>'; }).join('') + '</div>' +
+      '<label class="f">손님·단체 이름<input type="text" id="qCus" list="partyList" maxlength="30" placeholder="예: 연남초 학부모회"></label>' +
+      '<div class="grid2"><label class="f">날짜<input type="date" id="qDate"></label><label class="f">시간<input type="time" id="qTime"></label></div>' +
+      '<div class="grid2"><label class="f">인원<input type="text" inputmode="numeric" id="qPpl" placeholder="30"></label><label class="f">연락처<input type="tel" id="qPhone" placeholder="010-"></label></div>' +
+      '<label class="f">장소·방법<input type="text" id="qPlace" maxlength="30" placeholder="예: 매장 / 배달 / 픽업"></label>' +
+      '<p class="sec">품목</p><div class="qrow" style="font-size:12px;color:var(--muted);font-weight:700"><span>품목</span><span>수량</span><span>단가</span><span></span></div><div id="qRows" style="display:flex;flex-direction:column;gap:6px"></div>' +
+      '<div class="chips">' + DB.menus.slice(0, 10).map(function(m){ return '<button type="button" class="chip" data-x="q-addmenu" data-id="' + m.id + '">+ ' + esc(m.name) + '</button>'; }).join('') + '<button type="button" class="chip" data-x="q-addrow">+ 직접 쓰기</button></div>' +
+      '<div class="grid2"><label class="f">할인(원)<input type="text" inputmode="numeric" id="qDisc" placeholder="0"></label><span></span></div>' +
+      '<label class="f">메모 (선택)<input type="text" id="qMemo" maxlength="50" placeholder="예: 수저·물티슈 포함, 계약금 30%"></label>' +
+      '<div class="qsum"><span>합계</span><b id="qTot">0원</b></div>' +
+      '<div class="row"><button type="button" class="sub primary" data-x="q-save">저장</button><button type="button" class="sub" data-x="q-img">견적서 이미지</button><button type="button" class="sub" data-x="q-text">문자로 복사</button></div>' +
+      '<div class="row"><button type="button" class="sub" data-x="q-book">장부에 매출로 넣기</button>' + (editQ.id ? '<button type="button" class="sub" data-x="q-del">삭제</button>' : '') + '</div>' +
+      '<div class="result hidden" id="qRes"></div></div>';
+    $('#lbody').innerHTML = h;
+    setVal('qCus', editQ.customer); setVal('qDate', editQ.date); setVal('qTime', editQ.time); setVal('qPpl', editQ.people); setVal('qPhone', editQ.phone); setVal('qPlace', editQ.place); setVal('qDisc', editQ.discount ? num(editQ.discount).toLocaleString('ko-KR') : ''); setVal('qMemo', editQ.memo);
+    drawQRows();
+    $('#qEd').addEventListener('input', function(){ readQ(); $('#qTot').textContent = won(qTotal(editQ)); });
+    window.scrollTo({top:0});
+  }
+  function drawQRows(){
+    $('#qRows').innerHTML = editQ.items.length ? editQ.items.map(function(it, i){ return '<div class="qrow"><input type="text" class="qN" aria-label="품목 ' + (i + 1) + '" maxlength="30"><input type="text" class="qQ" inputmode="numeric" aria-label="수량 ' + (i + 1) + '"><input type="text" class="qP" inputmode="numeric" aria-label="단가 ' + (i + 1) + '"><button type="button" class="x" data-x="q-rm" data-i="' + i + '" aria-label="품목 ' + (i + 1) + ' 지우기">×</button></div>'; }).join('') : '<div class="empty" style="padding:12px">아래에서 메뉴를 눌러 담아주세요.</div>';
+    var ns = document.querySelectorAll('.qN'), qs = document.querySelectorAll('.qQ'), ps = document.querySelectorAll('.qP');
+    editQ.items.forEach(function(it, i){ ns[i].value = it.name || ''; qs[i].value = it.qty || ''; ps[i].value = it.price ? num(it.price).toLocaleString('ko-KR') : ''; });
+    $('#qTot').textContent = won(qTotal(editQ));
+  }
+  function readQ(){
+    if (!editQ || !$('#qCus')) return;
+    editQ.customer = val('qCus'); editQ.date = val('qDate'); editQ.time = val('qTime'); editQ.people = num(val('qPpl')) || ''; editQ.phone = val('qPhone'); editQ.place = val('qPlace'); editQ.discount = num(val('qDisc')); editQ.memo = val('qMemo');
+    var ns = document.querySelectorAll('.qN'), qs = document.querySelectorAll('.qQ'), ps = document.querySelectorAll('.qP');
+    editQ.items = Array.prototype.map.call(ns, function(n, i){ return {name:n.value.trim(), qty:num(qs[i].value), price:num(ps[i].value)}; });
+  }
+  function saveQ(silent){
+    readQ();
+    if (!editQ.customer){ toast('손님·단체 이름을 적어주세요'); $('#qCus').focus(); return false; }
+    editQ.items = editQ.items.filter(function(it){ return it.name; });
+    if (!editQ.id){ editQ.id = uid(); DB.quotes.push(editQ); }
+    else DB.quotes = DB.quotes.map(function(q){ return q.id === editQ.id ? editQ : q; });
+    editQ = JSON.parse(JSON.stringify(editQ));
+    save('quotes'); if (!silent) toast('저장했어요'); return true;
+  }
+  function quoteText(q){
+    var t = '[' + q.customer + '님] ' + studio.name + ' 견적 안내드려요.\n· 일시: ' + (q.date ? md(q.date) : '[날짜]') + ' ' + (q.time || '') + '\n· 인원: ' + (q.people || '[인원]') + '명' + (q.place ? '\n· 장소: ' + q.place : '') + '\n';
+    q.items.forEach(function(it){ if (it.name) t += '· ' + it.name + ' ' + it.qty + '개 × ' + won(it.price) + ' = ' + won(it.qty * it.price) + '\n'; });
+    if (num(q.discount)) t += '· 할인: -' + won(q.discount) + '\n';
+    t += '▶ 합계 ' + won(qTotal(q)) + (q.memo ? '\n' + q.memo : '') + '\n문의: ' + studio.contact;
+    return t;
+  }
+  function drawQuote(q){
+    var W = 1240, H = 1754, M = 100, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    var x = cv.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, W, H); x.textBaseline = 'alphabetic';
+    x.fillStyle = '#FFD43B'; x.fillRect(0, 0, W, 18);
+    x.fillStyle = '#14161F'; x.textAlign = 'center'; x.font = '900 84px ' + FONT; x.fillText('견 적 서', W / 2, 170);
+    x.font = '500 26px ' + FONT; x.fillStyle = '#5B6070'; x.fillText('발행일 ' + ymd(), W / 2, 220); x.textAlign = 'left';
+    // 받는 분 / 보내는 곳
+    var y = 280, bw = (W - M * 2 - 30) / 2;
+    [[M, '받는 분', [q.customer + ' 귀하', '일시 · ' + (q.date || '[날짜]') + ' ' + (q.time || ''), '인원 · ' + (q.people || '[인원]') + '명', q.place ? '장소 · ' + q.place : '', q.phone ? '연락처 · ' + q.phone : '']],
+     [M + bw + 30, '보내는 곳', [studio.name, studio.area, studio.contact]]].forEach(function(b){
+      x.fillStyle = '#FBF7EE'; roundRect(x, b[0], y, bw, 300, 20); x.fill();
+      x.fillStyle = '#3B5B92'; x.font = '900 26px ' + FONT; x.fillText(b[1], b[0] + 30, y + 52);
+      var yy = y + 52; b[2].filter(Boolean).forEach(function(l, i){ yy += i === 0 ? 54 : 42; x.fillStyle = '#14161F'; fitFont(x, l, i === 0 ? '900' : '500', i === 0 ? 36 : 26, bw - 60, 14); x.fillText(l, b[0] + 30, yy); });
+    });
+    // 표
+    y += 350; var cols = [M + 24, W - M - 470, W - M - 260, W - M - 24];
+    x.fillStyle = '#14161F'; x.fillRect(M, y, W - M * 2, 70);
+    x.fillStyle = '#fff'; x.font = '700 28px ' + FONT; x.fillText('품목', cols[0], y + 46); x.textAlign = 'right'; x.fillText('수량', cols[1], y + 46); x.fillText('단가', cols[2], y + 46); x.fillText('금액', cols[3], y + 46); x.textAlign = 'left';
+    y += 70; var items = q.items.filter(function(it){ return it.name; }).slice(0, 12), sub = 0;
+    if (!items.length) items = [{name:'[품목]', qty:0, price:0}];
+    items.forEach(function(it, i){
+      var amt = num(it.qty) * num(it.price); sub += amt;
+      if (i % 2) { x.fillStyle = '#FBF7EE'; x.fillRect(M, y, W - M * 2, 72); }
+      x.fillStyle = '#14161F'; fitFont(x, it.name, '500', 30, cols[1] - cols[0] - 120, 14); x.fillText(it.name, cols[0], y + 47);
+      x.font = '500 30px ' + FONT; x.textAlign = 'right'; x.fillText(String(it.qty || ''), cols[1], y + 47); x.fillText(it.price ? won(it.price) : '', cols[2], y + 47); x.fillText(amt ? won(amt) : '', cols[3], y + 47); x.textAlign = 'left';
+      y += 72;
+    });
+    x.strokeStyle = '#14161F'; x.lineWidth = 3; x.beginPath(); x.moveTo(M, y); x.lineTo(W - M, y); x.stroke();
+    y += 60; x.font = '500 30px ' + FONT; x.fillStyle = '#5B6070'; x.textAlign = 'right';
+    x.fillText('소계  ' + won(sub), W - M - 24, y);
+    if (num(q.discount)){ y += 48; x.fillStyle = '#C2410C'; x.fillText('할인  -' + won(q.discount), W - M - 24, y); }
+    y += 40; x.fillStyle = '#14161F'; roundRect(x, W - M - 560, y, 560, 110, 22); x.fill();
+    x.fillStyle = '#FFD43B'; x.font = '900 52px ' + FONT; x.fillText(won(qTotal(q)), W - M - 34, y + 74);
+    x.textAlign = 'left'; x.fillStyle = '#fff'; x.font = '700 28px ' + FONT; x.fillText('합계 (원)', W - M - 530, y + 66);
+    y += 170;
+    if (q.memo){ x.fillStyle = '#FBF7EE'; roundRect(x, M, y, W - M * 2, 110, 20); x.fill(); x.fillStyle = '#14161F'; fitFont(x, '메모 · ' + q.memo, '500', 28, W - M * 2 - 60, 14); x.fillText('메모 · ' + q.memo, M + 30, y + 66); y += 140; }
+    x.textAlign = 'center'; x.fillStyle = '#14161F'; x.font = '700 32px ' + FONT; x.fillText('위와 같이 견적합니다.', W / 2, H - 200);
+    x.font = '900 40px ' + FONT; x.fillText(studio.name, W / 2, H - 140);
+    x.font = '500 24px ' + FONT; x.fillStyle = '#5B6070'; x.fillText('견적 금액은 협의에 따라 바뀔 수 있어요 · 알아줌 푸드메이트로 만들었어요', W / 2, H - 80);
+    x.textAlign = 'left';
+    return cv;
+  }
+
+  /* ---------- 보관함 ---------- */
+  function renderBox(){
+    var h = '<section class="panel"><div class="hrow"><h2>글 보관함 <small style="font-size:13px;color:var(--muted)">' + DB.box.length + '개</small></h2></div><p class="note">홍보 탭에서 만든 글 아래 \'보관함 저장\'을 누르면 여기에 모여요. 말투는 위 \'정보 수정\'에서 바꿀 수 있어요.</p>';
+    h += DB.box.length ? '<div class="list">' + DB.box.map(function(b){ return '<div class="item" style="flex-direction:column;align-items:stretch"><div><b><span class="badge">' + esc(b.kind) + '</span>' + esc(b.topic || '') + (b.ch ? ' · ' + esc(b.ch) : '') + '</b><span class="m">' + esc(b.date) + '</span></div><div class="clip" style="font-size:14px">' + esc(b.text) + '</div><div style="display:flex;gap:6px"><button type="button" class="mini on" data-x="box-copy" data-id="' + b.id + '">복사</button><button type="button" class="mini" data-x="box-more" data-id="' + b.id + '">전체 보기</button><button type="button" class="mini" data-x="box-del" data-id="' + b.id + '">삭제</button></div></div>'; }).join('') + '</div>' : '<div class="empty">아직 저장한 글이 없어요.</div>';
+    h += '</section>';
+    $('#v-box').innerHTML = h;
+  }
+
+  /* ---------- 클릭 처리 ---------- */
+  var TOOLNAME = {photo:'사진 홍보', post:'홍보글', sms:'손님 문자', review:'리뷰 답글'};
+  document.addEventListener('click', async function(e){
+    var t = e.target.closest('[data-view],[data-x]'); if (!t) return;
+    if (t.dataset.view){ setView(t.dataset.view); return; }
+    var x = t.dataset.x, id = t.dataset.id;
+    switch (x){
+      case 'goview': setView(t.dataset.v); if (t.dataset.v === 'menu') menuForm(); break;
+      case 'mpick': { var m = menuById(id), d = $('#detail'); if (m && d){ var add = m.name + (m.price ? ' ' + fmtPrice(m.price) : ''); d.value = d.value ? d.value + ', ' + add : add; t.setAttribute('aria-pressed', 'true'); } break; }
+      case 'box-save': if (!lastText) break; DB.box.unshift({id:uid(), date:ymd(), kind:TOOLNAME[tool] || '글', topic:pick.topic || '', ch:tool === 'post' || tool === 'photo' ? pick.ch : '', text:lastText}); DB.box = DB.box.slice(0, 100); save('box'); toast('보관함에 저장했어요'); break;
+      case 'box-copy': { var bx = DB.box.filter(function(b){ return b.id === id; })[0]; if (bx){ try { await navigator.clipboard.writeText(bx.text); toast('복사했어요'); } catch(err){ toast('글을 길게 눌러 복사해 주세요'); } } break; }
+      case 'box-more': { var c = t.closest('.item').querySelector('.clip'); c.classList.toggle('clip'); t.textContent = '접기'; break; }
+      case 'box-del': DB.box = DB.box.filter(function(b){ return b.id !== id; }); save('box'); renderBox(); toast('삭제했어요'); break;
+      /* 메뉴판·전단 */
+      case 'bd-kind': bd.head = val('bdHead'); bd.sub = val('bdSub'); bd.kind = t.dataset.v; bd.head = ''; renderBoard(); break;
+      case 'bd-sel': { var i = bd.sel.indexOf(id); if (i > -1) bd.sel.splice(i, 1); else bd.sel.push(id); t.setAttribute('aria-pressed', i < 0); break; }
+      case 'bd-th': bd.theme = +t.dataset.i; t.parentNode.querySelectorAll('.sw').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); if (!$('#bdRes').classList.contains('hidden')) t.closest('.panel').querySelector('[data-x="bd-make"]').click(); break;
+      case 'bd-make': bd.head = val('bdHead'); bd.sub = val('bdSub'); if (!bd.sel.length){ toast('넣을 메뉴를 하나 이상 골라주세요'); break; } await fontsReady(); showImage($('#bdRes'), drawBoard(), studio.name + '_' + bd.kind + '.png', bd.kind); break;
+      /* POP */
+      case 'pp-sel': { var j = pp.sel.indexOf(id); if (j > -1) pp.sel.splice(j, 1); else { if (pp.sel.length >= 4){ toast('한 장에 4개까지 넣을 수 있어요'); break; } pp.sel.push(id); } t.setAttribute('aria-pressed', j < 0); break; }
+      case 'pp-tag': pp.tag = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); break;
+      case 'pp-th': pp.theme = +t.dataset.i; t.parentNode.querySelectorAll('.sw').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); break;
+      case 'pp-make': if (!pp.sel.length){ toast('메뉴를 골라주세요'); break; } await fontsReady(); showImage($('#ppRes'), drawPop(), studio.name + '_가격표.png', '가격표'); break;
+      case 'img-save': if (lastImg) saveCanvas(lastImg.cv, lastImg.name); break;
+      case 'img-print': if (lastImg) printCanvas(lastImg.cv); break;
+      /* 내 메뉴 */
+      case 'menu-add': menuForm(); break;
+      case 'menu-edit': menuForm(menuById(id)); break;
+      case 'menu-cancel': $('#menuForm').innerHTML = ''; break;
+      case 'menu-save': {
+        var nm = val('mName'); if (!nm){ toast('메뉴 이름을 적어주세요'); $('#mName').focus(); break; }
+        var rec = {id:editMenuId || uid(), name:nm, price:val('mPrice').replace(/,/g, ''), cat:val('mCat') || '메뉴', desc:val('mDesc'), origin:val('mOrigin'), best:$('#mBest').checked};
+        if (editMenuId) DB.menus = DB.menus.map(function(m){ return m.id === editMenuId ? rec : m; }); else DB.menus.push(rec);
+        save('menus'); renderMenus(); toast('저장했어요'); break;
+      }
+      case 'menu-del': DB.menus = DB.menus.filter(function(m){ return m.id !== editMenuId; }); save('menus'); renderMenus(); toast('삭제했어요'); break;
+      /* 장부 */
+      case 'lsub': lsub = t.dataset.v; editQ = null; renderLedger(); break;
+      case 'mon': lmon = shiftMon(lmon, +t.dataset.d); renderLedger(); break;
+      case 'lf': lfilter = t.dataset.v; renderBook(); break;
+      case 'book-add': bookForm(null); break;
+      case 'book-edit': bookForm(DB.ledger.filter(function(r){ return r.id === id; })[0]); break;
+      case 'bk-type': bkType = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); break;
+      case 'book-cancel': $('#bookForm').innerHTML = ''; break;
+      case 'book-save': {
+        var amt = num(val('bAmt')); if (!amt){ toast('금액을 적어주세요'); $('#bAmt').focus(); break; }
+        var row = {id:editRowId || uid(), date:val('bDate') || ymd(), type:bkType, party:val('bParty'), item:val('bItem'), amount:amt, paid:$('#bPaid').checked, memo:val('bMemo')};
+        if (editRowId) DB.ledger = DB.ledger.map(function(r){ return r.id === editRowId ? row : r; }); else DB.ledger.push(row);
+        if (row.party && !DB.parties.some(function(p){ return p.name === row.party; })) { DB.parties.push({id:uid(), kind:row.type === '매입' ? '식자재' : '기타', name:row.party, items:'', phone:'', day:'', memo:''}); save('parties'); }
+        save('ledger'); lmon = row.date.slice(0, 7); renderBook(); toast('장부에 적었어요'); break;
+      }
+      case 'book-del': DB.ledger = DB.ledger.filter(function(r){ return r.id !== editRowId; }); save('ledger'); renderBook(); toast('삭제했어요'); break;
+      case 'paid': DB.ledger.forEach(function(r){ if (r.id === id) r.paid = !r.paid; }); save('ledger'); ({sum:renderSum, book:renderBook})[lsub](); break;
+      case 'csv': csv(); break;
+      case 'wipe': if (!wipeArm){ wipeArm = true; renderSum(); $('#lbody details').open = true; break; } wipeArm = false; DB.ledger = []; DB.parties = []; DB.quotes = []; save('ledger'); save('parties'); save('quotes'); renderLedger(); toast('예시를 지웠어요. 이제 내 가게 장부예요'); break;
+      /* 거래처 */
+      case 'party-add': partyForm(); break;
+      case 'party-edit': partyForm(DB.parties.filter(function(p){ return p.id === id; })[0]); break;
+      case 'pt-kind': ptKind = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); break;
+      case 'party-cancel': $('#partyForm').innerHTML = ''; break;
+      case 'party-save': {
+        var pn = val('pName'); if (!pn){ toast('이름을 적어주세요'); $('#pName').focus(); break; }
+        var pr = {id:editPartyId || uid(), kind:ptKind, name:pn, items:val('pItems'), day:val('pDay'), phone:val('pPhone'), memo:val('pMemo')};
+        if (editPartyId) DB.parties = DB.parties.map(function(p){ return p.id === editPartyId ? pr : p; }); else DB.parties.push(pr);
+        save('parties'); renderParty(); toast('저장했어요'); break;
+      }
+      case 'party-del': DB.parties = DB.parties.filter(function(p){ return p.id !== editPartyId; }); save('parties'); renderParty(); toast('삭제했어요'); break;
+      case 'party-msg': { var p = DB.parties.filter(function(q){ return q.id === id; })[0], box = $('#pm_' + id); if (!p) break; if (box.innerHTML){ box.innerHTML = ''; break; } box.innerHTML = '<textarea id="pmt_' + id + '" aria-label="주문 문자" style="margin-top:6px"></textarea><div class="row" style="margin-top:6px"><button type="button" class="sub primary" data-x="party-msg-copy" data-id="' + id + '">복사하기</button></div><p class="note">[ ] 칸을 채운 뒤 복사해서 문자·카톡에 붙여 넣으세요.</p>'; $('#pmt_' + id).value = orderMsg(p); break; }
+      case 'party-msg-copy': try { await navigator.clipboard.writeText($('#pmt_' + id).value); toast('복사했어요'); } catch(err){ toast('글을 길게 눌러 복사해 주세요'); } break;
+      case 'party-book': { var pb = DB.parties.filter(function(q){ return q.id === id; })[0]; bookForm(null, {party:pb.name, type:pb.kind === '식자재' ? '매입' : '매출', item:pb.items}); break; }
+      case 'party-quote': { var pq = DB.parties.filter(function(q){ return q.id === id; })[0]; quoteEditor(null); setVal('qCus', pq.name); setVal('qPhone', pq.phone); readQ(); break; }
+      /* 견적서 */
+      case 'quote-new': quoteEditor(null); break;
+      case 'quote-open': quoteEditor(DB.quotes.filter(function(q){ return q.id === id; })[0]); break;
+      case 'q-st': readQ(); editQ.status = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); break;
+      case 'q-addmenu': { readQ(); var qm = menuById(id); editQ.items.push({name:qm.name, qty:num(editQ.people) || 1, price:num(qm.price)}); drawQRows(); break; }
+      case 'q-addrow': readQ(); editQ.items.push({name:'', qty:1, price:0}); drawQRows(); var last = document.querySelectorAll('.qN'); last[last.length - 1].focus(); break;
+      case 'q-rm': readQ(); editQ.items.splice(+t.dataset.i, 1); drawQRows(); break;
+      case 'q-save': if (saveQ()) { lsub = 'quote'; renderLedger(); } break;
+      case 'q-img': if (!saveQ(true)) break; await fontsReady(); showImage($('#qRes'), drawQuote(editQ), studio.name + '_견적서_' + editQ.customer + '.png', '견적서'); break;
+      case 'q-text': if (!saveQ(true)) break; try { await navigator.clipboard.writeText(quoteText(editQ)); toast('견적 내용을 복사했어요'); } catch(err){ var r = $('#qRes'); r.classList.remove('hidden'); r.innerHTML = '<div class="out">' + esc(quoteText(editQ)) + '</div><p class="note">글을 길게 눌러 복사해 주세요.</p>'; } break;
+      case 'q-book':
+        if (!saveQ(true)) break;
+        if (editQ.booked){ toast('이미 장부에 넣었어요'); break; }
+        if (!qTotal(editQ)){ toast('품목과 금액을 먼저 채워주세요'); break; }
+        DB.ledger.push({id:uid(), date:editQ.date || ymd(), type:'매출', party:editQ.customer, item:'단체주문 ' + (editQ.people ? editQ.people + '명' : ''), amount:qTotal(editQ), paid:false, memo:'견적서에서 넣음'});
+        editQ.booked = true; if (editQ.status === '견적') editQ.status = '확정'; saveQ(true); save('ledger'); toast('장부에 매출로 넣었어요 (받을 돈)'); break;
+      case 'q-del': DB.quotes = DB.quotes.filter(function(q){ return q.id !== editQ.id; }); save('quotes'); lsub = 'quote'; editQ = null; renderLedger(); toast('삭제했어요'); break;
+    }
+  });
+  document.addEventListener('change', function(e){ if (e.target.id === 'bdUsePh') bd.usePh = e.target.checked; });
 
   renderStudio(); renderQuota(); renderPanel();
   $('#mode').textContent = CFG.offline;
