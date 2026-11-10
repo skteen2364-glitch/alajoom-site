@@ -107,13 +107,13 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 footer{scroll-snap-align:end}
 .mate-grid{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px !important;margin-right:-18px;padding:2px 18px 8px 0;scrollbar-width:none}
 .mate-grid::-webkit-scrollbar,.dz-hs::-webkit-scrollbar{display:none}
-.mate-card{flex:0 0 46%;scroll-snap-align:none start}
-#features .feat-row,#trust .trust-row{flex-wrap:nowrap !important;overflow-x:auto;scroll-snap-type:x mandatory;margin-right:-18px;padding:2px 18px 8px 0;scrollbar-width:none}
+.mate-card{flex:0 0 46%;scroll-snap-align:start}
+#features .feat-row,#trust .trust-row{flex-wrap:nowrap !important;overflow-x:auto;scroll-snap-type:x proximity;overscroll-behavior-x:contain;touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch;margin-right:-18px;padding:2px 18px 8px 0;scrollbar-width:none}
 #features .feat-row{align-items:flex-start !important}
-#features .feat-row>.card{flex:0 0 84% !important;scroll-snap-align:none start;padding:20px !important}
+#features .feat-row>.card{flex:0 0 84% !important;scroll-snap-align:start;padding:20px !important}
 #features .feat-row>.card>div{gap:6px !important}
 #features .feat-row>.card span{font-size:13px !important;padding:5px 10px !important}
-#trust .trust-row>.card{flex:0 0 78% !important;scroll-snap-align:none start}
+#trust .trust-row>.card{flex:0 0 78% !important;scroll-snap-align:start}
 #trust .trust-row+.dz-cdots+.trust-row,#trust .trust-row+.trust-row{margin-top:12px !important}
 #video .wrap>div:first-child{max-width:130px !important;flex:0 0 auto !important}
 #video ul,#team ul{display:none !important}
@@ -541,6 +541,10 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 .dz-root>section:not([aria-label])>*{width:100%;box-sizing:border-box}
 .dz-root>section:not([aria-label])>.eyebrow,.dz-root>section:not([aria-label]) .eyebrow{align-self:flex-start;width:auto !important}
 @media (max-width:720px){.dz-root>section:not([aria-label]):not(#top):not(#cta){min-height:calc(100svh - 84px)}}
+
+/* carousel robustness */
+.pv-row,.mate-grid{overscroll-behavior-x:contain;touch-action:pan-x pan-y}
+.dz-cdots i{cursor:pointer;padding:6px 3px;background-clip:content-box}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
@@ -1308,9 +1312,9 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
     var sels = ['.pv-row', '.mate-grid', '#features .feat-row', '#trust .trust-row'];
     sels.forEach(function (sel) {
       Array.prototype.forEach.call(root.querySelectorAll(sel), function (g) { if (g.nextElementSibling && g.nextElementSibling.classList.contains('dz-cdots')) return;
-      var box = doc.createElement('div'); box.className = 'dz-cdots'; box.setAttribute('aria-hidden', 'true');
+      var box = doc.createElement('div'); box.className = 'dz-cdots'; box.setAttribute('aria-hidden', 'true'); box.style.pointerEvents = 'auto';
       var n = g.children.length, ds = [];
-      for (var i = 0; i < n; i++) { var d = doc.createElement('i'); box.appendChild(d); ds.push(d); }
+      for (var i = 0; i < n; i++) { var d = doc.createElement('i'); (function (k) { d.addEventListener('click', function () { var c = g.children[k]; if (c) g.scrollTo({ left: c.offsetLeft - g.children[0].offsetLeft, behavior: 'smooth' }); }); })(i); box.appendChild(d); ds.push(d); }
       g.parentNode.insertBefore(box, g.nextSibling);
       var last = -1;
       var upd2 = function () {
