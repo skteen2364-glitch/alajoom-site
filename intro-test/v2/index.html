@@ -1,0 +1,143 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>알아줌 인트로 시안 A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#3B5B92}a:hover{color:#2E4877}
+.it-stage{--d:10s}
+.it-egg{animation:itEgg var(--d) linear infinite;transform-origin:50% 90%}
+.it-top{animation:itTop var(--d) ease-in infinite;transform-origin:50% 60%}
+.it-bot{animation:itBot var(--d) ease-in infinite}
+.it-crack{stroke-dasharray:260;animation:itCrack var(--d) linear infinite}
+.it-bubble{animation:itBubble var(--d) cubic-bezier(.2,.8,.2,1) infinite;transform-origin:50% 50%}
+.it-say{animation:itSay var(--d) ease-out infinite}
+.it-c1{animation:itC1 var(--d) cubic-bezier(.2,.8,.2,1) infinite}
+.it-c2{animation:itC2 var(--d) cubic-bezier(.2,.8,.2,1) infinite}
+.it-c3{animation:itC3 var(--d) cubic-bezier(.2,.8,.2,1) infinite}
+.it-spark{animation:itSpark var(--d) ease-out infinite}
+.it-head{animation:itHead var(--d) ease-out infinite}
+.it-hero{animation:itHero var(--d) ease-out infinite}
+.it-skip{animation:itSkip var(--d) linear infinite}
+@keyframes itEgg{0%{opacity:0;transform:scale(.6)}6%{opacity:1;transform:scale(1)}9%{transform:rotate(-7deg)}12%{transform:rotate(7deg)}15%{transform:rotate(-5deg)}18%{transform:rotate(5deg)}21%{transform:rotate(-2deg)}24%{transform:rotate(0)}100%{transform:rotate(0)}}
+@keyframes itCrack{0%,18%{stroke-dashoffset:260;opacity:1}25%{stroke-dashoffset:0;opacity:1}27%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes itTop{0%,26%{transform:translate(0,0) rotate(0);opacity:1}38%{transform:translate(-34px,-120px) rotate(-38deg);opacity:1}44%,100%{transform:translate(-50px,-150px) rotate(-50deg);opacity:0}}
+@keyframes itBot{0%,26%{transform:translateY(0);opacity:1}40%{transform:translateY(40px);opacity:.6}46%,100%{transform:translateY(70px);opacity:0}}
+@keyframes itBubble{0%,26%{opacity:0;transform:translate(0,30px) scale(.2)}33%{opacity:1;transform:translate(0,-14px) scale(1.14)}37%{transform:translate(0,0) scale(1)}52%{transform:translate(0,0) scale(1)}62%,94%{opacity:1;transform:translate(-160px,-352px) scale(.31)}100%{opacity:0;transform:translate(-160px,-352px) scale(.31)}}
+@keyframes itSay{0%,37%{opacity:0;transform:translateY(10px)}42%,50%{opacity:1;transform:translateY(0)}55%,100%{opacity:0;transform:translateY(-6px)}}
+@keyframes itC1{0%,29%{opacity:0;transform:translate(0,0) scale(.2) rotate(0)}38%{opacity:1;transform:translate(-118px,-150px) scale(1) rotate(-12deg)}48%{opacity:1;transform:translate(-124px,-160px) scale(1) rotate(-10deg)}56%,100%{opacity:0;transform:translate(-130px,-190px) scale(.8) rotate(-10deg)}}
+@keyframes itC2{0%,30%{opacity:0;transform:translate(0,0) scale(.2) rotate(0)}39%{opacity:1;transform:translate(122px,-120px) scale(1) rotate(10deg)}49%{opacity:1;transform:translate(128px,-128px) scale(1) rotate(8deg)}57%,100%{opacity:0;transform:translate(136px,-160px) scale(.8) rotate(8deg)}}
+@keyframes itC3{0%,31%{opacity:0;transform:translate(0,0) scale(.2) rotate(0)}40%{opacity:1;transform:translate(-6px,168px) scale(1) rotate(-4deg)}50%{opacity:1;transform:translate(-6px,176px) scale(1) rotate(-3deg)}58%,100%{opacity:0;transform:translate(-6px,210px) scale(.8) rotate(-3deg)}}
+@keyframes itSpark{0%,27%{opacity:0;transform:scale(.3)}32%{opacity:1;transform:scale(1)}40%,100%{opacity:0;transform:scale(1.5)}}
+@keyframes itHead{0%,58%{opacity:0;transform:translateX(-6px)}64%,94%{opacity:1;transform:translateX(0)}100%{opacity:0}}
+@keyframes itHero{0%,60%{opacity:0;transform:translateY(16px)}68%,94%{opacity:1;transform:translateY(0)}100%{opacity:0}}
+@keyframes itSkip{0%,56%{opacity:1}60%,100%{opacity:0}}
+</style>
+<style>
+.it-egg{animation-name:itEggA !important;transform-origin:50% 96%}
+@keyframes itEggA{
+0%{opacity:0;transform:translateY(0) scale(.4,.4)}
+3%{opacity:1;transform:translateY(0) scale(1.1,.9)}
+5%{transform:translateY(0) scale(.97,1.03)}
+6.5%{transform:translateY(0) scale(1,1)}
+8%{transform:translateY(0) scale(1.14,.86)}
+10.5%{transform:translateY(-46px) scale(.9,1.12) rotate(-8deg)}
+13%{transform:translateY(0) scale(1.16,.84) rotate(0)}
+14.5%{transform:translateY(0) scale(.95,1.05)}
+16%{transform:translateY(0) scale(1,1)}
+17.2%{transform:rotate(-10deg)}18.4%{transform:rotate(10deg)}19.6%{transform:rotate(-8deg)}20.8%{transform:rotate(8deg)}22%{transform:rotate(0) scale(1,1)}
+23.5%{transform:translateY(0) scale(1.14,.86)}
+26%{transform:translateY(-32px) scale(.92,1.1) rotate(7deg)}
+28.5%{transform:translateY(0) scale(1.18,.82) rotate(0)}
+30%{transform:translateY(0) scale(.96,1.04)}
+31%{transform:translateY(0) scale(1,1)}
+100%{transform:translateY(0) scale(1,1)}}
+.it-shadow{animation:itShadowA var(--d) linear infinite;transform-origin:50% 50%}
+@keyframes itShadowA{0%{opacity:0;transform:scale(.4)}3%{opacity:.22;transform:scale(1.1)}8%{transform:scale(1.15)}10.5%{opacity:.12;transform:scale(.6)}13%{opacity:.24;transform:scale(1.2)}16%,22%{transform:scale(1)}23.5%{transform:scale(1.15)}26%{opacity:.13;transform:scale(.7)}28.5%{opacity:.24;transform:scale(1.2)}31%{opacity:.22;transform:scale(1)}40%{opacity:.18}46%,100%{opacity:0}}
+.it-s1,.it-s2,.it-s3,.it-s4{opacity:0}
+.it-s1{animation:itSp1 var(--d) ease-out infinite}.it-s2{animation:itSp2 var(--d) ease-out infinite}.it-s3{animation:itSp1 var(--d) ease-out infinite;animation-delay:.25s}.it-s4{animation:itSp2 var(--d) ease-out infinite;animation-delay:.2s}
+@keyframes itSp1{0%,9%{opacity:0;transform:scale(0) rotate(0)}12%{opacity:1;transform:scale(1.2) rotate(45deg)}16%{opacity:0;transform:scale(.4) rotate(90deg)}24%{opacity:0;transform:scale(0)}27%{opacity:1;transform:scale(1.1) rotate(45deg)}31%,100%{opacity:0;transform:scale(.3) rotate(90deg)}}
+@keyframes itSp2{0%,12%{opacity:0;transform:scale(0)}14.5%{opacity:1;transform:scale(1.1) rotate(-30deg)}18%{opacity:0;transform:scale(.3)}27%{opacity:0;transform:scale(0)}29.5%{opacity:1;transform:scale(1.2) rotate(-40deg)}33%,100%{opacity:0;transform:scale(.3)}}
+.it-crack{animation-name:itCrackA !important}
+@keyframes itCrackA{0%,27%{stroke-dashoffset:260;opacity:1}31%{stroke-dashoffset:0;opacity:1}33%,100%{stroke-dashoffset:0;opacity:0}}
+.it-top{animation-name:itTopA !important}
+@keyframes itTopA{0%,32%{transform:translate(0,0) rotate(0);opacity:1}40%{transform:translate(-40px,-130px) rotate(-40deg);opacity:1}46%,100%{transform:translate(-56px,-160px) rotate(-55deg);opacity:0}}
+.it-bot{animation-name:itBotA !important}
+@keyframes itBotA{0%,32%{transform:translateY(0);opacity:1}44%{transform:translateY(40px);opacity:.6}50%,100%{transform:translateY(70px);opacity:0}}
+.it-spark{animation-name:itGlowA !important}
+@keyframes itGlowA{0%,32%{opacity:0;transform:scale(.3)}36%{opacity:1;transform:scale(1)}44%,100%{opacity:0;transform:scale(1.5)}}
+.it-bubble{animation-name:itBubbleA !important}
+@keyframes itBubbleA{0%,32%{opacity:0;transform:translate(0,30px) scale(.2)}37%{opacity:1;transform:translate(0,-16px) scale(1.16)}39.5%{transform:translate(0,4px) scale(.96,1.04)}41.5%{transform:translate(0,0) scale(1)}64%{transform:translate(0,0) scale(1)}72%,94%{opacity:1;transform:translate(-160px,-352px) scale(.31)}100%{opacity:0;transform:translate(-160px,-352px) scale(.31)}}
+.it-say{animation-name:itSayA !important}
+@keyframes itSayA{0%,40%{opacity:0;transform:translateY(10px)}44%,61%{opacity:1;transform:translateY(0)}65%,100%{opacity:0;transform:translateY(-6px)}}
+.it-c1{animation-name:itC1A !important}.it-c2{animation-name:itC2A !important}.it-c3{animation-name:itC3A !important}
+@keyframes itC1A{0%,35%{opacity:0;transform:translate(0,0) scale(.2) rotate(0)}41%{opacity:1;transform:translate(-118px,-150px) scale(1.06) rotate(-12deg)}43%{transform:translate(-118px,-150px) scale(1) rotate(-12deg)}50%{transform:translate(-120px,-158px) scale(1) rotate(-9deg)}57%{opacity:1;transform:translate(-118px,-150px) scale(1) rotate(-12deg)}63%{opacity:1;transform:translate(-122px,-160px) scale(1) rotate(-10deg)}68%,100%{opacity:0;transform:translate(-130px,-190px) scale(.8) rotate(-10deg)}}
+@keyframes itC2A{0%,36%{opacity:0;transform:translate(0,0) scale(.2) rotate(0)}42%{opacity:1;transform:translate(122px,-120px) scale(1.06) rotate(10deg)}44%{transform:translate(122px,-120px) scale(1) rotate(10deg)}51%{transform:translate(124px,-128px) scale(1) rotate(7deg)}58%{opacity:1;transform:translate(122px,-120px) scale(1) rotate(10deg)}63%{opacity:1;transform:translate(126px,-128px) scale(1) rotate(8deg)}68%,100%{opacity:0;transform:translate(136px,-160px) scale(.8) rotate(8deg)}}
+@keyframes itC3A{0%,37%{opacity:0;transform:translate(0,0) scale(.2) rotate(0)}43%{opacity:1;transform:translate(-6px,168px) scale(1.06) rotate(-4deg)}45%{transform:translate(-6px,168px) scale(1) rotate(-4deg)}52%{transform:translate(-6px,176px) scale(1) rotate(-2deg)}59%{opacity:1;transform:translate(-6px,168px) scale(1) rotate(-4deg)}63%{opacity:1;transform:translate(-6px,174px) scale(1) rotate(-3deg)}68%,100%{opacity:0;transform:translate(-6px,210px) scale(.8) rotate(-3deg)}}
+.it-head{animation-name:itHeadA !important}@keyframes itHeadA{0%,70%{opacity:0;transform:translateX(-6px)}75%,94%{opacity:1;transform:translateX(0)}100%{opacity:0}}
+.it-hero{animation-name:itHeroA !important}@keyframes itHeroA{0%,72%{opacity:0;transform:translateY(16px)}79%,94%{opacity:1;transform:translateY(0)}100%{opacity:0}}
+.it-skip{animation-name:itSkipA !important}@keyframes itSkipA{0%,68%{opacity:1}72%,100%{opacity:0}}
+
+html,body{margin:0;background:#E9E3D3}
+.wrap{display:flex;justify-content:center;padding:20px 0}
+@media (max-width:430px){.wrap{padding:0}.it-stage{width:100vw !important;height:100svh !important}}
+</style></head><body><div class="wrap"><div class="it-stage" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #FFEDBF; font-family: 'Noto Sans KR', system-ui, sans-serif; color: #14161F">
+
+<button type="button" class="it-skip" style="position: absolute; top: 16px; right: 16px; z-index: 5; min-height: 44px; padding: 0 16px; border: 1px solid #E8DFC9; border-radius: 999px; background: #FFFFFF; color: #4A5060; font: inherit; font-size: 14px; font-weight: 700">건너뛰기</button>
+
+<div class="it-head" style="position: absolute; top: 22px; left: 60px; z-index: 3; font-size: 22px; font-weight: 900; letter-spacing: -0.5px; line-height: 32px">알아줌</div>
+
+<div class="it-spark" aria-hidden="true" style="position: absolute; left: 75px; top: 280px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, #FFE9A8 0%, rgba(255, 233, 168, 0) 70%)"></div>
+
+<div class="it-c1" aria-hidden="true" style="position: absolute; left: 140px; top: 360px; width: 110px; padding: 10px; box-sizing: border-box; border-radius: 14px; background: #FFFFFF; box-shadow: 0 10px 24px rgba(20, 22, 31, 0.14)">
+<div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C13584" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6"></circle></svg>
+<span style="font-size: 11px; font-weight: 700">인스타</span>
+</div>
+<div style="height: 46px; border-radius: 8px; background: #F3E3C4"></div>
+</div>
+
+<div class="it-c2" aria-hidden="true" style="position: absolute; left: 140px; top: 360px; width: 110px; padding: 10px; box-sizing: border-box; border-radius: 14px; background: #FFFFFF; box-shadow: 0 10px 24px rgba(20, 22, 31, 0.14)">
+<div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#03C75A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"></path><path d="M8 9h8M8 13h8M8 17h5"></path></svg>
+<span style="font-size: 11px; font-weight: 700">블로그</span>
+</div>
+<div style="height: 6px; border-radius: 3px; background: #E6E8ED; margin-bottom: 5px"></div>
+<div style="height: 6px; width: 70%; border-radius: 3px; background: #E6E8ED; margin-bottom: 5px"></div>
+<div style="height: 6px; width: 85%; border-radius: 3px; background: #E6E8ED"></div>
+</div>
+
+<div class="it-c3" aria-hidden="true" style="position: absolute; left: 140px; top: 360px; width: 110px; padding: 10px; box-sizing: border-box; border-radius: 14px; background: #FFFFFF; box-shadow: 0 10px 24px rgba(20, 22, 31, 0.14)">
+<div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+<span style="font-size: 11px; font-weight: 700">문자</span>
+</div>
+<div style="display: inline-block; padding: 5px 8px; border-radius: 10px; background: #FEE500; font-size: 10px; font-weight: 700">재방문 쿠폰</div>
+</div>
+
+<div class="it-shadow" aria-hidden="true" style="position: absolute; left: 135px; top: 488px; width: 120px; height: 16px; border-radius: 50%; background: #8A6A1F; opacity: 0.22"></div>
+<svg class="it-s1" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" style="position: absolute; left: 92px; top: 300px"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z" fill="#FFC400"></path></svg><svg class="it-s2" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" style="position: absolute; left: 282px; top: 330px"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z" fill="#FF9F43"></path></svg><svg class="it-s3" aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" style="position: absolute; left: 290px; top: 250px"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z" fill="#FFC400"></path></svg><svg class="it-s4" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" style="position: absolute; left: 96px; top: 420px"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z" fill="#FF9F43"></path></svg>
+<div class="it-egg" aria-hidden="true" style="position: absolute; left: 115px; top: 300px; width: 160px; height: 200px">
+<svg width="160" height="200" viewBox="0 0 160 200" style="overflow: visible">
+<defs>
+<clipPath id="itTopClip"><polygon points="0,0 160,0 160,112 152,112 136,100 118,118 100,98 82,120 64,98 46,118 28,100 8,112 0,112"></polygon></clipPath>
+<clipPath id="itBotClip"><polygon points="0,112 8,112 28,100 46,118 64,98 82,120 100,98 118,118 136,100 152,112 160,112 160,200 0,200"></polygon></clipPath>
+<radialGradient id="itShell" cx="38%" cy="30%" r="80%"><stop offset="0%" stop-color="#FFFFFF"></stop><stop offset="70%" stop-color="#FFFFFF"></stop><stop offset="100%" stop-color="#E9E4DA"></stop></radialGradient>
+</defs>
+<g class="it-bot"><path clip-path="url(#itBotClip)" d="M80 6 C128 6 152 86 152 124 C152 168 120 196 80 196 C40 196 8 168 8 124 C8 86 32 6 80 6 Z" fill="url(#itShell)" stroke="#C9B58A" stroke-width="3"></path></g>
+<g class="it-top"><path clip-path="url(#itTopClip)" d="M80 6 C128 6 152 86 152 124 C152 168 120 196 80 196 C40 196 8 168 8 124 C8 86 32 6 80 6 Z" fill="url(#itShell)" stroke="#C9B58A" stroke-width="3"></path></g>
+<polyline class="it-crack" points="8,112 28,100 46,118 64,98 82,120 100,98 118,118 136,100 152,112" fill="none" stroke="#7A6230" stroke-width="3" stroke-linejoin="round"></polyline>
+</svg>
+</div>
+
+<div class="it-bubble" style="position: absolute; left: 140px; top: 335px; width: 110px; height: 110px; z-index: 4; border-radius: 38px 38px 38px 12px; background: #FFD43B; box-shadow: 0 14px 30px rgba(255, 196, 0, 0.35); display: flex; align-items: center; justify-content: center; font-size: 56px; font-weight: 900; line-height: 1">알</div>
+
+<p class="it-say" style="position: absolute; left: 0; right: 0; top: 470px; margin: 0; text-align: center; font-size: 26px; font-weight: 900; letter-spacing: -0.8px">알아서 <span style="color: #3B5B92">해줌</span></p>
+
+<div class="it-hero" style="position: absolute; left: 24px; right: 24px; top: 150px">
+<p style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; padding: 6px 12px 6px 6px; border: 1px solid #E8DFC9; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 700"><span style="padding: 3px 9px; border-radius: 999px; background: #FFE45C">1인 사장님 전용</span>무료 AI 비서</p>
+<h1 style="margin: 0 0 14px; font-size: 34px; line-height: 1.28; font-weight: 900; letter-spacing: -1px">혼자 다 하는 사장님,<br>말만 하세요.<br><span style="color: #3B5B92">알아서 해줌</span></h1>
+<p style="margin: 0 0 22px; font-size: 15px; line-height: 1.6; color: #4A5060">AI도 인스타도 몰라도 괜찮아요. 홍보글, 카톡 문의 답장, 예약·매출 정리까지 알아줌이 알아서 챙겨요.</p>
+<a href="#start" style="display: flex; align-items: center; justify-content: center; min-height: 54px; border-radius: 14px; background: #3B5B92; color: #FFFFFF; font-size: 16px; font-weight: 700; text-decoration: none">무료로 시작하기</a>
+</div>
+
+</div></div><nav aria-label="시안 비교" style="position:fixed;left:0;right:0;bottom:12px;z-index:50;display:flex;justify-content:center;gap:6px;font-family:'Noto Sans KR',system-ui,sans-serif"><a href="/intro-test/v1/" style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;text-decoration:none;font-size:13px;font-weight:700;box-shadow:0 6px 16px rgba(0,0,0,.12);background:#FFFFFF;color:#14161F">① 처음</a><a href="/intro-test/v2/" style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;text-decoration:none;font-size:13px;font-weight:700;box-shadow:0 6px 16px rgba(0,0,0,.12);background:#14161F;color:#FFFFFF">② 통통·느리게</a><a href="/intro-test/" style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;text-decoration:none;font-size:13px;font-weight:700;box-shadow:0 6px 16px rgba(0,0,0,.12);background:#FFFFFF;color:#14161F">③ 지금</a></nav></body></html>
