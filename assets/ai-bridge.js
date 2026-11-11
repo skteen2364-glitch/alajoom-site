@@ -61,6 +61,26 @@
     return { text: d.text || '' };
   }
 
+  var info = {};
+  async function syncProfile(sb, uid) {
+    try {
+      var q = await sb.from('profiles').select('store_name,area,store_info').eq('id', uid).maybeSingle();
+      if (q.error || !q.data) return;
+      info = q.data.store_info || {};
+      var st = info[MATE];
+      window.dispatchEvent(new CustomEvent('alajoom:profile', { detail: { store_name: q.data.store_name, area: q.data.area, studio: st && st.name ? st : null } }));
+    } catch (e) {}
+  }
+  async function saveStudio(sb, uid, st) {
+    if (!st || !st.name) return;
+    try {
+      var clean = {};
+      ['name', 'area', 'cls', 'feat', 'contact', 'tone'].forEach(function (k) { clean[k] = String(st[k] || '').slice(0, 300); });
+      info[MATE] = clean;
+      await sb.from('profiles').update({ store_name: clean.name.slice(0, 60), area: clean.area.slice(0, 60) || null, store_info: info }).eq('id', uid);
+    } catch (e) {}
+  }
+
   function makeSample() {
     var f = function (prompt, opts) { return call(prompt, opts); };
     f.limits = function () { return Promise.resolve({ images: true }); };
@@ -92,6 +112,9 @@
           return null;
         }
         setTimeout(function () { setMode('진짜 AI 직원이 써요 · 하루 10회 무료'); }, 30);
+        syncProfile(sb, s.user.id);
+        window.addEventListener('alajoom:onboarded', function () { syncProfile(sb, s.user.id); });
+        window.addEventListener('alajoom:studio-saved', function (ev) { saveStudio(sb, s.user.id, ev.detail); });
         var ob = document.createElement('script'); ob.src = '/assets/onboard.js'; ob.onload = function () { window.alajoomOnboard && window.alajoomOnboard(sb); }; document.head.appendChild(ob);
         return makeSample();
       } catch (e) { return null; }

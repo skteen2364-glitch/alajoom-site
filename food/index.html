@@ -702,6 +702,7 @@ var CFG = {
     e.preventDefault();
     studio = { name:$('#fName').value.trim() || '우리 가게', area:$('#fArea').value.trim(), cls:$('#fClass').value.trim(), feat:$('#fFeat').value.trim(), contact:$('#fContact').value.trim() || '전화 문의', tone:toneSel };
     store.set('studio', studio); renderStudio(); dlg.close ? dlg.close() : dlg.removeAttribute('open'); toast('저장했어요');
+    try { window.dispatchEvent(new CustomEvent('alajoom:studio-saved', {detail: studio})); } catch(err){}
   });
 
   /* =====================================================================
@@ -1282,6 +1283,15 @@ var CFG = {
   });
   document.addEventListener('change', function(e){ if (e.target.id === 'bdUsePh') bd.usePh = e.target.checked; });
 
+  /* 로그인 회원의 가게 정보(서버) ↔ 이 화면 */
+  window.addEventListener('alajoom:profile', function(e){
+    var p = e.detail || {}, saved = store.get('studio', null), local = saved && saved.name && saved.name !== CFG.studio.name;
+    if (p.studio && p.studio.name){ studio = p.studio; }
+    else if (local){ try { window.dispatchEvent(new CustomEvent('alajoom:studio-saved', {detail: saved})); } catch(err){} return; }
+    else if (p.store_name){ studio = { name:p.store_name, area:p.area || '', cls:'', feat:'', contact:'', tone:(saved && saved.tone) || CFG.studio.tone }; toast('가입 때 적은 가게 정보를 불러왔어요'); }
+    else return;
+    store.set('studio', studio); renderStudio();
+  });
   renderStudio(); renderQuota(); renderPanel();
   $('#mode').textContent = CFG.offline;
   if (window.claude && window.claude.use){
