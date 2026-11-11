@@ -1367,8 +1367,8 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
       requestAnimationFrame(step);
     });
     // pv-row auto advance (mobile carousel)
-    (function () {
-      var row = root.querySelector('.pv-row'); if (!row) return;
+    ['.pv-row', '#features .feat-row'].forEach(function (rsel) { (function () {
+      var row = root.querySelector(rsel); if (!row) return;
       var held = 0;
       var h = function () { held = Date.now() + 6000; };
       row.addEventListener('touchstart', h, { passive: true }); row.addEventListener('pointerdown', h);
@@ -1382,7 +1382,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
         var nx = (cur + 1) % cards.length;
         row.scrollTo({ left: row.scrollLeft + cards[nx].getBoundingClientRect().left - rr.left, behavior: 'smooth' });
       }, 3000);
-    })();
+    })(); });
     // mate intro sheet + notify buttons
     (function () {
       var D = {
