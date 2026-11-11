@@ -109,13 +109,13 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
 .hidden{display:none !important}
 #v-make{display:flex;flex-direction:column;gap:14px}
 .mtabs{display:flex;gap:6px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px}
-.mtab{flex:1;min-height:42px;border:0;border-radius:10px;background:none;font:inherit;font-size:14.5px;font-weight:800;color:var(--muted);cursor:pointer}
+.mtab{flex:1;min-height:42px;border:0;border-radius:10px;background:none;font:inherit;font-size:14px;padding:0 4px;white-space:nowrap;font-weight:800;color:var(--muted);cursor:pointer}
 .mtab[aria-selected=true]{background:var(--ink);color:var(--yellow)}
 #mbDlg input[type=text],#mbDlg textarea{font-size:16px}
 
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
 </style>
-<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11120006"></script><script src="/pilates/members.js?v=1112a" defer></script><script src="/assets/mate-install.js?v=11120006" defer></script>
+<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11120006"></script><script src="/pilates/members.js?v=11120821" defer></script><script src="/assets/mate-install.js?v=11120006" defer></script>
 </head>
 <body>
 <div class="app">
@@ -133,6 +133,7 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
   <nav class="mtabs" role="tablist" aria-label="필라테스메이트 메뉴">
     <button class="mtab" type="button" role="tab" data-tab="make" aria-selected="true">AI로 만들기</button>
     <button class="mtab" type="button" role="tab" data-tab="members" aria-selected="false">회원 장부</button>
+    <button class="mtab" type="button" role="tab" data-tab="works" aria-selected="false">내 작업실</button>
   </nav>
 
   <div id="v-make">
@@ -149,6 +150,7 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
   <section class="panel" id="panel" aria-live="polite"></section>
   </div>
   <div id="v-members" class="hidden"></div>
+  <div id="v-works" class="hidden"></div>
   <p class="mode" id="mode"></p>
   <p class="mode"><a href="https://alajoom-site.pages.dev/" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">알아줌 홈으로</a></p>
 </div>
@@ -266,6 +268,45 @@ var CFG = {
   /* ---------- 도구 정의 ---------- */
   var TOOLS = CFG.tools;
   var tool = 'photo', pick = {}, lastText = '', lastCard = null, theme = 0;
+  var att = null, curWork = null;
+
+  /* ---------- 홍보글·카드에 사진 넣기 ---------- */
+  function attHtml(){
+    if (att) return '<div style="position:relative"><img src="' + att.url + '" alt="넣은 사진" style="width:100%;max-height:260px;object-fit:cover;border-radius:14px;border:1px solid var(--line);display:block"><button type="button" class="sub" data-act="attdel" style="position:absolute;right:8px;top:8px;flex:none;min-width:0;min-height:36px;padding:0 12px;background:rgba(255,255,255,.92)">사진 빼기</button></div>';
+    var btn = 'flex:1 1 0;display:flex;align-items:center;justify-content:center;gap:6px;min-height:52px;border:1px dashed #CFC5AE;border-radius:14px;background:var(--ivory);font-size:14px;font-weight:800;cursor:pointer;position:relative;overflow:hidden';
+    return '<div style="display:flex;gap:8px">' +
+      '<label style="' + btn + '"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>사진 불러오기<input type="file" accept="image/*,.heic,.heif" data-att style="position:absolute;inset:0;opacity:0;cursor:pointer"></label>' +
+      '<label style="' + btn + '"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>카메라로 찍기<input type="file" accept="image/*" capture="environment" data-att style="position:absolute;inset:0;opacity:0;cursor:pointer"></label></div>';
+  }
+  function renderAtt(){ var b = $('#attBox'); if (b) b.innerHTML = attHtml(); }
+  function loadAtt(file){
+    return new Promise(function(res){
+      var u = URL.createObjectURL(file), im = new Image();
+      im.onload = function(){
+        var M = 1600, sc = Math.min(1, M / Math.max(im.naturalWidth, im.naturalHeight)), cv = document.createElement('canvas');
+        cv.width = Math.round(im.naturalWidth * sc); cv.height = Math.round(im.naturalHeight * sc);
+        cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height); URL.revokeObjectURL(u);
+        cv.toBlob(function(b){ setAtt(b).then(res); }, 'image/jpeg', .86);
+      };
+      im.onerror = function(){ URL.revokeObjectURL(u); toast('이 사진은 열 수 없어요. 다른 사진을 골라주세요'); res(); };
+      im.src = u;
+    });
+  }
+  function setAtt(blob){
+    return new Promise(function(res){
+      if (!blob){ att = null; res(); return; }
+      var url = URL.createObjectURL(blob), im = new Image();
+      im.onload = function(){ att = { blob: blob, url: url, img: im }; res(); };
+      im.onerror = function(){ att = null; res(); };
+      im.src = url;
+    });
+  }
+  document.addEventListener('change', async function(e){
+    var inp = e.target; if (!inp.matches || !inp.matches('input[data-att]')) return;
+    var f = inp.files && inp.files[0]; if (!f) return;
+    await loadAtt(f); renderAtt();
+    if (att){ toast('사진을 넣었어요'); if (tool === 'card' && lastCard && !$('#result').classList.contains('hidden')){ showCard(lastCard); saveWork(); } }
+  });
 
   function renderPanel(){
     if (tool === 'photo') return renderPhoto();
@@ -276,6 +317,7 @@ var CFG = {
       s.opts.forEach(function(o, i){ h += '<button type="button" class="chip" data-k="'+s.key+'" data-v="'+esc(o)+'" aria-pressed="'+(i===0)+'">'+esc(o)+'</button>'; });
       h += '</div></div>';
     });
+    if (tool === 'post' || tool === 'card') h += '<div class="step"><p>사진 넣기 <small style="font-weight:500;color:var(--muted)">(선택' + (tool === 'card' ? ' · 카드 배경이 돼요' : ' · AI가 사진을 보고 써요') + ')</small></p><div id="attBox">' + attHtml() + '</div></div>';
     h += '<div class="step"><label for="detail">'+t.detail+'</label>' + (t.area ? '<textarea id="detail" placeholder="'+esc(t.ph)+'"></textarea>' : '<input type="text" id="detail" placeholder="'+esc(t.ph)+'">') + '</div>';
     h += '<button class="go" type="button" id="go">만들기<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>';
     h += '<div class="result hidden" id="result"></div>';
@@ -296,6 +338,7 @@ var CFG = {
     if (tool === 'post') p += '\n작업: "' + pick.topic + '" 내용을 알리는 글을 써줘.\n형식: ' + CH[pick.ch] + '\n';
     if (tool === 'sms') p += '\n작업: ' + CFG.who + '에게 보낼 "' + pick.topic + '" 문자를 써줘.\n형식: 2~4문장, 90자 안팎. 이름 자리는 [' + CFG.who + '님]으로. 끝에 가게 이름. 이모지는 0~1개.\n';
     if (tool === 'review') p += '\n작업: 아래 ' + pick.topic + '에 다는 사장님 답글을 써줘.\n형식: 3~5문장. 리뷰에 나온 내용을 구체적으로 짚어서 감사 인사. ' + (pick.topic.indexOf('아쉬운') === 0 ? '변명하지 말고 사과 → 개선 약속 → 직접 연락 부탁 순서로.' : '다음 방문을 반기는 인사로 마무리.') + ' ' + CFG.reviewRule + '\n리뷰: """' + (detail || '(리뷰 없음)') + '"""\n';
+    if (tool === 'post' && att) p += '첨부한 사진을 보고, 사진에 실제로 보이는 것을 구체적으로 살려서 써. 사진에 없는 것은 지어내지 마.\n';
     if (tool !== 'review' && detail) p += '사장님이 준 정보: ' + detail + '\n';
     return p;
   }
@@ -334,6 +377,20 @@ var CFG = {
     var th = THEMES[theme], W = 1080, H = 1350, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
     var x = cv.getContext('2d'), F = "'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif";
     x.fillStyle = th.bg; x.fillRect(0,0,W,H);
+    if (att && att.img){
+      var PH = Math.round(H * .5), im = att.img, sc = Math.max(W / im.naturalWidth, PH / im.naturalHeight), dw = im.naturalWidth * sc, dh = im.naturalHeight * sc;
+      x.drawImage(im, (W - dw) / 2, (PH - dh) / 2, dw, dh);
+      var yy = PH + 70;
+      x.font = '900 38px ' + F; var kw2 = x.measureText(c.kicker || '').width + 60;
+      if (c.kicker){ x.fillStyle = th.pill; roundRect(x, 90, PH - 38, kw2, 76, 38); x.fill(); x.fillStyle = th.pillT; x.textBaseline = 'middle'; x.fillText(c.kicker, 120, PH); x.textBaseline = 'alphabetic'; }
+      x.font = '900 92px ' + F; x.fillStyle = th.ink;
+      wrap(x, c.title || '', W - 180).slice(0, 2).forEach(function(l){ yy += 100; x.fillText(l, 90, yy); });
+      yy += 22; x.font = '500 42px ' + F;
+      (c.lines || []).slice(0, 3).forEach(function(l){ var seg = wrap(x, l, W - 230)[0]; yy += 64; x.fillStyle = th.acc; x.beginPath(); x.arc(106, yy - 14, 9, 0, Math.PI*2); x.fill(); x.fillStyle = th.ink; x.fillText(seg, 134, yy); });
+      x.font = '900 40px ' + F; x.fillStyle = th.ink; x.fillText(studio.name, 90, H - 110);
+      x.font = '500 32px ' + F; x.globalAlpha = .8; x.fillText([studio.area, c.footer].filter(Boolean).join('  ·  '), 90, H - 62); x.globalAlpha = 1;
+      return cv;
+    }
     x.fillStyle = th.blob; x.beginPath(); x.arc(W-120, 210, 330, 0, Math.PI*2); x.fill();
     x.beginPath(); x.arc(110, H-90, 220, 0, Math.PI*2); x.fill();
     var y = 190;
@@ -358,10 +415,14 @@ var CFG = {
   /* ---------- 결과 렌더 ---------- */
   function showText(text, streaming){
     var r = $('#result'); r.classList.remove('hidden');
-    if (!$('#out')) r.innerHTML = '<div class="out" id="out"></div><div id="chk"></div><div class="row" id="acts"></div>';
+    if (!$('#out')) r.innerHTML = '<img id="resPh" alt="함께 올릴 사진" class="card-prev hidden" style="margin-bottom:10px"><div class="out" id="out"></div><div id="chk"></div><div class="row" id="acts"></div>';
+    var rp = $('#resPh'); if (tool === 'post' && att){ rp.src = att.url; rp.classList.remove('hidden'); } else rp.classList.add('hidden');
     var out = $('#out'); out.textContent = text || '쓰는 중…'; out.classList.toggle('thinking', !text);
+    out.contentEditable = streaming ? 'false' : 'true';
     if (streaming) return;
     lastText = text;
+    if (!out._ed){ out._ed = true; out.addEventListener('input', function(){ lastText = out.innerText; clearTimeout(out._t); out._t = setTimeout(saveWork, 600); }); }
+    saveWork();
     var hits = scan(text), chk = $('#chk');
     if (!hits.length) chk.innerHTML = '<div class="check"><span>✓</span><span>광고 표현 검사 통과. 과장·의료 표현이 없어요.</span></div>';
     else chk.innerHTML = '<div class="check bad"><span>!</span><span>광고 주의 표현 ' + hits.length + '개<ul>' + hits.map(function(h){ return '<li>"' + esc(h.w) + '" · ' + h.why + '</li>'; }).join('') + '</ul></span></div>';
@@ -370,6 +431,7 @@ var CFG = {
     a += '<button type="button" class="sub" data-act="again">다시 만들기</button>';
     if (tool !== 'review') a += '<button type="button" class="sub" data-act="short">더 짧게</button>';
     $('#acts').innerHTML = a;
+    $('#acts').insertAdjacentHTML('afterend', '<p class="note" style="margin:6px 0 0">글을 눌러 바로 고칠 수 있어요. 고친 내용은 <b>내 작업실</b>에 자동 저장돼요.</p>');
   }
   function showCard(c){
     lastCard = c; var r = $('#result'); r.classList.remove('hidden');
@@ -381,6 +443,7 @@ var CFG = {
     h += '</div><div class="row"><button type="button" class="sub" data-act="redraw">문구 반영</button>' + (downloads ? '<button type="button" class="sub primary" data-act="save">이미지 저장</button>' : '') + '<button type="button" class="sub" data-act="again">다시 만들기</button></div>';
     h += '<p class="note">' + (downloads ? '' : '이미지를 길게 누르면 저장할 수 있어요. ') + '제목의 " / "는 줄바꿈이에요. [ ] 칸은 꼭 채워주세요.</p>';
     r.innerHTML = h;
+    saveWork();
     var hits = scan([c.title].concat(c.lines||[]).join(' '));
     if (hits.length) r.insertAdjacentHTML('afterbegin', '<div class="check bad"><span>!</span><span>광고 주의 표현: ' + hits.map(function(x){ return esc(x.w); }).join(', ') + '</span></div>');
   }
@@ -584,7 +647,7 @@ var CFG = {
       if (tool === 'photo'){ await genPhoto(extra); }
       else if (tool === 'card'){
         var c = null;
-        if (sample){ try { c = await sample.json(cardPrompt(detail), {modelTier:'quick'}); } catch(e){ c = null; } }
+        if (sample){ try { c = await sample.json(cardPrompt(detail) + (att ? '\n카드 위쪽에 사장님 사진이 들어가. 사진과 어울리게 써.' : ''), {modelTier:'quick'}); } catch(e){ c = null; } }
         if (!c || !c.title) c = cardFallback(detail);
         c.lines = (c.lines || []).filter(Boolean).slice(0, 4);
         if (document.fonts && document.fonts.load) { try { await Promise.all([document.fonts.load("900 40px 'Noto Sans KR'"), document.fonts.load("500 40px 'Noto Sans KR'")]); } catch(e){} }
@@ -594,7 +657,9 @@ var CFG = {
         var text = '';
         if (sample){
           try {
-            var res = await sample(prompt(detail) + (extra || ''), { modelTier:'quick', cache:false, onText:function(e){ if (e.text) showText(e.text, true); } });
+            var sopt = { modelTier:'quick', cache:false, onText:function(e){ if (e.text) showText(e.text, true); } };
+            if (tool === 'post' && att) sopt.images = [att.blob];
+            var res = await sample(prompt(detail) + (extra || ''), sopt);
             text = (res && res.text || '').trim();
           } catch(e){ if (e && e.code === 'rate_limited') toast('잠시 후 다시 눌러주세요'); text = ''; }
         }
@@ -604,12 +669,87 @@ var CFG = {
     } finally { busy = false; go.disabled = false; }
   }
 
+  /* ---------- 내 작업실: 만든 글·카드 자동 저장, 이어서 작업 ---------- */
+  var WKEY = 'al_pilates_works_v1', WMAX = 80;
+  var TNAME = { photo:'사진 홍보', post:'홍보글', card:'안내 카드', sms:'회원 문자', review:'리뷰 답글' };
+  function wLoad(){ try { return JSON.parse(localStorage.getItem(WKEY)) || []; } catch(e){ return []; } }
+  function wSave(list){ try { localStorage.setItem(WKEY, JSON.stringify(list.slice(0, WMAX))); } catch(e){ toast('저장 공간이 부족해요. 오래된 작업을 지워주세요'); } }
+  var idb = null;
+  function db(){ if (idb) return idb; idb = new Promise(function(res){ try { var r = indexedDB.open('alajoom-works', 1); r.onupgradeneeded = function(){ r.result.createObjectStore('photos'); }; r.onsuccess = function(){ res(r.result); }; r.onerror = function(){ res(null); }; } catch(e){ res(null); } }); return idb; }
+  async function phPut(id, blob){ var d = await db(); if (!d) return; await new Promise(function(r){ var t = d.transaction('photos', 'readwrite'); t.objectStore('photos').put(blob, id); t.oncomplete = r; t.onerror = r; }); }
+  async function phGet(id){ var d = await db(); if (!d) return null; return new Promise(function(r){ var q = d.transaction('photos').objectStore('photos').get(id); q.onsuccess = function(){ r(q.result || null); }; q.onerror = function(){ r(null); }; }); }
+  async function phDel(id){ var d = await db(); if (!d) return; var t = d.transaction('photos', 'readwrite'); t.objectStore('photos').delete(id); }
+  var _ws = 0;
+  function saveWork(){ clearTimeout(_ws); _ws = setTimeout(saveWorkNow, 250); }
+  async function saveWorkNow(){
+    if (tool !== 'card' && !lastText) return;
+    var list = wLoad(), now = new Date().toISOString(), w = curWork && list.filter(function(x){ return x.id === curWork; })[0];
+    if (!w){ w = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5), created: now }; list.unshift(w); curWork = w.id; }
+    w.tool = tool; w.topic = pick.topic || ''; w.ch = pick.ch || ''; w.detail = ($('#detail') && $('#detail').value) || ''; w.updated = now;
+    if (tool === 'card'){ readCardInputs(); w.card = lastCard; w.theme = theme; w.text = ''; }
+    else { w.text = lastText; w.card = null; }
+    var blob = null;
+    if (tool === 'photo' && ph.img){ try { blob = await photoBlob(1080, .82); } catch(e){} }
+    else if ((tool === 'post' || tool === 'card') && att) blob = att.blob;
+    w.photo = !!blob; if (blob) phPut(w.id, blob); else phDel(w.id);
+    list = list.filter(function(x){ return x.id !== w.id; }); list.unshift(w);
+    wSave(list);
+  }
+  function wTitle(w){ var t = w.card ? (w.card.title || '').replace(/\n/g, ' ') : (w.text || '').split('\n').filter(function(l){ return l.trim(); })[0] || ''; t = t.replace(/^[^\w가-힣\[]+/, ''); return t.length > 38 ? t.slice(0, 38) + '…' : (t || (w.topic || '제목 없음')); }
+  function wWhen(iso){ var d = new Date(iso), n = new Date(); var same = d.toDateString() === n.toDateString(); return same ? '오늘 ' + d.getHours() + ':' + ('0' + d.getMinutes()).slice(-2) : (d.getMonth() + 1) + '/' + d.getDate(); }
+  var wFilter = 'all';
+  function renderWorks(){
+    var box = $('#v-works'); if (!box) return;
+    var list = wLoad(), f = wFilter;
+    var show = list.filter(function(w){ return f === 'all' || w.tool === f; });
+    var chip = function(v, l){ var n = v === 'all' ? list.length : list.filter(function(w){ return w.tool === v; }).length; return '<button type="button" class="chip" data-wf="' + v + '" aria-pressed="' + (f === v) + '">' + l + (n ? ' ' + n : '') + '</button>'; };
+    var h = '<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:0 0 10px"><div><h2 style="margin:0;font-size:19px;font-weight:900">내 작업실</h2><p style="margin:2px 0 0;font-size:13px;color:var(--muted)">AI로 만든 글·카드가 자동으로 모여요. 눌러서 이어서 작업하세요.</p></div></div>';
+    h += '<div class="chips" role="group" aria-label="작업 종류" style="margin:0 0 12px">' + chip('all', '전체') + chip('post', '홍보글') + chip('photo', '사진 홍보') + chip('card', '안내 카드') + chip('sms', '회원 문자') + chip('review', '리뷰 답글') + '</div>';
+    if (!show.length) h += '<div class="panel" style="text-align:center;padding:28px 16px"><b>' + (list.length ? '이 종류의 작업이 없어요' : '아직 만든 작업이 없어요') + '</b><p style="margin:6px 0 0;font-size:14px;color:var(--muted)">AI로 만들기에서 글이나 카드를 만들면 여기에 쌓여요.</p></div>';
+    else h += '<div style="display:flex;flex-direction:column;gap:10px">' + show.map(function(w){
+      return '<article style="display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 12px">' +
+        '<div data-wthumb="' + (w.photo ? w.id : '') + '" style="flex:none;width:56px;height:56px;border-radius:12px;background:var(--ivory) center/cover no-repeat;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--muted)">' + (w.photo ? '' : TNAME[w.tool].replace(' ', '<br>')) + '</div>' +
+        '<button type="button" data-wopen="' + w.id + '" style="flex:1;min-width:0;border:0;background:none;padding:0;text-align:left;font:inherit;cursor:pointer"><b style="display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + esc(wTitle(w)) + '</b><span style="font-size:12.5px;color:var(--muted)">' + TNAME[w.tool] + (w.ch && (w.tool === 'post' || w.tool === 'photo') ? ' · ' + esc(w.ch) : '') + ' · ' + wWhen(w.updated) + '</span></button>' +
+        '<div style="display:flex;flex-direction:column;gap:6px;flex:none"><button type="button" class="sub primary" data-wopen="' + w.id + '" style="min-width:0;min-height:36px;padding:0 10px;font-size:12.5px">이어서</button>' +
+        '<button type="button" class="sub" data-wdel="' + w.id + '" style="min-width:0;min-height:36px;padding:0 10px;font-size:12.5px;color:#C2410C">삭제</button></div></article>';
+    }).join('') + '</div>';
+    h += '<p class="note" style="margin-top:12px">작업은 이 기기에 최근 ' + WMAX + '개까지 저장돼요.</p>';
+    box.innerHTML = h;
+    box.querySelectorAll('[data-wthumb]').forEach(async function(el){ var id = el.dataset.wthumb; if (!id) return; var b = await phGet(id); if (b) el.style.backgroundImage = 'url(' + URL.createObjectURL(b) + ')'; });
+  }
+  async function openWork(id){
+    var w = wLoad().filter(function(x){ return x.id === id; })[0]; if (!w) return;
+    var tl = w.tool === 'photo' ? 'post' : w.tool;
+    var blob = w.photo ? await phGet(w.id) : null; await setAtt(blob);
+    if (window.alajoomTab) window.alajoomTab('make');
+    tool = tl; document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.tool === tl); });
+    renderPanel();
+    [['topic', w.topic], ['ch', w.ch]].forEach(function(kv){ var c = kv[1] && document.querySelector('#panel .chip[data-k="' + kv[0] + '"][data-v="' + kv[1].replace(/"/g, '\\"') + '"]'); if (c) c.click(); });
+    if ($('#detail')) $('#detail').value = w.detail || '';
+    curWork = w.id;
+    if (tl === 'card' && w.card){ theme = w.theme || 0; if (document.fonts && document.fonts.load){ try { await document.fonts.load("900 40px 'Noto Sans KR'"); } catch(e){} } showCard(w.card); }
+    else showText(w.text || '', false);
+    $('#result').scrollIntoView({ behavior:'smooth', block:'start' });
+    toast('이어서 작업해요. ' + (tl === 'card' ? '문구를 고치고 반영을 누르세요' : '글을 눌러 바로 고칠 수 있어요'));
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-wf],[data-wopen],[data-wdel]'); if (!t) return;
+    if (t.dataset.wf){ wFilter = t.dataset.wf; renderWorks(); return; }
+    if (t.dataset.wopen){ openWork(t.dataset.wopen); return; }
+    if (t.dataset.wdel){
+      if (t.dataset.arm !== '1'){ t.dataset.arm = '1'; t.textContent = '정말?'; setTimeout(function(){ if (t.isConnected){ t.dataset.arm = ''; t.textContent = '삭제'; } }, 3000); return; }
+      var id = t.dataset.wdel; wSave(wLoad().filter(function(x){ return x.id !== id; })); phDel(id); if (curWork === id) curWork = null; renderWorks(); toast('삭제했어요');
+    }
+  });
+  window.addEventListener('alajoom:tab', function(e){ if (e.detail === 'works') renderWorks(); });
+
   /* ---------- 이벤트 ---------- */
   document.addEventListener('click', async function(e){
     var t = e.target.closest('button'); if (!t) return;
     if (t.dataset.tool){ tool = t.dataset.tool; document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); renderPanel(); $('#panel').scrollIntoView({behavior:'smooth', block:'start'}); return; }
     if (t.classList.contains('chip') && t.dataset.k){ pick[t.dataset.k] = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); return; }
-    if (t.id === 'go') return generate();
+    if (t.id === 'go'){ curWork = null; return generate(); }
+    if (t.dataset.act === 'attdel'){ att = null; renderAtt(); if (tool === 'card' && lastCard && !$('#result').classList.contains('hidden')){ showCard(lastCard); } return; }
     if (t.dataset.out){ ph.out = t.dataset.out; document.querySelectorAll('.out-c').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.out === ph.out); }); showOut(); return; }
     if (t.dataset.pre){ applyPreset(t.dataset.pre); return; }
     if (t.dataset.ratio){ ph.ratio = t.dataset.ratio; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); draw(); return; }

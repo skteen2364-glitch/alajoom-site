@@ -32,7 +32,46 @@
     return { k: 'ok', label: '수강 중', c: '#15803D' };
   }
 
-  var view = { filter: 'all', q: '' };
+  var view = { filter: 'all', q: '', sub: 'list', mon: ymd().slice(0, 7) };
+  DB.book = DB.book || [];
+
+  /* ---------- 매출 장부: 회원 결제는 자동, 그 밖의 매출·지출은 직접 ---------- */
+  function bookRows(mon) {
+    var rows = [];
+    DB.members.forEach(function (m) { (m.pays || []).forEach(function (p, i) { if ((p.date || '').slice(0, 7) === mon) rows.push({ auto: true, mid: m.id, date: p.date, type: '매출', what: m.name + ' · ' + (p.pass || '수강권') + ' ' + (p.count || '') + '회' + (i ? ' (재등록)' : ' (신규)'), amount: +p.price || 0, pay: p.pay || '' }); }); });
+    DB.book.forEach(function (b) { if ((b.date || '').slice(0, 7) === mon) rows.push(b); });
+    return rows.sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+  }
+  function shiftMon(mon, n) { var d = new Date(mon + '-01T00:00:00'); d.setMonth(d.getMonth() + n); return d.getFullYear() + '-' + pad(d.getMonth() + 1); }
+  function renderBook(box) {
+    var rows = bookRows(view.mon), inc = 0, out = 0, byPay = {};
+    rows.forEach(function (r) { if (r.type === '지출') out += r.amount; else { inc += r.amount; byPay[r.pay || '기타'] = (byPay[r.pay || '기타'] || 0) + r.amount; } });
+    var h = '<div style="display:flex;align-items:center;justify-content:space-between;margin:0 0 10px"><button type="button" class="sub" data-m="mon" data-v="-1" style="flex:none;min-width:44px;padding:0" aria-label="지난달">‹</button><b style="font-size:17px">' + (+view.mon.slice(0, 4)) + '년 ' + (+view.mon.slice(5)) + '월</b><button type="button" class="sub" data-m="mon" data-v="1" style="flex:none;min-width:44px;padding:0" aria-label="다음달">›</button></div>';
+    h += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 8px;text-align:center">' +
+      '<div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 4px"><span style="font-size:12px;color:var(--muted)">매출</span><b style="display:block;font-size:15px;color:#15803D">' + won(inc) + '</b></div>' +
+      '<div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 4px"><span style="font-size:12px;color:var(--muted)">지출</span><b style="display:block;font-size:15px;color:#C2410C">' + won(out) + '</b></div>' +
+      '<div style="background:var(--ink);color:#fff;border-radius:14px;padding:10px 4px"><span style="font-size:12px;opacity:.75">남은 돈</span><b style="display:block;font-size:15px;color:var(--yellow)">' + won(inc - out) + '</b></div></div>';
+    var pk = Object.keys(byPay); if (pk.length) h += '<p style="margin:0 0 12px;font-size:12.5px;color:var(--muted)">' + pk.map(function (k) { return esc(k) + ' ' + won(byPay[k]); }).join(' · ') + '</p>';
+    h += '<button type="button" class="go" data-m="bnew" style="justify-content:center;margin:0 0 12px;width:100%">+ 매출·지출 적기</button>';
+    if (!rows.length) h += '<p style="text-align:center;color:var(--muted);padding:16px 0;font-size:14px">이 달 기록이 없어요.<br>회원을 등록하거나 재등록하면 결제가 자동으로 적혀요.</p>';
+    else h += '<div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:4px 12px">' + rows.map(function (r) {
+      return '<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)">' +
+        '<span style="flex:none;width:38px;font-size:12.5px;color:var(--muted)">' + md(r.date) + '</span>' +
+        '<span style="flex:1;min-width:0;font-size:14px">' + esc(r.what) + '<small style="display:block;color:var(--muted);font-size:12px">' + (r.auto ? '회원 결제 · 자동' : r.type) + (r.pay ? ' · ' + esc(r.pay) : '') + '</small></span>' +
+        '<b style="flex:none;font-size:14px;color:' + (r.type === '지출' ? '#C2410C' : 'var(--ink)') + '">' + (r.type === '지출' ? '-' : '') + won(r.amount) + '</b>' +
+        (r.auto ? '<button type="button" data-m="open" data-id="' + r.mid + '" aria-label="회원 보기" style="flex:none;border:0;background:none;font-size:18px;color:#9AA0AD;min-width:32px;min-height:40px;cursor:pointer">›</button>' : '<button type="button" data-m="bdel" data-id="' + r.id + '" aria-label="삭제" style="flex:none;border:0;background:none;font-size:18px;color:#9AA0AD;min-width:32px;min-height:40px;cursor:pointer">×</button>') +
+        '</div>';
+    }).join('') + '</div>';
+    box.insertAdjacentHTML('beforeend', h);
+  }
+  function bookForm() {
+    openDlg('<h2>매출·지출 적기</h2>' + chips('btype', ['매출', '지출'], '지출') + '<input type="hidden" id="mBtype" value="지출">' +
+      '<label>날짜<input type="date" id="bDate" value="' + ymd() + '" style="width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;font:inherit"></label>' +
+      '<label>내용<input type="text" id="bWhat" maxlength="40" placeholder="예: 월세, 소도구 구입, 일일 체험"></label>' +
+      '<label>금액<input type="text" id="bAmt" inputmode="numeric" placeholder="예: 1200000"></label>' +
+      '<label>결제 방법</label>' + chips('pay', PAYS, PAYS[1]) + '<input type="hidden" id="mPay" value="' + PAYS[1] + '">' +
+      '<div class="row" style="display:flex;gap:8px"><button type="button" class="sub" data-m="close">취소</button><button type="button" class="sub primary" data-m="bsave">적기</button></div>');
+  }
 
   /* ---------- 목록 ---------- */
   function render() {
@@ -55,8 +94,11 @@
       return true;
     }).sort(function (a, b) { return a.name.localeCompare(b.name, 'ko'); });
 
+    var subb = function (v, l) { return '<button type="button" data-m="sub" data-v="' + v + '" aria-pressed="' + (view.sub === v) + '" style="flex:1;min-height:40px;border:0;border-bottom:3px solid ' + (view.sub === v ? 'var(--ink)' : 'transparent') + ';background:none;font:inherit;font-size:14.5px;font-weight:800;color:' + (view.sub === v ? 'var(--ink)' : 'var(--muted)') + ';cursor:pointer">' + l + '</button>'; };
+    var top = '<div style="display:flex;margin:0 0 14px;border-bottom:1px solid var(--line)">' + subb('list', '회원') + subb('book', '매출 장부') + '</div>';
+    if (view.sub === 'book') { box.innerHTML = top; renderBook(box); return; }
     var stat = function (n, l, f) { return '<button type="button" class="mb-stat" data-m="filter" data-v="' + f + '" style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 6px;text-align:center;font:inherit;cursor:pointer"><b style="display:block;font-size:20px;font-weight:900">' + n + '</b><span style="font-size:12px;color:var(--muted)">' + l + '</span></button>'; };
-    var h = '';
+    var h = top;
     h += '<div style="display:flex;gap:8px;margin:0 0 10px">' + stat(active.length, '수강 중', 'all') + stat(renew.length, '재등록 안내', 'renew') + stat(away.length, '오래 안 옴', 'away') + '</div>';
     h += '<p style="margin:0 0 14px;font-size:13px;color:var(--muted)">오늘 출석 <b style="color:var(--ink)">' + todayAtt.length + '명</b> · 이번 달 신규 <b style="color:var(--ink)">' + news + '명</b> · 이번 달 결제 <b style="color:var(--ink)">' + won(sales) + '</b></p>';
     h += '<div style="display:flex;gap:8px;margin:0 0 10px"><input type="text" id="mbQ" placeholder="이름·전화번호 찾기" value="' + esc(view.q) + '" style="flex:1"><button type="button" class="sub primary" data-m="new" style="flex:none;min-width:0;padding:0 16px">+ 회원</button></div>';
@@ -70,10 +112,9 @@
     } else {
       h += '<div style="display:flex;flex-direction:column;gap:10px">' + list.map(card).join('') + '</div>';
     }
-    h += '<details style="margin-top:18px;background:#fff"><summary style="font-size:13.5px;font-weight:700;cursor:pointer">백업 · 엑셀</summary>' +
-      '<p style="font-size:12.5px;color:var(--muted);margin:8px 0">회원 정보는 <b>이 기기에만</b> 저장돼요. 폰을 바꾸거나 브라우저 기록을 지우기 전에 엑셀로 내보내 두세요.</p>' +
-      '<div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="sub" data-m="export">엑셀로 내보내기</button><button type="button" class="sub" data-m="import">엑셀 불러오기</button></div>' +
-      '<input type="file" id="mbFile" accept=".csv,text/csv" class="hidden"></details>';
+    h += '<details style="margin-top:18px;background:#fff"><summary style="font-size:13.5px;font-weight:700;cursor:pointer">엑셀로 받기</summary>' +
+      '<p style="font-size:12.5px;color:var(--muted);margin:8px 0">회원 정보는 <b>이 기기에만</b> 저장돼요. 필요하면 엑셀 파일로 받아 보관하세요.</p>' +
+      '<div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="sub" data-m="export">엑셀로 받기</button></div></details>';
     box.innerHTML = h;
   }
   function card(m) {
@@ -212,6 +253,17 @@
     var t = e.target.closest('[data-m]'); if (!t) return;
     var a = t.dataset.m, id = t.dataset.id, m = id && find(id);
     if (a === 'filter') { view.filter = t.dataset.v; render(); return; }
+    if (a === 'sub') { view.sub = t.dataset.v; render(); return; }
+    if (a === 'mon') { view.mon = shiftMon(view.mon, +t.dataset.v); render(); return; }
+    if (a === 'bnew') return bookForm();
+    if (a === 'bdel') { if (t.dataset.arm !== '1') { t.dataset.arm = '1'; t.textContent = '삭제?'; t.style.color = '#C2410C'; t.style.fontSize = '12px'; return; } DB.book = DB.book.filter(function (b) { return b.id !== id; }); save(); render(); toast('지웠어요'); return; }
+    if (a === 'bsave') {
+      var amt = num($('#bAmt', dlg).value), what = $('#bWhat', dlg).value.trim();
+      if (!what || !amt) { toast('내용과 금액을 적어주세요'); return; }
+      var bd = $('#bDate', dlg).value || ymd();
+      DB.book.push({ id: uid(), date: bd, type: $('#mBtype', dlg).value, what: what, amount: amt, pay: $('#mPay', dlg).value });
+      save(); closeDlg(); view.sub = 'book'; view.mon = bd.slice(0, 7); render(); toast('장부에 적었어요'); return;
+    }
     if (a === 'new') return form(null);
     if (a === 'open' && m) return detail(m);
     if (a === 'edit' && m) return form(m);
@@ -219,7 +271,6 @@
     if (a === 'sms' && m) return sms(m);
     if (a === 'close') return closeDlg();
     if (a === 'export') return exportCsv();
-    if (a === 'import') { var f = $('#mbFile'); f.onchange = function () { if (f.files[0]) importCsv(f.files[0]); f.value = ''; }; f.click(); return; }
     if (a === 'pick') {
       t.parentNode.querySelectorAll('.chip').forEach(function (b) { b.setAttribute('aria-pressed', b === t); });
       var hid = $('#m' + t.dataset.n.charAt(0).toUpperCase() + t.dataset.n.slice(1), dlg); if (hid) hid.value = t.dataset.v; return;
@@ -243,31 +294,34 @@
       rec.id = uid(); rec.created = ymd(); rec.total = num($('#mTotal', dlg).value) || 1; rec.att = [];
       var price = num($('#mPrice', dlg).value);
       rec.pays = [{ date: ymd(), pass: rec.pass, count: rec.total, price: price, pay: $('#mPay', dlg).value }];
-      DB.members.push(rec); save(); closeDlg(); view.filter = 'all'; render(); toast(name + '님을 등록했어요'); return;
+      DB.members.push(rec); save(); closeDlg(); view.filter = 'all'; render(); toast(name + '님 등록 · ' + (price ? '매출 장부에 ' + won(price) + ' 기록' : '결제 금액 없이 등록')); return;
     }
     if (a === 'renew-save' && m) {
       var cnt = num($('#mTotal', dlg).value); if (!cnt) { toast('추가 횟수를 적어주세요'); return; }
       m.total = (m.total || 0) + cnt; m.pass = $('#mPass', dlg).value || m.pass; m.end = $('#mEnd', dlg).value || m.end;
       m.pays = m.pays || []; m.pays.push({ date: ymd(), pass: m.pass, count: cnt, price: num($('#mPrice', dlg).value), pay: $('#mPay', dlg).value });
-      save(); render(); detail(m); toast('재등록했어요 · 남은 ' + left(m) + '회'); return;
+      save(); render(); detail(m); toast('재등록 · 남은 ' + left(m) + '회 · 매출 장부에 기록했어요'); return;
     }
   }
 
   /* ---------- 탭 ---------- */
   function showTab(k) {
     document.querySelectorAll('.mtab').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.tab === k); });
-    $('#v-make').classList.toggle('hidden', k !== 'make');
-    $('#v-members').classList.toggle('hidden', k !== 'members');
+    ['make', 'members', 'works'].forEach(function (v) { var el = $('#v-' + v); if (el) el.classList.toggle('hidden', v !== k); });
     if (k === 'members') render();
+    try { window.dispatchEvent(new CustomEvent('alajoom:tab', { detail: k })); } catch (e) {}
     try { sessionStorage.setItem('al_pil_tab', k); } catch (e) {}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+  window.alajoomTab = showTab;
   function init() {
     var box = $('#v-members'); if (!box) return;
     box.addEventListener('click', onClick);
     box.addEventListener('input', function (e) { if (e.target.id === 'mbQ') { view.q = e.target.value.trim(); var pos = e.target.selectionStart; render(); var q = $('#mbQ'); q.focus(); try { q.setSelectionRange(pos, pos); } catch (er) {} } });
     document.querySelectorAll('.mtab').forEach(function (b) { b.addEventListener('click', function () { showTab(b.dataset.tab); }); });
-    var k = /[?&]tab=members/.test(location.search) ? 'members' : (function () { try { return sessionStorage.getItem('al_pil_tab'); } catch (e) { return null; } })();
-    if (k === 'members') showTab('members');
+    var mt = location.search.match(/[?&]tab=(members|works)/);
+    var k = mt ? mt[1] : (function () { try { return sessionStorage.getItem('al_pil_tab'); } catch (e) { return null; } })();
+    if (k === 'members' || k === 'works') showTab(k);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
