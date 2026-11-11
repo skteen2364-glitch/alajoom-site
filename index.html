@@ -549,6 +549,30 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 /* unified section titles */
 @media (max-width:720px){.dz-root section .h2,.dz-root #erp .h2,.dz-root #preview .h2{font-size:24px !important;line-height:1.35 !important;letter-spacing:-0.6px !important}}
 @media (min-width:721px){.dz-root #contact .h2{font-size:40px !important}}
+
+/* hero "today done" card */
+.hero-done{max-width:520px;margin:0 0 30px;padding:16px 16px 10px;border-radius:20px;background:#FFFFFF;border:1px solid #EFE4CC;box-shadow:0 14px 34px rgba(150,110,20,.12)}
+.hd-head{display:flex;justify-content:space-between;align-items:center;margin:0 0 10px;font-size:15px}
+.hd-head b{font-weight:900;letter-spacing:-.3px}.hd-head span{font-size:12px;font-weight:700;color:#3B5B92;background:#E6ECF5;padding:4px 10px;border-radius:999px}
+.hd-list{list-style:none;margin:0;padding:0}
+.hd-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #F3EEE3;opacity:0;transform:translateY(8px);animation:hdIn 7s ease infinite}
+.hd-row:first-child{border-top:0}
+.hd-ic{flex:none;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.hd-tx{flex:1;min-width:0;display:flex;flex-direction:column}.hd-tx b{font-size:16px;font-weight:800;letter-spacing:-.3px;color:#14161F}.hd-tx small{font-size:12.5px;color:#7A7F8C;margin-top:1px}
+.hd-st{flex:none;position:relative;width:68px;height:28px}
+.hd-ing,.hd-ok{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:3px;border-radius:999px;font-size:12px;font-weight:800}
+.hd-ing{background:#F2F3F6;color:#6A6F7C;animation:hdIng 7s linear infinite}
+.hd-ing i{width:3px;height:3px;border-radius:50%;background:currentColor;animation:hdDot 1s infinite}.hd-ing i:nth-child(2){animation-delay:.2s}.hd-ing i:nth-child(3){animation-delay:.4s}
+.hd-ok{background:#17803D;color:#FFFFFF;opacity:0;transform:scale(.6);animation:hdOk 7s cubic-bezier(.2,.9,.3,1.4) infinite}
+.hd-r2,.hd-r2 .hd-ing,.hd-r2 .hd-ok{animation-delay:.7s}
+.hd-r3,.hd-r3 .hd-ing,.hd-r3 .hd-ok{animation-delay:1.4s}
+.hd-r2 .hd-ing i,.hd-r3 .hd-ing i{animation-delay:0s}
+@keyframes hdIn{0%{opacity:0;transform:translateY(8px)}6%,92%{opacity:1;transform:translateY(0)}98%,100%{opacity:0;transform:translateY(0)}}
+@keyframes hdIng{0%,24%{opacity:1}28%,100%{opacity:0}}
+@keyframes hdOk{0%,24%{opacity:0;transform:scale(.6)}30%,92%{opacity:1;transform:scale(1)}98%,100%{opacity:0;transform:scale(1)}}
+@keyframes hdDot{0%,100%{opacity:.3}50%{opacity:1}}
+@media (max-width:720px){.hero-done{margin:0 0 18px !important;padding:12px 12px 6px}.hd-row{padding:8px 0;gap:10px}.hd-ic{width:34px;height:34px;border-radius:10px}.hd-tx b{font-size:14.5px}.hd-tx small{font-size:11.5px}.hd-head{font-size:14px;margin-bottom:6px}}
+@media (prefers-reduced-motion: reduce){.hd-row{opacity:1;transform:none;animation:none}.hd-ing{display:none}.hd-ok{opacity:1;transform:none;animation:none}}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
@@ -580,7 +604,10 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 <div style="flex: 1 1 460px; min-width: 0">
 <p style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 22px; padding: 6px 14px; border-radius: 999px; border: 1px solid #EADFC8; background: #FFFFFF; font-size: 14px; font-weight: 700; color: #3A3F4C"><span style="font-size: 11px; font-weight: 900; color: #14161F; background: #FFE45C; padding: 1px 7px; border-radius: 999px">1인 사장님 전용</span>무료 AI 비서</p>
 <h1 class="hero-title" style="margin: 0 0 22px; font-size: 60px; line-height: 1.18; font-weight: 900; letter-spacing: -2px">혼자 다 하는 사장님,<br>말만 하세요.<br><span style="color: #3B5B92">알아서 해줌</span></h1>
-<p class="hero-lead" style="margin: 0 0 34px; font-size: 18px; color: #5B6070; max-width: 540px">AI도 인스타도 몰라도 괜찮아요. 홍보글, 카톡 문의 답장, 예약·매출 정리까지 알아줌이 알아서 챙기고, 사장님은 확인만 누르면 돼요.</p>
+<div class="hero-done" role="group" aria-label="오늘 알아줌이 한 일: 인스타 홍보글 올리기, 카톡 문의 답장, 오늘 매출 정리 — 사장님은 확인만">
+<p class="hd-head"><b>오늘 알아줌이 한 일</b><span>사장님은 확인만</span></p>
+<ul class="hd-list"><li class="hd-row hd-r1"><span class="hd-ic" style="background: #FFE3EC"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle></svg></span><span class="hd-tx"><b>인스타 홍보글 올리기</b><small>사진 1장 → 글·해시태그</small></span><span class="hd-st"><span class="hd-ing">하는 중<i></i><i></i><i></i></span><span class="hd-ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>완료</span></span></li><li class="hd-row hd-r2"><span class="hd-ic" style="background: #FFF1B8"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg></span><span class="hd-tx"><b>카톡 문의 3건 답장</b><small>예약 가능 시간 안내까지</small></span><span class="hd-st"><span class="hd-ing">하는 중<i></i><i></i><i></i></span><span class="hd-ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>완료</span></span></li><li class="hd-row hd-r3"><span class="hd-ic" style="background: #DDF3E4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg></span><span class="hd-tx"><b>오늘 매출 정리</b><small>카드·현금·재료비 장부</small></span><span class="hd-st"><span class="hd-ing">하는 중<i></i><i></i><i></i></span><span class="hd-ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>완료</span></span></li></ul>
+</div>
 <div class="cta-row" style="display: flex; flex-wrap: wrap; gap: 12px">
 <a href="#mates" style="display: inline-flex; align-items: center; gap: 8px; min-height: 54px; padding: 0 28px; border-radius: 14px; background: #3B5B92; color: #FFFFFF; font-size: 17px; font-weight: 700; text-decoration: none">무료로 시작하기<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
 <a href="#contact" style="display: inline-flex; align-items: center; min-height: 54px; padding: 0 24px; border-radius: 14px; border: 1px solid #D9CFB8; color: #14161F; font-size: 17px; font-weight: 700; text-decoration: none">음성 비서 출시 알림</a>
