@@ -1701,5 +1701,90 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
   setTimeout(end,3900);
 })();
 </script>
+<style>
+#dz-login{position:fixed;inset:0;z-index:100002;display:none}
+#dz-login.on{display:block}
+#dz-login .lg-bg{position:absolute;inset:0;background:rgba(10,12,18,.55)}
+#dz-login .lg-pan{position:absolute;left:0;right:0;bottom:0;max-width:440px;margin:0 auto;background:#FFFFFF;border-radius:24px 24px 0 0;padding:26px 22px 28px;box-sizing:border-box;font-family:'Noto Sans KR',system-ui,sans-serif;color:#14161F}
+@media (min-width:721px){#dz-login .lg-pan{bottom:auto;top:50%;transform:translateY(-50%);border-radius:24px}}
+#dz-login h2{margin:0 0 6px;font-size:22px;font-weight:900;letter-spacing:-.6px}
+#dz-login p{margin:0 0 18px;font-size:14px;color:#5B6070;line-height:1.55}
+#dz-login .lg-kakao{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:54px;border:0;border-radius:14px;background:#FEE500;color:#191919;font:inherit;font-size:16px;font-weight:800;cursor:pointer}
+#dz-login .lg-x{position:absolute;top:12px;right:12px;width:40px;height:40px;border:0;border-radius:50%;background:#F2F3F6;font-size:20px;cursor:pointer;color:#3A3F4C}
+#dz-login .lg-note{margin:12px 0 0;font-size:12px;color:#8A8F9C;text-align:center}
+#dz-login .lg-err{display:none;margin:10px 0 0;font-size:13px;color:#C2410C;text-align:center}
+.dz-user{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 6px 0 4px;border:1px solid #E6E8ED;border-radius:999px;background:#FFFFFF;color:#14161F;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.dz-user img,.dz-user i{width:32px;height:32px;border-radius:50%;object-fit:cover;background:#FFE45C;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-weight:900}
+.dz-user span{max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:8px}
+#dz-usermenu{position:fixed;z-index:100001;display:none;min-width:180px;padding:8px;border-radius:14px;background:#FFFFFF;box-shadow:0 14px 34px rgba(20,22,31,.18);font-family:'Noto Sans KR',system-ui,sans-serif}
+#dz-usermenu.on{display:block}
+#dz-usermenu p{margin:6px 10px 8px;font-size:12.5px;color:#6A6F7C}
+#dz-usermenu button{display:block;width:100%;min-height:44px;border:0;border-radius:10px;background:#F6F7FA;font:inherit;font-size:14px;font-weight:700;color:#14161F;cursor:pointer;text-align:left;padding:0 12px}
+</style>
+<div id="dz-login" role="dialog" aria-modal="true" aria-labelledby="dz-login-t">
+<div class="lg-bg"></div>
+<div class="lg-pan">
+<button type="button" class="lg-x" aria-label="닫기">×</button>
+<h2 id="dz-login-t">알아줌 무료로 시작하기</h2>
+<p>카카오 계정으로 3초 만에 시작해요.<br>카드 등록 없이 무료예요.</p>
+<button type="button" class="lg-kakao"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#191919" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"></path></svg>카카오로 시작하기</button>
+<p class="lg-err" role="alert"></p>
+<p class="lg-note">시작하면 이용약관과 개인정보처리방침에 동의하는 것으로 봐요.</p>
+</div>
+</div>
+<div id="dz-usermenu" role="menu"><p class="um-name"></p><button type="button" class="um-out" role="menuitem">로그아웃</button></div>
+<script src="/assets/supabase-2.119.0.js"></script>
+<script>
+(function(){
+  var URL_='https://zuxbloxstkcixqpzqalk.supabase.co', KEY='sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH';
+  if(!window.supabase||!window.supabase.createClient)return;
+  var sb=window.supabase.createClient(URL_,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'}});
+  window.dzAuth=sb;
+  var lg=document.getElementById('dz-login'),err=lg.querySelector('.lg-err'),um=document.getElementById('dz-usermenu');
+  var kakaoOn=false,user=null,pendingHash='#mates';
+  // only turn on login UI once Kakao provider is enabled in Supabase
+  fetch(URL_+'/auth/v1/settings',{headers:{apikey:KEY}}).then(function(r){return r.json()}).then(function(s){kakaoOn=!!(s&&s.external&&s.external.kakao);render();}).catch(function(){});
+  var open=function(h){pendingHash=h||'#mates';err.style.display='none';lg.classList.add('on');};
+  var close=function(){lg.classList.remove('on');};
+  lg.querySelector('.lg-bg').addEventListener('click',close);lg.querySelector('.lg-x').addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){close();um.classList.remove('on');}});
+  lg.querySelector('.lg-kakao').addEventListener('click',function(){
+    try{sessionStorage.setItem('dz_after_login',pendingHash)}catch(e){}
+    sb.auth.signInWithOAuth({provider:'kakao',options:{redirectTo:location.origin+'/'}}).then(function(r){
+      if(r.error){err.textContent='로그인을 시작하지 못했어요. 잠시 후 다시 시도해 주세요.';err.style.display='block';}
+    });
+  });
+  // header button + "free start" buttons
+  var headBtn=null;
+  Array.prototype.forEach.call(document.querySelectorAll('header a[href="#mates"]'),function(a){if(/무료/.test(a.textContent))headBtn=a;});
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href="#mates"]');
+    if(!a||!kakaoOn||user||!/무료/.test(a.textContent))return;
+    e.preventDefault();open('#mates');
+  },true);
+  var chip=null;
+  var render=function(){
+    if(!headBtn)return;
+    if(user){
+      headBtn.style.display='none';
+      if(!chip){chip=document.createElement('button');chip.type='button';chip.className='dz-user';chip.setAttribute('aria-haspopup','menu');headBtn.parentNode.insertBefore(chip,headBtn);
+        chip.addEventListener('click',function(){var r=chip.getBoundingClientRect();um.style.top=(r.bottom+8)+'px';um.style.right=Math.max(8,window.innerWidth-r.right)+'px';um.classList.toggle('on');});}
+      var m=user.user_metadata||{},nm=m.name||m.nickname||m.full_name||'사장님',av=m.avatar_url||m.picture;
+      chip.innerHTML='';var pic;if(av){pic=document.createElement('img');pic.src=av;pic.alt='';}else{pic=document.createElement('i');pic.textContent=nm.charAt(0);}
+      var sp=document.createElement('span');sp.textContent=nm+' 님';chip.appendChild(pic);chip.appendChild(sp);chip.style.display='';
+      um.querySelector('.um-name').textContent=nm+' 님으로 로그인 중';
+    }else{
+      headBtn.style.display='';if(chip)chip.style.display='none';
+    }
+  };
+  um.querySelector('.um-out').addEventListener('click',function(){sb.auth.signOut().then(function(){um.classList.remove('on');});});
+  document.addEventListener('click',function(e){if(chip&&!um.contains(e.target)&&!chip.contains(e.target))um.classList.remove('on');});
+  sb.auth.onAuthStateChange(function(ev,session){
+    user=session?session.user:null;render();
+    if(ev==='SIGNED_IN'){close();var h=null;try{h=sessionStorage.getItem('dz_after_login');sessionStorage.removeItem('dz_after_login')}catch(e){}
+      if(h){setTimeout(function(){var t=document.querySelector(h);if(t)t.scrollIntoView({behavior:'smooth'});},400);}}
+  });
+})();
+</script>
 </body>
 </html>
