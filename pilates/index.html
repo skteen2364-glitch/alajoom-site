@@ -426,7 +426,10 @@ var CFG = {
     var hits = scan(text), chk = $('#chk');
     if (!hits.length) chk.innerHTML = '<div class="check"><span>✓</span><span>광고 표현 검사 통과. 과장·의료 표현이 없어요.</span></div>';
     else chk.innerHTML = '<div class="check bad"><span>!</span><span>광고 주의 표현 ' + hits.length + '개<ul>' + hits.map(function(h){ return '<li>"' + esc(h.w) + '" · ' + h.why + '</li>'; }).join('') + '</ul></span></div>';
-    var a = '<button type="button" class="sub primary" data-act="copy">복사하기</button>';
+    var a = '';
+    if ((tool === 'post' || tool === 'photo') && pick.ch === '인스타') a += '<button type="button" class="sub primary" data-act="igpost" style="flex-basis:100%;background:linear-gradient(90deg,#F58529,#DD2A7B,#8134AF);border:0">인스타에 올리기</button>';
+    if ((tool === 'post' || tool === 'photo') && pick.ch === '네이버 플레이스') a += '<button type="button" class="sub primary" data-act="nppost" style="flex-basis:100%;background:#03C75A;border:0">네이버 플레이스에 올리기</button>';
+    a += '<button type="button" class="sub' + (a ? '' : ' primary') + '" data-act="copy">복사하기</button>';
     if (hits.length) a += '<button type="button" class="sub" data-act="fix">안전하게 고치기</button>';
     a += '<button type="button" class="sub" data-act="again">다시 만들기</button>';
     if (tool !== 'review') a += '<button type="button" class="sub" data-act="short">더 짧게</button>';
@@ -440,7 +443,7 @@ var CFG = {
     h += '<div class="step"><p>색상</p><div class="themes" role="group" aria-label="카드 색상">' + THEMES.map(function(t, i){ return '<button type="button" class="sw" data-th="' + i + '" aria-pressed="' + (i===theme) + '" aria-label="' + t.name + '" style="background:' + t.bg + '"></button>'; }).join('') + '</div></div>';
     h += '<div class="fields"><input type="text" id="cTitle" aria-label="큰 제목" value="' + esc((c.title||'').replace(/\n/g,' / ')) + '">';
     (c.lines||[]).forEach(function(l, i){ h += '<input type="text" class="cLine" aria-label="안내 줄 ' + (i+1) + '" value="' + esc(l) + '">'; });
-    h += '</div><div class="row"><button type="button" class="sub" data-act="redraw">문구 반영</button>' + (downloads ? '<button type="button" class="sub primary" data-act="save">이미지 저장</button>' : '') + '<button type="button" class="sub" data-act="again">다시 만들기</button></div>';
+    h += '</div><div class="row"><button type="button" class="sub primary" data-act="igcard" style="flex-basis:100%;background:linear-gradient(90deg,#F58529,#DD2A7B,#8134AF);border:0">인스타에 올리기</button><button type="button" class="sub" data-act="redraw">문구 반영</button>' + (downloads ? '<button type="button" class="sub primary" data-act="save">이미지 저장</button>' : '') + '<button type="button" class="sub" data-act="again">다시 만들기</button></div>';
     h += '<p class="note">' + (downloads ? '' : '이미지를 길게 누르면 저장할 수 있어요. ') + '제목의 " / "는 줄바꿈이에요. [ ] 칸은 꼭 채워주세요.</p>';
     r.innerHTML = h;
     saveWork();
@@ -669,6 +672,42 @@ var CFG = {
     } finally { busy = false; go.disabled = false; }
   }
 
+  /* ---------- 인스타·네이버 플레이스에 올리기 (글 복사 + 사진 공유/저장 + 앱 열기) ---------- */
+  async function curImage(kind){
+    if (kind === 'igcard'){ readCardInputs(); var cv = drawCard(lastCard); return new Promise(function(r){ cv.toBlob(function(b){ r(b); }, 'image/png'); }); }
+    if (tool === 'photo' && ph.img) return photoBlob(2160, .92);
+    if (att) return att.blob;
+    return null;
+  }
+  async function postTo(kind){
+    var text = kind === 'igcard' ? '' : (($('#out') && $('#out').innerText) || lastText);
+    if (text){ try { await navigator.clipboard.writeText(text); } catch(e){} }
+    var blob = await curImage(kind);
+    var file = blob ? new File([blob], (studio.name || '알아줌') + (blob.type === 'image/png' ? '.png' : '.jpg'), { type: blob.type || 'image/jpeg' }) : null;
+    if (kind === 'nppost'){
+      if (file && navigator.canShare && navigator.canShare({ files: [file] })){ try { await navigator.share({ files: [file] }); } catch(e){} }
+      showGuide('네이버 플레이스에 올리는 방법', ['글은 <b>복사해 뒀어요.</b>' + (file ? ' 사진은 방금 뜬 창에서 <b>저장</b>을 눌러 두세요.' : ''), '<b>스마트플레이스</b>(앱 또는 아래 버튼)에서 내 가게 → <b>소식</b> → 새 소식 쓰기', '글 칸을 길게 눌러 <b>붙여넣기</b>' + (file ? ', 사진 추가' : '') + ' 후 등록'], 'https://new.smartplace.naver.com/', '스마트플레이스 열기');
+      return;
+    }
+    if (file && navigator.canShare && navigator.canShare({ files: [file] })){
+      toast(text ? '글을 복사했어요. 공유 창에서 인스타그램을 고르세요' : '공유 창에서 인스타그램을 고르세요');
+      try { await navigator.share({ files: [file] }); } catch(e){ if (e && e.name === 'AbortError') return; }
+      showGuide('인스타그램에서 마무리', ['공유 창에서 <b>Instagram → 피드</b>를 고르세요', text ? '문구 칸을 길게 눌러 <b>붙여넣기</b> (글은 복사돼 있어요)' : '필요하면 문구를 적어 주세요', '<b>공유</b>를 누르면 끝!'], '', '');
+      return;
+    }
+    showGuide('인스타그램에 올리는 방법', [file ? '사진을 길게 눌러 <b>저장</b>하세요' : '올릴 사진을 준비하세요', '인스타그램 앱에서 <b>＋ → 게시물</b>, 사진 고르기', text ? '문구 칸에 <b>붙여넣기</b> (글은 복사돼 있어요)' : '문구를 적고 공유'], 'https://www.instagram.com/', '인스타그램 열기');
+  }
+  function showGuide(title, steps, url, label){
+    var w = document.createElement('div'); w.setAttribute('role', 'dialog'); w.setAttribute('aria-modal', 'true');
+    w.style.cssText = 'position:fixed;inset:0;z-index:100006';
+    w.innerHTML = '<div data-gx style="position:absolute;inset:0;background:rgba(20,22,31,.5)"></div><div style="position:absolute;left:0;right:0;bottom:0;max-width:460px;margin:0 auto;background:#fff;border-radius:22px 22px 0 0;padding:22px 18px 16px">' +
+      '<h2 style="margin:0 0 12px;font-size:18px;font-weight:900">' + title + '</h2><ol style="margin:0 0 14px;padding-left:20px;font-size:14.5px;line-height:1.7">' + steps.map(function(x){ return '<li>' + x + '</li>'; }).join('') + '</ol>' +
+      (url ? '<a href="' + url + '" target="_blank" rel="noopener" class="sub primary" style="display:flex;align-items:center;justify-content:center;text-decoration:none;min-height:50px;margin-bottom:6px">' + label + '</a>' : '') +
+      '<button type="button" data-gx class="sub" style="width:100%;min-height:46px">닫기</button></div>';
+    document.body.appendChild(w);
+    w.addEventListener('click', function(e){ if (e.target.closest('[data-gx]')) w.remove(); });
+  }
+
   /* ---------- 내 작업실: 만든 글·카드 자동 저장, 이어서 작업 ---------- */
   var WKEY = 'al_pilates_works_v1', WMAX = 80;
   var TNAME = { photo:'사진 홍보', post:'홍보글', card:'안내 카드', sms:'회원 문자', review:'리뷰 답글' };
@@ -749,6 +788,7 @@ var CFG = {
     if (t.dataset.tool){ tool = t.dataset.tool; document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); renderPanel(); $('#panel').scrollIntoView({behavior:'smooth', block:'start'}); return; }
     if (t.classList.contains('chip') && t.dataset.k){ pick[t.dataset.k] = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); return; }
     if (t.id === 'go'){ curWork = null; return generate(); }
+    if (t.dataset.act === 'igpost' || t.dataset.act === 'nppost' || t.dataset.act === 'igcard') return postTo(t.dataset.act);
     if (t.dataset.act === 'attdel'){ att = null; renderAtt(); if (tool === 'card' && lastCard && !$('#result').classList.contains('hidden')){ showCard(lastCard); } return; }
     if (t.dataset.out){ ph.out = t.dataset.out; document.querySelectorAll('.out-c').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.out === ph.out); }); showOut(); return; }
     if (t.dataset.pre){ applyPreset(t.dataset.pre); return; }
