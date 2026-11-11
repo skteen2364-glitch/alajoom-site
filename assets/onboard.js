@@ -49,7 +49,7 @@
         '<label class="ob-l">업종</label><div class="ob-chips">' + chips + '</div>' +
         '<label class="ob-l" for="al-ob-store">가게 이름</label><input type="text" id="al-ob-store" maxlength="60" placeholder="예: 연남 해장국" autocomplete="organization">' +
         '<label class="ob-l" for="al-ob-area">지역(동네)</label><input type="text" id="al-ob-area" maxlength="60" placeholder="예: 서울 마포구 연남동">' +
-        '<label class="ob-agree"><input type="checkbox" id="al-ob-mkt"><span><b>(선택) 마케팅 정보 수신 동의</b><small>새 기능·혜택·이벤트 소식을 이메일로 받아요. 동의하지 않아도 모든 기능을 쓸 수 있고, 언제든 철회할 수 있어요.</small></span></label>' +
+        '<label class="ob-agree"><input type="checkbox" id="al-ob-mkt"><span><b>(선택) 마케팅 정보 수신 동의</b><small>새 기능·혜택·이벤트 소식을 이메일로 받아요. 동의하지 않아도 모든 기능을 쓸 수 있고, 언제든 철회할 수 있어요. <a href="/privacy/" target="_blank" style="color:inherit">자세히</a></small></span></label>' +
         '<button type="button" class="ob-go">시작하기</button>' +
         '<p class="ob-err" role="alert"></p>' +
         '<button type="button" class="ob-later">나중에 할게요</button></div>';
