@@ -45,7 +45,8 @@
     var sb = await client();
     var s = (await sb.auth.getSession()).data.session;
     if (!s) { toast('카카오로 로그인하면 AI가 직접 써 드려요'); var e0 = new Error('login'); e0.code = 'login_required'; throw e0; }
-    var body = { mate: MATE, prompt: String(prompt) };
+    var tb = document.querySelector('.tool[aria-pressed="true"]');
+    var body = { mate: MATE, prompt: String(prompt), tool: (tb && tb.dataset.tool) || 'other' };
     if (opts && opts.images && opts.images[0]) body.image = await b64(opts.images[0]);
     var r = await fetch(URL_ + '/functions/v1/generate', {
       method: 'POST',
@@ -57,7 +58,8 @@
       toast(d.message || 'AI가 잠시 바빠요. 조금 뒤 다시 눌러 주세요');
       var e1 = new Error(d.error || 'ai_error'); e1.code = d.error || 'ai_error'; throw e1;
     }
-    if (d.used != null && d.limit) setMode('진짜 AI 직원이 써요 · 오늘 ' + Math.max(0, d.limit - d.used) + '회 남음');
+    if (d.admin) setMode('진짜 AI 직원이 써요 · 관리자 무제한');
+    else if (d.used != null && d.limit) setMode('진짜 AI 직원이 써요 · 오늘 ' + Math.max(0, d.limit - d.used) + '회 남음');
     return { text: d.text || '' };
   }
 

@@ -8,13 +8,22 @@
   var M = MATES[key]; if (!M) return;
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(function () {});
   var standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
-  if (standalone) return;
+  // 이 메이트 앱으로 실행된 경우(시작 주소에 source=homescreen)만 버튼을 숨긴다.
+  // 알아줌 앱 안에서 메이트로 들어온 경우엔 '브라우저에서 열어 설치' 안내를 보여준다.
+  var ownApp = false;
+  try {
+    if (standalone && /source=homescreen/.test(location.search)) sessionStorage.setItem('al_own_' + key, '1');
+    ownApp = standalone && sessionStorage.getItem('al_own_' + key) === '1';
+  } catch (e) {}
+  if (ownApp) return;
+  var inAlajoomApp = standalone;
   var ua = navigator.userAgent || '';
   var inapp = /KAKAOTALK|NAVER\(|Instagram|FBAN|FBAV|Line\/|DaumApps|everytimeApp/i.test(ua);
   var ios = /iPhone|iPad|iPod/.test(ua);
   var deferred = null, OFF = 'al_install_off_' + key;
   var off = function () { try { return localStorage.getItem(OFF); } catch (e) { return null; } };
   var guide = function () {
+    if (inAlajoomApp) return '알아줌 앱 안에서는 따로 깔 수 없어요. 주소를 복사해 크롬(아이폰은 사파리)에서 열고 다시 눌러 주세요';
     if (inapp) return ios ? '오른쪽 아래 ⋯ → "Safari로 열기" → 공유 → "홈 화면에 추가"' : '오른쪽 위 ⋮ → "다른 브라우저로 열기" 후 다시 눌러 주세요';
     if (ios) return '아래 공유 버튼(□↑) → "홈 화면에 추가"';
     return '브라우저 오른쪽 위 ⋮ → "홈 화면에 추가" 또는 "앱 설치"';
@@ -34,6 +43,12 @@
     box.style.display = 'flex';
   };
   var install = function () {
+    if (inAlajoomApp) {
+      var url = location.origin + location.pathname;
+      try { navigator.clipboard.writeText(url); } catch (e) {}
+      show(); msg.textContent = '주소를 복사했어요. 크롬(아이폰은 사파리) 주소창에 붙여 넣고 열어서 "홈 화면에 추가"를 눌러 주세요';
+      return;
+    }
     if (deferred) { deferred.prompt(); deferred.userChoice.finally(function () { deferred = null; box.style.display = 'none'; }); }
     else show();
   };
