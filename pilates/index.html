@@ -115,7 +115,7 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
 
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
 </style>
-<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11120006"></script><script src="/pilates/members.js?v=11120821" defer></script><script src="/assets/mate-install.js?v=11120006" defer></script>
+<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11120006"></script><script src="/pilates/members.js?v=11120833" defer></script><script src="/assets/mate-install.js?v=11120006" defer></script>
 </head>
 <body>
 <div class="app">
@@ -138,6 +138,10 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
 
   <div id="v-make">
   <h1>원장님, 오늘은 뭘 만들까요?</h1>
+  <button type="button" id="voiceBtn" style="display:flex;align-items:center;gap:12px;width:100%;min-height:58px;margin:-4px 0 0;padding:10px 14px;border:1px solid var(--line);border-radius:18px;background:#fff;font:inherit;text-align:left;cursor:pointer">
+    <span aria-hidden="true" style="flex:none;width:40px;height:40px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+    <span style="flex:1;min-width:0"><b style="display:block;font-size:15px">말로 시키기</b><span style="font-size:12.5px;color:var(--muted)">"체험 2자리 남았다고 인스타 글 써줘" · "김지은 출석"</span></span>
+  </button>
 
   <div class="tools" role="group" aria-label="만들 것 고르기">
     <button class="tool hero" type="button" data-tool="photo" aria-pressed="true"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span><div><b>사진 올리고 홍보하기</b><span>사진을 밝고 예쁘게 보정하고, 그 사진으로 홍보글까지</span></div></button>
@@ -671,6 +675,75 @@ var CFG = {
       }
     } finally { busy = false; go.disabled = false; }
   }
+
+
+  /* ---------- 말로 시키기 ---------- */
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  function vParse(say){
+    var t = say.replace(/\s+/g, ' ').trim();
+    // 회원 출석: "김지은 출석", "김지은 님 출석 체크"
+    var at = t.match(/^([가-힣]{2,4})\s*(님|씨|회원님?)?\s*(오늘\s*)?출석/);
+    if (at) return { attend: at[1] };
+    var tl = /카드|포스터|시간표/.test(t) ? 'card' : /리뷰|후기|답글|댓글/.test(t) ? 'review' : /문자|메시지|카톡|연락/.test(t) ? 'sms' : 'post';
+    var r = { tool: tl, detail: t };
+    if (tl === 'post') r.ch = /블로그/.test(t) ? '블로그' : /당근/.test(t) ? '당근' : /플레이스|네이버/.test(t) ? '네이버 플레이스' : '인스타';
+    var KW = {
+      '체험 수업 모집':/체험|처음|모집|자리/, '이달의 클래스':/클래스|이달|이번\s*달|수업\s*소개/, '신규 회원 이벤트':/이벤트|할인|신규|선물/, '강사 소개':/강사|선생님|원장\s*소개/, '원장의 운동 팁':/팁|스트레칭|운동법|자세/, '휴강·일정 안내':/휴강|일정|쉬어|쉽니다|공휴일/,
+      '재등록 안내':/재등록|만료|끝나|연장/, '내일 수업 리마인드':/내일|리마인드|예약\s*확인/, '오랜만에 안부':/오랜만|안부|안\s*오/, '신규 회원 환영':/환영|새로\s*오신|신규/, '생일 축하':/생일/, '휴강 안내':/휴강|쉬어|쉽니다/,
+      '좋은 리뷰':/좋은|칭찬|감사/, '아쉬운 리뷰':/아쉬|불만|안\s*좋|별로|나쁜/
+    };
+    var opts = (TOOLS[tl] ? TOOLS[tl].steps[0].opts : []);
+    r.topic = opts.filter(function(o){ return KW[o] && KW[o].test(t); })[0] || opts[0];
+    if (tl === 'card'){ var c = opts.filter(function(o){ return t.indexOf(o.replace(/\s/g, '').slice(0, 2)) >= 0; })[0]; if (c) r.topic = c; }
+    if (tl === 'review') r.detail = t.replace(/(리뷰|후기)?\s*(에\s*)?(답글|댓글)\s*(써|달아|만들어)\s*(줘|주세요)?\.?$/, '').replace(/^(이|이런)\s*(리뷰|후기)\s*(에|:)?/, '').trim();
+    return r;
+  }
+  async function vRun(say){
+    var r = vParse(say);
+    if (r.attend){
+      if (window.alajoomAttend){ var msg = window.alajoomAttend(r.attend); toast(msg); } else toast('회원 장부를 먼저 열어 주세요');
+      return;
+    }
+    if (window.alajoomTab) window.alajoomTab('make');
+    var b = document.querySelector('.tool[data-tool="' + r.tool + '"]'); if (b) b.click();
+    await new Promise(function(res){ setTimeout(res, 60); });
+    [['topic', r.topic], ['ch', r.ch]].forEach(function(kv){ if (!kv[1]) return; var c = document.querySelector('#panel .chip[data-k="' + kv[0] + '"][data-v="' + kv[1] + '"]'); if (c) c.click(); });
+    var d = $('#detail'); if (d) d.value = r.detail;
+    toast(TOOLS[r.tool].title.replace(' 만들기', '') + ' · ' + r.topic + (r.ch ? ' · ' + r.ch : '') + '(으)로 만들게요');
+    var g = $('#go'); if (g){ g.scrollIntoView({ behavior:'smooth', block:'center' }); setTimeout(function(){ g.click(); }, 350); }
+  }
+  function vOpen(){
+    var w = document.createElement('div'); w.id = 'vSheet'; w.setAttribute('role', 'dialog'); w.setAttribute('aria-modal', 'true'); w.setAttribute('aria-label', '말로 시키기');
+    w.style.cssText = 'position:fixed;inset:0;z-index:100006';
+    w.innerHTML = '<div data-vx style="position:absolute;inset:0;background:rgba(20,22,31,.5)"></div><div style="position:absolute;left:0;right:0;bottom:0;max-width:460px;margin:0 auto;background:#fff;border-radius:22px 22px 0 0;padding:24px 18px 16px;text-align:center">' +
+      '<div id="vDot" aria-hidden="true" style="width:76px;height:76px;margin:0 auto 12px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 0 rgba(255,212,59,.6);animation:vpulse 1.4s infinite"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>' +
+      '<b id="vState" style="display:block;font-size:16px">' + (SR ? '듣고 있어요. 말씀해 주세요' : '이 브라우저는 음성 입력이 안 돼요') + '</b>' +
+      '<p style="margin:4px 0 12px;font-size:12.5px;color:var(--muted)">예: "다음 주 휴강이라고 블로그 글 써줘", "김지은 님한테 재등록 문자"</p>' +
+      '<textarea id="vText" rows="3" placeholder="' + (SR ? '말한 내용이 여기에 적혀요. 고쳐도 돼요' : '하고 싶은 일을 적어 주세요') + '" style="width:100%;font-size:16px"></textarea>' +
+      '<div class="row" style="margin-top:10px"><button type="button" class="sub" data-vx>취소</button>' + (SR ? '<button type="button" class="sub" id="vAgain">다시 말하기</button>' : '') + '<button type="button" class="sub primary" id="vGo">이대로 하기</button></div></div>';
+    document.body.appendChild(w);
+    if (!$('#vStyle')){ var st = document.createElement('style'); st.id = 'vStyle'; st.textContent = '@keyframes vpulse{0%{box-shadow:0 0 0 0 rgba(255,212,59,.65)}70%{box-shadow:0 0 0 18px rgba(255,212,59,0)}100%{box-shadow:0 0 0 0 rgba(255,212,59,0)}}'; document.head.appendChild(st); }
+    var rec = null, txt = $('#vText'), state = $('#vState'), dot = $('#vDot');
+    var close = function(){ try { rec && rec.abort(); } catch(e){} w.remove(); };
+    var listen = function(){
+      if (!SR) { dot.style.animation = 'none'; txt.focus(); return; }
+      try { rec && rec.abort(); } catch(e){}
+      rec = new SR(); rec.lang = 'ko-KR'; rec.interimResults = true; rec.continuous = false;
+      var finalT = '';
+      rec.onresult = function(e){ var it = ''; for (var i = e.resultIndex; i < e.results.length; i++){ if (e.results[i].isFinal) finalT += e.results[i][0].transcript; else it += e.results[i][0].transcript; } txt.value = (finalT + it).trim(); };
+      rec.onerror = function(e){ dot.style.animation = 'none'; state.textContent = e.error === 'not-allowed' ? '마이크 사용을 허용해 주세요 (또는 적어 주세요)' : '잘 못 들었어요. 다시 말하거나 적어 주세요'; };
+      rec.onend = function(){ dot.style.animation = 'none'; if (txt.value.trim()){ state.textContent = '이렇게 들었어요'; } else if (state.textContent.indexOf('듣고') === 0) state.textContent = '못 들었어요. 다시 말하기를 눌러 주세요'; };
+      dot.style.animation = ''; state.textContent = '듣고 있어요. 말씀해 주세요';
+      try { rec.start(); } catch(e){ state.textContent = '마이크를 열 수 없어요. 적어 주세요'; }
+    };
+    w.addEventListener('click', function(e){
+      if (e.target.closest('[data-vx]')) return close();
+      if (e.target.id === 'vAgain'){ txt.value = ''; listen(); }
+      if (e.target.id === 'vGo'){ var v = txt.value.trim(); if (!v){ toast('무엇을 할지 말하거나 적어 주세요'); return; } close(); vRun(v); }
+    });
+    listen();
+  }
+  $('#voiceBtn').addEventListener('click', vOpen);
 
   /* ---------- 인스타·네이버 플레이스에 올리기 (글 복사 + 사진 공유/저장 + 앱 열기) ---------- */
   async function curImage(kind){

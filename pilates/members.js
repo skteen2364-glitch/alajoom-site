@@ -314,6 +314,18 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   window.alajoomTab = showTab;
+  /* 말로 시키기: "김지은 출석" */
+  window.alajoomAttend = function (name) {
+    var hits = DB.members.filter(function (m) { return m.name === name; });
+    if (!hits.length) hits = DB.members.filter(function (m) { return m.name.indexOf(name) >= 0 || name.indexOf(m.name) >= 0; });
+    if (!hits.length) return name + '님을 회원 장부에서 찾지 못했어요';
+    if (hits.length > 1) return name + '님이 ' + hits.length + '명이에요. 회원 장부에서 직접 눌러 주세요';
+    var m = hits[0], td = ymd(); m.att = m.att || [];
+    if (m.att.indexOf(td) >= 0) return m.name + '님은 오늘 이미 출석했어요';
+    if (left(m) === 0) return m.name + '님은 남은 횟수가 없어요. 재등록해 주세요';
+    m.att.push(td); save(); render();
+    var l = left(m); return m.name + '님 출석 완료 · 남은 ' + l + '회' + (l <= 2 ? ' (재등록 안내 시기예요)' : '');
+  };
   function init() {
     var box = $('#v-members'); if (!box) return;
     box.addEventListener('click', onClick);
