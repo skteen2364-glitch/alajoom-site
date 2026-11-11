@@ -117,7 +117,7 @@
         syncProfile(sb, s.user.id);
         window.addEventListener('alajoom:onboarded', function () { syncProfile(sb, s.user.id); });
         window.addEventListener('alajoom:studio-saved', function (ev) { saveStudio(sb, s.user.id, ev.detail); });
-        var ob = document.createElement('script'); ob.src = '/assets/onboard.js'; ob.onload = function () { window.alajoomOnboard && window.alajoomOnboard(sb); }; document.head.appendChild(ob);
+        var ob = document.createElement('script'); ob.src = '/assets/onboard.js?v=11120000'; ob.onload = function () { window.alajoomOnboard && window.alajoomOnboard(sb); }; document.head.appendChild(ob);
         return makeSample();
       } catch (e) { return null; }
     }

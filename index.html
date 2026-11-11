@@ -1736,7 +1736,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
 </div>
 <div id="dz-usermenu" role="menu"><p class="um-name"></p><button type="button" class="um-out" role="menuitem">로그아웃</button></div>
 <script src="/assets/supabase-2.119.0.js"></script>
-<script src="/assets/onboard.js"></script>
+<script src="/assets/onboard.js?v=11120000"></script>
 <script>
 (function(){
   var URL_='https://zuxbloxstkcixqpzqalk.supabase.co', KEY='sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH';
@@ -1776,6 +1776,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
       chip.innerHTML='';var pic;if(av){pic=document.createElement('img');pic.src=av;pic.alt='';}else{pic=document.createElement('i');pic.textContent=nm.charAt(0);}
       var sp=document.createElement('span');sp.textContent=nm+' 님';chip.appendChild(pic);chip.appendChild(sp);chip.style.display='';
       um.querySelector('.um-name').textContent=nm+' 님으로 로그인 중';
+      if((user.app_metadata||{}).role==='admin'&&!um.querySelector('.um-admin')){var ad=document.createElement('button');ad.type='button';ad.className='um-admin';ad.setAttribute('role','menuitem');ad.textContent='관리자 화면';ad.style.marginBottom='6px';ad.addEventListener('click',function(){location.href='/admin/';});um.insertBefore(ad,um.querySelector('.um-out'));}
     }else{
       headBtn.style.removeProperty('display');headBtn.style.display='inline-flex';if(chip)chip.style.display='none';
     }
