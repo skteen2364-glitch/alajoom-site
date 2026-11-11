@@ -195,6 +195,7 @@
     var s = status(m), topic = s.k === 'renew' || s.k === 'end' ? '재등록 안내' : s.k === 'away' ? '오랜만에 안부' : '내일 수업 리마인드';
     var info = '회원 이름: ' + m.name + ' / 수강권: ' + (m.pass || '') + ' / 남은 횟수: ' + left(m) + '회 / 만료일: ' + md(m.end);
     closeDlg(); showTab('make');
+    window.alajoomRecipient = { name: m.name, phone: m.phone || '' };
     var b = document.querySelector('.tool[data-tool="sms"]'); if (b) b.click();
     setTimeout(function () {
       var c = document.querySelector('#panel .chip[data-k="topic"][data-v="' + topic + '"]'); if (c) c.click();
@@ -314,6 +315,11 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   window.alajoomTab = showTab;
+  window.alajoomFindMember = function (name) {
+    var hits = DB.members.filter(function (m) { return m.name === name; });
+    if (!hits.length) hits = DB.members.filter(function (m) { return name && (m.name.indexOf(name) >= 0 || name.indexOf(m.name) >= 0); });
+    return hits.length === 1 ? { name: hits[0].name, phone: hits[0].phone || '' } : null;
+  };
   /* 말로 시키기: "김지은 출석" */
   window.alajoomAttend = function (name) {
     var hits = DB.members.filter(function (m) { return m.name === name; });

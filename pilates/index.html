@@ -115,7 +115,7 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
 
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
 </style>
-<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11120006"></script><script src="/pilates/members.js?v=11120833" defer></script><script src="/assets/mate-install.js?v=11120006" defer></script>
+<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11120006"></script><script src="/pilates/members.js?v=11120836" defer></script><script src="/assets/mate-install.js?v=11120006" defer></script>
 </head>
 <body>
 <div class="app">
@@ -424,6 +424,7 @@ var CFG = {
     var out = $('#out'); out.textContent = text || '쓰는 중…'; out.classList.toggle('thinking', !text);
     out.contentEditable = streaming ? 'false' : 'true';
     if (streaming) return;
+    if (tool === 'sms' && window.alajoomRecipient && text){ text = text.replace(/\[(회원|고객|손님)\s*님?\]/g, window.alajoomRecipient.name + '님'); out.textContent = text; }
     lastText = text;
     if (!out._ed){ out._ed = true; out.addEventListener('input', function(){ lastText = out.innerText; clearTimeout(out._t); out._t = setTimeout(saveWork, 600); }); }
     saveWork();
@@ -433,6 +434,11 @@ var CFG = {
     var a = '';
     if ((tool === 'post' || tool === 'photo') && pick.ch === '인스타') a += '<button type="button" class="sub primary" data-act="igpost" style="flex-basis:100%;background:linear-gradient(90deg,#F58529,#DD2A7B,#8134AF);border:0">인스타에 올리기</button>';
     if ((tool === 'post' || tool === 'photo') && pick.ch === '네이버 플레이스') a += '<button type="button" class="sub primary" data-act="nppost" style="flex-basis:100%;background:#03C75A;border:0">네이버 플레이스에 올리기</button>';
+    if (tool === 'sms'){
+      var rc = window.alajoomRecipient;
+      a += '<div style="flex-basis:100%;display:flex;align-items:center;gap:8px;font-size:13.5px;background:var(--ivory);border-radius:12px;padding:8px 12px">받는 사람 <b>' + (rc ? esc(rc.name) + '님' + (rc.phone ? ' <span style="font-weight:500;color:var(--muted)">' + esc(rc.phone) + '</span>' : ' <span style="font-weight:500;color:var(--muted)">(번호 없음)</span>') : '<span style="font-weight:500;color:var(--muted)">직접 고르기</span>') + '</b></div>';
+      a += '<button type="button" class="sub primary" data-act="kakao" style="background:#FEE500;color:#191919;border:0;white-space:nowrap">카톡 보내기</button><button type="button" class="sub primary" data-act="smsapp" style="white-space:nowrap">문자 보내기</button>';
+    }
     a += '<button type="button" class="sub' + (a ? '' : ' primary') + '" data-act="copy">복사하기</button>';
     if (hits.length) a += '<button type="button" class="sub" data-act="fix">안전하게 고치기</button>';
     a += '<button type="button" class="sub" data-act="again">다시 만들기</button>';
@@ -686,6 +692,7 @@ var CFG = {
     if (at) return { attend: at[1] };
     var tl = /카드|포스터|시간표/.test(t) ? 'card' : /리뷰|후기|답글|댓글/.test(t) ? 'review' : /문자|메시지|카톡|연락/.test(t) ? 'sms' : 'post';
     var r = { tool: tl, detail: t };
+    var who = t.match(/([가-힣]{2,4})\s*(님|씨|회원님?)?\s*(한테|에게|께)/); if (who && tl === 'sms') r.to = who[1];
     if (tl === 'post') r.ch = /블로그/.test(t) ? '블로그' : /당근/.test(t) ? '당근' : /플레이스|네이버/.test(t) ? '네이버 플레이스' : '인스타';
     var KW = {
       '체험 수업 모집':/체험|처음|모집|자리/, '이달의 클래스':/클래스|이달|이번\s*달|수업\s*소개/, '신규 회원 이벤트':/이벤트|할인|신규|선물/, '강사 소개':/강사|선생님|원장\s*소개/, '원장의 운동 팁':/팁|스트레칭|운동법|자세/, '휴강·일정 안내':/휴강|일정|쉬어|쉽니다|공휴일/,
@@ -705,6 +712,7 @@ var CFG = {
       return;
     }
     if (window.alajoomTab) window.alajoomTab('make');
+    if (r.tool === 'sms'){ var mm = r.to && window.alajoomFindMember ? window.alajoomFindMember(r.to) : null; window.alajoomRecipient = mm || (r.to ? { name: r.to, phone: '' } : null); }
     var b = document.querySelector('.tool[data-tool="' + r.tool + '"]'); if (b) b.click();
     await new Promise(function(res){ setTimeout(res, 60); });
     [['topic', r.topic], ['ch', r.ch]].forEach(function(kv){ if (!kv[1]) return; var c = document.querySelector('#panel .chip[data-k="' + kv[0] + '"][data-v="' + kv[1] + '"]'); if (c) c.click(); });
@@ -744,6 +752,24 @@ var CFG = {
     listen();
   }
   $('#voiceBtn').addEventListener('click', vOpen);
+
+  /* ---------- 회원 문자: 카톡·문자 앱으로 보내기 ---------- */
+  async function sendMsg(kind){
+    var text = (($('#out') && $('#out').innerText) || lastText).trim(); if (!text) return;
+    if (/\[[^\]]+\]/.test(text)) toast('[ ] 빈칸이 남아 있어요. 보내기 전에 채워 주세요');
+    var rc = window.alajoomRecipient;
+    if (kind === 'smsapp'){
+      var ph = rc && rc.phone ? rc.phone.replace(/[^0-9+]/g, '') : '';
+      var ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
+      location.href = 'sms:' + ph + (ios ? '&' : '?') + 'body=' + encodeURIComponent(text);
+      return;
+    }
+    try { await navigator.clipboard.writeText(text); } catch(e){}
+    if (navigator.share){
+      try { await navigator.share({ text: text }); toast(rc ? rc.name + '님 대화방을 골라 보내세요' : '카카오톡에서 받을 사람을 골라 보내세요'); return; } catch(e){ if (e && e.name === 'AbortError') return; }
+    }
+    showGuide('카카오톡으로 보내는 방법', ['글은 <b>복사해 뒀어요</b>', '카카오톡에서 ' + (rc ? '<b>' + esc(rc.name) + '님</b> ' : '') + '대화방을 여세요', '입력 칸을 길게 눌러 <b>붙여넣기</b> 후 전송'], '', '');
+  }
 
   /* ---------- 인스타·네이버 플레이스에 올리기 (글 복사 + 사진 공유/저장 + 앱 열기) ---------- */
   async function curImage(kind){
@@ -858,10 +884,11 @@ var CFG = {
   /* ---------- 이벤트 ---------- */
   document.addEventListener('click', async function(e){
     var t = e.target.closest('button'); if (!t) return;
-    if (t.dataset.tool){ tool = t.dataset.tool; document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); renderPanel(); $('#panel').scrollIntoView({behavior:'smooth', block:'start'}); return; }
+    if (t.dataset.tool){ if (e.isTrusted) window.alajoomRecipient = null; tool = t.dataset.tool; document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); renderPanel(); $('#panel').scrollIntoView({behavior:'smooth', block:'start'}); return; }
     if (t.classList.contains('chip') && t.dataset.k){ pick[t.dataset.k] = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); return; }
     if (t.id === 'go'){ curWork = null; return generate(); }
     if (t.dataset.act === 'igpost' || t.dataset.act === 'nppost' || t.dataset.act === 'igcard') return postTo(t.dataset.act);
+    if (t.dataset.act === 'kakao' || t.dataset.act === 'smsapp') return sendMsg(t.dataset.act);
     if (t.dataset.act === 'attdel'){ att = null; renderAtt(); if (tool === 'card' && lastCard && !$('#result').classList.contains('hidden')){ showCard(lastCard); } return; }
     if (t.dataset.out){ ph.out = t.dataset.out; document.querySelectorAll('.out-c').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.out === ph.out); }); showOut(); return; }
     if (t.dataset.pre){ applyPreset(t.dataset.pre); return; }
