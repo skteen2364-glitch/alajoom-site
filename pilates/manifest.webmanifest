@@ -34,5 +34,28 @@
       "type": "image/png",
       "purpose": "maskable"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "회원 장부",
+      "short_name": "회원 장부",
+      "url": "/pilates/?tab=members&source=homescreen",
+      "icons": [
+        {
+          "src": "/assets/icon-pilates-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "AI로 만들기",
+      "url": "/pilates/?source=homescreen",
+      "icons": [
+        {
+          "src": "/assets/icon-pilates-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }
