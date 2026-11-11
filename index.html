@@ -398,7 +398,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .mv-play{position:absolute;right:10px;bottom:10px;z-index:2;padding:4px 9px;border-radius:999px;background:rgba(20,22,31,.72);color:#fff;font-size:11px;font-weight:700}
 .mv-tile{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:16px 16px 26px;background:linear-gradient(140deg,#E9E1F6,#F7E9EE);color:#2A2140}
 .mv-tile small{font-size:11px;font-weight:700;color:#7B6A9C}.mv-tile b{font-size:16px;line-height:1.3;font-weight:900;letter-spacing:-.4px}.mv-tile em{font-style:normal;font-size:11px;color:#6B5BD6}
-.mate-card.is-soon .mate-visual{aspect-ratio:16/7 !important}
+.mv-badge.soon{background:#FFFFFF;color:#6A6F7C;border:1px solid #E3E5EA}
 .mate-card.is-soon .mate-ico{width:26px !important;height:26px !important;opacity:.7}
 .mate-card.is-soon .mate-btn{background:#FFFFFF !important;color:#14161F !important;border:1px solid #D9DCE3}
 .mate-card.is-live .mate-btn{background:#3B5B92 !important}
@@ -544,7 +544,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 
 /* carousel robustness */
 .pv-row,.mate-grid{overscroll-behavior-x:contain;touch-action:pan-x pan-y}
-.dz-cdots i{cursor:pointer;padding:6px 3px;background-clip:content-box}
+.dz-cdots i{cursor:pointer}
 
 /* unified section titles */
 @media (max-width:720px){.dz-root section .h2,.dz-root #erp .h2,.dz-root #preview .h2{font-size:24px !important;line-height:1.35 !important;letter-spacing:-0.6px !important}}
@@ -573,6 +573,10 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 @keyframes hdDot{0%,100%{opacity:.3}50%{opacity:1}}
 @media (max-width:720px){.hero-done{margin:0 0 18px !important;padding:12px 12px 6px}.hd-row{padding:8px 0;gap:10px}.hd-ic{width:34px;height:34px;border-radius:10px}.hd-tx b{font-size:14.5px}.hd-tx small{font-size:11.5px}.hd-head{font-size:14px;margin-bottom:6px}}
 @media (prefers-reduced-motion: reduce){.hd-row{opacity:1;transform:none;animation:none}.hd-ing{display:none}.hd-ok{opacity:1;transform:none;animation:none}}
+
+/* soon tiles fit */
+.mate-card .mv-tile{padding-top:40px !important;justify-content:flex-start !important}
+@media (max-width:720px){.mate-card .mv-tile ~ .mv-play{display:none}}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
@@ -989,9 +993,8 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </div>
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
-<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #EEE4E9; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
-<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">NAIL</span>
-<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v5h-4z"></path><path d="M8 9h8l1 3v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-8z"></path></svg>
+<div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
+<span class="mv-badge soon">준비 중</span><div class="mv-tile" style="background: linear-gradient(140deg,#F9D9E3,#F3E6F7); color: #2A2140"><small style="color: #8A3B5C">이달의 네일 아트</small><b>글리터 젤네일<br>주말 예약 3자리</b><em style="color: #8A3B5C">#젤네일 #네일아트</em></div><span class="mv-play">결과물 예시</span>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
@@ -1002,9 +1005,8 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </div>
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
-<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #E3E5EA; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
-<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">HAIR</span>
-<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M20 4L8.1 15.9M14.5 14.5L20 20M8.1 8.1L12 12"></path></svg>
+<div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
+<span class="mv-badge soon">준비 중</span><div class="mv-tile" style="background: linear-gradient(140deg,#DDE6F3,#EEF0F6); color: #2A2140"><small style="color: #3B5B92">신규 손님 안내</small><b>뿌리 염색 + 클리닉<br>평일 오전 예약</b><em style="color: #3B5B92">#동네미용실 #염색</em></div><span class="mv-play">결과물 예시</span>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
@@ -1015,9 +1017,8 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </div>
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
-<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #EAE2D7; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
-<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">CAFE</span>
-<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 9h1a3 3 0 0 1 0 6h-1"></path><path d="M3 9h14v7a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"></path><path d="M7 3v3M11 3v3M15 3v3"></path></svg>
+<div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
+<span class="mv-badge soon">준비 중</span><div class="mv-tile" style="background: linear-gradient(140deg,#EADBC8,#F6EEE2); color: #2A2140"><small style="color: #7A4E25">오늘의 신메뉴</small><b>흑임자 라떼<br>오전 11시 오픈</b><em style="color: #7A4E25">#동네카페 #신메뉴</em></div><span class="mv-play">결과물 예시</span>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
@@ -1028,9 +1029,8 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </div>
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
-<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #F0E9D9; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
-<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">BAKERY</span>
-<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 5 0 0 1 16 0v6H4z"></path><path d="M8 10v3M12 9v4M16 10v3"></path></svg>
+<div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
+<span class="mv-badge soon">준비 중</span><div class="mv-tile" style="background: linear-gradient(140deg,#F6E2BE,#FBF2DF); color: #2A2140"><small style="color: #8A5A00">갓 구운 빵 알림</small><b>소금빵 나왔어요<br>오후 2시 2차 굽기</b><em style="color: #8A5A00">#빵집 #소금빵</em></div><span class="mv-play">결과물 예시</span>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
@@ -1041,9 +1041,8 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </div>
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
-<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #E2E9DF; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
-<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">FLOWER</span>
-<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"></circle><path d="M12 10v11"></path><path d="M12 16c-3 0-5-2-5-4 3 0 5 2 5 4z"></path><path d="M12 16c3 0 5-2 5-4-3 0-5 2-5 4z"></path></svg>
+<div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
+<span class="mv-badge soon">준비 중</span><div class="mv-tile" style="background: linear-gradient(140deg,#DCEBD8,#EFF6EA); color: #2A2140"><small style="color: #2F6B3A">기념일 꽃다발</small><b>작약 시즌 시작<br>당일 픽업 가능</b><em style="color: #2F6B3A">#꽃집 #작약</em></div><span class="mv-play">결과물 예시</span>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
@@ -1054,9 +1053,8 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </div>
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
-<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #EEE5DC; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
-<span class="mate-en" style="position: absolute; left: 14px; top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #6A6F7C">PET</span>
-<svg class="mate-ico" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="10" r="2"></circle><circle cx="10" cy="5" r="2"></circle><circle cx="14" cy="5" r="2"></circle><circle cx="18" cy="10" r="2"></circle><path d="M12 12c-3 0-5 3-5 5.5 0 1.5 1 2.5 2.5 2.5h5c1.5 0 2.5-1 2.5-2.5 0-2.5-2-5.5-5-5.5z"></path></svg>
+<div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
+<span class="mv-badge soon">준비 중</span><div class="mv-tile" style="background: linear-gradient(140deg,#F3E2D3,#FAF1E8); color: #2A2140"><small style="color: #8A4B24">애견미용 예약</small><b>목욕 + 위생미용<br>토요일 오후 2자리</b><em style="color: #8A4B24">#애견미용 #강아지</em></div><span class="mv-play">결과물 예시</span>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
@@ -1766,7 +1764,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
   var render=function(){
     if(!headBtn)return;
     if(user){
-      headBtn.style.display='none';
+      headBtn.style.setProperty('display','none','important');
       if(!chip){chip=document.createElement('button');chip.type='button';chip.className='dz-user';chip.setAttribute('aria-haspopup','menu');headBtn.parentNode.insertBefore(chip,headBtn);
         chip.addEventListener('click',function(){var r=chip.getBoundingClientRect();um.style.top=(r.bottom+8)+'px';um.style.right=Math.max(8,window.innerWidth-r.right)+'px';um.classList.toggle('on');});}
       var m=user.user_metadata||{},nm=m.name||m.nickname||m.full_name||'사장님',av=m.avatar_url||m.picture;
@@ -1774,7 +1772,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
       var sp=document.createElement('span');sp.textContent=nm+' 님';chip.appendChild(pic);chip.appendChild(sp);chip.style.display='';
       um.querySelector('.um-name').textContent=nm+' 님으로 로그인 중';
     }else{
-      headBtn.style.display='';if(chip)chip.style.display='none';
+      headBtn.style.removeProperty('display');headBtn.style.display='inline-flex';if(chip)chip.style.display='none';
     }
   };
   um.querySelector('.um-out').addEventListener('click',function(){sb.auth.signOut().then(function(){um.classList.remove('on');});});
