@@ -577,6 +577,9 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 /* soon tiles fit */
 .mate-card .mv-tile{padding-top:40px !important;justify-content:flex-start !important}
 @media (max-width:720px){.mate-card .mv-tile ~ .mv-play{display:none}}
+
+.mate-card .mv-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:1}
+.mate-card .mv-badge{z-index:3}
 </style>
 <meta property="og:url" content="https://alajoom-site.pages.dev/"><link rel="canonical" href="https://alajoom-site.pages.dev/"></head>
 <body>
@@ -994,7 +997,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
 <div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
-<span class="mv-badge soon">준비 중</span><div class="mv-tile" style="background: linear-gradient(140deg,#F9D9E3,#F3E6F7); color: #2A2140"><small style="color: #8A3B5C">이달의 네일 아트</small><b>글리터 젤네일<br>주말 예약 3자리</b><em style="color: #8A3B5C">#젤네일 #네일아트</em></div><span class="mv-play">결과물 예시</span>
+<span class="mv-badge soon">준비 중</span><img class="mv-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3Flejn9Evam6EOzmypXwPYkch7M/hf_20261111_081226_aff42686-e7b8-4360-b991-fbc4d3ecccc7.png" alt="젤네일 손 사진" loading="lazy"><div class="mv-tile" style="background: linear-gradient(140deg,#F9D9E3,#F3E6F7); color: #2A2140"><small style="color: #8A3B5C">이달의 네일 아트</small><b>글리터 젤네일<br>주말 예약 3자리</b><em style="color: #8A3B5C">#젤네일 #네일아트</em></div>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
@@ -1006,7 +1009,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
 <div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
-<span class="mv-badge soon">준비 중</span><div class="mv-tile" style="background: linear-gradient(140deg,#DDE6F3,#EEF0F6); color: #2A2140"><small style="color: #3B5B92">신규 손님 안내</small><b>뿌리 염색 + 클리닉<br>평일 오전 예약</b><em style="color: #3B5B92">#동네미용실 #염색</em></div><span class="mv-play">결과물 예시</span>
+<span class="mv-badge soon">준비 중</span><img class="mv-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3Flejn9Evam6EOzmypXwPYkch7M/hf_20261111_081226_eac1fd07-0790-4918-af96-b1258367031a.png" alt="미용실 내부 사진" loading="lazy"><div class="mv-tile" style="background: linear-gradient(140deg,#DDE6F3,#EEF0F6); color: #2A2140"><small style="color: #3B5B92">신규 손님 안내</small><b>뿌리 염색 + 클리닉<br>평일 오전 예약</b><em style="color: #3B5B92">#동네미용실 #염색</em></div>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
@@ -1018,7 +1021,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
 <div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
-<span class="mv-badge soon">준비 중</span><div class="mv-tile" style="background: linear-gradient(140deg,#EADBC8,#F6EEE2); color: #2A2140"><small style="color: #7A4E25">오늘의 신메뉴</small><b>흑임자 라떼<br>오전 11시 오픈</b><em style="color: #7A4E25">#동네카페 #신메뉴</em></div><span class="mv-play">결과물 예시</span>
+<span class="mv-badge soon">준비 중</span><img class="mv-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3Flejn9Evam6EOzmypXwPYkch7M/hf_20261111_081243_7ed868d3-0414-4a6f-a9f7-893a91690182.png" alt="라떼 사진" loading="lazy"><div class="mv-tile" style="background: linear-gradient(140deg,#EADBC8,#F6EEE2); color: #2A2140"><small style="color: #7A4E25">오늘의 신메뉴</small><b>흑임자 라떼<br>오전 11시 오픈</b><em style="color: #7A4E25">#동네카페 #신메뉴</em></div>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
@@ -1030,7 +1033,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
 <div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
-<span class="mv-badge soon">준비 중</span><div class="mv-tile" style="background: linear-gradient(140deg,#F6E2BE,#FBF2DF); color: #2A2140"><small style="color: #8A5A00">갓 구운 빵 알림</small><b>소금빵 나왔어요<br>오후 2시 2차 굽기</b><em style="color: #8A5A00">#빵집 #소금빵</em></div><span class="mv-play">결과물 예시</span>
+<span class="mv-badge soon">준비 중</span><img class="mv-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3Flejn9Evam6EOzmypXwPYkch7M/hf_20261111_081258_a7caee6d-9c12-4eb3-89d8-d3c4bac33c1e.png" alt="소금빵 사진" loading="lazy"><div class="mv-tile" style="background: linear-gradient(140deg,#F6E2BE,#FBF2DF); color: #2A2140"><small style="color: #8A5A00">갓 구운 빵 알림</small><b>소금빵 나왔어요<br>오후 2시 2차 굽기</b><em style="color: #8A5A00">#빵집 #소금빵</em></div>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
@@ -1042,7 +1045,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
 <div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
-<span class="mv-badge soon">준비 중</span><div class="mv-tile" style="background: linear-gradient(140deg,#DCEBD8,#EFF6EA); color: #2A2140"><small style="color: #2F6B3A">기념일 꽃다발</small><b>작약 시즌 시작<br>당일 픽업 가능</b><em style="color: #2F6B3A">#꽃집 #작약</em></div><span class="mv-play">결과물 예시</span>
+<span class="mv-badge soon">준비 중</span><img class="mv-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3Flejn9Evam6EOzmypXwPYkch7M/hf_20261111_081226_520d6150-94ce-4d14-a25d-ff452ac778c6.png" alt="작약 꽃다발 사진" loading="lazy"><div class="mv-tile" style="background: linear-gradient(140deg,#DCEBD8,#EFF6EA); color: #2A2140"><small style="color: #2F6B3A">기념일 꽃다발</small><b>작약 시즌 시작<br>당일 픽업 가능</b><em style="color: #2F6B3A">#꽃집 #작약</em></div>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
@@ -1054,7 +1057,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
 <div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
-<span class="mv-badge soon">준비 중</span><div class="mv-tile" style="background: linear-gradient(140deg,#F3E2D3,#FAF1E8); color: #2A2140"><small style="color: #8A4B24">애견미용 예약</small><b>목욕 + 위생미용<br>토요일 오후 2자리</b><em style="color: #8A4B24">#애견미용 #강아지</em></div><span class="mv-play">결과물 예시</span>
+<span class="mv-badge soon">준비 중</span><img class="mv-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3Flejn9Evam6EOzmypXwPYkch7M/hf_20261111_081311_8bbf674a-81a7-4238-b35b-886d09474009.png" alt="애견미용 강아지 사진" loading="lazy"><div class="mv-tile" style="background: linear-gradient(140deg,#F3E2D3,#FAF1E8); color: #2A2140"><small style="color: #8A4B24">애견미용 예약</small><b>목욕 + 위생미용<br>토요일 오후 2자리</b><em style="color: #8A4B24">#애견미용 #강아지</em></div>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
