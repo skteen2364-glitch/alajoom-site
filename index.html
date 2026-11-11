@@ -1736,6 +1736,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
 </div>
 <div id="dz-usermenu" role="menu"><p class="um-name"></p><button type="button" class="um-out" role="menuitem">로그아웃</button></div>
 <script src="/assets/supabase-2.119.0.js"></script>
+<script src="/assets/onboard.js"></script>
 <script>
 (function(){
   var URL_='https://zuxbloxstkcixqpzqalk.supabase.co', KEY='sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH';
@@ -1783,6 +1784,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
   document.addEventListener('click',function(e){if(chip&&!um.contains(e.target)&&!chip.contains(e.target))um.classList.remove('on');});
   sb.auth.onAuthStateChange(function(ev,session){
     user=session?session.user:null;render();
+    if(session&&window.alajoomOnboard)setTimeout(function(){window.alajoomOnboard(sb)},700);
     if(ev==='SIGNED_IN'){close();var h=null;try{h=sessionStorage.getItem('dz_after_login');sessionStorage.removeItem('dz_after_login')}catch(e){}
       if(h){setTimeout(function(){var t=document.querySelector(h);if(t)t.scrollIntoView({behavior:'smooth'});},400);}}
   });

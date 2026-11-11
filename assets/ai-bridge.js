@@ -92,6 +92,7 @@
           return null;
         }
         setTimeout(function () { setMode('진짜 AI 직원이 써요 · 하루 10회 무료'); }, 30);
+        var ob = document.createElement('script'); ob.src = '/assets/onboard.js'; ob.onload = function () { window.alajoomOnboard && window.alajoomOnboard(sb); }; document.head.appendChild(ob);
         return makeSample();
       } catch (e) { return null; }
     }
