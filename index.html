@@ -1402,8 +1402,9 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
       requestAnimationFrame(step);
     });
     // pv-row auto advance (mobile carousel)
-    ['.pv-row', '#features .feat-row'].forEach(function (rsel) { (function () {
-      var row = root.querySelector(rsel); if (!row) return;
+    var autoRows = []; ['.pv-row', '#features .feat-row', '#trust .trust-row'].forEach(function (q) { Array.prototype.forEach.call(root.querySelectorAll(q), function (el) { autoRows.push(el); }); });
+    autoRows.forEach(function (row) { (function () {
+      if (!row) return;
       var held = 0;
       var h = function () { held = Date.now() + 6000; };
       row.addEventListener('touchstart', h, { passive: true }); row.addEventListener('pointerdown', h);
