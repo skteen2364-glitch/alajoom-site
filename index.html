@@ -1580,10 +1580,11 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 })();
 </script>
 <style>html,body{overflow-x:clip;max-width:100%}@supports not (overflow-x:clip){body{overflow-x:hidden}}</style>
+<script src="/assets/mate-picker.js?v=11120006" defer></script>
 <div id="dz-install" role="dialog" aria-label="홈 화면에 추가" style="display:none;position:fixed;left:12px;right:12px;bottom:14px;z-index:9999;max-width:420px;margin:0 auto;padding:12px 12px 12px 14px;border-radius:18px;background:#14161F;color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.28);align-items:center;gap:12px;font-size:14px;line-height:1.4">
 <img src="/assets/icon-192.png" alt="" width="40" height="40" style="border-radius:10px;flex:none">
-<div style="flex:1;min-width:0"><b style="display:block;font-size:14.5px">알아줌을 바탕화면에</b><span id="dz-install-msg" style="color:#C9CCD6;font-size:12.5px">앱처럼 바로 열 수 있어요</span></div>
-<button id="dz-install-go" type="button" style="flex:none;border:0;border-radius:12px;background:#FFD43B;color:#14161F;font-weight:800;font-size:14px;padding:10px 14px;cursor:pointer">추가</button>
+<div style="flex:1;min-width:0"><b style="display:block;font-size:14.5px">내 메이트만 바탕화면에</b><span id="dz-install-msg" style="color:#C9CCD6;font-size:12.5px">필요한 메이트만 골라 깔 수 있어요</span></div>
+<button id="dz-install-go" type="button" style="flex:none;border:0;border-radius:12px;background:#FFD43B;color:#14161F;font-weight:800;font-size:14px;padding:10px 14px;cursor:pointer">고르기</button>
 <button id="dz-install-x" type="button" aria-label="닫기" style="flex:none;border:0;background:none;color:#8A8F9C;font-size:20px;padding:4px 6px;cursor:pointer">×</button>
 </div>
 <script>
@@ -1600,16 +1601,17 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
     if(ios) return '아래 공유 버튼(□↑) → "홈 화면에 추가"';
     return '브라우저 오른쪽 위 ⋮ → "홈 화면에 추가"';
   };
-  var open=function(manual){
-    if(deferred){msg.textContent='앱처럼 바로 열 수 있어요';go.style.display='';}
-    else{msg.textContent=guide();go.style.display='none';}
-    box.style.display='flex';
+  var open=function(manual){msg.textContent='필요한 메이트만 골라 깔 수 있어요';go.style.display='';box.style.display='flex';};
+  var installAll=function(){
+    if(deferred){deferred.prompt();deferred.userChoice.finally(function(){deferred=null;box.style.display='none';});return;}
+    msg.textContent=guide();go.style.display='none';box.style.display='flex';
   };
+  var pick=function(){box.style.display='none';if(window.alajoomPickMate)window.alajoomPickMate({all:installAll});else installAll();};
   // visible button in CTA + footer
   var mk=function(dark){var b=document.createElement('button');b.type='button';b.className='dz-addhome';
-    b.innerHTML='<span aria-hidden="true">📲</span> 바탕화면에 앱 추가';
+    b.innerHTML='<span aria-hidden="true">📲</span> 내 메이트 바탕화면에 깔기';
     b.style.cssText='display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;'+(dark?'border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.12);color:#fff':'border:1px solid #D9DCE3;background:#fff;color:#14161F');
-    b.addEventListener('click',function(){ if(deferred){deferred.prompt();deferred.userChoice.finally(function(){deferred=null;box.style.display='none';});} else open(true); });
+    b.addEventListener('click',pick);
     return b;};
   if(!standalone){
     var row=document.querySelector('#cta .cta-row');
@@ -1618,7 +1620,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
   var off=function(){try{return localStorage.getItem('dz_install_off')}catch(e){return null}};
   window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;if(!standalone&&!off())setTimeout(function(){open(false);},4000);});
   if(ios&&!inapp&&!standalone&&!off())setTimeout(function(){open(false);},4000);
-  go.addEventListener('click',function(){if(!deferred)return;deferred.prompt();deferred.userChoice.finally(function(){deferred=null;box.style.display='none';});});
+  go.addEventListener('click',pick);
   x.addEventListener('click',function(){box.style.display='none';try{localStorage.setItem('dz_install_off','1')}catch(e){}});
   window.addEventListener('appinstalled',function(){box.style.display='none';Array.prototype.forEach.call(document.querySelectorAll('.dz-addhome'),function(b){b.parentNode.style.display='none';});});
 })();
@@ -1736,7 +1738,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
 </div>
 <div id="dz-usermenu" role="menu"><p class="um-name"></p><button type="button" class="um-out" role="menuitem">로그아웃</button></div>
 <script src="/assets/supabase-2.119.0.js"></script>
-<script src="/assets/onboard.js?v=11120000"></script>
+<script src="/assets/onboard.js?v=11120006"></script>
 <script>
 (function(){
   var URL_='https://zuxbloxstkcixqpzqalk.supabase.co', KEY='sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH';
