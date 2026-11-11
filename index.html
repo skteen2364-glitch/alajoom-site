@@ -1613,16 +1613,17 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
     b.style.cssText='display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;'+(dark?'border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.12);color:#fff':'border:1px solid #D9DCE3;background:#fff;color:#14161F');
     b.addEventListener('click',pick);
     return b;};
-  if(!standalone){
-    var row=document.querySelector('#cta .cta-row');
-    if(row){var w=document.createElement('div');w.style.cssText='position:relative;margin-top:16px;display:flex;justify-content:center';w.appendChild(mk(true));row.parentNode.insertBefore(w,row.nextSibling);}
-  }
+  var row=document.querySelector('#cta .cta-row');
+  if(row){var w=document.createElement('div');w.style.cssText='position:relative;margin-top:16px;display:flex;justify-content:center';w.appendChild(mk(true));row.parentNode.insertBefore(w,row.nextSibling);}
+  var lead=document.querySelector('#mates .lead');
+  if(lead){var w2=document.createElement('div');w2.style.cssText='margin-top:16px';w2.appendChild(mk(false));lead.parentNode.insertBefore(w2,lead.nextSibling);}
+  window.alajoomPickInstall=pick;
   var off=function(){try{return localStorage.getItem('dz_install_off')}catch(e){return null}};
   window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;if(!standalone&&!off())setTimeout(function(){open(false);},4000);});
   if(ios&&!inapp&&!standalone&&!off())setTimeout(function(){open(false);},4000);
   go.addEventListener('click',pick);
   x.addEventListener('click',function(){box.style.display='none';try{localStorage.setItem('dz_install_off','1')}catch(e){}});
-  window.addEventListener('appinstalled',function(){box.style.display='none';Array.prototype.forEach.call(document.querySelectorAll('.dz-addhome'),function(b){b.parentNode.style.display='none';});});
+  window.addEventListener('appinstalled',function(){box.style.display='none';});
 })();
 </script>
 <style>
@@ -1778,6 +1779,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
       chip.innerHTML='';var pic;if(av){pic=document.createElement('img');pic.src=av;pic.alt='';}else{pic=document.createElement('i');pic.textContent=nm.charAt(0);}
       var sp=document.createElement('span');sp.textContent=nm+' 님';chip.appendChild(pic);chip.appendChild(sp);chip.style.display='';
       um.querySelector('.um-name').textContent=nm+' 님으로 로그인 중';
+      if(!um.querySelector('.um-inst')){var ib=document.createElement('button');ib.type='button';ib.className='um-inst';ib.setAttribute('role','menuitem');ib.textContent='내 메이트 바탕화면에 깔기';ib.style.marginBottom='6px';ib.addEventListener('click',function(){um.classList.remove('on');window.alajoomPickInstall?window.alajoomPickInstall():(window.alajoomPickMate&&window.alajoomPickMate());});um.insertBefore(ib,um.querySelector('.um-out'));}
       if((user.app_metadata||{}).role==='admin'&&!um.querySelector('.um-admin')){var ad=document.createElement('button');ad.type='button';ad.className='um-admin';ad.setAttribute('role','menuitem');ad.textContent='관리자 화면';ad.style.marginBottom='6px';ad.addEventListener('click',function(){location.href='/admin/';});um.insertBefore(ad,um.querySelector('.um-out'));}
     }else{
       headBtn.style.removeProperty('display');headBtn.style.display='inline-flex';if(chip)chip.style.display='none';
