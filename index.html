@@ -47,7 +47,7 @@ html{scroll-behavior:smooth}
 #how>*,#team>*,#features>*,#mates>*,#pricing>*,#contact>*,#trust>*,#video>*{position:relative;z-index:1}
 @media (prefers-reduced-motion: reduce){.marquee,.mq{animation:none}}
 @media (max-width: 720px){
-html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
+html{scroll-snap-type:y proximity;scroll-padding-top:72px}
 .dz-root>section:not([aria-label]){scroll-snap-align:start}
 .snap-pt{scroll-snap-align:start}
 .dz-root>section:not([aria-label]):not(#top):not(#cta){margin:8px 10px 0 !important}
@@ -536,8 +536,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 /* fullpage paging (all screens) */
 .dz-root{overflow-x:clip !important;overflow-y:visible !important}
 html{scroll-snap-type:none;scroll-padding-top:72px}
-@media (pointer:coarse){html{scroll-snap-type:y mandatory}}
-.dz-root>section:not([aria-label]){scroll-snap-align:start;scroll-snap-stop:always;min-height:calc(100vh - 72px);min-height:calc(100svh - 72px);display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
+@media (pointer:coarse){html{scroll-snap-type:y proximity}}
+.dz-root>section:not([aria-label]){scroll-snap-align:start;scroll-snap-stop:normal;min-height:calc(100vh - 72px);min-height:calc(100svh - 72px);display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
 .dz-root>section:not([aria-label])>*{width:100%;box-sizing:border-box}
 .dz-root>section:not([aria-label])>.eyebrow,.dz-root>section:not([aria-label]) .eyebrow{align-self:flex-start;width:auto !important}
 @media (max-width:720px){.dz-root>section:not([aria-label]):not(#top):not(#cta){min-height:calc(100svh - 84px)}}
