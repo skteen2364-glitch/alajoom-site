@@ -454,8 +454,8 @@ var CFG = {
     h += '<div class="step"><p>색상</p><div class="themes" role="group" aria-label="카드 색상">' + THEMES.map(function(t, i){ return '<button type="button" class="sw" data-th="' + i + '" aria-pressed="' + (i===theme) + '" aria-label="' + t.name + '" style="background:' + t.bg + '"></button>'; }).join('') + '</div></div>';
     h += '<div class="fields"><input type="text" id="cTitle" aria-label="큰 제목" value="' + esc((c.title||'').replace(/\n/g,' / ')) + '">';
     (c.lines||[]).forEach(function(l, i){ h += '<input type="text" class="cLine" aria-label="안내 줄 ' + (i+1) + '" value="' + esc(l) + '">'; });
-    h += '</div><div class="row"><button type="button" class="sub primary" data-act="igcard" style="flex-basis:100%;background:linear-gradient(90deg,#F58529,#DD2A7B,#8134AF);border:0">인스타에 올리기</button><button type="button" class="sub" data-act="redraw">문구 반영</button>' + (downloads ? '<button type="button" class="sub primary" data-act="save">이미지 저장</button>' : '') + '<button type="button" class="sub" data-act="again">다시 만들기</button></div>';
-    h += '<p class="note">' + (downloads ? '' : '이미지를 길게 누르면 저장할 수 있어요. ') + '제목의 " / "는 줄바꿈이에요. [ ] 칸은 꼭 채워주세요.</p>';
+    h += '</div><div class="row"><button type="button" class="sub primary" data-act="igcard" style="flex-basis:100%;background:linear-gradient(90deg,#F58529,#DD2A7B,#8134AF);border:0">인스타에 올리기</button><button type="button" class="sub" data-act="redraw">문구 반영</button><button type="button" class="sub" data-act="save">이미지 저장</button><button type="button" class="sub" data-act="again">다시 만들기</button></div>';
+    h += '<p class="note">' + '제목의 " / "는 줄바꿈이에요. [ ] 칸은 꼭 채워주세요.</p>';
     r.innerHTML = h;
     saveWork();
     var hits = scan([c.title].concat(c.lines||[]).join(' '));
@@ -756,6 +756,25 @@ var CFG = {
   }
   $('#voiceBtn').addEventListener('click', vOpen);
 
+  /* ---------- 사진·카드 휴대폰에 저장 ---------- */
+  function saveBlob(b, name){
+    if (!b) return;
+    var ios = /iPhone|iPad|iPod/.test(navigator.userAgent), f = new File([b], name, { type: b.type });
+    if (ios && navigator.canShare && navigator.canShare({ files: [f] })){ navigator.share({ files: [f] }).then(function(){ toast('"이미지 저장"을 누르면 사진첩에 들어가요'); }).catch(function(){}); return; }
+    var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    toast('휴대폰에 저장했어요 (갤러리·다운로드)');
+  }
+  /* 공유할 사진을 미리 만들어 둠 (휴대폰은 버튼을 누른 순간에 바로 공유해야 해서) */
+  var ready = { kind: '', blob: null };
+  async function prepShare(){
+    ready = { kind: '', blob: null };
+    try {
+      if (tool === 'card' && lastCard){ readCardInputs(); var cv = drawCard(lastCard); ready = { kind: 'card', blob: await new Promise(function(r){ cv.toBlob(r, 'image/png'); }) }; }
+      else if (tool === 'photo' && ph.img) ready = { kind: 'photo', blob: await photoBlob(2160, .92) };
+      else if (tool === 'post' && att) ready = { kind: 'post', blob: att.blob };
+    } catch(e){}
+  }
+
   /* ---------- 회원 문자: 카톡·문자 앱으로 보내기 ---------- */
   async function sendMsg(kind){
     var text = (($('#out') && $('#out').innerText) || lastText).trim(); if (!text) return;
@@ -767,14 +786,26 @@ var CFG = {
       location.href = 'sms:' + ph + (ios ? '&' : '?') + 'body=' + encodeURIComponent(text);
       return;
     }
-    try { await navigator.clipboard.writeText(text); } catch(e){}
+    var guide = function(){ showGuide('카카오톡으로 보내는 방법', ['글은 <b>복사해 뒀어요</b>', '카카오톡에서 ' + (rc ? '<b>' + esc(rc.name) + '님</b> ' : '받을 사람 ') + '대화방을 여세요', '입력 칸을 길게 눌러 <b>붙여넣기</b> 후 전송'], 'kakaotalk://launch', '카카오톡 열기'); };
+    try { navigator.clipboard.writeText(text).catch(function(){}); } catch(e){}
     if (navigator.share){
-      try { await navigator.share({ text: text }); toast(rc ? rc.name + '님 대화방을 골라 보내세요' : '카카오톡에서 받을 사람을 골라 보내세요'); return; } catch(e){ if (e && e.name === 'AbortError') return; }
+      navigator.share({ text: text }).then(function(){ toast('보냈어요'); }).catch(function(e){ if (!e || e.name !== 'AbortError') guide(); });
+      toast('공유 창에서 카카오톡 → ' + (rc ? rc.name + '님' : '받을 사람') + '을 고르세요');
+      return;
     }
-    showGuide('카카오톡으로 보내는 방법', ['글은 <b>복사해 뒀어요</b>', '카카오톡에서 ' + (rc ? '<b>' + esc(rc.name) + '님</b> ' : '') + '대화방을 여세요', '입력 칸을 길게 눌러 <b>붙여넣기</b> 후 전송'], '', '');
+    guide();
   }
 
   /* ---------- 인스타·네이버 플레이스에 올리기 (글 복사 + 사진 공유/저장 + 앱 열기) ---------- */
+  function d2b(u){ var p = u.split(','), bin = atob(p[1]), n = bin.length, arr = new Uint8Array(n); while (n--) arr[n] = bin.charCodeAt(n); return new Blob([arr], { type: p[0].match(/:(.*?);/)[1] }); }
+  function curImageSync(kind){
+    try {
+      if (kind === 'igcard'){ readCardInputs(); return d2b(drawCard(lastCard).toDataURL('image/png')); }
+      if (tool === 'photo' && ph.img) return d2b(render(2160, true).toDataURL('image/jpeg', .92));
+      if (att) return att.blob;
+    } catch(e){}
+    return null;
+  }
   async function curImage(kind){
     if (kind === 'igcard'){ readCardInputs(); var cv = drawCard(lastCard); return new Promise(function(r){ cv.toBlob(function(b){ r(b); }, 'image/png'); }); }
     if (tool === 'photo' && ph.img) return photoBlob(2160, .92);
@@ -783,8 +814,8 @@ var CFG = {
   }
   async function postTo(kind){
     var text = kind === 'igcard' ? '' : (($('#out') && $('#out').innerText) || lastText);
-    if (text){ try { await navigator.clipboard.writeText(text); } catch(e){} }
-    var blob = await curImage(kind);
+    if (text){ try { navigator.clipboard.writeText(text).catch(function(){}); } catch(e){} }
+    var blob = curImageSync(kind);
     var file = blob ? new File([blob], (studio.name || '알아줌') + (blob.type === 'image/png' ? '.png' : '.jpg'), { type: blob.type || 'image/jpeg' }) : null;
     if (kind === 'nppost'){
       if (file && navigator.canShare && navigator.canShare({ files: [file] })){ try { await navigator.share({ files: [file] }); } catch(e){} }
@@ -793,7 +824,7 @@ var CFG = {
     }
     if (file && navigator.canShare && navigator.canShare({ files: [file] })){
       toast(text ? '글을 복사했어요. 공유 창에서 인스타그램을 고르세요' : '공유 창에서 인스타그램을 고르세요');
-      try { await navigator.share({ files: [file] }); } catch(e){ if (e && e.name === 'AbortError') return; }
+      try { await navigator.share({ files: [file] }); } catch(e){ if (e && e.name === 'AbortError') return; saveBlob(blob, file.name); }
       showGuide('인스타그램에서 마무리', ['공유 창에서 <b>Instagram → 피드</b>를 고르세요', text ? '문구 칸을 길게 눌러 <b>붙여넣기</b> (글은 복사돼 있어요)' : '필요하면 문구를 적어 주세요', '<b>공유</b>를 누르면 끝!'], '', '');
       return;
     }
@@ -821,7 +852,7 @@ var CFG = {
   async function phGet(id){ var d = await db(); if (!d) return null; return new Promise(function(r){ var q = d.transaction('photos').objectStore('photos').get(id); q.onsuccess = function(){ r(q.result || null); }; q.onerror = function(){ r(null); }; }); }
   async function phDel(id){ var d = await db(); if (!d) return; var t = d.transaction('photos', 'readwrite'); t.objectStore('photos').delete(id); }
   var _ws = 0;
-  function saveWork(){ clearTimeout(_ws); _ws = setTimeout(saveWorkNow, 250); }
+  function saveWork(){ clearTimeout(_ws); _ws = setTimeout(function(){ saveWorkNow(); prepShare(); }, 250); }
   async function saveWorkNow(){
     if (tool !== 'card' && !lastText) return;
     var list = wLoad(), now = new Date().toISOString(), w = curWork && list.filter(function(x){ return x.id === curWork; })[0];
@@ -900,7 +931,7 @@ var CFG = {
     if (t.dataset.act === 'phsave'){
       var b = await photoBlob(2160, .92);
       if (downloads){ try { await downloads.save({filename:(studio.name || CFG.title) + '_사진.jpg', data:b}); toast('저장했어요'); } catch(err){ toast(err && err.code === 'declined' ? '저장을 취소했어요' : '사진을 길게 눌러 저장해 주세요'); } }
-      else toast('사진을 길게 눌러 저장해 주세요');
+      else { saveBlob(b, (studio.name || CFG.title) + '_보정사진.jpg'); if (lastText) saveWork(); }
       return;
     }
     var act = t.dataset.act;
@@ -910,6 +941,7 @@ var CFG = {
     if (act === 'short') generate('\n추가 요청: 지금보다 절반 길이로 더 짧게.');
     if (t.dataset.th){ theme = +t.dataset.th; readCardInputs(); showCard(lastCard); }
     if (act === 'redraw'){ readCardInputs(); showCard(lastCard); toast('카드에 반영했어요'); }
+    if (act === 'save' && !downloads){ readCardInputs(); drawCard(lastCard).toBlob(function(b){ saveBlob(b, (studio.name || CFG.title) + '_안내카드.png'); }, 'image/png'); }
     if (act === 'save' && downloads){
       readCardInputs(); var cv = drawCard(lastCard);
       cv.toBlob(async function(b){ try { await downloads.save({filename:(studio.name || CFG.title) + '_안내카드.png', data:b}); toast('저장했어요'); } catch(err){ toast(err && err.code === 'declined' ? '저장을 취소했어요' : '이미지를 길게 눌러 저장해 주세요'); } }, 'image/png');
