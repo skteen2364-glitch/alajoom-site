@@ -36,7 +36,7 @@ header{position:sticky;top:0;z-index:5;background:var(--ivory);display:flex;alig
 .link-btn{border:0;background:none;color:var(--blue);font-weight:700;font-size:13px;padding:8px 4px;white-space:nowrap}
 h1{margin:6px 0 0;font-size:22px;font-weight:900;letter-spacing:-.6px;line-height:1.35;text-wrap:balance}
 .tools{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tool.wide{grid-column:1 / -1;flex-direction:row;align-items:center;min-height:0;gap:12px;border-color:var(--blue);background:#EEF2FA}
+.tool.wide{grid-column:1 / -1;flex-direction:row;align-items:center;min-height:0;gap:12px;border-color:var(--blue);background:var(--blue-tint)}
 .tool.wide[aria-pressed="true"]{box-shadow:0 0 0 2px var(--blue) inset}
 .setc{flex:none;min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:#fff;font:inherit;font-size:13.5px;font-weight:800;color:var(--muted);cursor:pointer}
 .setc[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--yellow)}
@@ -118,6 +118,22 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
 #mbDlg input[type=text],#mbDlg textarea{font-size:16px}
 
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+/* ---------- PC 넓은 화면: 왼쪽 메뉴 + 오른쪽 내용 ---------- */
+@media (min-width: 900px){
+  .app{max-width:1160px;display:grid;grid-template-columns:280px minmax(0,1fr);column-gap:28px;row-gap:14px;align-items:start;padding:0 28px 56px}
+  .app > header{grid-column:1 / -1}
+  .app > .studio{grid-column:1;grid-row:2}
+  .app > .mtabs{grid-column:1;grid-row:3;display:flex;flex-direction:column;gap:4px;position:sticky;top:78px}
+  .app > .mtabs > button{text-align:left;padding:0 16px;min-height:48px;font-size:15px}
+  .app > .mode{grid-column:1;text-align:left}
+  .app > #v-home,.app > #v-make,.app > #v-members,.app > #v-works{grid-column:2;grid-row:2 / span 30;min-width:0}
+  .tools{grid-template-columns:repeat(3,1fr)}
+  .tool.hero,.tool.wide{grid-column:1 / -1}
+  .card-prev,#resPh{max-width:540px}
+  #panel,.panel{padding:22px 24px}
+  .dlg,dialog{max-width:520px}
+}
 </style>
 <link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11121459"></script><script src="/pilates/members.js?v=11121522" defer></script><script src="/assets/mate-install.js?v=11120006" defer></script>
 </head>
