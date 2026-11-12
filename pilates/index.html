@@ -813,13 +813,21 @@ var CFG = {
     return null;
   }
   async function postTo(kind){
-    var text = kind === 'igcard' ? '' : (($('#out') && $('#out').innerText) || lastText);
+    var text = (($('#out') && $('#out').innerText) || lastText);
+    if (kind === 'igcard'){ readCardInputs(); var ar = (studio.area || '').replace(/\s/g, ''); text = lastCard ? [(lastCard.title || '').replace(/\n/g, ' ')].concat(lastCard.lines || []).join('\n') + '\n\n📍 ' + [studio.area, studio.contact].filter(Boolean).join(' · ') + '\n\n' + CFG.tags.map(function(x){ return '#' + x.replace('{동네}', ar); }).join(' ') : ''; }
     if (text){ try { navigator.clipboard.writeText(text).catch(function(){}); } catch(e){} }
     var blob = curImageSync(kind);
     var file = blob ? new File([blob], (studio.name || '알아줌') + (blob.type === 'image/png' ? '.png' : '.jpg'), { type: blob.type || 'image/jpeg' }) : null;
     if (kind === 'nppost'){
       if (file && navigator.canShare && navigator.canShare({ files: [file] })){ try { await navigator.share({ files: [file] }); } catch(e){} }
       showGuide('네이버 플레이스에 올리는 방법', ['글은 <b>복사해 뒀어요.</b>' + (file ? ' 사진은 방금 뜬 창에서 <b>저장</b>을 눌러 두세요.' : ''), '<b>스마트플레이스</b>(앱 또는 아래 버튼)에서 내 가게 → <b>소식</b> → 새 소식 쓰기', '글 칸을 길게 눌러 <b>붙여넣기</b>' + (file ? ', 사진 추가' : '') + ' 후 등록'], 'https://new.smartplace.naver.com/', '스마트플레이스 열기');
+      return;
+    }
+    var android = /Android/i.test(navigator.userAgent);
+    if (android){
+      // 안드로이드: 공유 창 대신 사진을 갤러리에 저장하고 인스타그램 앱을 바로 연다
+      if (file){ var dl = document.createElement('a'); dl.href = URL.createObjectURL(blob); dl.download = file.name; document.body.appendChild(dl); dl.click(); dl.remove(); }
+      showGuide('인스타그램에 올리기', [file ? '사진을 <b>갤러리에 저장</b>했어요' : '올릴 사진을 준비하세요', text ? '글(캡션)도 <b>복사</b>해 뒀어요' : '문구는 직접 적어 주세요', '아래 버튼 → 인스타그램 <b>＋ → 게시물</b> → 방금 저장한 사진', text ? '문구 칸을 길게 눌러 <b>붙여넣기</b> → 공유' : '공유를 누르면 끝!'], 'intent://instagram.com/#Intent;package=com.instagram.android;scheme=https;S.browser_fallback_url=https%3A%2F%2Fwww.instagram.com%2F;end', '인스타그램 열기');
       return;
     }
     if (file && navigator.canShare && navigator.canShare({ files: [file] })){
@@ -835,7 +843,7 @@ var CFG = {
     w.style.cssText = 'position:fixed;inset:0;z-index:100006';
     w.innerHTML = '<div data-gx style="position:absolute;inset:0;background:rgba(20,22,31,.5)"></div><div style="position:absolute;left:0;right:0;bottom:0;max-width:460px;margin:0 auto;background:#fff;border-radius:22px 22px 0 0;padding:22px 18px 16px">' +
       '<h2 style="margin:0 0 12px;font-size:18px;font-weight:900">' + title + '</h2><ol style="margin:0 0 14px;padding-left:20px;font-size:14.5px;line-height:1.7">' + steps.map(function(x){ return '<li>' + x + '</li>'; }).join('') + '</ol>' +
-      (url ? '<a href="' + url + '" target="_blank" rel="noopener" class="sub primary" style="display:flex;align-items:center;justify-content:center;text-decoration:none;min-height:50px;margin-bottom:6px">' + label + '</a>' : '') +
+      (url ? '<a href="' + url + '"' + (/^https?:/.test(url) ? ' target="_blank" rel="noopener"' : '') + ' class="sub primary" style="display:flex;align-items:center;justify-content:center;text-decoration:none;min-height:50px;margin-bottom:6px">' + label + '</a>' : '') +
       '<button type="button" data-gx class="sub" style="width:100%;min-height:46px">닫기</button></div>';
     document.body.appendChild(w);
     w.addEventListener('click', function(e){ if (e.target.closest('[data-gx]')) w.remove(); });
