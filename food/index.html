@@ -112,7 +112,7 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
 .mode{font-size:12px;color:var(--muted);text-align:center;margin:4px 0 0}
 .hidden{display:none !important}
 /* 탭 · 내 메뉴 · 장부 · 보관함 */
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:4px}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:4px}
 .tab{border:0;background:none;border-radius:12px;min-height:44px;font-size:14px;font-weight:700;color:var(--muted);padding:0 4px}
 .tab[aria-selected="true"]{background:var(--ink);color:#fff}
 .view{display:flex;flex-direction:column;gap:14px}
@@ -175,13 +175,15 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
   </section>
 
   <nav class="tabs" role="tablist" aria-label="푸드메이트 메뉴">
-    <button class="tab" type="button" role="tab" data-view="promo" aria-selected="true">홍보</button>
+    <button class="tab" type="button" role="tab" data-view="home" aria-selected="true">오늘</button>
+    <button class="tab" type="button" role="tab" data-view="promo" aria-selected="false">홍보</button>
     <button class="tab" type="button" role="tab" data-view="menu" aria-selected="false">내 메뉴</button>
     <button class="tab" type="button" role="tab" data-view="ledger" aria-selected="false">장부</button>
-    <button class="tab" type="button" role="tab" data-view="box" aria-selected="false">내 작업실</button>
+    <button class="tab" type="button" role="tab" data-view="box" aria-selected="false">작업실</button>
   </nav>
 
-  <div class="view" id="v-promo">
+  <div class="view" id="v-home"></div>
+  <div class="view hidden" id="v-promo">
   <h1>사장님, 오늘은 뭘 만들까요?</h1>
   <button type="button" id="voiceBtn" style="display:flex;align-items:center;gap:12px;width:100%;min-height:58px;margin:-4px 0 0;padding:10px 14px;border:1px solid var(--line);border-radius:18px;background:#fff;font:inherit;text-align:left;cursor:pointer">
     <span aria-hidden="true" style="flex:none;width:40px;height:40px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
@@ -1123,6 +1125,40 @@ var CFG = {
   });
   window.addEventListener('alajoom:tab', function(e){ if (e.detail === 'works') renderWorksSync(); });
 
+
+  /* ---------- 오늘 (대시보드) ---------- */
+  function renderHome(){
+    var box = $('#v-home'); if (!box) return;
+    var now = new Date(), days = ['일','월','화','수','목','금','토'], mon = ymd().slice(0, 7);
+    var rows = monRows(mon), sale = sumOf(rows.filter(function(r){ return r.type === '매출'; })), buy = sumOf(rows.filter(function(r){ return r.type === '매입'; }));
+    var recv = DB.ledger.filter(function(r){ return r.type === '매출' && !r.paid; }), pay = DB.ledger.filter(function(r){ return r.type === '매입' && !r.paid; });
+    var up = DB.quotes.filter(function(q){ return q.status !== '완료' && q.date >= ymd(); }).sort(function(a, b){ return a.date < b.date ? -1 : 1; });
+    var soon = up.filter(function(q){ return q.date <= addDays(7); });
+    var h = '<div style="margin:2px 0 12px"><p style="margin:0;font-size:13px;color:var(--muted)">' + (now.getMonth() + 1) + '월 ' + now.getDate() + '일 ' + days[now.getDay()] + '요일</p><h1 style="margin:2px 0 0;font-size:22px">사장님, 오늘 챙길 일이에요</h1></div>';
+    var card = function(n, l, v, hl){ return '<button type="button" data-view="' + v + '" style="flex:1 1 0;min-width:0;border:1px solid ' + (hl ? 'var(--ink)' : 'var(--line)') + ';background:' + (hl ? 'var(--ink)' : '#fff') + ';color:' + (hl ? '#fff' : 'var(--ink)') + ';border-radius:16px;padding:12px 6px;text-align:center;font:inherit;cursor:pointer"><b style="display:block;font-size:17px;font-weight:900;' + (hl ? 'color:var(--yellow)' : '') + '">' + n + '</b><span style="font-size:12px;' + (hl ? 'opacity:.8' : 'color:var(--muted)') + '">' + l + '</span></button>'; };
+    var k = function(n){ return Math.round(n / 10000).toLocaleString('ko-KR') + '만'; };
+    h += '<div style="display:flex;gap:8px;margin:0 0 12px">' + card(k(sale), '이번 달 매출', 'ledger', false) + card(k(buy), '이번 달 매입', 'ledger', false) + card(k(sale - buy), '남은 돈', 'ledger', true) + '</div>';
+    var li = function(tag, color, body, btn){ return '<li style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)"><span style="flex:none;font-size:11px;font-weight:800;color:' + color + ';border:1px solid ' + color + ';border-radius:999px;padding:1px 7px">' + tag + '</span><span style="flex:1;min-width:0;font-size:14px">' + body + '</span>' + btn + '</li>'; };
+    var sb = function(attr, t, pri){ return '<button type="button" class="sub' + (pri ? ' primary' : '') + '" ' + attr + ' style="flex:none;min-width:0;min-height:36px;padding:0 12px;font-size:12.5px">' + t + '</button>'; };
+    var todo = [];
+    soon.slice(0, 3).forEach(function(q){ todo.push(li('단체주문', 'var(--blue)', '<b>' + md(q.date) + '</b> ' + esc(q.customer || '단체 손님') + (q.people ? ' · ' + q.people + '명' : '') + (q.time ? ' · ' + q.time : ''), sb('data-view="ledger"', '보기'))); });
+    if (recv.length) todo.push(li('받을 돈', 'var(--warn)', '아직 안 받은 매출 <b>' + recv.length + '건</b> · ' + won(sumOf(recv)), sb('data-view="ledger"', '확인')));
+    if (pay.length) todo.push(li('줄 돈', '#7C5A2E', '아직 안 준 매입 <b>' + pay.length + '건</b> · ' + won(sumOf(pay)), sb('data-view="ledger"', '확인')));
+    var weekPost = wLoad().filter(function(w){ return Date.now() - new Date(w.updated).getTime() < 7 * 864e5 && /post|photo|set|card/.test(w.tool); }).length;
+    if (!weekPost) todo.push(li('홍보', 'var(--ok)', '이번 주 홍보글이 아직 없어요', sb('data-hgo="set"', '만들기', true)));
+    h += '<section class="panel" style="padding:14px 16px"><h2 style="margin:0 0 4px;font-size:16px">할 일 ' + (todo.length ? '<small style="color:var(--muted);font-weight:500">' + todo.length + '개</small>' : '') + '</h2>' + (todo.length ? '<ul style="list-style:none;margin:0;padding:0">' + todo.join('') + '</ul>' : '<p style="margin:6px 0 0;font-size:14px;color:var(--muted)">오늘 챙길 일이 없어요. 장사 잘 되세요!</p>') + '</section>';
+    var qa = function(act, t, d){ return '<button type="button" ' + act + ' style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:1px solid var(--line);background:#fff;border-radius:16px;padding:12px 14px;font:inherit;text-align:left;cursor:pointer"><b style="font-size:14.5px">' + t + '</b><span style="font-size:12px;color:var(--muted)">' + d + '</span></button>'; };
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0">' + qa('data-hgo="set"', 'AI 직원 세트', '인스타·블로그·릴스 한 번에') + qa('data-hgo="photo"', '사진 홍보', '메뉴 사진 보정 + 글') + qa('data-hvoice="1"', '말로 시키기', '"점심 특선 인스타 글"') + qa('data-hbook="1"', '장부 쓰기', '오늘 매출·매입 적기') + qa('data-hgo="board"', '메뉴판·전단', '내 메뉴로 바로') + qa('data-view="menu"', '내 메뉴', DB.menus.length + '개 등록') + '</div>';
+    var rec = wLoad().slice(0, 3);
+    if (rec.length) h += '<section class="panel" style="padding:14px 16px"><h2 style="margin:0 0 6px;font-size:16px">최근 작업</h2>' + rec.map(function(w){ return '<button type="button" data-wopen="' + w.id + '" style="display:flex;align-items:center;gap:10px;width:100%;border:0;border-bottom:1px solid var(--line);background:none;padding:10px 0;font:inherit;text-align:left;cursor:pointer"><span style="flex:none;font-size:11px;font-weight:800;color:var(--muted);background:var(--ivory);border-radius:8px;padding:3px 7px">' + TNAME[w.tool] + '</span><span style="flex:1;min-width:0;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + esc(wTitle(w)) + '</span><span style="flex:none;font-size:12.5px;font-weight:800;color:var(--blue)">이어서</span></button>'; }).join('') + '</section>';
+    box.innerHTML = h;
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-hgo],[data-hvoice],[data-hbook]'); if (!t) return;
+    if (t.dataset.hvoice) return vOpen();
+    if (t.dataset.hbook){ setView('ledger'); setTimeout(function(){ bookForm(null); }, 30); return; }
+    if (t.dataset.hgo){ setView('promo'); var b = document.querySelector('.tool[data-tool="' + t.dataset.hgo + '"]'); if (b) b.click(); }
+  });
   /* ---------- 이벤트 ---------- */
   document.addEventListener('click', async function(e){
     var t = e.target.closest('button'); if (!t) return;
@@ -1423,11 +1459,12 @@ var CFG = {
   }
 
   /* ---------- 화면 전환 ---------- */
-  var view = 'promo';
+  var view = 'home';
   window.alajoomTab = function(k){ setView(k === 'make' ? 'promo' : k === 'works' ? 'box' : k); };
   function setView(v){
     view = v;
-    ['promo','menu','ledger','box'].forEach(function(k){ $('#v-' + k).classList.toggle('hidden', k !== v); });
+    ['home','promo','menu','ledger','box'].forEach(function(k){ $('#v-' + k).classList.toggle('hidden', k !== v); });
+    if (v === 'home') renderHome();
     document.querySelectorAll('.tab').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.view === v); });
     if (v === 'promo') renderPanel();
     if (v === 'menu') renderMenus();
@@ -1777,6 +1814,7 @@ var CFG = {
     store.set('studio', studio); renderStudio();
   });
   renderStudio(); renderQuota(); renderPanel();
+  (function(){ var mt = location.search.match(/[?&]view=(promo|menu|ledger|box)/); setView(mt ? mt[1] : 'home'); })();
   $('#mode').textContent = CFG.offline;
   if (window.claude && window.claude.use){
     window.claude.use('sample').then(function(s){ sample = s; $('#mode').textContent = s ? 'AI 직원이 연결돼 있어요 · 시제품' : CFG.offline; }).catch(function(){});

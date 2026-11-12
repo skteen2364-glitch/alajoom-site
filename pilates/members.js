@@ -25,7 +25,7 @@
       get: function () { return DB; },
       has: function () { try { return !!localStorage.getItem(KEY); } catch (e) { return false; } },
       set: function (k, d) { if (d && Array.isArray(d.members)) { DB = d; DB.book = DB.book || []; try { localStorage.setItem(KEY, JSON.stringify(DB)); } catch (e) {} } },
-      done: function () { render(); toast('계정에 저장된 회원 장부를 불러왔어요'); } });
+      done: function () { render(); var hv = $('#v-home'); if (hv && !hv.classList.contains('hidden')) window.dispatchEvent(new CustomEvent('alajoom:tab', { detail: 'home' })); toast('계정에 저장된 회원 장부를 불러왔어요'); } });
   }, 900);
   function toast(t) { var el = $('#toast'); if (!el) return; el.textContent = t; el.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(function () { el.classList.remove('on'); }, 1800); }
 
@@ -317,13 +317,23 @@
   /* ---------- 탭 ---------- */
   function showTab(k) {
     document.querySelectorAll('.mtab').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.tab === k); });
-    ['make', 'members', 'works'].forEach(function (v) { var el = $('#v-' + v); if (el) el.classList.toggle('hidden', v !== k); });
+    ['home', 'make', 'members', 'works'].forEach(function (v) { var el = $('#v-' + v); if (el) el.classList.toggle('hidden', v !== k); });
     if (k === 'members') render();
     try { window.dispatchEvent(new CustomEvent('alajoom:tab', { detail: k })); } catch (e) {}
     try { sessionStorage.setItem('al_pil_tab', k); } catch (e) {}
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   window.alajoomTab = showTab;
+  /* 오늘 화면(대시보드)용 */
+  window.alajoomMemberStats = function () {
+    var t = ymd(), mon = t.slice(0, 7), ms = DB.members, sales = 0;
+    ms.forEach(function (m) { (m.pays || []).forEach(function (p) { if ((p.date || '').slice(0, 7) === mon) sales += +p.price || 0; }); });
+    (DB.book || []).forEach(function (b) { if ((b.date || '').slice(0, 7) === mon) sales += b.type === '지출' ? 0 : (+b.amount || 0); });
+    var pick = function (k) { return ms.filter(function (m) { return status(m).k === k; }).map(function (m) { return { id: m.id, name: m.name, left: left(m), end: m.end, last: lastAtt(m) }; }); };
+    return { total: ms.length, active: ms.filter(function (m) { return status(m).k !== 'end'; }).length, today: ms.filter(function (m) { return (m.att || []).indexOf(t) >= 0; }).length,
+      sales: sales, renew: pick('renew'), away: pick('away'), news: ms.filter(function (m) { return (m.created || '').slice(0, 7) === mon; }).length };
+  };
+  window.alajoomMemberSms = function (id) { var m = find(id); if (m) sms(m); };
   window.alajoomFindMember = function (name) {
     var hits = DB.members.filter(function (m) { return m.name === name; });
     if (!hits.length) hits = DB.members.filter(function (m) { return name && (m.name.indexOf(name) >= 0 || name.indexOf(m.name) >= 0); });
@@ -346,9 +356,9 @@
     box.addEventListener('click', onClick);
     box.addEventListener('input', function (e) { if (e.target.id === 'mbQ') { view.q = e.target.value.trim(); var pos = e.target.selectionStart; render(); var q = $('#mbQ'); q.focus(); try { q.setSelectionRange(pos, pos); } catch (er) {} } });
     document.querySelectorAll('.mtab').forEach(function (b) { b.addEventListener('click', function () { showTab(b.dataset.tab); }); });
-    var mt = location.search.match(/[?&]tab=(members|works)/);
+    var mt = location.search.match(/[?&]tab=(members|works|make)/);
     var k = mt ? mt[1] : (function () { try { return sessionStorage.getItem('al_pil_tab'); } catch (e) { return null; } })();
-    if (k === 'members' || k === 'works') showTab(k);
+    showTab(k === 'members' || k === 'works' || k === 'make' ? k : 'home');
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
