@@ -1527,11 +1527,43 @@ var CFG = {
   function monTitle(m){ return (m.slice(0, 4) === ymd().slice(0, 4) ? '' : m.slice(0, 4) + '년 ') + (+m.slice(5, 7)) + '월'; }
   function monNav(title){ return '<div class="hrow"><button type="button" class="mini" data-x="mon" data-d="-1" aria-label="지난달">◀</button><h2 style="text-align:center;flex:1">' + monTitle(lmon) + ' ' + title + '</h2><button type="button" class="mini" data-x="mon" data-d="1" aria-label="다음달">▶</button></div>'; }
   function qTotal(q){ return Math.max(0, (q.items || []).reduce(function(s, it){ return s + num(it.qty) * num(it.price); }, 0) - num(q.discount)); }
+
+  /* ---------- 장부 달력: 날짜별 매출·매입·단체주문·납품 요일 ---------- */
+  var calDay = ymd();
+  function renderCal(){
+    var y = +lmon.slice(0, 4), mo = +lmon.slice(5, 7), first = new Date(y, mo - 1, 1), last = new Date(y, mo, 0).getDate(), start = first.getDay(), today = ymd();
+    var DOW = ['일','월','화','수','목','금','토'];
+    var byDay = {}; DB.ledger.forEach(function(r){ if (!r.date || r.date.slice(0, 7) !== lmon) return; var d = byDay[r.date] || (byDay[r.date] = { sale:0, buy:0, open:0 }); if (r.type === '매출') d.sale += num(r.amount); else d.buy += num(r.amount); if (!r.paid) d.open++; });
+    var qd = {}; DB.quotes.forEach(function(q){ if (q.date && q.date.slice(0, 7) === lmon && q.status !== '완료') qd[q.date] = (qd[q.date] || 0) + 1; });
+    var dlv = function(dow){ return DB.parties.filter(function(p){ return p.kind === '식자재' && p.day && (p.day.indexOf('매일') >= 0 || p.day.indexOf(DOW[dow]) >= 0); }); };
+    var man = function(n){ return n >= 10000 ? Math.round(n / 1000) / 10 + '만' : n ? n.toLocaleString('ko-KR') : ''; };
+    var h = monNav('달력');
+    h += '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:4px">' + DOW.map(function(d, i){ return '<div style="text-align:center;font-size:12px;font-weight:800;color:' + (i === 0 ? '#C2410C' : i === 6 ? '#2E4877' : 'var(--muted)') + '">' + d + '</div>'; }).join('');
+    for (var i = 0; i < start; i++) h += '<div></div>';
+    for (var d = 1; d <= last; d++){
+      var key = lmon + '-' + ('0' + d).slice(-2), v = byDay[key], dow = (start + d - 1) % 7, sel = key === calDay, dl = dlv(dow).length;
+      h += '<button type="button" data-x="cal-day" data-v="' + key + '" aria-pressed="' + sel + '" aria-label="' + mo + '월 ' + d + '일" style="min-height:66px;border:1px solid ' + (sel ? 'var(--ink)' : 'var(--line)') + ';border-radius:10px;background:' + (sel ? 'var(--ink)' : key === today ? 'var(--blue-tint)' : '#fff') + ';color:' + (sel ? '#fff' : 'var(--ink)') + ';padding:4px 3px;display:flex;flex-direction:column;align-items:stretch;gap:1px;font:inherit;text-align:left;cursor:pointer;overflow:hidden">' +
+        '<span style="display:flex;justify-content:space-between;font-size:12px;font-weight:800"><span>' + d + '</span><span>' + (qd[key] ? '<i style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--blue)" title="단체주문"></i>' : '') + (dl ? '<i style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#7C5A2E;margin-left:2px" title="납품"></i>' : '') + '</span></span>' +
+        (v && v.sale ? '<span style="font-size:10.5px;font-weight:800;color:' + (sel ? 'var(--yellow)' : 'var(--blue-deep)') + ';white-space:nowrap">+' + man(v.sale) + '</span>' : '') +
+        (v && v.buy ? '<span style="font-size:10.5px;color:' + (sel ? '#FFC9A8' : 'var(--warn)') + ';white-space:nowrap">-' + man(v.buy) + '</span>' : '') + '</button>';
+    }
+    h += '</div><p class="note" style="margin:8px 0 0"><i style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue)"></i> 단체주문 &nbsp; <i style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#7C5A2E"></i> 식자재 납품 요일 &nbsp; <b style="color:var(--blue-deep)">+</b>매출 <b style="color:var(--warn)">-</b>매입</p>';
+    // 고른 날
+    if (calDay.slice(0, 7) === lmon){
+      var dd = new Date(calDay + 'T00:00:00'), rows = DB.ledger.filter(function(r){ return r.date === calDay; }), qs = DB.quotes.filter(function(q){ return q.date === calDay; }), ps = dlv(dd.getDay());
+      h += '<div style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px"><div class="hrow"><h2 style="font-size:16px;margin:0">' + (dd.getMonth() + 1) + '월 ' + dd.getDate() + '일 ' + DOW[dd.getDay()] + '요일</h2><button type="button" class="sub primary" data-x="cal-add" data-v="' + calDay + '" style="min-height:38px">+ 이 날 장부</button></div>';
+      if (qs.length) h += '<p class="sec">단체주문</p><div class="list">' + qs.map(quoteItem).join('') + '</div>';
+      if (ps.length) h += '<p class="sec">납품 오는 거래처</p><div class="list">' + ps.map(function(p){ return '<div class="item"><div><b>' + esc(p.name) + '</b><span class="m">' + esc([p.items, p.memo].filter(Boolean).join(' · ')) + '</span></div><div class="side">' + (p.phone ? '<a class="mini" href="tel:' + esc(p.phone.replace(/[^0-9+]/g, '')) + '" style="text-decoration:none">전화</a>' : '') + '</div></div>'; }).join('') + '</div>';
+      h += '<p class="sec">장부</p>' + (rows.length ? '<div class="list">' + rows.map(rowItem).join('') + '</div>' : '<div class="empty">이 날 적은 장부가 없어요.</div>');
+      h += '</div>';
+    }
+    $('#lbody').innerHTML = h;
+  }
   function renderLedger(){
-    var tabs = [['sum','요약'],['book','주문·납품 장부'],['party','거래처'],['quote','견적서·단체주문']];
-    $('#v-ledger').innerHTML = '<div class="seg">' + tabs.map(function(t){ return '<button type="button" class="chip" data-x="lsub" data-v="' + t[0] + '" aria-pressed="' + (t[0] === lsub) + '">' + t[1] + '</button>'; }).join('') + '</div><section class="panel" id="lbody"></section><p class="mode">장부는 이 휴대폰(브라우저)에만 저장돼요 · 계속 무료</p>';
+    var tabs = [['sum','요약'],['cal','달력'],['book','주문·납품 장부'],['party','거래처'],['quote','견적서·단체주문']];
+    $('#v-ledger').innerHTML = '<div class="seg">' + tabs.map(function(t){ return '<button type="button" class="chip" data-x="lsub" data-v="' + t[0] + '" aria-pressed="' + (t[0] === lsub) + '">' + t[1] + '</button>'; }).join('') + '</div><section class="panel" id="lbody"></section><p class="mode">장부는 AI 횟수를 쓰지 않아요 · 로그인하면 계정에 저장돼서 폰·PC 같이 봐요</p>';
     fillLists();
-    ({sum:renderSum, book:renderBook, party:renderParty, quote:renderQuotes})[lsub]();
+    ({sum:renderSum, cal:renderCal, book:renderBook, party:renderParty, quote:renderQuotes})[lsub]();
   }
   function rowItem(r){
     return '<div class="item"><div><b><span class="badge' + (r.type === '매입' ? ' neg' : '') + '">' + r.type + '</span>' + esc(r.party || '-') + '</b><span class="m">' + esc([md(r.date), r.item, r.memo].filter(Boolean).join(' · ')) + '</span></div><div class="side"><span class="amt">' + won(r.amount) + '</span><span style="display:flex;gap:4px"><button type="button" class="mini' + (r.paid ? '' : ' on') + '" data-x="paid" data-id="' + r.id + '" aria-label="정산 상태 바꾸기">' + (r.paid ? '정산 끝' : (r.type === '매출' ? '받을 돈' : '줄 돈')) + '</button><button type="button" class="mini" data-x="book-edit" data-id="' + r.id + '">수정</button></span></div></div>';
@@ -1766,6 +1798,8 @@ var CFG = {
       case 'menu-del': DB.menus = DB.menus.filter(function(m){ return m.id !== editMenuId; }); save('menus'); renderMenus(); toast('삭제했어요'); break;
       /* 장부 */
       case 'lsub': lsub = t.dataset.v; editQ = null; renderLedger(); break;
+      case 'cal-day': calDay = t.dataset.v; renderLedger(); break;
+      case 'cal-add': { var cd = t.dataset.v; bookForm(null, { date: cd }); setVal('bDate', cd); break; }
       case 'mon': lmon = shiftMon(lmon, +t.dataset.d); renderLedger(); break;
       case 'lf': lfilter = t.dataset.v; renderBook(); break;
       case 'book-add': bookForm(null); break;
