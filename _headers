@@ -19,3 +19,6 @@
   Cache-Control: no-cache
 /pilates/*
   Cache-Control: no-cache
+/admin/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
