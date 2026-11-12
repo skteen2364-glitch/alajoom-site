@@ -980,7 +980,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 <p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">필라테스메이트</p>
 <p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">필라테스·요가</p>
 </div>
-<a class="mate-btn" data-open-mate="pilates" href="https://alajoom-site.pages.dev/pilates/" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; background: #14161F; color: #FFFFFF; font-size: 14px; font-weight: 700; text-decoration: none">소개 보고 써보기</a>
+<a class="mate-btn" data-open-mate="pilates" href="/pilates/" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; background: #14161F; color: #FFFFFF; font-size: 14px; font-weight: 700; text-decoration: none">소개 보고 써보기</a>
 </div>
 </article>
 <article class="mate-card is-live" data-mate="food" tabindex="0" role="button" aria-label="푸드메이트 소개 보기" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
@@ -992,7 +992,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 <p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">푸드메이트</p>
 <p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">음식점</p>
 </div>
-<a class="mate-btn" data-open-mate="food" href="https://foodmate-pro.netlify.app/" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; background: #14161F; color: #FFFFFF; font-size: 14px; font-weight: 700; text-decoration: none">소개 보고 써보기</a>
+<a class="mate-btn" data-open-mate="food" href="/food/" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; background: #14161F; color: #FFFFFF; font-size: 14px; font-weight: 700; text-decoration: none">소개 보고 써보기</a>
 </div>
 </article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
@@ -1424,12 +1424,12 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
       var D = {
         beau: ['BEAUTY', '뷰메이트', '피부관리·에스테틱 사장님 전용 AI 직원', ['시술 전후 사진을 올리면', '인스타·블로그 홍보글과 해시태그를 만들어요', '사장님이 확인만 누르면 끝'], ''],
         funi: ['FURNITURE', '퍼니메이트', '가구·인테리어 사장님 전용 AI 직원', ['제품·시공 사진을 올리면', '상세 홍보글과 홍보 이미지를 만들어요', '사장님이 확인만 누르면 끝'], 'https://funnymate.co.kr/intro'],
-        pilates: ['FITNESS', '필라테스메이트', '필라테스·요가 스튜디오 사장님 전용', ['수업·스튜디오 사진을 올리면', '수업 안내 글과 카드 이미지를 만들어요', '회원 문자·리뷰 답글까지 한 번에'], ''],
-        food: ['RESTAURANT', '푸드메이트', '음식점·카페·반찬가게 사장님 전용 AI 직원', ['메뉴 사진 한 장으로 흰 배경·매장·배달앱용 사진 3종', '블로그·인스타·동네 카페 글과 문자, 전단·가격표까지', '리뷰 답글, 단체 주문 견적, 주문·장부 관리까지'], 'https://foodmate-pro.netlify.app/intro']
+        pilates: ['FITNESS', '필라테스메이트', '필라테스·요가 스튜디오 사장님 전용', ['AI 직원 세트로 인스타·블로그·릴스를 한 번에', '회원 장부·출석 체크·재등록 안내', '말로 시키고 회원에게 카톡으로 바로 보내기'], ''],
+        food: ['RESTAURANT', '푸드메이트', '음식점·카페·반찬가게 사장님 전용 AI 직원', ['AI 직원 세트로 인스타·블로그·릴스·문자를 한 번에', '메뉴판·전단·가격표(POP)와 단체 주문 견적', '주문·납품 장부, 말로 시키고 카톡으로 바로 보내기'], '']
       };
       var cards = root.querySelectorAll('.mate-card.is-live'); if (!cards.length) return;
       var sh = doc.createElement('div'); sh.className = 'dz-ms'; sh.setAttribute('role', 'dialog'); sh.setAttribute('aria-modal', 'true');
-      sh.innerHTML = '<div class="dz-ms-bg"></div><div class="dz-ms-pan"><div class="dz-ms-grip"></div><button type="button" class="dz-ms-x" aria-label="닫기">×</button><div class="dz-ms-media"></div><p class="dz-ms-en"></p><h3></h3><p class="dz-ms-sub"></p><ol></ol><a class="dz-ms-go" target="_blank" rel="noopener">바로 써보기 →</a><a class="dz-ms-more" target="_blank" rel="noopener">자세히 보기</a></div>';
+      sh.innerHTML = '<div class="dz-ms-bg"></div><div class="dz-ms-pan"><div class="dz-ms-grip"></div><button type="button" class="dz-ms-x" aria-label="닫기">×</button><div class="dz-ms-media"></div><p class="dz-ms-en"></p><h3></h3><p class="dz-ms-sub"></p><ol></ol><a class="dz-ms-go">바로 써보기 →</a><a class="dz-ms-more" target="_blank" rel="noopener">자세히 보기</a></div>';
       (root.body || root.querySelector('body') || root).appendChild(sh);
       var q = function (s) { return sh.querySelector(s); };
       var close = function () { sh.classList.remove('show'); var v = q('video'); if (v) v.pause(); setTimeout(function () { sh.classList.remove('on'); q('.dz-ms-media').innerHTML = ''; }, 300); };
@@ -1442,7 +1442,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
         else if (tile) { med.style.aspectRatio = '16/9'; med.appendChild(tile.cloneNode(true)); }
         q('.dz-ms-en').textContent = d[0]; q('h3').textContent = d[1]; q('.dz-ms-sub').textContent = d[2];
         q('ol').innerHTML = d[3].map(function (x, i) { return '<li><i>' + (i + 1) + '</i><span>' + x + '</span></li>'; }).join('');
-        var btn = card.querySelector('.mate-btn'); q('.dz-ms-go').href = btn ? btn.getAttribute('href') : '#';
+        var btn = card.querySelector('.mate-btn'), gh = btn ? btn.getAttribute('href') : '#', go = q('.dz-ms-go'); go.href = gh; if (/^https?:/.test(gh)) { go.target = '_blank'; go.rel = 'noopener'; } else { go.removeAttribute('target'); }
         var mo = q('.dz-ms-more'); if (d[4]) { mo.href = d[4]; mo.style.display = ''; } else mo.style.display = 'none';
         sh.classList.add('on'); requestAnimationFrame(function () { requestAnimationFrame(function () { sh.classList.add('show'); }); });
       };
