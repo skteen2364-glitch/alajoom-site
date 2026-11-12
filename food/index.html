@@ -9,8 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* 알아줌 브랜드: 차분한 블루 + 노랑 포인트, 아이보리 바탕. 모바일 한 손 사용 기준 단일 열 앱 */
-  --blue:#3B5B92; --blue-deep:#2E4877; --blue-tint:#E6ECF5;
+  /* 알아줌 공통 바탕(아이보리+노랑) + 푸드메이트 포인트 색(주황). --blue 이름은 '메이트 포인트 색'으로 씀 */
+  --blue:#D9480F; --blue-deep:#A8380B; --blue-tint:#FDEBDD;
   --yellow:#FFD43B; --ivory:#FBF7EE; --ink:#14161F; --muted:#5B6070; --line:#E8E1D0;
   --ok:#12A150; --warn:#C2410C; --warn-tint:#FFF1E8;
   --font:'Noto Sans KR', system-ui, -apple-system, 'Apple SD Gothic Neo', sans-serif;
@@ -377,9 +377,9 @@ var CFG = {
 
   /* ---------- 카드 그리기 ---------- */
   var THEMES = [
-    {bg:'#F3EDE2', blob:'#E3D5BE', ink:'#1F2230', acc:'#3B5B92', pill:'#1F2230', pillT:'#FFD43B', name:'베이지'},
-    {bg:'#2E4877', blob:'#3B5B92', ink:'#FFFFFF', acc:'#FFD43B', pill:'#FFD43B', pillT:'#14161F', name:'블루'},
-    {bg:'#FFE45C', blob:'#FFD43B', ink:'#14161F', acc:'#2E4877', pill:'#14161F', pillT:'#FFE45C', name:'옐로'}
+    {bg:'#F3EDE2', blob:'#E3D5BE', ink:'#1F2230', acc:'#D9480F', pill:'#1F2230', pillT:'#FFD43B', name:'베이지'},
+    {bg:'#C2410C', blob:'#D9480F', ink:'#FFFFFF', acc:'#FFD43B', pill:'#FFD43B', pillT:'#14161F', name:'주황'},
+    {bg:'#FFE45C', blob:'#FFD43B', ink:'#14161F', acc:'#A8380B', pill:'#14161F', pillT:'#FFE45C', name:'옐로'}
   ];
   function wrap(ctx, text, maxW){ var out = []; String(text).split('\n').forEach(function(par){ var line = ''; Array.from(par).forEach(function(ch){ var test = line + ch; if (ctx.measureText(test).width > maxW && line){ out.push(line); line = ch; } else line = test; }); out.push(line); }); return out; }
   function drawCard(c){
@@ -445,7 +445,7 @@ var CFG = {
     var P = CFG.photo; pick = { topic:P.topics[0], ch:'인스타' };
     var h = '<h2>사진 올리고 홍보하기</h2>';
     h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">1</span>사진 올리기</p>';
-    h += '<div class="drop" id="drop"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg><b>사진 고르기</b><span>' + P.hint + '</span><input type="file" id="phFile" accept="image/*" aria-label="사진 고르기" class="file-cover"></div>';
+    h += '<div class="drop" id="drop"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D9480F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg><b>사진 고르기</b><span>' + P.hint + '</span><input type="file" id="phFile" accept="image/*" aria-label="사진 고르기" class="file-cover"></div>';
     h += '<div class="alt-pick" id="altPick"><span>앨범이 안 열리면 아래 버튼을 눌러주세요</span><input type="file" id="phFile2" accept="image/*,.heic,.heif"></div>';
     h += '<div id="phBody" class="hidden" style="display:flex;flex-direction:column;gap:14px">';
     h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">2</span>어떤 사진으로 만들까요?</p><div class="outs" role="group" aria-label="결과물 종류">' + P.outputs.map(function(o){ return '<button type="button" class="out-c" data-out="' + o.key + '" aria-pressed="' + (o.key === ph.out) + '"><em class="' + (o.live ? '' : 'soon') + '">' + (o.live ? '지금 사용' : '연결 예정') + '</em><b>' + o.name + '</b><span>' + o.desc + '</span></button>'; }).join('') + '</div>';
@@ -794,7 +794,7 @@ var CFG = {
 
   /* ---------- 메뉴판 · 전단 ---------- */
   var BTH = [
-    {bg:'#FBF7EE', ink:'#14161F', acc:'#3B5B92', sub:'#5B6070', band:'#14161F', bandT:'#FFD43B', name:'아이보리'},
+    {bg:'#FBF7EE', ink:'#14161F', acc:'#D9480F', sub:'#5B6070', band:'#14161F', bandT:'#FFD43B', name:'아이보리'},
     {bg:'#17191F', ink:'#FFFFFF', acc:'#FFD43B', sub:'#B9BFCC', band:'#FFD43B', bandT:'#14161F', name:'블랙'},
     {bg:'#FFFFFF', ink:'#2B1D12', acc:'#C2410C', sub:'#7A6A5C', band:'#C2410C', bandT:'#FFFFFF', name:'화이트'}
   ];
@@ -1151,7 +1151,7 @@ var CFG = {
     [[M, '받는 분', [q.customer + ' 귀하', '일시 · ' + (q.date || '[날짜]') + ' ' + (q.time || ''), '인원 · ' + (q.people || '[인원]') + '명', q.place ? '장소 · ' + q.place : '', q.phone ? '연락처 · ' + q.phone : '']],
      [M + bw + 30, '보내는 곳', [studio.name, studio.area, studio.contact]]].forEach(function(b){
       x.fillStyle = '#FBF7EE'; roundRect(x, b[0], y, bw, 300, 20); x.fill();
-      x.fillStyle = '#3B5B92'; x.font = '900 26px ' + FONT; x.fillText(b[1], b[0] + 30, y + 52);
+      x.fillStyle = '#D9480F'; x.font = '900 26px ' + FONT; x.fillText(b[1], b[0] + 30, y + 52);
       var yy = y + 52; b[2].filter(Boolean).forEach(function(l, i){ yy += i === 0 ? 54 : 42; x.fillStyle = '#14161F'; fitFont(x, l, i === 0 ? '900' : '500', i === 0 ? 36 : 26, bw - 60, 14); x.fillText(l, b[0] + 30, yy); });
     });
     // 표
