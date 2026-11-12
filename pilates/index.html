@@ -135,7 +135,7 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
   .dlg,dialog{max-width:520px}
 }
 </style>
-<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11121459"></script><script src="/assets/mate-nav.js?v=11121700"></script><script src="/pilates/members.js?v=11121526" defer></script><script src="/assets/mate-install.js?v=11120006" defer></script>
+<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11121800"></script><script src="/assets/mate-nav.js?v=11121800"></script><script src="/assets/feedback.js?v=11121800" defer></script><script src="/pilates/members.js?v=11121526" defer></script><script src="/assets/mate-install.js?v=11120006" defer></script>
 </head>
 <body>
 <div class="app">
@@ -1110,6 +1110,7 @@ var CFG = {
     // 최근 작업
     var rec = wLoad().slice(0, 3);
     if (rec.length) h += '<section class="panel" style="padding:14px 16px"><h2 style="margin:0 0 6px;font-size:16px">최근 작업</h2>' + rec.map(function(w){ return '<button type="button" data-wopen="' + w.id + '" style="display:flex;align-items:center;gap:10px;width:100%;border:0;border-bottom:1px solid var(--line);background:none;padding:10px 0;font:inherit;text-align:left;cursor:pointer"><span style="flex:none;font-size:11px;font-weight:800;color:var(--muted);background:var(--ivory);border-radius:8px;padding:3px 7px">' + TNAME[w.tool] + '</span><span style="flex:1;min-width:0;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + esc(wTitle(w)) + '</span><span style="flex:none;font-size:12.5px;font-weight:800;color:var(--blue)">이어서</span></button>'; }).join('') + '</section>';
+    h += '<button type="button" onclick="window.alajoomFeedback&&window.alajoomFeedback(\'pilates\')" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:46px;margin:14px 0 4px;border:1px dashed var(--line,#E6E8ED);border-radius:14px;background:transparent;font:inherit;font-size:13.5px;font-weight:700;color:var(--muted,#5B6070);cursor:pointer">불편한 점·바라는 기능 알려주기</button>';
     box.innerHTML = h;
   }
   document.addEventListener('click', function(e){

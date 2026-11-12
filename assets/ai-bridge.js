@@ -117,6 +117,11 @@
   async function me() { var sb = await client(); var s = (await sb.auth.getSession()).data.session; return s ? { sb: sb, uid: s.user.id } : null; }
   window.alajoomAI = {
     loggedIn: async function () { try { return !!(await me()); } catch (e) { return false; } },
+    feedback: async function (kind, message, mate) {
+      var m = await me(); if (!m) throw new Error('login_required');
+      var r = await m.sb.from('feedback').insert({ user_id: m.uid, kind: kind, message: String(message).slice(0, 2000), mate: mate || null, page: location.pathname.slice(0, 200) });
+      if (r.error) throw r.error; return true;
+    },
     agent: async function (p) {
       var body = { mode: 'agent', topic: p.topic, channels: p.channels, detail: p.detail, store: p.store, tool: 'set' };
       if (p.image) body.image = await b64(p.image);

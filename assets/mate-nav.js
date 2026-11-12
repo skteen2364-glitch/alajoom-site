@@ -6,18 +6,19 @@
   if (window.alajoomNav) return;
   window.alajoomNav = true;
   var fromPop = false, ignore = 0, cur = null;
-  var CLOSE_SEL = '[data-vx],[data-vlx],[data-gx],[data-x],.mi-x,.ob-later,#stCancel,[data-close]';
+  var CLOSE_SEL = '.lg-x,[data-vx],[data-vlx],[data-gx],[data-x],.mi-x,.ob-later,#stCancel,[data-close]';
 
   function overlays() {
     var list = [];
     document.querySelectorAll('dialog[open]').forEach(function (d) { list.push(d); });
-    document.querySelectorAll('body > [role=dialog][aria-modal=true]').forEach(function (d) { list.push(d); });
+    document.querySelectorAll('body > [role=dialog][aria-modal=true]').forEach(function (d) { var cs = getComputedStyle(d); if (cs.display !== 'none' && cs.visibility !== 'hidden') list.push(d); });
     return list;
   }
   function closeOne(el) {
     if (el.tagName === 'DIALOG') { try { el.close(); } catch (e) {} return; }
     var b = el.querySelector(CLOSE_SEL);
-    if (b) { b.click(); if (!el.isConnected) return; }
+    if (b) { b.click(); if (!el.isConnected || getComputedStyle(el).display === 'none') return; }
+    if (el.id === 'dz-login') { el.classList.remove('on'); return; }
     el.remove();
   }
   function st() { return history.state || {}; }
@@ -44,9 +45,10 @@
     }
     openCount = n;
   }
-  var mo = new MutationObserver(function () { setTimeout(check, 0); });
+  var queued = false;
+  var mo = new MutationObserver(function () { if (queued) return; queued = true; setTimeout(function () { queued = false; check(); }, 0); });
   function start() {
-    mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['open'] });
+    mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['open', 'class', 'style'] });
     if (!history.state || !history.state.al) { try { history.replaceState({ al: 1, t: cur || 'home' }, ''); } catch (er) {} }
     openCount = overlays().length;
   }
