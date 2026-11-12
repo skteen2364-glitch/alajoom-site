@@ -17,7 +17,16 @@
 
   var DB = load();
   function load() { try { return JSON.parse(localStorage.getItem(KEY)) || { members: [] }; } catch (e) { return { members: [] }; } }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(DB)); } catch (e) { toast('저장 공간이 부족해요'); } }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(DB)); } catch (e) { toast('저장 공간이 부족해요'); } if (window.alajoomSaved) window.alajoomSaved('members', DB); }
+  /* 회원 장부·매출 장부를 로그인한 계정에 저장(폰·PC 같이) */
+  setTimeout(function () {
+    if (!window.alajoomSync) return;
+    window.alajoomSync({ keys: ['members'],
+      get: function () { return DB; },
+      has: function () { try { return !!localStorage.getItem(KEY); } catch (e) { return false; } },
+      set: function (k, d) { if (d && Array.isArray(d.members)) { DB = d; DB.book = DB.book || []; try { localStorage.setItem(KEY, JSON.stringify(DB)); } catch (e) {} } },
+      done: function () { render(); toast('계정에 저장된 회원 장부를 불러왔어요'); } });
+  }, 900);
   function toast(t) { var el = $('#toast'); if (!el) return; el.textContent = t; el.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(function () { el.classList.remove('on'); }, 1800); }
 
   function left(m) { return Math.max(0, (m.total || 0) - (m.att || []).length); }
@@ -113,7 +122,7 @@
       h += '<div style="display:flex;flex-direction:column;gap:10px">' + list.map(card).join('') + '</div>';
     }
     h += '<details style="margin-top:18px;background:#fff"><summary style="font-size:13.5px;font-weight:700;cursor:pointer">엑셀로 받기</summary>' +
-      '<p style="font-size:12.5px;color:var(--muted);margin:8px 0">회원 정보는 <b>이 기기에만</b> 저장돼요. 필요하면 엑셀 파일로 받아 보관하세요.</p>' +
+      '<p style="font-size:12.5px;color:var(--muted);margin:8px 0">로그인하면 회원 장부가 <b>계정에 저장</b>돼서 폰·PC 어디서나 같이 봐요. 로그인 전에는 이 기기에만 저장돼요. 엑셀로도 받아 둘 수 있어요.</p>' +
       '<div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="sub" data-m="export">엑셀로 받기</button></div></details>';
     box.innerHTML = h;
   }

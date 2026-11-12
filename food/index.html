@@ -159,7 +159,7 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
 }
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
 </style>
-<link rel="manifest" href="/food/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-food.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="푸드메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11121316"></script><script src="/assets/mate-install.js?v=11120006" defer></script>
+<link rel="manifest" href="/food/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-food.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="푸드메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11121459"></script><script src="/assets/mate-install.js?v=11120006" defer></script>
 </head>
 <body>
 <div class="app">
@@ -1225,7 +1225,17 @@ var CFG = {
     quotes: store.get('quotes', null) || SEED.quotes,
     box: store.get('box', [])
   };
-  function save(k){ store.set(k, DB[k]); }
+  function save(k){ store.set(k, DB[k]); if (window.alajoomSaved && SYNC_KEYS.indexOf(k) >= 0) window.alajoomSaved(k, DB[k]); }
+  /* 메뉴·장부·거래처·견적을 로그인한 계정에 저장(폰·PC 같이) */
+  var SYNC_KEYS = ['menus', 'parties', 'ledger', 'quotes'];
+  setTimeout(function(){
+    if (!window.alajoomSync) return;
+    window.alajoomSync({ keys: SYNC_KEYS,
+      get: function(k){ return DB[k]; },
+      has: function(k){ try { return !!localStorage.getItem('pm_' + CFG.title + '_' + k); } catch(e){ return false; } },
+      set: function(k, d){ if (Array.isArray(d)){ DB[k] = d; store.set(k, d); } },
+      done: function(){ try { setView(view); } catch(e){} toast('계정에 저장된 메뉴·장부를 불러왔어요'); } });
+  }, 900);
   function menuById(id){ return DB.menus.filter(function(m){ return m.id === id; })[0]; }
   function fillLists(){
     $('#partyList').innerHTML = DB.parties.map(function(p){ return '<option value="' + esc(p.name) + '">'; }).join('');

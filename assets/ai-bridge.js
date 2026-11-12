@@ -149,6 +149,41 @@
     }
   };
 
+  /* 운영 데이터(메뉴·장부·회원 장부) 계정 동기화
+     window.alajoomSync({ keys:[...], get:function(k){return data}, set:function(k,data){...} })
+     window.alajoomSaved(k, data) — 화면이 저장할 때 부름 */
+  var SY = null, pushT = {};
+  function atKey(k) { return 'al_sync_at_' + MATE + '_' + k; }
+  function getAt(k) { try { return +localStorage.getItem(atKey(k)) || 0; } catch (e) { return 0; } }
+  function setAt(k, t) { try { localStorage.setItem(atKey(k), String(t)); } catch (e) {} }
+  async function pushKey(k, data) {
+    var m = await me(); if (!m) return;
+    var at = getAt(k) || Date.now();
+    var r = await m.sb.from('mate_data').upsert({ user_id: m.uid, mate: MATE, key: k, data: data, updated_at: new Date(at).toISOString() });
+    if (r.error) console.warn('sync', k, r.error.message);
+  }
+  window.alajoomSaved = function (k, data) {
+    setAt(k, Date.now());
+    if (!SY) return;
+    clearTimeout(pushT[k]); pushT[k] = setTimeout(function () { pushKey(k, data); }, 1200);
+  };
+  window.alajoomSync = async function (cfg) {
+    SY = cfg;
+    try {
+      var m = await me(); if (!m) { SY = null; return; }
+      var q = await m.sb.from('mate_data').select('key,data,updated_at').eq('mate', MATE);
+      if (q.error) return;
+      var rows = {}; (q.data || []).forEach(function (r) { rows[r.key] = r; });
+      var pulled = 0;
+      for (var i = 0; i < cfg.keys.length; i++) {
+        var k = cfg.keys[i], r = rows[k], la = getAt(k), sa = r ? new Date(r.updated_at).getTime() : 0;
+        if (r && sa > la) { cfg.set(k, r.data); setAt(k, sa); pulled++; }
+        else if ((la && (!r || la > sa)) || (!r && cfg.has && cfg.has(k))) { if (!la) setAt(k, Date.now()); await pushKey(k, cfg.get(k)); }
+      }
+      if (pulled && cfg.done) cfg.done(pulled);
+    } catch (e) {}
+  };
+
   window.alajoomLogin = async function () {
     var sb = await client();
     sb.auth.signInWithOAuth({ provider: 'kakao', options: { redirectTo: location.origin + location.pathname } });
