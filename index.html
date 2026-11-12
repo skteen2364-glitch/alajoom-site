@@ -1720,6 +1720,10 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
 #dz-login .lg-err{display:none;margin:10px 0 0;font-size:13px;color:#C2410C;text-align:center}
 .dz-user{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 6px 0 4px;border:1px solid #E6E8ED;border-radius:999px;background:#FFFFFF;color:#14161F;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
 .dz-user img,.dz-user i{width:32px;height:32px;border-radius:50%;object-fit:cover;background:#FFE45C;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-weight:900}
+.dz-mymate{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px 0 6px;border:1px solid #E6E8ED;border-radius:999px;background:#FFFFFF;color:#14161F;font:inherit;font-size:13.5px;font-weight:800;text-decoration:none;white-space:nowrap;margin-right:6px}
+.dz-mymate img{width:30px;height:30px;border-radius:8px}
+.dz-mymate i{width:30px;height:30px;border-radius:8px;background:#FFE45C;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-weight:900}
+@media (max-width:380px){.dz-mymate b{display:none}.dz-mymate{padding:0 6px}}
 .dz-user span{max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:8px}
 #dz-usermenu{position:fixed;z-index:100001;display:none;min-width:180px;padding:8px;border-radius:14px;background:#FFFFFF;box-shadow:0 14px 34px rgba(20,22,31,.18);font-family:'Noto Sans KR',system-ui,sans-serif}
 #dz-usermenu.on{display:block}
@@ -1768,9 +1772,24 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
     if(!a||!kakaoOn||user||!/무료/.test(a.textContent))return;
     e.preventDefault();open('#mates');
   },true);
-  var chip=null;
+  var chip=null,mym=null,myType=null,LIVE={pilates:['필라테스메이트','/pilates/','/assets/icon-pilates-192.png'],food:['푸드메이트','/food/','/assets/icon-food-192.png']};
+  // 상단 '내 메이트' 바로가기: 로그인 + 업종이 있으면 그 메이트로, 아니면 메이트 고르기로
+  var renderMy=function(){
+    if(!headBtn)return;
+    if(!mym){mym=document.createElement('a');mym.className='dz-mymate';headBtn.parentNode.insertBefore(mym,headBtn);}
+    mym.style.display=user?'inline-flex':'none';
+    var m=user&&LIVE[myType];
+    if(m){mym.href=m[1];mym.innerHTML='<img src="'+m[2]+'" alt=""><b>'+m[0]+'</b>';mym.setAttribute('aria-label',m[0]+' 열기');}
+    else{mym.href='#mates';mym.innerHTML='<i aria-hidden="true">알</i><b>내 메이트 고르기</b>';mym.setAttribute('aria-label','메이트 고르기');}
+  };
+  var loadMy=function(){
+    if(!user){myType=null;renderMy();return;}
+    sb.from('profiles').select('business_type').eq('id',user.id).maybeSingle().then(function(q){myType=q&&q.data&&q.data.business_type||null;renderMy();},function(){renderMy();});
+  };
+  window.addEventListener('alajoom:onboarded',function(e){myType=e.detail&&e.detail.business_type;renderMy();});
   var render=function(){
     if(!headBtn)return;
+    renderMy();
     if(user){
       headBtn.style.setProperty('display','none','important');
       if(!chip){chip=document.createElement('button');chip.type='button';chip.className='dz-user';chip.setAttribute('aria-haspopup','menu');headBtn.parentNode.insertBefore(chip,headBtn);
@@ -1788,7 +1807,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
   um.querySelector('.um-out').addEventListener('click',function(){sb.auth.signOut().then(function(){um.classList.remove('on');});});
   document.addEventListener('click',function(e){if(chip&&!um.contains(e.target)&&!chip.contains(e.target))um.classList.remove('on');});
   sb.auth.onAuthStateChange(function(ev,session){
-    user=session?session.user:null;render();
+    user=session?session.user:null;render();loadMy();
     if(session&&window.alajoomOnboard)setTimeout(function(){window.alajoomOnboard(sb)},700);
     if(ev==='SIGNED_IN'){close();var h=null;try{h=sessionStorage.getItem('dz_after_login');sessionStorage.removeItem('dz_after_login')}catch(e){}
       if(h){setTimeout(function(){var t=document.querySelector(h);if(t)t.scrollIntoView({behavior:'smooth'});},400);}}
