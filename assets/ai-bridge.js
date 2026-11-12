@@ -41,6 +41,22 @@
     });
   }
 
+  async function raw(body) {
+    var sb = await client();
+    var s = (await sb.auth.getSession()).data.session;
+    if (!s) { toast('카카오로 로그인하면 AI가 직접 써 드려요'); var e0 = new Error('login'); e0.code = 'login_required'; throw e0; }
+    body.mate = MATE;
+    var r = await fetch(URL_ + '/functions/v1/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + s.access_token },
+      body: JSON.stringify(body)
+    });
+    var d = {}; try { d = await r.json(); } catch (e) {}
+    if (!r.ok) { toast(d.message || 'AI가 잠시 바빠요. 조금 뒤 다시 눌러 주세요'); var e1 = new Error(d.error || 'ai_error'); e1.code = d.error || 'ai_error'; throw e1; }
+    if (d.admin) setMode('진짜 AI 직원이 써요 · 관리자 무제한');
+    else if (d.used != null && d.limit) setMode('진짜 AI 직원이 써요 · 오늘 ' + Math.max(0, d.limit - d.used) + '회 남음');
+    return d;
+  }
   async function call(prompt, opts) {
     var sb = await client();
     var s = (await sb.auth.getSession()).data.session;
@@ -95,6 +111,43 @@
     };
     return f;
   }
+
+  /* 메이트 화면용 추가 기능: AI 직원 세트, 말투, 내 작업실(계정 저장) */
+  var uidP = null;
+  async function me() { var sb = await client(); var s = (await sb.auth.getSession()).data.session; return s ? { sb: sb, uid: s.user.id } : null; }
+  window.alajoomAI = {
+    loggedIn: async function () { try { return !!(await me()); } catch (e) { return false; } },
+    agent: async function (p) {
+      var body = { mode: 'agent', topic: p.topic, channels: p.channels, detail: p.detail, store: p.store, tool: 'set' };
+      if (p.image) body.image = await b64(p.image);
+      return raw(body);
+    },
+    learnVoice: function (samples) { return raw({ mode: 'voice', samples: samples, tool: 'voice' }); },
+    getVoice: async function () { var m = await me(); if (!m) return null; var q = await m.sb.from('profiles').select('voice').eq('id', m.uid).maybeSingle(); var v = q.data && q.data.voice || {}; return v[MATE] || null; },
+    saveVoice: async function (text) {
+      var m = await me(); if (!m) return false;
+      var q = await m.sb.from('profiles').select('voice').eq('id', m.uid).maybeSingle(); var v = (q.data && q.data.voice) || {};
+      if (text) v[MATE] = { text: String(text).slice(0, 1500), at: new Date().toISOString() }; else delete v[MATE];
+      var r = await m.sb.from('profiles').update({ voice: v }).eq('id', m.uid); return !r.error;
+    },
+    works: {
+      list: async function () {
+        var m = await me(); if (!m) return null;
+        var q = await m.sb.from('works').select('id,tool,title,data,photo,created_at,updated_at,deleted_at').eq('mate', MATE).order('updated_at', { ascending: false }).limit(200);
+        return q.error ? null : q.data;
+      },
+      put: async function (w, blob) {
+        var m = await me(); if (!m) return false;
+        var data = {}; Object.keys(w).forEach(function (k) { if (['id', 'tool', 'created', 'updated', 'photo', 'title'].indexOf(k) < 0) data[k] = w[k]; });
+        var r = await m.sb.from('works').upsert({ user_id: m.uid, id: w.id, mate: MATE, tool: w.tool, title: String(w.title || '').slice(0, 120), data: data, photo: !!w.photo, created_at: w.created, updated_at: w.updated, deleted_at: null });
+        if (!r.error && blob) await m.sb.storage.from('work-photos').upload(m.uid + '/' + w.id + '.jpg', blob, { upsert: true, contentType: blob.type || 'image/jpeg' });
+        return !r.error;
+      },
+      trash: async function (id, on) { var m = await me(); if (!m) return false; var r = await m.sb.from('works').update({ deleted_at: on ? new Date().toISOString() : null }).eq('user_id', m.uid).eq('id', id); return !r.error; },
+      purge: async function (id) { var m = await me(); if (!m) return false; await m.sb.storage.from('work-photos').remove([m.uid + '/' + id + '.jpg']); var r = await m.sb.from('works').delete().eq('user_id', m.uid).eq('id', id); return !r.error; },
+      photo: async function (id) { var m = await me(); if (!m) return null; var r = await m.sb.storage.from('work-photos').download(m.uid + '/' + id + '.jpg'); return r.error ? null : r.data; }
+    }
+  };
 
   window.alajoomLogin = async function () {
     var sb = await client();
