@@ -24,7 +24,7 @@
     window.alajoomSync({ keys: ['members'],
       get: function () { return DB; },
       has: function () { try { return !!localStorage.getItem(KEY); } catch (e) { return false; } },
-      set: function (k, d) { if (d && Array.isArray(d.members)) { DB = d; DB.book = DB.book || []; try { localStorage.setItem(KEY, JSON.stringify(DB)); } catch (e) {} } },
+      set: function (k, d) { if (d && Array.isArray(d.members)) { DB = d; DB.book = DB.book || []; DB.classes = DB.classes || []; try { localStorage.setItem(KEY, JSON.stringify(DB)); } catch (e) {} } },
       done: function () { render(); var hv = $('#v-home'); if (hv && !hv.classList.contains('hidden')) window.dispatchEvent(new CustomEvent('alajoom:tab', { detail: 'home' })); toast('계정에 저장된 회원 장부를 불러왔어요'); } });
   }, 900);
   function toast(t) { var el = $('#toast'); if (!el) return; el.textContent = t; el.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(function () { el.classList.remove('on'); }, 1800); }
@@ -43,6 +43,7 @@
 
   var view = { filter: 'all', q: '', sub: 'list', mon: ymd().slice(0, 7) };
   DB.book = DB.book || [];
+  DB.classes = DB.classes || [];
 
   /* ---------- 매출 장부: 회원 결제는 자동, 그 밖의 매출·지출은 직접 ---------- */
   function bookRows(mon) {
@@ -104,8 +105,9 @@
     }).sort(function (a, b) { return a.name.localeCompare(b.name, 'ko'); });
 
     var subb = function (v, l) { return '<button type="button" data-m="sub" data-v="' + v + '" aria-pressed="' + (view.sub === v) + '" style="flex:1;min-height:40px;border:0;border-bottom:3px solid ' + (view.sub === v ? 'var(--ink)' : 'transparent') + ';background:none;font:inherit;font-size:14.5px;font-weight:800;color:' + (view.sub === v ? 'var(--ink)' : 'var(--muted)') + ';cursor:pointer">' + l + '</button>'; };
-    var top = '<div style="display:flex;margin:0 0 14px;border-bottom:1px solid var(--line)">' + subb('list', '회원') + subb('book', '매출 장부') + '</div>';
+    var top = '<div style="display:flex;margin:0 0 14px;border-bottom:1px solid var(--line)">' + subb('list', '회원') + subb('cls', '시간표') + subb('book', '매출 장부') + '</div>';
     if (view.sub === 'book') { box.innerHTML = top; renderBook(box); return; }
+    if (view.sub === 'cls') { box.innerHTML = top; renderClasses(box); return; }
     var stat = function (n, l, f) { return '<button type="button" class="mb-stat" data-m="filter" data-v="' + f + '" style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 6px;text-align:center;font:inherit;cursor:pointer"><b style="display:block;font-size:20px;font-weight:900">' + n + '</b><span style="font-size:12px;color:var(--muted)">' + l + '</span></button>'; };
     var h = top;
     h += '<div style="display:flex;gap:8px;margin:0 0 10px">' + stat(active.length, '수강 중', 'all') + stat(renew.length, '재등록 안내', 'renew') + stat(away.length, '오래 안 옴', 'away') + '</div>';
@@ -139,6 +141,38 @@
       '</article>';
   }
 
+
+  /* ---------- 수업 시간표 ---------- */
+  var DOWS = ['월', '화', '수', '목', '금', '토', '일'];
+  function sortedClasses() { return DB.classes.slice().sort(function (a, b) { return a.day - b.day || (a.time || '').localeCompare(b.time || ''); }); }
+  function renderClasses(box) {
+    var cs = sortedClasses();
+    var h = '<p style="margin:0 0 12px;font-size:13px;color:var(--muted)">요일별 수업을 적어 두면 <b>오늘</b> 화면에 오늘 수업이 보이고, <b>시간표 카드</b>를 만들 때 자동으로 들어가요.</p>';
+    h += '<button type="button" class="go" data-m="cnew" style="justify-content:center;margin:0 0 12px;width:100%">+ 수업 추가</button>';
+    if (!cs.length) h += '<p style="text-align:center;color:var(--muted);padding:12px 0">아직 시간표가 없어요</p>';
+    else DOWS.forEach(function (dn, di) {
+      var list = cs.filter(function (c) { return c.day === di; }); if (!list.length) return;
+      h += '<p style="margin:12px 0 6px;font-size:13px;font-weight:900">' + dn + '요일</p><div style="display:flex;flex-direction:column;gap:6px">' + list.map(function (c) {
+        return '<button type="button" data-m="cedit" data-id="' + c.id + '" style="display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 14px;font:inherit;text-align:left;cursor:pointer"><b style="flex:none;font-size:15px;min-width:52px">' + esc(c.time) + '</b><span style="flex:1;min-width:0;font-size:14px">' + esc(c.name) + (c.teacher ? ' <small style="color:var(--muted)">· ' + esc(c.teacher) + '</small>' : '') + '</span>' + (c.cap ? '<span style="flex:none;font-size:12.5px;color:var(--muted)">정원 ' + c.cap + '명</span>' : '') + '</button>';
+      }).join('') + '</div>';
+    });
+    box.insertAdjacentHTML('beforeend', h);
+  }
+  function classForm(c) {
+    var isNew = !c; c = c || { day: (new Date().getDay() + 6) % 7, time: '10:00', name: '', cap: 4 };
+    openDlg('<h2>' + (isNew ? '수업 추가' : '수업 고치기') + '</h2>' +
+      '<label>요일</label>' + '<div class="chips" role="group">' + DOWS.map(function (d, i) { return '<button type="button" class="chip" data-m="cday" data-v="' + i + '" aria-pressed="' + (i === c.day) + '">' + d + '</button>'; }).join('') + '</div><input type="hidden" id="cDay" value="' + c.day + '">' +
+      '<div style="display:flex;gap:8px"><label style="flex:1">시간<input type="time" id="cTime" value="' + esc(c.time) + '" style="width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;font:inherit"></label><label style="flex:1">정원(명)<input type="text" id="cCap" inputmode="numeric" value="' + (c.cap || '') + '"></label></div>' +
+      '<label>수업 이름<input type="text" id="cName" maxlength="30" value="' + esc(c.name) + '" placeholder="예: 기구 그룹, 매트 필라테스"></label>' +
+      '<label>강사 (선택)<input type="text" id="cTeacher" maxlength="15" value="' + esc(c.teacher) + '"></label>' +
+      (isNew ? '<label style="display:flex;gap:8px;align-items:center;font-size:14px"><input type="checkbox" id="cWeekdays"> 월~금 같은 시간에 모두 추가</label>' : '') +
+      '<div class="row" style="display:flex;gap:8px">' + (isNew ? '' : '<button type="button" class="sub" data-m="cdel" data-id="' + c.id + '" style="color:#C2410C">삭제</button>') + '<button type="button" class="sub" data-m="close">취소</button><button type="button" class="sub primary" data-m="csave" data-id="' + (isNew ? '' : c.id) + '">저장</button></div>');
+  }
+  window.alajoomTodayClasses = function () { var d = (new Date().getDay() + 6) % 7; return sortedClasses().filter(function (c) { return c.day === d; }); };
+  window.alajoomWeekSchedule = function () {
+    var cs = sortedClasses(); if (!cs.length) return '';
+    return DOWS.map(function (dn, di) { var l = cs.filter(function (c) { return c.day === di; }); return l.length ? dn + ' ' + l.map(function (c) { return c.time + ' ' + c.name; }).join(', ') : ''; }).filter(Boolean).join(' / ');
+  };
   /* ---------- 회원 상세 / 등록 ---------- */
   var dlg;
   function openDlg(html) {
@@ -264,6 +298,18 @@
     var a = t.dataset.m, id = t.dataset.id, m = id && find(id);
     if (a === 'filter') { view.filter = t.dataset.v; render(); return; }
     if (a === 'sub') { view.sub = t.dataset.v; render(); return; }
+    if (a === 'cnew') return classForm(null);
+    if (a === 'cedit') { var cc = DB.classes.filter(function (x) { return x.id === id; })[0]; if (cc) classForm(cc); return; }
+    if (a === 'cday') { t.parentNode.querySelectorAll('.chip').forEach(function (b) { b.setAttribute('aria-pressed', b === t); }); $('#cDay', dlg).value = t.dataset.v; return; }
+    if (a === 'cdel') { if (t.dataset.arm !== '1') { t.dataset.arm = '1'; t.textContent = '정말 삭제?'; return; } DB.classes = DB.classes.filter(function (x) { return x.id !== id; }); save(); closeDlg(); render(); toast('수업을 지웠어요'); return; }
+    if (a === 'csave') {
+      var nm = $('#cName', dlg).value.trim(), tm = $('#cTime', dlg).value; if (!nm || !tm) { toast('시간과 수업 이름을 적어주세요'); return; }
+      var rec = { day: +$('#cDay', dlg).value, time: tm, name: nm, cap: num($('#cCap', dlg).value), teacher: $('#cTeacher', dlg).value.trim() };
+      if (id) { var ex = DB.classes.filter(function (x) { return x.id === id; })[0]; Object.keys(rec).forEach(function (k) { ex[k] = rec[k]; }); }
+      else if ($('#cWeekdays', dlg) && $('#cWeekdays', dlg).checked) { [0, 1, 2, 3, 4].forEach(function (d) { DB.classes.push(Object.assign({}, rec, { id: uid(), day: d })); }); }
+      else DB.classes.push(Object.assign({ id: uid() }, rec));
+      save(); closeDlg(); view.sub = 'cls'; render(); toast('시간표에 저장했어요'); return;
+    }
     if (a === 'mon') { view.mon = shiftMon(view.mon, +t.dataset.v); render(); return; }
     if (a === 'bnew') return bookForm();
     if (a === 'bdel') { if (t.dataset.arm !== '1') { t.dataset.arm = '1'; t.textContent = '삭제?'; t.style.color = '#C2410C'; t.style.fontSize = '12px'; return; } DB.book = DB.book.filter(function (b) { return b.id !== id; }); save(); render(); toast('지웠어요'); return; }

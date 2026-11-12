@@ -135,7 +135,7 @@ dialog::backdrop{background:rgba(20,22,31,.45)}
   .dlg,dialog{max-width:520px}
 }
 </style>
-<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11121459"></script><script src="/pilates/members.js?v=11121522" defer></script><script src="/assets/mate-install.js?v=11120006" defer></script>
+<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11121459"></script><script src="/pilates/members.js?v=11121526" defer></script><script src="/assets/mate-install.js?v=11120006" defer></script>
 </head>
 <body>
 <div class="app">
@@ -1092,6 +1092,9 @@ var CFG = {
     var h = '<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:2px 0 12px"><div><p style="margin:0;font-size:13px;color:var(--muted)">' + (now.getMonth() + 1) + '월 ' + now.getDate() + '일 ' + days[now.getDay()] + '요일</p><h1 style="margin:2px 0 0;font-size:22px">원장님, 오늘 챙길 일이에요</h1></div></div>';
     var card = function(n, l, tab, hl){ return '<button type="button" data-home="' + tab + '" style="flex:1 1 0;min-width:0;border:1px solid ' + (hl ? 'var(--ink)' : 'var(--line)') + ';background:' + (hl ? 'var(--ink)' : '#fff') + ';color:' + (hl ? '#fff' : 'var(--ink)') + ';border-radius:16px;padding:12px 6px;text-align:center;font:inherit;cursor:pointer"><b style="display:block;font-size:19px;font-weight:900;' + (hl ? 'color:var(--yellow)' : '') + '">' + n + '</b><span style="font-size:12px;' + (hl ? 'opacity:.8' : 'color:var(--muted)') + '">' + l + '</span></button>'; };
     if (st) h += '<div style="display:flex;gap:8px;margin:0 0 12px">' + card(st.today + '명', '오늘 출석', 'members', false) + card(st.active + '명', '수강 중', 'members', false) + card(won(st.sales).replace('원', ''), '이번 달 매출(원)', 'members', true) + '</div>';
+    var tc = window.alajoomTodayClasses ? window.alajoomTodayClasses() : [];
+    h += '<section class="panel" style="padding:14px 16px;margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:center"><h2 style="margin:0;font-size:16px">오늘 수업</h2><button type="button" data-hcls="1" style="border:0;background:none;font:inherit;font-size:13px;font-weight:800;color:var(--blue);cursor:pointer;min-height:36px">시간표 ' + (tc.length ? '보기' : '만들기') + '</button></div>' +
+      (tc.length ? '<div style="display:flex;gap:8px;overflow-x:auto;padding:8px 0 2px">' + tc.map(function(c){ return '<div style="flex:none;min-width:116px;border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:var(--ivory)"><b style="display:block;font-size:16px">' + esc(c.time) + '</b><span style="font-size:13px">' + esc(c.name) + '</span>' + (c.cap ? '<small style="display:block;color:var(--muted);font-size:11.5px">정원 ' + c.cap + '명</small>' : '') + '</div>'; }).join('') + '</div>' : '<p style="margin:6px 0 0;font-size:13.5px;color:var(--muted)">시간표를 적어 두면 오늘 수업이 여기 보여요.</p>') + '</section>';
     // 할 일
     var todo = [];
     if (st){
@@ -1110,7 +1113,8 @@ var CFG = {
     box.innerHTML = h;
   }
   document.addEventListener('click', function(e){
-    var t = e.target.closest('[data-home],[data-hgo],[data-hsms],[data-hvoice]'); if (!t) return;
+    var t = e.target.closest('[data-home],[data-hgo],[data-hsms],[data-hvoice],[data-hcls]'); if (!t) return;
+    if (t.dataset.hcls){ window.alajoomTab('members'); var sb = document.querySelector('#v-members [data-m="sub"][data-v="cls"]'); if (sb) sb.click(); return; }
     if (t.dataset.home && window.alajoomTab) return window.alajoomTab(t.dataset.home);
     if (t.dataset.hsms && window.alajoomMemberSms) return window.alajoomMemberSms(t.dataset.hsms);
     if (t.dataset.hvoice) return vOpen();
@@ -1121,7 +1125,7 @@ var CFG = {
   document.addEventListener('click', async function(e){
     var t = e.target.closest('button'); if (!t) return;
     if (t.dataset.tool){ if (e.isTrusted) window.alajoomRecipient = null; tool = t.dataset.tool; document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); renderPanel(); $('#panel').scrollIntoView({behavior:'smooth', block:'start'}); return; }
-    if (t.classList.contains('chip') && t.dataset.k){ pick[t.dataset.k] = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); return; }
+    if (t.classList.contains('chip') && t.dataset.k){ if (tool === 'card' && t.dataset.k === 'topic' && t.dataset.v === '이번 주 시간표' && window.alajoomWeekSchedule && $('#detail') && !$('#detail').value.trim()){ var ws = window.alajoomWeekSchedule(); if (ws){ $('#detail').value = ws; toast('시간표를 넣었어요'); } } pick[t.dataset.k] = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); return; }
     if (t.id === 'go'){ curWork = null; return generate(); }
     if (t.dataset.chm){ var c = t.dataset.chm, i = setSel.indexOf(c); if (i >= 0) setSel.splice(i, 1); else setSel.push(c); t.setAttribute('aria-pressed', i < 0); return; }
     if (t.dataset.setc){ if (setRes && $('#out')) setRes[setCur] = $('#out').innerText; setCur = t.dataset.setc; showSet(''); return; }
