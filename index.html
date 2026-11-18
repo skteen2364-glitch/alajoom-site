@@ -947,6 +947,18 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 <p class="lead" style="margin: 0; font-size: 17px; color: #4A5060">테스트할 수 있는 업종은 바로 써보고, 준비 중인 업종은 문의로 먼저 안내받으세요.</p>
 </div>
 <div class="mate-grid" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
+<article class="mate-card is-live" data-mate="skin" tabindex="0" role="button" aria-label="스킨메이트 소개 보기" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
+<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #F6E3E9; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
+<span class="mv-badge">● 바로 써보기</span><div class="mv-tile"><small>이달의 관리</small><b>촉촉한 수분 관리<br>평일 오전 2자리</b><em>#피부관리 #1인샵</em></div><span class="mv-play">결과물 예시</span>
+</div>
+<div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
+<div style="flex-grow: 1">
+<p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">스킨메이트</p>
+<p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">피부관리·에스테틱</p>
+</div>
+<a class="mate-btn" data-open-mate="skin" href="/skin/" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; background: #14161F; color: #FFFFFF; font-size: 14px; font-weight: 700; text-decoration: none">소개 보고 써보기</a>
+</div>
+</article>
 <article class="mate-card is-live" data-mate="beau" data-video="assets/beaumate-short.mp4" tabindex="0" role="button" aria-label="뷰메이트 소개 보기" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
 <div class="mate-visual" style="aspect-ratio: 4 / 3; background: #EFE3E0; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
 <span class="mv-badge">● 바로 써보기</span><img src="assets/beaumate-poster.jpg" alt="뷰메이트 소개 영상 첫 장면" loading="lazy" style="object-position:50% 12%"><span class="mv-play">▶ 소개 영상</span>
@@ -1424,6 +1436,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
       var D = {
         beau: ['BEAUTY', '뷰메이트', '피부관리·에스테틱 사장님 전용 AI 직원', ['시술 전후 사진을 올리면', '인스타·블로그 홍보글과 해시태그를 만들어요', '사장님이 확인만 누르면 끝'], ''],
         funi: ['FURNITURE', '퍼니메이트', '가구·인테리어 사장님 전용 AI 직원', ['제품·시공 사진을 올리면', '상세 홍보글과 홍보 이미지를 만들어요', '사장님이 확인만 누르면 끝'], 'https://funnymate.co.kr/intro'],
+        skin: ['SKIN CARE', '스킨메이트', '피부관리·에스테틱 원장님 전용 AI 직원', ['AI 직원 세트로 인스타·블로그·릴스를 한 번에', '고객 장부·관리권·시술 기록·예약', '왁싱·속눈썹 등 하는 시술 모두 메뉴에 넣고, 말로 시키고 카톡으로 보내기'], ''],
         pilates: ['FITNESS', '필라테스메이트', '필라테스·요가 스튜디오 사장님 전용', ['AI 직원 세트로 인스타·블로그·릴스를 한 번에', '회원 장부·출석 체크·재등록 안내', '말로 시키고 회원에게 카톡으로 바로 보내기'], ''],
         food: ['RESTAURANT', '푸드메이트', '음식점·카페·반찬가게 사장님 전용 AI 직원', ['AI 직원 세트로 인스타·블로그·릴스·문자를 한 번에', '메뉴판·전단·가격표(POP)와 단체 주문 견적', '주문·납품 장부, 말로 시키고 카톡으로 바로 보내기'], '']
       };
@@ -1580,7 +1593,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 })();
 </script>
 <style>html,body{overflow-x:clip;max-width:100%}@supports not (overflow-x:clip){body{overflow-x:hidden}}</style>
-<script src="/assets/mate-picker.js?v=11120006" defer></script><script src="/assets/mate-nav.js?v=11121800" defer></script>
+<script src="/assets/mate-picker.js?v=11181530" defer></script><script src="/assets/mate-nav.js?v=11181530" defer></script>
 <div id="dz-install" role="dialog" aria-label="홈 화면에 추가" style="display:none;position:fixed;left:12px;right:12px;bottom:14px;z-index:9999;max-width:420px;margin:0 auto;padding:12px 12px 12px 14px;border-radius:18px;background:#14161F;color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.28);align-items:center;gap:12px;font-size:14px;line-height:1.4">
 <img src="/assets/icon-192.png" alt="" width="40" height="40" style="border-radius:10px;flex:none">
 <div style="flex:1;min-width:0"><b style="display:block;font-size:14.5px">내 메이트만 바탕화면에</b><span id="dz-install-msg" style="color:#C9CCD6;font-size:12.5px">필요한 메이트만 골라 깔 수 있어요</span></div>
@@ -1743,7 +1756,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
 </div>
 <div id="dz-usermenu" role="menu"><p class="um-name"></p><button type="button" class="um-out" role="menuitem">로그아웃</button></div>
 <script src="/assets/supabase-2.119.0.js"></script>
-<script src="/assets/onboard.js?v=11120006"></script>
+<script src="/assets/onboard.js?v=11181530"></script>
 <script>
 (function(){
   var URL_='https://zuxbloxstkcixqpzqalk.supabase.co', KEY='sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH';
@@ -1772,7 +1785,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
     if(!a||!kakaoOn||user||!/무료/.test(a.textContent))return;
     e.preventDefault();open('#mates');
   },true);
-  var chip=null,mym=null,myType=null,LIVE={pilates:['필라테스메이트','/pilates/','/assets/icon-pilates-192.png'],food:['푸드메이트','/food/','/assets/icon-food-192.png']};
+  var chip=null,mym=null,myType=null,LIVE={skin:['스킨메이트','/skin/','/assets/icon-skin-192.png'],pilates:['필라테스메이트','/pilates/','/assets/icon-pilates-192.png'],food:['푸드메이트','/food/','/assets/icon-food-192.png']};
   // 상단 '내 메이트' 바로가기: 로그인 + 업종이 있으면 그 메이트로, 아니면 메이트 고르기로
   var renderMy=function(){
     if(!headBtn)return;

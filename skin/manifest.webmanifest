@@ -1,0 +1,61 @@
+{
+  "id": "/skin/",
+  "name": "스킨메이트 · 알아줌",
+  "short_name": "스킨메이트",
+  "description": "피부관리샵 홍보글·고객 문자·리뷰 답글·고객 장부·예약을 AI가 도와드려요",
+  "lang": "ko",
+  "start_url": "/skin/?source=homescreen",
+  "scope": "/skin/",
+  "display": "standalone",
+  "background_color": "#FFF8E7",
+  "theme_color": "#FFF8E7",
+  "icons": [
+    {
+      "src": "/assets/icon-skin-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-skin-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-skin-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icon-skin-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "고객 장부",
+      "short_name": "고객 장부",
+      "url": "/skin/?tab=members&source=homescreen",
+      "icons": [
+        {
+          "src": "/assets/icon-skin-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "AI로 만들기",
+      "url": "/skin/?source=homescreen",
+      "icons": [
+        {
+          "src": "/assets/icon-skin-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

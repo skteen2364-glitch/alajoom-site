@@ -67,9 +67,9 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
   var sb = window.supabase.createClient(URL_, KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' } });
   var $ = function(s){ return document.querySelector(s); };
   var esc = function(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
-  var TYPE = { food:'음식점', cafe:'카페', bakery:'베이커리', pilates:'필라테스·요가', beau:'피부관리', nail:'네일', hair:'미용실', funi:'가구', flower:'꽃집', pet:'애견미용', etc:'기타', '미입력':'미입력' };
+  var TYPE = { food:'음식점', cafe:'카페', bakery:'베이커리', pilates:'필라테스·요가', skin:'피부관리', beau:'피부관리', nail:'네일', hair:'미용실', funi:'가구', flower:'꽃집', pet:'애견미용', etc:'기타', '미입력':'미입력' };
   var TOOL = { photo:'사진 홍보', post:'홍보글', card:'안내 카드', sms:'문자', review:'리뷰 답글', set:'AI 직원 세트', voice:'말투 배우기', board:'메뉴판', pop:'가격표', insta:'인스타', blog:'블로그', other:'기타' };
-  var MATE = { pilates:'필라테스메이트', food:'푸드메이트', beau:'뷰메이트' };
+  var MATE = { skin:'스킨메이트', pilates:'필라테스메이트', food:'푸드메이트', beau:'뷰메이트' };
   var D = null, q = '', onlyMkt = false;
 
   function gate(title, body, login){

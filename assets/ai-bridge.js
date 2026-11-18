@@ -6,7 +6,7 @@
   if (window.claude && window.claude.use) return;
   var URL_ = 'https://zuxbloxstkcixqpzqalk.supabase.co';
   var KEY = 'sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH';
-  var MATE = (location.pathname.match(/^\/(food|pilates|beau|funi|nail|hair|cafe|bakery|flower|pet)\b/) || [])[1] || 'food';
+  var MATE = (location.pathname.match(/^\/(food|pilates|skin|beau|funi|nail|hair|cafe|bakery|flower|pet)\b/) || [])[1] || 'food';
   var sbP = null;
 
   function lib() {
@@ -157,14 +157,16 @@
   /* 운영 데이터(메뉴·장부·회원 장부) 계정 동기화
      window.alajoomSync({ keys:[...], get:function(k){return data}, set:function(k,data){...} })
      window.alajoomSaved(k, data) — 화면이 저장할 때 부름 */
+  // 뷰티 메이트(스킨·네일·헤어)는 고객 장부·시술 메뉴·매출을 같이 쓴다
+  var DMATE = { skin: 'beauty', nail: 'beauty', hair: 'beauty' }[MATE] || MATE;
   var SY = null, pushT = {};
-  function atKey(k) { return 'al_sync_at_' + MATE + '_' + k; }
+  function atKey(k) { return 'al_sync_at_' + DMATE + '_' + k; }
   function getAt(k) { try { return +localStorage.getItem(atKey(k)) || 0; } catch (e) { return 0; } }
   function setAt(k, t) { try { localStorage.setItem(atKey(k), String(t)); } catch (e) {} }
   async function pushKey(k, data) {
     var m = await me(); if (!m) return;
     var at = getAt(k) || Date.now();
-    var r = await m.sb.from('mate_data').upsert({ user_id: m.uid, mate: MATE, key: k, data: data, updated_at: new Date(at).toISOString() });
+    var r = await m.sb.from('mate_data').upsert({ user_id: m.uid, mate: DMATE, key: k, data: data, updated_at: new Date(at).toISOString() });
     if (r.error) console.warn('sync', k, r.error.message);
   }
   window.alajoomSaved = function (k, data) {
@@ -176,7 +178,7 @@
     SY = cfg;
     try {
       var m = await me(); if (!m) { SY = null; return; }
-      var q = await m.sb.from('mate_data').select('key,data,updated_at').eq('mate', MATE);
+      var q = await m.sb.from('mate_data').select('key,data,updated_at').eq('mate', DMATE);
       if (q.error) return;
       var rows = {}; (q.data || []).forEach(function (r) { rows[r.key] = r; });
       var pulled = 0;
@@ -210,7 +212,7 @@
         syncProfile(sb, s.user.id);
         window.addEventListener('alajoom:onboarded', function () { syncProfile(sb, s.user.id); });
         window.addEventListener('alajoom:studio-saved', function (ev) { saveStudio(sb, s.user.id, ev.detail); });
-        var ob = document.createElement('script'); ob.src = '/assets/onboard.js?v=11120006'; ob.onload = function () { window.alajoomOnboard && window.alajoomOnboard(sb); }; document.head.appendChild(ob);
+        var ob = document.createElement('script'); ob.src = '/assets/onboard.js?v=11181530'; ob.onload = function () { window.alajoomOnboard && window.alajoomOnboard(sb); }; document.head.appendChild(ob);
         return makeSample();
       } catch (e) { return null; }
     }

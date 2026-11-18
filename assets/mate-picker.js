@@ -4,6 +4,7 @@
 (function () {
   if (window.alajoomPickMate) return;
   var LIVE = [
+    { key: 'skin', name: '스킨메이트', sub: '피부관리·에스테틱', icon: '/assets/icon-skin-192.png' },
     { key: 'pilates', name: '필라테스메이트', sub: '필라테스·요가 스튜디오', icon: '/assets/icon-pilates-192.png' },
     { key: 'food', name: '푸드메이트', sub: '음식점·식당', icon: '/assets/icon-food-192.png' }
   ];

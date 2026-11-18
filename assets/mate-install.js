@@ -3,6 +3,7 @@
    window.alajoomShowInstall() 로도 열 수 있다(첫 로그인 직후 등). */
 (function () {
   var MATES = {
+    skin: { name: '스킨메이트', icon: '/assets/icon-skin-192.png' },
     pilates: { name: '필라테스메이트', icon: '/assets/icon-pilates-192.png' },
     food: { name: '푸드메이트', icon: '/assets/icon-food-192.png' }
   };
