@@ -621,7 +621,7 @@ var CFG = {
       var gx = 90, gy = tall > 1.5 ? 300 : 110, gw = W - 180, gh = H - gy * 2;
       x.shadowColor = 'rgba(184,60,102,.18)'; x.shadowBlur = 60; x.shadowOffsetY = 20; x.fillStyle = 'rgba(255,255,255,.88)'; roundRect(x, gx, gy, gw, gh, 48); x.fill(); x.shadowColor = 'transparent';
       var ih = 0; if (im){ ih = Math.round(gh * .42); x.save(); roundRect(x, gx + 30, gy + 30, gw - 60, ih, 32); x.clip(); cover(x, im, gx + 30, gy + 30, gw - 60, ih); x.restore(); ih += 30; }
-      y = gy + ih + 60; if (c.kicker){ pill(x, c.kicker, gx + 50, y, ACC, '#FFFFFF', 32); y += 70; }
+      y = im ? gy + ih + 60 : gy + Math.max(80, (gh - 300 - 120 * 2 - 62 * Math.min(4, (c.lines || []).length)) / 2); if (c.kicker){ pill(x, c.kicker, gx + 50, y, ACC, '#FFFFFF', 32); y += 70; }
       y = titleBlock(x, c, gx + 50, y + 10, gw - 100, im ? 76 : 96, '#1F2230', 2);
       linesBlock(x, c, gx + 50, y + 10, gw - 100, 38, '#3A3F4C', ACC, im ? 2 : 4);
       x.font = '900 38px ' + CF; x.fillStyle = '#1F2230'; x.fillText(studio.name || '', gx + 50, gy + gh - 50);
