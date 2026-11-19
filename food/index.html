@@ -285,6 +285,7 @@ header .brand:active{opacity:.7}
 .ai-go{min-height:52px;border:0;border-radius:14px;background:linear-gradient(90deg,#7C3AED,#DB2777);color:#fff;font:inherit;font-size:16px;font-weight:900;cursor:pointer}
 .ai-go:disabled{opacity:.75;cursor:wait}
 .ai-note{font-size:12px!important}
+.ai-ex{display:flex;align-items:center;gap:6px}.ai-ex figure{flex:1;margin:0;min-width:0}.ai-ex img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block}.ai-ex figcaption{font-size:11.5px;color:var(--muted);text-align:center;margin-top:4px}.ai-ex span{font-weight:900;color:#DB2777}
 </style>
 <link rel="manifest" href="/food/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-food.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="푸드메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11191700"></script><script src="/assets/mate-install.js?v=11181530" defer></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap">
@@ -378,8 +379,8 @@ var CFG = {
   photo:{
     outputs:[
       {key:'enhance', live:true, name:'보정 원본', desc:'찍은 사진을 밝고 맛있게'},
-      {key:'table', live:false, name:'깔끔한 테이블', desc:'정돈된 배경으로 메뉴만 돋보이게', long:'배경의 잡동사니를 정리하고 깨끗한 테이블 위에 메뉴만 놓인 사진으로 바꿔요. 배달앱·네이버 메뉴 사진에 좋아요.', examples:['배달앱 대표 사진','네이버 메뉴 사진']},
       {key:'mood', live:false, name:'감성 연출컷', desc:'자연광 테이블 세팅, 화보처럼', long:'창가 자연광, 어울리는 소품과 함께 잡지 화보처럼 분위기 있게 연출해요. 인스타 피드에 좋아요.', examples:['인스타 피드','신메뉴 홍보']},
+      {key:'table', live:false, name:'깔끔한 테이블', desc:'정돈된 배경으로 메뉴만 돋보이게', long:'배경의 잡동사니를 정리하고 깨끗한 테이블 위에 메뉴만 놓인 사진으로 바꿔요. 배달앱·네이버 메뉴 사진에 좋아요.', examples:['배달앱 대표 사진','네이버 메뉴 사진']},
       {key:'top', live:false, name:'메뉴판 정면컷', desc:'위에서 내려다본 메뉴판용', long:'위에서 내려다본 구도로 반듯하게 정리해요. 메뉴판·포스터·카드에 넣기 좋아요.', examples:['메뉴판','매장 포스터']}
     ],
     hint:'음식, 가게 안, 간판 사진 모두 좋아요', warm:10, textPh:'예: NEW · 오늘의 메뉴', detailPh:'예: 들기름 막국수 9,000원, 11월 한정',
@@ -963,7 +964,7 @@ var CFG = {
     if (ph.ai && ph.ai[o.key]){ useAI(o); soon.classList.add('hidden'); ed.style.display = 'flex'; return; }
     ed.style.display = 'none'; soon.classList.remove('hidden'); soon.className = 'ai-box';
     var prev = ph.src ? srcCanvas(900).toDataURL('image/jpeg', .85) : '';
-    soon.innerHTML = '<b>' + o.name + '</b><p>' + o.long + '</p>' + (prev ? '<div class="ai-prev" id="aiPrev"><img alt="올린 원본 사진" src="' + prev + '"></div>' : '') +
+    soon.innerHTML = '<b>' + o.name + '</b><p>' + o.long + '</p>' + (o.key === 'mood' && /\/food\//.test(location.pathname) ? '<div class="ai-ex"><figure><img src="/assets/food-ai-before.jpg" alt="예시 원본"><figcaption>대충 찍은 원본</figcaption></figure><span>→</span><figure><img src="/assets/food-ai-after.jpg" alt="예시 AI 매장 연출"><figcaption>AI 매장 연출</figcaption></figure></div>' : '') + (prev ? '<div class="ai-prev" id="aiPrev"><img alt="올린 원본 사진" src="' + prev + '"></div>' : '') +
       '<button type="button" class="ai-go" data-act="aigo">AI로 만들기</button>' +
       '<p class="ai-note">10~20초 걸려요 · 하루 3장 무료 · 마음에 안 들면 다시 만들 수 있어요' + (o.mark ? ' · 배경을 바꾼 사진엔 작은 \'AI 연출\' 표시가 들어가요' : '') + '</p>' +
       '<button type="button" class="sub" data-out="enhance">기본 보정으로 하기</button>';
