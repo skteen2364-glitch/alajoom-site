@@ -234,6 +234,18 @@ header .brand:active{opacity:.7}
   #result.igm .ig-ic svg{width:23px;height:23px}
   #result.igm #out{border-radius:0 0 16px 16px;border-top:0;background:#fff;max-width:540px;box-sizing:border-box;font-size:14px;padding-top:6px}
 #result.igm .ig-hd,#result.igm .ig-ic{box-sizing:border-box}
+
+.hp0 .hp-a,.hp0 .hp-bf{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hp0 .hp-bf{clip-path:inset(0 50% 0 0);animation:hpSw 6s ease-in-out infinite}
+.hp0 .hp-ln{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;z-index:1;box-shadow:0 0 8px rgba(0,0,0,.35);animation:hpLn 6s ease-in-out infinite}
+.hp0 .hp-l,.hp0 .hp-r{position:absolute;top:12px;z-index:2;font-size:11.5px;font-weight:800;color:#fff;background:rgba(20,14,16,.55);padding:5px 10px;border-radius:999px}
+.hp0 .hp-l{left:12px}.hp0 .hp-r{right:12px;background:var(--blue)}
+.hp0 .hp-in p{margin:-6px 0 12px;color:rgba(255,255,255,.88);font-size:13.5px;line-height:1.5}
+.hp0 .hp-in{z-index:3}
+@keyframes hpSw{0%,100%{clip-path:inset(0 72% 0 0)}50%{clip-path:inset(0 28% 0 0)}}
+@keyframes hpLn{0%,100%{left:28%}50%{left:72%}}
+@media (prefers-reduced-motion:reduce){.hp0 .hp-bf,.hp0 .hp-ln{animation:none}}
+@media (min-width:900px){.hp0{height:400px}}
 </style>
 <link rel="manifest" href="/skin/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-skin.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="스킨메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11181530"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/skin/customers.js?v=11181500" defer></script><script src="/assets/mate-install.js?v=11181530" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap">
@@ -1518,6 +1530,7 @@ var CFG = {
     var KN = function(n){ return ['', '한', '두', '세', '네', '다섯', '여섯', '일곱', '여덟', '아홉', '열'][n] || String(n); };
     var h = '<p class="hd-date">' + (now.getMonth() + 1) + '월 ' + now.getDate() + '일 ' + days[now.getDay()] + '요일</p>';
     if (pw) h += '<section class="hp" aria-label="최근 사진"><img id="hpImg" alt=""><span class="hp-tag">최근 작업 사진</span><div class="hp-in"><h2>이 사진으로<br>오늘 올려 볼까요?</h2><div class="hp-b"><button type="button" class="hp1" data-wopen="' + pw.id + '">이 사진으로 홍보</button><button type="button" class="hp2" data-hgo="photo">' + IC3.cam + '새로 찍기</button></div></div></section>';
+    else h += '<section class="hp hp0" aria-label="사진 보정 예시"><img class="hp-a" src="/assets/demo-skin-after.jpg" alt=""><img class="hp-bf" src="/assets/demo-skin-before.jpg" alt=""><span class="hp-ln"></span><span class="hp-l">보정 전</span><span class="hp-r">보정 후</span><div class="hp-in"><h2>어둡게 찍힌 관리실 사진,<br>30초면 인스타 게시물</h2><p>밝게 보정하고, 이벤트 문구 넣고, 사진에 맞는 글까지 써 드려요.</p><div class="hp-b"><button type="button" class="hp1" data-hgo="photo">' + IC3.cam + ' 내 사진으로 해보기</button><button type="button" class="hp2" data-hgo="retouch">보정만 하기</button></div></div></section>';
     var hl = tc.length ? (isCls ? '오늘 수업이<br>' + tc.length + '개 있어요.' : '오늘은 ' + KN(tc.length) + ' 분이<br>오세요.') : (isCls ? '오늘은 수업이 없어요.<br>홍보하기 좋은 날이에요.' : '오늘은 예약이 없어요.<br>홍보하기 좋은 날이에요.');
     h += '<h1 class="hd-h1">' + hl + '</h1>';
     if (tc.length) h += '<ol class="tl" aria-label="' + (isCls ? '오늘 수업' : '오늘 예약') + '">' + tc.map(function(c){ return '<li><b class="tl-t">' + esc(c.time) + '</b><span class="tl-m"><b>' + esc(c.name) + (c.what ? ' · ' + esc(c.what) : '') + '</b>' + (c.cap ? '<small>정원 ' + c.cap + '명</small>' : '') + '</span></li>'; }).join('') + '</ol>';
