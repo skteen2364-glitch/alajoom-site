@@ -219,9 +219,21 @@ header .brand:active{opacity:.7}
   .tools{grid-template-columns:repeat(3,1fr)}
   .tool.hero,.tool.wide{grid-column:1 / -1}
   .card-prev,#resPh{max-width:540px}
+
   #panel,.panel{padding:22px 24px}
   .dlg,dialog{max-width:520px}
 }
+  /* v5: 인스타 게시물 미리보기 */
+  #result.igm .ig-hd{display:flex;align-items:center;gap:9px;padding:10px 12px;background:#fff;border:1px solid var(--line);border-bottom:0;border-radius:16px 16px 0 0;max-width:540px}
+  .ig-av{width:32px;height:32px;border-radius:50%;padding:2px;background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF);flex:none}
+  .ig-av span{display:flex;width:100%;height:100%;border-radius:50%;background:#fff;color:var(--ink);font-size:12px;font-weight:900;align-items:center;justify-content:center;border:2px solid #fff}
+  .ig-hd b{font-size:13.5px;line-height:1.2;display:block}.ig-hd small{font-size:11.5px;color:var(--muted);display:block}
+  .ig-hd i{margin-left:auto;font-style:normal;font-size:11px;font-weight:800;color:#DD2A7B;background:#FDEEF4;border-radius:99px;padding:3px 9px}
+  #result.igm #resPh{border-radius:0;margin-bottom:0!important;border-left:1px solid var(--line);border-right:1px solid var(--line);border-top:0;border-bottom:0;aspect-ratio:4/5;object-fit:cover}
+  #result.igm .ig-ic{display:flex;gap:14px;padding:10px 12px 4px;background:#fff;border:1px solid var(--line);border-top:0;border-bottom:0;max-width:540px}
+  #result.igm .ig-ic svg{width:23px;height:23px}
+  #result.igm #out{border-radius:0 0 16px 16px;border-top:0;background:#fff;max-width:540px;box-sizing:border-box;font-size:14px;padding-top:6px}
+#result.igm .ig-hd,#result.igm .ig-ic{box-sizing:border-box}
 </style>
 <link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11181530"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/pilates/members.js?v=11121526" defer></script><script src="/assets/mate-install.js?v=11181530" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap">
@@ -778,10 +790,25 @@ var CFG = {
   }
 
   /* ---------- 결과 렌더 ---------- */
+
+  function igFrame(on){
+    var r = $('#result'), rp = $('#resPh'); if (!r || !rp) return;
+    var hd = $('#igHd'), ic = $('#igIc');
+    if (!on){ r.classList.remove('igm'); if (hd) hd.remove(); if (ic) ic.remove(); return; }
+    r.classList.add('igm');
+    var nm = (studio && studio.name) || '우리 가게', ar = (studio && studio.area) || '';
+    if (!hd){ rp.insertAdjacentHTML('beforebegin', '<div class="ig-hd" id="igHd" aria-hidden="true"><div class="ig-av"><span></span></div><div><b></b><small></small></div><i>인스타 미리보기</i></div>'); hd = $('#igHd'); }
+    hd.querySelector('.ig-av span').textContent = nm.replace(/\s/g, '').slice(0, 2);
+    hd.querySelector('b').textContent = nm; hd.querySelector('small').textContent = ar;
+    if (!ic){ var s = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+      rp.insertAdjacentHTML('afterend', '<div class="ig-ic" id="igIc" aria-hidden="true"><svg ' + s + '><path d="M19.5 12.6 12 20l-7.5-7.4A5 5 0 1 1 12 6a5 5 0 1 1 7.5 6.6z"/></svg><svg ' + s + '><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.4A8.5 8.5 0 1 1 21 12z"/></svg><svg ' + s + '><path d="M22 3 11 14M22 3l-7 19-4-8-8-4z"/></svg></div>'); }
+  }
   function showText(text, streaming){
     var r = $('#result'); r.classList.remove('hidden');
     if (!$('#out')) r.innerHTML = '<img id="resPh" alt="함께 올릴 사진" class="card-prev hidden" style="margin-bottom:10px"><div class="out" id="out"></div><div id="chk"></div><div class="row" id="acts"></div>';
     var rp = $('#resPh'); if ((tool === 'post' || (tool === 'set' && /insta|place|daangn|blog/.test(setCur))) && att){ rp.src = att.url; rp.classList.remove('hidden'); } else rp.classList.add('hidden');
+    if (tool === 'photo' && ph.url){ rp.src = ph.url; rp.classList.remove('hidden'); }
+    igFrame(!rp.classList.contains('hidden') && (tool === 'set' ? setCur === 'insta' : pick.ch === '인스타'));
     var out = $('#out'); out.textContent = text || '쓰는 중…'; out.classList.toggle('thinking', !text);
     out.contentEditable = streaming ? 'false' : 'true';
     if (streaming) return;
