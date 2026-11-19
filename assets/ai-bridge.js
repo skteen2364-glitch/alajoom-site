@@ -53,8 +53,8 @@
     });
     var d = {}; try { d = await r.json(); } catch (e) {}
     if (!r.ok) { toast(d.message || 'AI가 잠시 바빠요. 조금 뒤 다시 눌러 주세요'); var e1 = new Error(d.error || 'ai_error'); e1.code = d.error || 'ai_error'; throw e1; }
-    if (d.admin) setMode('진짜 AI 직원이 써요 · 관리자 무제한');
-    else if (d.used != null && d.limit) setMode('진짜 AI 직원이 써요 · 오늘 ' + Math.max(0, d.limit - d.used) + '회 남음');
+    if (d.admin) setMode('알아줌이 직접 써요 · 관리자 무제한');
+    else if (d.used != null && d.limit) setMode('알아줌이 직접 써요 · 오늘 ' + Math.max(0, d.limit - d.used) + '회 남음');
     return d;
   }
   async function call(prompt, opts) {
@@ -74,8 +74,8 @@
       toast(d.message || 'AI가 잠시 바빠요. 조금 뒤 다시 눌러 주세요');
       var e1 = new Error(d.error || 'ai_error'); e1.code = d.error || 'ai_error'; throw e1;
     }
-    if (d.admin) setMode('진짜 AI 직원이 써요 · 관리자 무제한');
-    else if (d.used != null && d.limit) setMode('진짜 AI 직원이 써요 · 오늘 ' + Math.max(0, d.limit - d.used) + '회 남음');
+    if (d.admin) setMode('알아줌이 직접 써요 · 관리자 무제한');
+    else if (d.used != null && d.limit) setMode('알아줌이 직접 써요 · 오늘 ' + Math.max(0, d.limit - d.used) + '회 남음');
     return { text: d.text || '' };
   }
 
@@ -216,7 +216,7 @@
           }, 30);
           return null;
         }
-        setTimeout(function () { setMode('진짜 AI 직원이 써요 · 하루 10회 무료'); }, 30);
+        setTimeout(function () { setMode('알아줌이 직접 써요 · 하루 10회 무료'); }, 30);
         syncProfile(sb, s.user.id);
         window.addEventListener('alajoom:onboarded', function () { syncProfile(sb, s.user.id); });
         window.addEventListener('alajoom:studio-saved', function (ev) { saveStudio(sb, s.user.id, ev.detail); });
