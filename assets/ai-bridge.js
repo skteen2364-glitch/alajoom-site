@@ -127,6 +127,14 @@
       if (p.image) body.image = await b64(p.image);
       return raw(body);
     },
+    photo: async function (mode, blob) {
+      var m = await me(); if (!m) { var e0 = new Error('login'); e0.code = 'login_required'; throw e0; }
+      var s = (await m.sb.auth.getSession()).data.session;
+      var r = await fetch(URL_ + '/functions/v1/photo-ai', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + s.access_token }, body: JSON.stringify({ mate: MATE, mode: mode, image: await b64(blob) }) });
+      var d = {}; try { d = await r.json(); } catch (e) {}
+      if (!r.ok || !d.image) { toast(d.message || 'AI 보정이 잠시 안 됐어요. 다시 눌러 주세요'); var e1 = new Error(d.error || 'ai_error'); e1.code = d.error || 'ai_error'; throw e1; }
+      return d;
+    },
     learnVoice: function (samples) { return raw({ mode: 'voice', samples: samples, tool: 'voice' }); },
     getVoice: async function () { var m = await me(); if (!m) return null; var q = await m.sb.from('profiles').select('voice').eq('id', m.uid).maybeSingle(); var v = q.data && q.data.voice || {}; return v[MATE] || null; },
     saveVoice: async function (text) {
