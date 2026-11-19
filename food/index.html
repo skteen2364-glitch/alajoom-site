@@ -274,18 +274,6 @@ header .brand:active{opacity:.7}
   #result.igm .ig-ic svg{width:23px;height:23px}
   #result.igm #out{border-radius:0 0 16px 16px;border-top:0;background:#fff;max-width:540px;box-sizing:border-box;font-size:14px;padding-top:6px}
 #result.igm .ig-hd,#result.igm .ig-ic{box-sizing:border-box}
-
-.hp0 .hp-a,.hp0 .hp-bf{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hp0 .hp-bf{clip-path:inset(0 50% 0 0);animation:hpSw 6s ease-in-out infinite}
-.hp0 .hp-ln{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;z-index:1;box-shadow:0 0 8px rgba(0,0,0,.35);animation:hpLn 6s ease-in-out infinite}
-.hp0 .hp-l,.hp0 .hp-r{position:absolute;top:12px;z-index:2;font-size:11.5px;font-weight:800;color:#fff;background:rgba(20,14,16,.55);padding:5px 10px;border-radius:999px}
-.hp0 .hp-l{left:12px}.hp0 .hp-r{right:12px;background:var(--blue)}
-.hp0 .hp-in p{margin:-6px 0 12px;color:rgba(255,255,255,.88);font-size:13.5px;line-height:1.5}
-.hp0 .hp-in{z-index:3}
-@keyframes hpSw{0%,100%{clip-path:inset(0 72% 0 0)}50%{clip-path:inset(0 28% 0 0)}}
-@keyframes hpLn{0%,100%{left:28%}50%{left:72%}}
-@media (prefers-reduced-motion:reduce){.hp0 .hp-bf,.hp0 .hp-ln{animation:none}}
-@media (min-width:900px){.hp0{height:400px}}
 </style>
 <link rel="manifest" href="/food/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-food.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="푸드메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11181530"></script><script src="/assets/mate-install.js?v=11181530" defer></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap">
@@ -1588,7 +1576,6 @@ var CFG = {
     var up = DB.quotes.filter(function(q){ return q.status !== '완료' && q.date >= ymd(); }).sort(function(a, b){ return a.date < b.date ? -1 : 1; });
     var soon = up.filter(function(q){ return q.date <= addDays(7); });
     var h = '<p class="hd-date">' + (now.getMonth() + 1) + '월 ' + now.getDate() + '일 ' + days[now.getDay()] + '요일</p><h1 class="hd-h1">오늘도 맛있게,<br>홍보는 제가 할게요.</h1>';
-    h += '<section class="hp hp0" aria-label="사진 보정 예시"><img class="hp-a" src="/assets/haejang-after.jpg" alt=""><img class="hp-bf" src="/assets/haejang-before.jpg" alt=""><span class="hp-ln"></span><span class="hp-l">보정 전</span><span class="hp-r">보정 후</span><div class="hp-in"><h2>누렇게 찍힌 음식 사진,<br>30초면 손님 부르는 사진</h2><p>먹음직스럽게 보정하고, 메뉴 이름 넣고, 인스타 글까지 써 드려요.</p><div class="hp-b"><button type="button" class="hp1" data-hgo="photo">' + IC3.cam + ' 내 사진으로 해보기</button><button type="button" class="hp2" data-hgo="retouch">보정만 하기</button></div></div></section>';
     var card = function(n, l, v, hl){ return '<button type="button" data-view="' + v + '" style="flex:1 1 0;min-width:0;border:1px solid ' + (hl ? 'var(--ink)' : 'var(--line)') + ';background:' + (hl ? 'var(--ink)' : '#fff') + ';color:' + (hl ? '#fff' : 'var(--ink)') + ';border-radius:16px;padding:12px 6px;text-align:center;font:inherit;cursor:pointer"><b style="display:block;font-size:17px;font-weight:900;' + (hl ? 'color:var(--yellow)' : '') + '">' + n + '</b><span style="font-size:12px;' + (hl ? 'opacity:.8' : 'color:var(--muted)') + '">' + l + '</span></button>'; };
     var k = function(n){ return Math.round(n / 10000).toLocaleString('ko-KR') + '만'; };
     h += '<div style="display:flex;gap:8px;margin:0 0 12px">' + card(k(sale), '이번 달 매출', 'ledger', false) + card(k(buy), '이번 달 매입', 'ledger', false) + card(k(sale - buy), '남은 돈', 'ledger', true) + '</div>';
