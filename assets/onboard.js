@@ -28,7 +28,7 @@
 
   function el(tag, attrs, html) { var e = document.createElement(tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (html != null) e.innerHTML = html; return e; }
 
-  var LIVE = { skin: ['스킨메이트', '/assets/icon-skin-192.png'], pilates: ['필라테스메이트', '/assets/icon-pilates-192.png'], food: ['푸드메이트', '/assets/icon-food-192.png'], academy: ['학원메이트', '/assets/icon-academy-192.png'] };
+  var LIVE = { skin: ['스킨메이트', '/assets/icon-skin-192.png'], pilates: ['필라테스메이트', '/assets/icon-pilates-192.png'], food: ['푸드메이트', '/assets/icon-food-192.png'], academy: ['학원메이트', '/assets/icon-academy-192.png'], nail: ['네일메이트', '/assets/icon-nail-192.png'], hair: ['헤어메이트', '/assets/icon-hair-192.png'] };
   function offerInstall(k) {
     var m = LIVE[k]; if (!m) return;
     if (location.pathname.indexOf('/' + k + '/') === 0) { if (window.alajoomShowInstall) setTimeout(window.alajoomShowInstall, 300); return; }

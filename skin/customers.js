@@ -1,4 +1,4 @@
-/* 스킨메이트 · 고객 장부
+/* 뷰티 메이트(스킨·네일·헤어) · 고객 장부
    고객·관리권(회차)·방문·시술 기록·예약·시술 메뉴·매출. 로그인하면 계정에 저장(뷰티 메이트끼리 같이 씀). */
 (function () {
   var KEY = 'al_beauty_customers_v1';
@@ -12,7 +12,17 @@
   var won = function (n) { n = Math.round(+n || 0); return n.toLocaleString('ko-KR') + '원'; };
   var md = function (s) { return s ? (+s.slice(5, 7)) + '/' + (+s.slice(8, 10)) : '-'; };
   var uid = function () { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); };
-  var DEF_MENU = [{ id: 'm1', name: '기본 얼굴 관리', price: 70000, mins: 60 }, { id: 'm2', name: '수분 관리', price: 90000, mins: 70 }, { id: 'm3', name: '진정 관리', price: 90000, mins: 70 }, { id: 'm4', name: '등 관리', price: 80000, mins: 60 }, { id: 'm5', name: '왁싱', price: 30000, mins: 30 }];
+  var MATE = (location.pathname.match(/^\/(skin|nail|hair)\b/) || [])[1] || 'skin';
+  var P = {
+    skin: { t: '스킨메이트', menuPh: '예: 수분 관리, 브라질리언 왁싱', memoPh: '예: 건성, 주말 오전 선호, 향 약한 제품', notePh: '예: 수분 관리 · 진정 앰플 사용 · 볼 건조함', care: '그날 받은 시술·사용 제품·피부 상태를', priv: '피부 고민·알레르기 같은 민감한 정보는', more: '왁싱·속눈썹·네일도 좋아요' },
+    nail: { t: '네일메이트', menuPh: '예: 원컬러 젤, 젤 제거, 패디큐어', memoPh: '예: 짧은 기장 선호, 누드톤, 큐티클 예민', notePh: '예: 원컬러 젤 · 누드 베이지 · 오른손 약지 파츠', care: '그날 한 디자인·컬러·사용 제품을', priv: '손톱·피부 상태나 알레르기 같은 민감한 정보는', more: '젤 제거·연장·패디도 좋아요' },
+    hair: { t: '헤어메이트', menuPh: '예: 남성 커트, 뿌리 염색, 클리닉', memoPh: '예: 앞머리 짧게 싫어함, 두피 예민, 애쉬톤 선호', notePh: '예: 뿌리 염색 · 6N 애쉬 · 30분 방치', care: '그날 한 시술·약제·컬러 번호를', priv: '두피 상태나 알레르기 같은 민감한 정보는', more: '커트·펌·염색·클리닉 모두 넣으세요' }
+  }[MATE];
+  var DEF = {
+    nail: [{ id: 'm1', name: '원컬러 젤', price: 45000, mins: 60 }, { id: 'm2', name: '아트 젤', price: 65000, mins: 90 }, { id: 'm3', name: '젤 제거', price: 10000, mins: 20 }, { id: 'm4', name: '케어', price: 20000, mins: 30 }, { id: 'm5', name: '패디큐어', price: 55000, mins: 70 }],
+    hair: [{ id: 'm1', name: '커트', price: 20000, mins: 40 }, { id: 'm2', name: '뿌리 염색', price: 60000, mins: 90 }, { id: 'm3', name: '전체 염색', price: 90000, mins: 120 }, { id: 'm4', name: '펌', price: 100000, mins: 150 }, { id: 'm5', name: '클리닉', price: 50000, mins: 50 }]
+  };
+  var DEF_MENU = DEF[MATE] || [{ id: 'm1', name: '기본 얼굴 관리', price: 70000, mins: 60 }, { id: 'm2', name: '수분 관리', price: 90000, mins: 70 }, { id: 'm3', name: '진정 관리', price: 90000, mins: 70 }, { id: 'm4', name: '등 관리', price: 80000, mins: 60 }, { id: 'm5', name: '왁싱', price: 30000, mins: 30 }];
   var PASSES = [];
   var PAYS = ['카드', '계좌이체', '현금'];
 
@@ -174,7 +184,7 @@
   }
   /* ---------- 시술 메뉴 ---------- */
   function renderMenu(box) {
-    var h = '<p style="margin:0 0 12px;font-size:13px;color:var(--muted)">시술 메뉴를 적어 두면 관리권·예약 고르기, <b>가격표 카드</b>, 홍보글에 자동으로 들어가요. 하는 시술이 여러 가지면 모두 넣으세요(왁싱·속눈썹·네일도 좋아요).</p>';
+    var h = '<p style="margin:0 0 12px;font-size:13px;color:var(--muted)">시술 메뉴를 적어 두면 관리권·예약 고르기, <b>가격표 카드</b>, 홍보글에 자동으로 들어가요. 하는 시술이 여러 가지면 모두 넣으세요(' + P.more + ').</p>';
     h += '<button type="button" class="go" data-m="mnew" style="justify-content:center;margin:0 0 12px;width:100%">+ 시술 추가</button>';
     h += '<div style="display:flex;flex-direction:column;gap:6px">' + DB.menu.map(function (x) {
       return '<button type="button" data-m="medit" data-id="' + x.id + '" style="display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px 14px;font:inherit;text-align:left;cursor:pointer"><span style="flex:1;min-width:0;font-size:15px;font-weight:800">' + esc(x.name) + (x.mins ? ' <small style="font-weight:500;color:var(--muted)">' + x.mins + '분</small>' : '') + '</span><b style="flex:none">' + (x.price ? won(x.price) : '-') + '</b></button>';
@@ -184,7 +194,7 @@
   function menuForm(x) {
     var isNew = !x; x = x || { name: '', price: '', mins: 60 };
     openDlg('<h2>' + (isNew ? '시술 추가' : '시술 고치기') + '</h2>' +
-      '<label>시술 이름<input type="text" id="xName" maxlength="30" value="' + esc(x.name) + '" placeholder="예: 수분 관리, 브라질리언 왁싱"></label>' +
+      '<label>시술 이름<input type="text" id="xName" maxlength="30" value="' + esc(x.name) + '" placeholder="' + P.menuPh + '"></label>' +
       '<div style="display:flex;gap:8px"><label style="flex:1">가격(원)<input type="text" id="xPrice" inputmode="numeric" value="' + (x.price || '') + '"></label><label style="flex:1">시간(분)<input type="text" id="xMins" inputmode="numeric" value="' + (x.mins || '') + '"></label></div>' +
       '<p style="margin:0;font-size:12px;color:var(--muted)">이름에 "치료·재생·주름 개선" 같은 효능 표현은 피해 주세요.</p>' +
       '<div class="row" style="display:flex;gap:8px">' + (isNew ? '' : '<button type="button" class="sub" data-m="mdel" data-id="' + x.id + '" style="color:#C2410C">삭제</button>') + '<button type="button" class="sub" data-m="close">취소</button><button type="button" class="sub primary" data-m="msave" data-id="' + (isNew ? '' : x.id) + '">저장</button></div>');
@@ -213,8 +223,8 @@
       (isNew ? '<div style="display:flex;gap:8px"><label style="flex:1">횟수<input type="text" id="mTotal" inputmode="numeric" value="' + (m.total || '') + '"></label><label style="flex:1">결제 금액<input type="text" id="mPrice" inputmode="numeric" placeholder="예: 600000" value=""></label></div>' +
         '<label>결제 방법</label>' + chips('pay', PAYS, m.pay) + '<input type="hidden" id="mPay" value="' + esc(m.pay) + '">' : '') +
       '<div style="display:flex;gap:8px"><label style="flex:1">시작일<input type="date" id="mStart" value="' + esc(m.start) + '" style="width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;font:inherit"></label><label style="flex:1">만료일<input type="date" id="mEnd" value="' + esc(m.end) + '" style="width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;font:inherit"></label></div>' +
-      '<label>메모<textarea id="mMemo" maxlength="300" placeholder="예: 건성, 주말 오전 선호, 향 약한 제품">' + esc(m.memo) + '</textarea></label>' +
-      '<p style="margin:-4px 0 0;font-size:12px;color:var(--muted)">피부 고민·알레르기 같은 민감한 정보는 고객 동의를 받고 꼭 필요한 만큼만 적어 주세요.</p>' +
+      '<label>메모<textarea id="mMemo" maxlength="300" placeholder="' + P.memoPh + '">' + esc(m.memo) + '</textarea></label>' +
+      '<p style="margin:-4px 0 0;font-size:12px;color:var(--muted)">' + P.priv + ' 고객 동의를 받고 꼭 필요한 만큼만 적어 주세요.</p>' +
       '<div class="row" style="display:flex;gap:8px"><button type="button" class="sub" data-m="close">취소</button><button type="button" class="sub primary" data-m="save" data-id="' + (isNew ? '' : m.id) + '">저장</button></div>');
   }
   function detail(m) {
@@ -234,7 +244,7 @@
       '<div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="sub" data-m="renew" data-id="' + m.id + '">재등록</button><button type="button" class="sub" data-m="edit" data-id="' + m.id + '">정보 고치기</button></div>' +
       '<details open><summary style="font-size:13.5px;font-weight:700;cursor:pointer">시술 기록 ' + atts.length + '회</summary><div style="display:flex;flex-direction:column;margin-top:6px">' +
       (atts.length ? atts.map(function (d) { var vn = (m.vn || {})[d] || ''; return '<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)"><b style="flex:none;min-width:44px;font-size:13.5px">' + md(d) + '</b><span style="flex:1;min-width:0;font-size:13.5px;color:' + (vn ? 'var(--ink)' : 'var(--muted)') + '">' + (vn ? esc(vn) : '시술 내용 없음') + '</span><button type="button" class="sub" data-m="vnote" data-id="' + m.id + '" data-v="' + d + '" style="flex:none;min-width:0;min-height:36px;padding:0 10px;font-size:12.5px">' + (vn ? '고치기' : '적기') + '</button><button type="button" class="sub" data-m="unatt" data-id="' + m.id + '" data-v="' + d + '" aria-label="' + md(d) + ' 방문 취소" style="flex:none;min-width:36px;min-height:36px;padding:0;font-size:13px">×</button></div>'; }).join('') : '<span style="font-size:13px;color:var(--muted)">아직 없어요</span>') +
-      '</div><p style="font-size:12px;color:var(--muted);margin:8px 0 0">그날 받은 시술·사용 제품·피부 상태를 적어 두면 다음 관리 때 바로 봐요.</p></details>' +
+      '</div><p style="font-size:12px;color:var(--muted);margin:8px 0 0">' + P.care + ' 적어 두면 다음 관리 때 바로 봐요.</p></details>' +
       '<details><summary style="font-size:13.5px;font-weight:700;cursor:pointer">결제 내역 ' + pays.length + '건</summary><div style="margin-top:8px;font-size:13.5px">' +
       (pays.length ? pays.map(function (p) { return '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)"><span>' + md(p.date) + ' · ' + esc(p.pass || '') + ' ' + (p.count || '') + '회</span><b>' + won(p.price) + ' <small style="font-weight:500;color:var(--muted)">' + esc(p.pay || '') + '</small></b></div>'; }).join('') : '<span style="color:var(--muted)">없어요</span>') +
       '</div></details>' +
@@ -254,7 +264,7 @@
     var vn = (m.vn || {})[d] || '';
     openDlg('<h2>' + esc(m.name) + '님 · ' + md(d) + ' 시술 기록</h2>' +
       '<label>시술</label>' + '<div class="chips" role="group">' + PASSES.map(function (o) { return '<button type="button" class="chip" data-m="vadd" data-v="' + esc(o) + '">' + esc(o) + '</button>'; }).join('') + '</div>' +
-      '<label>내용<textarea id="vNote" maxlength="200" placeholder="예: 수분 관리 · 진정 앰플 사용 · 볼 건조함">' + esc(vn) + '</textarea></label>' +
+      '<label>내용<textarea id="vNote" maxlength="200" placeholder="' + P.notePh + '">' + esc(vn) + '</textarea></label>' +
       '<div class="row" style="display:flex;gap:8px"><button type="button" class="sub" data-m="open" data-id="' + m.id + '">뒤로</button><button type="button" class="sub primary" data-m="vsave" data-id="' + m.id + '" data-v="' + d + '">저장</button></div>');
   }
   function rsvSms(r) {
@@ -294,7 +304,7 @@
     var rows = [COLS].concat(DB.members.map(function (m) { return [m.name, m.phone, m.pass, m.total, left(m), m.start, m.end, lastAtt(m) || '', (m.att || []).slice().sort().join(' '), m.memo]; }));
     var csv = '﻿' + rows.map(function (r) { return r.map(q).join(','); }).join('\r\n');
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
-    a.download = '스킨메이트_고객_' + ymd() + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+    a.download = P.t + '_고객_' + ymd() + '.csv'; document.body.appendChild(a); a.click(); a.remove();
     toast('엑셀 파일로 내보냈어요');
   }
   function parseCsv(text) {
@@ -315,7 +325,7 @@
     r.onload = function () {
       var rows = parseCsv(String(r.result)); if (rows.length < 2) { toast('읽을 고객이 없어요'); return; }
       var hd = rows[0].map(function (x) { return x.trim(); }), ix = function (n) { return hd.indexOf(n); };
-      if (ix('이름') < 0) { toast('스킨메이트에서 내보낸 파일을 골라주세요'); return; }
+      if (ix('이름') < 0) { toast(P.t + '에서 내보낸 파일을 골라주세요'); return; }
       var n = 0;
       rows.slice(1).forEach(function (c) {
         var name = (c[ix('이름')] || '').trim(); if (!name) return;
