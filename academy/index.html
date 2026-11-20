@@ -246,7 +246,7 @@ header .brand:active{opacity:.7}
 .ai-go:disabled{opacity:.75;cursor:wait}
 .ai-note{font-size:12px!important}
 </style>
-<link rel="manifest" href="/academy/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-academy.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="학원메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11201430"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/academy/students.js?v=11201400" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
+<link rel="manifest" href="/academy/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-academy.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="학원메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11201430"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/academy/students.js?v=11202130" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap">
 </head>
 <body>
@@ -1594,12 +1594,12 @@ var CFG = {
     var hl = tc.length ? (isCls ? '오늘 수업이<br>' + tc.length + '개 있어요.' : '오늘은 ' + KN(tc.length) + ' 분이<br>오세요.') : (isCls ? '오늘은 수업이 없어요.<br>홍보하기 좋은 날이에요.' : '오늘은 예약이 없어요.<br>홍보하기 좋은 날이에요.');
     h += '<h1 class="hd-h1">' + hl + '</h1>';
     if (tc.length) h += '<ol class="tl" aria-label="' + (isCls ? '오늘 수업' : '오늘 예약') + '">' + tc.map(function(c){ return '<li><b class="tl-t">' + esc(c.time) + '</b><span class="tl-m"><b>' + esc(c.name) + (c.what ? ' · ' + esc(c.what) : '') + '</b>' + (c.cap ? '<small>정원 ' + c.cap + '명</small>' : '') + '</span></li>'; }).join('') + '</ol>';
-    h += '<p class="hd-sum"><span>' + (st ? st.active + '명 ' + (isCls ? '수강 중' : '관리 중') + ' · 이번 달 매출 ' + won(st.sales) : '') + '</span><button type="button" data-hcls="1">' + (isCls ? '시간표' : '예약') + ' ' + (tc.length ? '보기' : '적기') + '</button></p>';
+    h += '<p class="hd-sum"><span>' + (st ? st.active + '명 ' + (isCls ? '수강 중' : '관리 중') + ' · 이번 달 매출 ' + won(st.sales) : '') + '</span><button type="button" data-hcls="1">' + (tc.length ? '출결 체크' : '시간표 적기') + '</button></p>';
     // 할 일
     var todo = [];
     if (st){
-      st.renew.slice(0, 4).forEach(function(m){ todo.push('<li style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)"><span style="flex:none;font-size:11px;font-weight:800;color:#C2410C;border:1px solid #C2410C;border-radius:999px;padding:1px 7px">재등록</span><span style="flex:1;min-width:0;font-size:14px"><b>' + esc(m.name) + '</b>님 · 남은 ' + m.left + '회 · ~' + md(m.end) + '</span><button type="button" class="sub" data-hsms="' + m.id + '" style="flex:none;min-width:0;min-height:36px;padding:0 12px;font-size:12.5px">문자</button></li>'); });
-      st.away.slice(0, 3).forEach(function(m){ todo.push('<li style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)"><span style="flex:none;font-size:11px;font-weight:800;color:var(--blue);border:1px solid var(--blue);border-radius:999px;padding:1px 7px">안부</span><span style="flex:1;min-width:0;font-size:14px"><b>' + esc(m.name) + '</b>님 · 마지막 출석 ' + md(m.last) + '</span><button type="button" class="sub" data-hsms="' + m.id + '" style="flex:none;min-width:0;min-height:36px;padding:0 12px;font-size:12.5px">문자</button></li>'); });
+      st.renew.slice(0, 4).forEach(function(m){ todo.push('<li style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)"><span style="flex:none;font-size:11px;font-weight:800;color:#C2410C;border:1px solid #C2410C;border-radius:999px;padding:1px 7px">' + esc(m.tag || '재등록') + '</span><span style="flex:1;min-width:0;font-size:14px"><b>' + esc(m.name) + '</b> · ' + esc(m.desc || '') + '</span><button type="button" class="sub" data-hsms="' + m.id + '" style="flex:none;min-width:0;min-height:36px;padding:0 12px;font-size:12.5px">문자</button></li>'); });
+      st.away.slice(0, 3).forEach(function(m){ todo.push('<li style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)"><span style="flex:none;font-size:11px;font-weight:800;color:var(--blue);border:1px solid var(--blue);border-radius:999px;padding:1px 7px">안부</span><span style="flex:1;min-width:0;font-size:14px"><b>' + esc(m.name) + '</b> · 마지막 출석 ' + md(m.last) + '</span><button type="button" class="sub" data-hsms="' + m.id + '" style="flex:none;min-width:0;min-height:36px;padding:0 12px;font-size:12.5px">문자</button></li>'); });
     }
     var weekPost = wLoad().filter(function(w){ return Date.now() - new Date(w.updated).getTime() < 7 * 864e5 && /post|photo|set|card/.test(w.tool); }).length;
     if (!weekPost) todo.push('<li style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)"><span style="flex:none;font-size:11px;font-weight:800;color:var(--ok);border:1px solid var(--ok);border-radius:999px;padding:1px 7px">홍보</span><span style="flex:1;min-width:0;font-size:14px">이번 주 홍보글이 아직 없어요</span><button type="button" class="sub primary" data-hgo="set" style="flex:none;min-width:0;min-height:36px;padding:0 12px;font-size:12.5px">만들기</button></li>');
@@ -1614,7 +1614,7 @@ var CFG = {
   }
   document.addEventListener('click', function(e){
     var t = e.target.closest('[data-home],[data-hgo],[data-hsms],[data-hvoice],[data-hcls]'); if (!t) return;
-    if (t.dataset.hcls){ window.alajoomTab('members'); var sb = document.querySelector('#v-members [data-m="sub"][data-v="cls"]'); if (sb) sb.click(); return; }
+    if (t.dataset.hcls){ if (window.alajoomOpenAtt && window.alajoomTodayClasses && window.alajoomTodayClasses().length){ window.alajoomOpenAtt(); return; } window.alajoomTab('members'); var sb = document.querySelector('#v-members [data-m="sub"][data-v="cls"]'); if (sb) sb.click(); return; }
     if (t.dataset.home && window.alajoomTab) return window.alajoomTab(t.dataset.home);
     if (t.dataset.hsms && window.alajoomMemberSms) return window.alajoomMemberSms(t.dataset.hsms);
     if (t.dataset.hvoice) return vOpen();
