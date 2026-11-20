@@ -246,7 +246,7 @@ header .brand:active{opacity:.7}
 .ai-go:disabled{opacity:.75;cursor:wait}
 .ai-note{font-size:12px!important}
 </style>
-<link rel="manifest" href="/nail/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-nail.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="네일메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11201430"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/skin/customers.js?v=11201500" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
+<link rel="manifest" href="/nail/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-nail.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="네일메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11201430"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/skin/customers.js?v=11201500" defer></script><script src="/assets/before-after.js?v=11210800" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap">
 </head>
 <body>
@@ -280,6 +280,7 @@ header .brand:active{opacity:.7}
   <div class="tools" role="group" aria-label="만들 것 고르기">
     <button class="tool hero" type="button" data-tool="photo" aria-pressed="true"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span><div><b>사진 올리고 홍보하기</b><span>사진을 밝고 예쁘게 보정하고, 그 사진으로 홍보글까지</span></div></button>
     <button class="tool" type="button" data-tool="retouch" aria-pressed="false"><b>사진 보정</b></button>
+    <button class="tool" type="button" data-tool="ba" aria-pressed="false"><b>전후 사진</b></button>
     <button class="tool wide" type="button" data-tool="set" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M16 4l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg></span><span style="flex:1;min-width:0"><b style="display:block">알아줌 한 번에</b><span>인스타·블로그·릴스·문자를 한 번에 · 전략→작성→검토</span></span></button>
     <button class="tool" type="button" data-tool="post" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></span><b>홍보글</b><span>인스타·블로그·당근·플레이스</span></button>
     <button class="tool" type="button" data-tool="card" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 15l5-4 4 3 3-2 6 4"/></svg></span><b>안내 카드</b><span>메뉴·가격·이벤트·휴무 이미지</span></button>
@@ -517,6 +518,7 @@ var CFG = {
 
   function renderPanel(){
     if (tool === 'photo' || tool === 'retouch') return renderPhoto();
+    if (tool === 'ba'){ if (window.alajoomBA) window.alajoomBA.render($('#panel')); else $('#panel').innerHTML = '<p class="note">잠시 후 다시 눌러 주세요</p>'; return; }
     var t = TOOLS[tool]; pick = {}; t.steps.forEach(function(s){ pick[s.key] = s.opts[0]; });
     var h = '<h2>' + t.title + '</h2>';
     t.steps.forEach(function(s){
@@ -992,7 +994,7 @@ var CFG = {
     var url = URL.createObjectURL(file);
     var img = new Image(); img.decoding = 'async';
     var _done; var _p = new Promise(function(r){ _done = r; });
-    img.onload = function(){ ph.img = img; ph.src = img; ph.ai = {}; ph.cmp = ''; ph.mark = false; analyse(); applyPreset('auto'); setTimeout(_done, 0); $('#drop').classList.add('hidden'); if ($('#altPick')) $('#altPick').classList.add('hidden'); $('#phBody').classList.remove('hidden'); showOut(); };
+    img.onload = function(){ ph.img = img; ph.src = img; ph.ai = {}; ph.cmp = ''; ph.mark = false; ph.ba = null; analyse(); applyPreset('auto'); setTimeout(_done, 0); $('#drop').classList.add('hidden'); if ($('#altPick')) $('#altPick').classList.add('hidden'); $('#phBody').classList.remove('hidden'); showOut(); };
     img.onerror = function(){
       if (img._tried){ toast('이 사진은 열 수 없어요. JPG나 PNG로 다시 골라주세요'); return; }
       img._tried = true; var fr = new FileReader(); fr.onload = function(){ img.src = fr.result; }; fr.onerror = function(){ toast('사진을 읽지 못했어요. 다른 사진으로 해주세요'); }; fr.readAsDataURL(file);
@@ -1099,6 +1101,7 @@ var CFG = {
   function photoBlob(maxSide, q){ return new Promise(function(res){ render(maxSide, true).toBlob(function(b){ res(b); }, 'image/jpeg', q); }); }
   async function genPhoto(extra){
     if (!ph.img){ toast('사진을 먼저 골라주세요'); return; }
+    if (ph.ba && window.alajoomBA) extra = (extra || '') + window.alajoomBA.rule();
     var detail = $('#detail').value.trim();
     showText('', true);
     var text = '';
@@ -1524,6 +1527,16 @@ var CFG = {
     if (t.dataset.rtopen) return openRetouch(t.dataset.rtopen);
   });
   document.addEventListener('click', function(e){ var t = e.target.closest && e.target.closest('.tool[data-tool]'); if (t && e.isTrusted) retTo = null; }, true);
+  window.alajoomUseAsPhoto = async function(blob, meta){
+    if (window.alajoomTab) window.alajoomTab('make');
+    retTo = null; tool = 'photo'; curWork = null; ph.img = null;
+    document.querySelectorAll('.tool').forEach(function(x){ x.setAttribute('aria-pressed', x.dataset.tool === 'photo'); });
+    renderPanel(); await loadPhoto(new File([blob], 'before-after.jpg', { type: 'image/jpeg' }));
+    ph.ba = meta || { ba: 1 }; applyPreset('orig'); ph.out = 'enhance'; showOut();
+    var tc = meta && meta.topic && document.querySelector('#panel .chip[data-k="topic"][data-v="' + meta.topic + '"]'); if (tc) tc.click();
+    $('#panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    toast('전후 사진을 넣었어요. 올릴 곳을 고르고 만들기를 누르세요');
+  };
   async function openRetouch(id){
     var w = wLoad().filter(function(x){ return x.id === id; })[0]; if (!w) return;
     var b = await workPhoto(w.id); if (!b){ toast('사진을 찾지 못했어요'); return; }
@@ -1545,6 +1558,7 @@ var CFG = {
     var A = 'var(--blue)', s = studio.name || CFG.title;
     if (k === 'photo') return '<span style="position:absolute;inset:0;' + PHG + '"></span><span style="position:absolute;left:0;right:0;bottom:0;height:40px;background:' + A + ';display:flex;align-items:center;padding:0 10px;color:#fff;font-size:12px;font-weight:900">사진 + 글</span>';
     if (k === 'retouch') return '<span style="position:absolute;inset:0;' + PHG + ';filter:saturate(.55) brightness(.82)"></span><span style="position:absolute;top:0;bottom:0;right:0;width:50%;' + PHG + ';filter:brightness(1.12) saturate(1.15);border-left:2px solid #fff"></span><span style="position:absolute;left:8px;bottom:8px;font-size:10.5px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)">전</span><span style="position:absolute;right:8px;bottom:8px;font-size:10.5px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)">후</span>';
+    if (k === 'ba') return '<span style="position:absolute;inset:0;background:#fff;display:flex;gap:4px;padding:6px"><span style="flex:1;border-radius:8px;position:relative;' + PHG + ';filter:saturate(.6) brightness(.85)"><b style="position:absolute;left:5px;top:5px;background:rgba(255,255,255,.92);color:#14161F;font-size:9px;font-weight:900;border-radius:999px;padding:2px 6px">BEFORE</b></span><span style="flex:1;border-radius:8px;position:relative;' + PHG + '"><b style="position:absolute;left:5px;top:5px;background:rgba(20,22,31,.85);color:#FFD43B;font-size:9px;font-weight:900;border-radius:999px;padding:2px 6px">AFTER</b></span></span>';
     if (k === 'set') return '<span style="position:absolute;inset:0;background:var(--blue-tint)"></span>' +
       '<span style="position:absolute;left:14px;top:16px;width:70px;height:90px;border-radius:10px;background:#fff;transform:rotate(-8deg);box-shadow:0 4px 10px -6px rgba(0,0,0,.4)"></span>' +
       '<span style="position:absolute;left:34px;top:22px;width:70px;height:90px;border-radius:10px;background:#fff;transform:rotate(4deg);box-shadow:0 4px 10px -6px rgba(0,0,0,.4);padding:8px;display:flex;flex-direction:column;gap:5px"><span style="height:6px;width:70%;border-radius:3px;background:' + A + '"></span><span style="height:4px;border-radius:2px;background:#E5DADD"></span><span style="height:4px;width:80%;border-radius:2px;background:#E5DADD"></span><span style="height:4px;width:60%;border-radius:2px;background:#E5DADD"></span></span>' +
@@ -1633,7 +1647,7 @@ var CFG = {
     if (t.dataset.act === 'igpost' || t.dataset.act === 'nppost' || t.dataset.act === 'igcard') return postTo(t.dataset.act);
     if (t.dataset.act === 'kakao' || t.dataset.act === 'smsapp') return sendMsg(t.dataset.act);
     if (t.dataset.act === 'attdel'){ att = null; renderAtt(); if (tool === 'card' && lastCard && !$('#result').classList.contains('hidden')){ showCard(lastCard); } return; }
-    if (t.dataset.out){ ph.out = t.dataset.out; document.querySelectorAll('.out-c').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.out === ph.out); }); showOut(); return; }
+    if (t.dataset.out){ if (ph.ba && t.dataset.out !== 'enhance'){ toast('전후 사진은 AI로 바꾸지 않아요. 있는 그대로 올려요'); return; } ph.out = t.dataset.out; document.querySelectorAll('.out-c').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.out === ph.out); }); showOut(); return; }
     if (t.dataset.pre){ applyPreset(t.dataset.pre); return; }
     if (t.dataset.ratio){ ph.ratio = t.dataset.ratio; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); draw(); return; }
     if (t.dataset.act === 'phnew'){ $('#drop').classList.remove('hidden'); if ($('#altPick')) $('#altPick').classList.remove('hidden'); $('#drop').scrollIntoView({behavior:'smooth', block:'center'}); toast('위 칸을 눌러 사진을 골라주세요'); return; }
