@@ -5,7 +5,7 @@
   var TYPES = [
     ['food', '음식점'], ['cafe', '카페'], ['bakery', '베이커리'], ['pilates', '필라테스·요가'],
     ['skin', '피부관리·에스테틱'], ['nail', '네일샵'], ['hair', '미용실'], ['funi', '가구·인테리어'],
-    ['flower', '꽃집'], ['pet', '애견미용'], ['etc', '기타']
+    ['flower', '꽃집'], ['pet', '애견미용'], ['academy', '학원·공부방'], ['etc', '기타']
   ];
   var CSS = '#al-ob{position:fixed;inset:0;z-index:100003;font-family:"Noto Sans KR",system-ui,sans-serif;color:#14161F}' +
     '#al-ob .ob-bg{position:absolute;inset:0;background:rgba(10,12,18,.55)}' +
@@ -28,7 +28,7 @@
 
   function el(tag, attrs, html) { var e = document.createElement(tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (html != null) e.innerHTML = html; return e; }
 
-  var LIVE = { skin: ['스킨메이트', '/assets/icon-skin-192.png'], pilates: ['필라테스메이트', '/assets/icon-pilates-192.png'], food: ['푸드메이트', '/assets/icon-food-192.png'] };
+  var LIVE = { skin: ['스킨메이트', '/assets/icon-skin-192.png'], pilates: ['필라테스메이트', '/assets/icon-pilates-192.png'], food: ['푸드메이트', '/assets/icon-food-192.png'], academy: ['학원메이트', '/assets/icon-academy-192.png'] };
   function offerInstall(k) {
     var m = LIVE[k]; if (!m) return;
     if (location.pathname.indexOf('/' + k + '/') === 0) { if (window.alajoomShowInstall) setTimeout(window.alajoomShowInstall, 300); return; }
@@ -58,7 +58,7 @@
       var q = await sb.from('profiles').select('business_type,store_name,area,marketing_opt_in,onboarded_at').eq('id', s.user.id).maybeSingle();
       if (q.error || !q.data || q.data.onboarded_at) return;
       var p = q.data;
-      var guess = (location.pathname.match(/^\/(food|pilates|skin|beau|funi|nail|hair|cafe|bakery|flower|pet)\b/) || [])[1] || p.business_type || '';
+      var guess = (location.pathname.match(/^\/(food|pilates|skin|beau|funi|nail|hair|cafe|bakery|flower|pet|academy)\b/) || [])[1] || p.business_type || '';
       var sel = guess;
 
       if (!document.getElementById('al-ob-css')) { var st = el('style', { id: 'al-ob-css' }); st.textContent = CSS; document.head.appendChild(st); }

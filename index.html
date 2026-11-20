@@ -983,6 +983,18 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 <a class="mate-btn" data-open-mate="food" href="/food/" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; background: #14161F; color: #FFFFFF; font-size: 14px; font-weight: 700; text-decoration: none">소개 보고 써보기</a>
 </div>
 </article>
+<article class="mate-card is-live" data-mate="academy" tabindex="0" role="button" aria-label="학원메이트 소개 보기" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
+<div class="mate-visual" style="aspect-ratio: 4 / 3; background: #E2F2E9; position: relative; display: flex; align-items: center; justify-content: center; color: #2A2D36">
+<span class="mv-badge">● 바로 써보기</span><img src="assets/academy-card.jpg" alt="학원메이트가 만든 방학 특강 모집 카드와 학부모 문자 예시" loading="lazy"><span class="mv-play">결과물 예시</span>
+</div>
+<div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
+<div style="flex-grow: 1">
+<p class="mate-name" style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.3px">학원메이트</p>
+<p style="margin: 2px 0 0; font-size: 13px; color: #6A6F7C">공부방·교습소·학원</p>
+</div>
+<a class="mate-btn" data-open-mate="academy" href="/academy/" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 10px; background: #14161F; color: #FFFFFF; font-size: 14px; font-weight: 700; text-decoration: none">소개 보고 써보기</a>
+</div>
+</article>
 <article class="mate-card is-soon" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
 <div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
 <span class="mv-badge soon">준비 중</span><img class="mv-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3Flejn9Evam6EOzmypXwPYkch7M/hf_20261111_081226_aff42686-e7b8-4360-b991-fbc4d3ecccc7.png" alt="젤네일 손 사진" loading="lazy"><div class="mv-tile" style="background: linear-gradient(140deg,#F9D9E3,#F3E6F7); color: #2A2140"><small style="color: #8A3B5C">이달의 네일 아트</small><b>글리터 젤네일<br>주말 예약 3자리</b><em style="color: #8A3B5C">#젤네일 #네일아트</em></div>
@@ -1412,7 +1424,8 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
       var D = {
         skin: ['SKIN CARE', '스킨메이트', '피부관리·에스테틱 원장님 전용 AI 비서', ['한 줄이면 인스타·블로그·릴스를 한 번에', '고객 장부·관리권·시술 기록·예약', '왁싱·속눈썹 등 하는 시술 모두 메뉴에 넣고, 말로 시키고 카톡으로 보내기'], ''],
         pilates: ['FITNESS', '필라테스메이트', '필라테스·요가 스튜디오 사장님 전용', ['한 줄이면 인스타·블로그·릴스를 한 번에', '회원 장부·출석 체크·재등록 안내', '말로 시키고 회원에게 카톡으로 바로 보내기'], ''],
-        food: ['RESTAURANT', '푸드메이트', '음식점·카페·반찬가게 사장님 전용 AI 비서', ['한 줄이면 인스타·블로그·릴스·문자를 한 번에', '메뉴판·전단·가격표(POP)와 단체 주문 견적', '주문·납품 장부, 말로 시키고 카톡으로 바로 보내기'], '']
+        food: ['RESTAURANT', '푸드메이트', '음식점·카페·반찬가게 사장님 전용 AI 비서', ['한 줄이면 인스타·블로그·릴스·문자를 한 번에', '메뉴판·전단·가격표(POP)와 단체 주문 견적', '주문·납품 장부, 말로 시키고 카톡으로 바로 보내기'], ''],
+        academy: ['ACADEMY', '학원메이트', '공부방·교습소·학원 원장님 전용 AI 비서', ['한 줄이면 원생 모집 글을 인스타·블로그·맘카페까지 한 번에', '원생 장부·수강료 납부일·출결 체크', '수업 알림·상담 안내 학부모 문자, 카톡으로 바로 보내기'], '']
       };
       var cards = root.querySelectorAll('.mate-card.is-live'); if (!cards.length) return;
       var sh = doc.createElement('div'); sh.className = 'dz-ms'; sh.setAttribute('role', 'dialog'); sh.setAttribute('aria-modal', 'true');
@@ -1567,7 +1580,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 })();
 </script>
 <style>html,body{overflow-x:clip;max-width:100%}@supports not (overflow-x:clip){body{overflow-x:hidden}}</style>
-<script src="/assets/mate-picker.js?v=11181530" defer></script><script src="/assets/mate-nav.js?v=11181530" defer></script>
+<script src="/assets/mate-picker.js?v=11201430" defer></script><script src="/assets/mate-nav.js?v=11181530" defer></script>
 <div id="dz-install" role="dialog" aria-label="홈 화면에 추가" style="display:none;position:fixed;left:12px;right:12px;bottom:14px;z-index:9999;max-width:420px;margin:0 auto;padding:12px 12px 12px 14px;border-radius:18px;background:#14161F;color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.28);align-items:center;gap:12px;font-size:14px;line-height:1.4">
 <img src="/assets/icon-192.png" alt="" width="40" height="40" style="border-radius:10px;flex:none">
 <div style="flex:1;min-width:0"><b style="display:block;font-size:14.5px">내 메이트만 바탕화면에</b><span id="dz-install-msg" style="color:#C9CCD6;font-size:12.5px">필요한 메이트만 골라 깔 수 있어요</span></div>
@@ -1730,7 +1743,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
 </div>
 <div id="dz-usermenu" role="menu"><p class="um-name"></p><button type="button" class="um-out" role="menuitem">로그아웃</button></div>
 <script src="/assets/supabase-2.119.0.js"></script>
-<script src="/assets/onboard.js?v=11181530"></script>
+<script src="/assets/onboard.js?v=11201430"></script>
 <script>
 (function(){
   var URL_='https://zuxbloxstkcixqpzqalk.supabase.co', KEY='sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH';
@@ -1759,7 +1772,7 @@ html.dz-intro-on,html.dz-intro-on body{overflow:hidden !important}
     if(!a||!kakaoOn||user||!/무료/.test(a.textContent))return;
     e.preventDefault();open('#mates');
   },true);
-  var chip=null,mym=null,myType=null,LIVE={skin:['스킨메이트','/skin/','/assets/icon-skin-192.png'],pilates:['필라테스메이트','/pilates/','/assets/icon-pilates-192.png'],food:['푸드메이트','/food/','/assets/icon-food-192.png']};
+  var chip=null,mym=null,myType=null,LIVE={skin:['스킨메이트','/skin/','/assets/icon-skin-192.png'],pilates:['필라테스메이트','/pilates/','/assets/icon-pilates-192.png'],food:['푸드메이트','/food/','/assets/icon-food-192.png'],academy:['학원메이트','/academy/','/assets/icon-academy-192.png']};
   // 상단 '내 메이트' 바로가기: 로그인 + 업종이 있으면 그 메이트로, 아니면 메이트 고르기로
   var renderMy=function(){
     if(!headBtn)return;

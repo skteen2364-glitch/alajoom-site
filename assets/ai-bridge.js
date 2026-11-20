@@ -6,7 +6,7 @@
   if (window.claude && window.claude.use) return;
   var URL_ = 'https://zuxbloxstkcixqpzqalk.supabase.co';
   var KEY = 'sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH';
-  var MATE = (location.pathname.match(/^\/(food|pilates|skin|beau|funi|nail|hair|cafe|bakery|flower|pet)\b/) || [])[1] || 'food';
+  var MATE = (location.pathname.match(/^\/(food|pilates|skin|beau|funi|nail|hair|cafe|bakery|flower|pet|academy)\b/) || [])[1] || 'food';
   var sbP = null;
 
   function lib() {
