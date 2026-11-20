@@ -1,0 +1,38 @@
+{
+  "id": "/cafe/",
+  "name": "카페메이트 · 알아줌",
+  "short_name": "카페메이트",
+  "description": "카페 홍보글·손님 문자·리뷰 답글·단체 주문 장부를 AI가 도와드려요",
+  "lang": "ko",
+  "start_url": "/cafe/?source=homescreen",
+  "scope": "/cafe/",
+  "display": "standalone",
+  "background_color": "#FFF8E7",
+  "theme_color": "#FFF8E7",
+  "icons": [
+    {
+      "src": "/assets/icon-cafe-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-cafe-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-cafe-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icon-cafe-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -9,7 +9,9 @@
     { key: 'food', name: '푸드메이트', sub: '음식점·식당', icon: '/assets/icon-food-192.png' },
     { key: 'academy', name: '학원메이트', sub: '공부방·교습소·학원', icon: '/assets/icon-academy-192.png' },
     { key: 'nail', name: '네일메이트', sub: '네일샵', icon: '/assets/icon-nail-192.png' },
-    { key: 'hair', name: '헤어메이트', sub: '미용실', icon: '/assets/icon-hair-192.png' }
+    { key: 'hair', name: '헤어메이트', sub: '미용실', icon: '/assets/icon-hair-192.png' },
+    { key: 'cafe', name: '카페메이트', sub: '카페', icon: '/assets/icon-cafe-192.png' },
+    { key: 'bakery', name: '베이커리메이트', sub: '빵집·베이커리', icon: '/assets/icon-bakery-192.png' }
   ];
   window.alajoomMates = LIVE;
   window.alajoomPickMate = function (opt) {

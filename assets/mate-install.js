@@ -8,7 +8,9 @@
     food: { name: '푸드메이트', icon: '/assets/icon-food-192.png' },
     academy: { name: '학원메이트', icon: '/assets/icon-academy-192.png' },
     nail: { name: '네일메이트', icon: '/assets/icon-nail-192.png' },
-    hair: { name: '헤어메이트', icon: '/assets/icon-hair-192.png' }
+    hair: { name: '헤어메이트', icon: '/assets/icon-hair-192.png' },
+    cafe: { name: '카페메이트', icon: '/assets/icon-cafe-192.png' },
+    bakery: { name: '베이커리메이트', icon: '/assets/icon-bakery-192.png' }
   };
   var key = (location.pathname.match(/^\/([a-z]+)\//) || [])[1];
   var M = MATES[key]; if (!M) return;
