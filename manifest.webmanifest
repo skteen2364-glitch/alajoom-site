@@ -1,7 +1,7 @@
 {
   "name": "알아줌 — 1인 사장님 무료 AI 비서",
   "short_name": "알아줌",
-  "description": "사진 한 장이면 인스타·블로그 홍보까지. 업종별 AI 직원",
+  "description": "1인 사장님 무료 AI 비서. 한 줄이면 인스타·블로그·문자 홍보글을 한 번에, 고객·원생 장부와 전후 사진까지.",
   "lang": "ko",
   "start_url": "/?source=homescreen",
   "scope": "/",
@@ -9,13 +9,76 @@
   "background_color": "#FFF8E7",
   "theme_color": "#FFF8E7",
   "icons": [
-    {"src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-    {"src": "/assets/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable"},
-    {"src": "/assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "shortcuts": [
-    {"name": "필라테스메이트", "url": "/pilates/", "icons": [{"src": "/assets/icon-192.png", "sizes": "192x192"}]},
-    {"name": "푸드메이트", "url": "/food/", "icons": [{"src": "/assets/icon-192.png", "sizes": "192x192"}]}
+    {
+      "name": "스킨메이트",
+      "url": "/skin/",
+      "icons": [
+        {
+          "src": "/assets/icon-skin-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "헤어메이트",
+      "url": "/hair/",
+      "icons": [
+        {
+          "src": "/assets/icon-hair-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "푸드메이트",
+      "url": "/food/",
+      "icons": [
+        {
+          "src": "/assets/icon-food-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "학원메이트",
+      "url": "/academy/",
+      "icons": [
+        {
+          "src": "/assets/icon-academy-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "id": "/",
+  "categories": [
+    "business",
+    "productivity"
   ]
 }
