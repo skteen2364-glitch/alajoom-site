@@ -726,7 +726,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 <div>
 <p class="al-pill">1인 사장님 무료 비서</p>
 <h1 class="al-gaegu">혼자 다 하는 사장님,<br>말만 하세요.<br><span class="al-n">알아서 해줌</span></h1>
-<p class="al-lead">한 줄만 말하면 알아줌 팀이 인스타·블로그·문자 글을 쓰고, 사진과 장부까지 챙겨요.</p>
+<p class="al-lead">한 줄만 적으면 알아줌 팀이 인스타·블로그·문자 글을 대신 쓰고, 사진과 장부까지 챙겨요.</p>
 <a class="al-kakao" href="#mates">카카오로 무료 시작</a>
 <p class="al-note">하루 10회 무료 · 카드 등록 없음</p>
 </div>
@@ -737,9 +737,14 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 <span class="dz-status" style="font-size:13.5px;font-weight:700;color:#3B5B92;display:inline-flex;align-items:center;gap:6px"><span class="dz-rec" aria-hidden="true"></span>듣고 있어요<span class="dz-dots"><i>.</i><i>.</i><i>.</i></span></span>
 </div>
 <p class="al-say"><span class="dz-w" style="animation-delay:500ms">"이번</span> <span class="dz-w" style="animation-delay:620ms">주말</span> <span class="dz-w" style="animation-delay:740ms">수분관리</span> <span class="dz-w" style="animation-delay:860ms">이벤트,</span> <span class="dz-w" style="animation-delay:980ms">인스타에</span> <span class="dz-w" style="animation-delay:1100ms">올려줘"</span></p>
-<div class="al-done-h"><b>오늘 알아줌이 한 일</b><span>사장님은 확인만</span></div>
-<ul class="al-done"><li style="--d:1.6s"><i data-al-ch="write"></i><div><b>인스타 홍보글</b><span>술술이 · 사진 1장 → 글·해시태그</span></div><em><s>하는 중</s><u>완료</u></em></li><li style="--d:2.2s"><i data-al-ch="write"></i><div><b>블로그 글</b><span>술술이 · 동네 검색에 맞춘 소개 글</span></div><em><s>하는 중</s><u>완료</u></em></li><li style="--d:2.7s"><i data-al-ch="book"></i><div><b>고객 문자</b><span>차곡이 · 예약 손님 안내·재방문 문자</span></div><em><s>하는 중</s><u>완료</u></em></li><li style="--d:3.2s"><i data-al-ch="photo"></i><div><b>사진 보정</b><span>찰칵이 · 어둡게 찍힌 사진 밝고 깔끔하게</span></div><em><s>하는 중</s><u>완료</u></em></li><li style="--d:3.8s"><i data-al-ch="book"></i><div><b>오늘 장부</b><span>차곡이 · 카드·현금 매출 정리</span></div><em><s>하는 중</s><u>완료</u></em></li></ul>
-</div>
+<p class="al-go-t">알아줌 팀이 바로 시작해요</p>
+<div class="al-crew al-crew-in" aria-label="알아줌 팀 다섯 캐릭터">
+<div><i data-al-ch="plan"></i><b>반짝이</b><span>기획</span></div>
+<div><i data-al-ch="write"></i><b>술술이</b><span>글</span></div>
+<div><i data-al-ch="photo"></i><b>찰칵이</b><span>사진</span></div>
+<div><i data-al-ch="check"></i><b>꼼꼼이</b><span>검토</span></div>
+<div><i data-al-ch="book"></i><b>차곡이</b><span>장부</span></div>
+</div></div>
 </div>
 </section>
 
@@ -1689,43 +1694,6 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 .al-stage .al-crew-in{box-shadow:none;padding:8px 0 0;border-radius:0;background:transparent}
 .al-crew-in>div svg{animation-delay:1.5s,2.4s}
 .al-crew-in>div:nth-child(2) svg{animation-delay:1.62s,2.8s}.al-crew-in>div:nth-child(3) svg{animation-delay:1.74s,2.6s}.al-crew-in>div:nth-child(4) svg{animation-delay:1.86s,3s}.al-crew-in>div:nth-child(5) svg{animation-delay:1.98s,3.2s}
-</style>
-<style>
-.al-done-h{display:flex;justify-content:space-between;align-items:center;margin:2px 0 4px}
-.al-done-h b{font-size:14px}.al-done-h span{font-size:12px;font-weight:700;color:#3B5B92;background:#E6ECF5;padding:3px 9px;border-radius:999px}
-.al-done{list-style:none;margin:0;padding:0}
-.al-done li{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid #F2EBDA;opacity:0;animation:alUp .45s ease both;animation-delay:calc(var(--d) - .9s)}
-.al-done li svg{flex:none;width:36px;height:36px}
-.al-done li div{flex:1;min-width:0}
-.al-done b{display:block;font-size:14.5px;line-height:1.3}
-.al-done span{display:block;font-size:12px;color:#6A6F7C;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.al-done em{font-style:normal;position:relative;flex:none;width:62px;height:26px}
-.al-done em s,.al-done em u{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:12px;font-weight:800;text-decoration:none}
-.al-done em s{background:#EEF2F8;color:#3B5B92;animation:alOut .3s ease forwards;animation-delay:var(--d)}
-.al-done em u{background:#12A150;color:#fff;opacity:0;transform:scale(.6);animation:alIn .35s cubic-bezier(.2,.9,.3,1.4) forwards;animation-delay:var(--d)}
-@keyframes alOut{to{opacity:0}}@keyframes alIn{to{opacity:1;transform:none}}
-.al-stage{padding:14px 14px 10px}
-.al-listen{margin-bottom:8px}
-.al-say{margin-bottom:10px;padding:10px 12px;font-size:15px}
-@media (max-width:860px){
-  .al-hero{padding:16px 0 18px}
-  .al-hero .al-w{gap:14px}
-  .al-pill{margin-bottom:8px;padding:4px 10px;font-size:12.5px}
-  .al-hero h1{font-size:40px;margin-bottom:8px}
-  .al-hero p.al-lead{font-size:15.5px;margin-bottom:0;line-height:1.55}
-  .al-hero .al-kakao,.al-hero .al-note{display:none}
-}
-@media (max-width:860px) and (max-height:800px){
-  .al-pill{display:none}
-  .al-hero{padding-top:12px}
-  .al-hero h1{font-size:35px}
-  .al-hero p.al-lead{font-size:14.5px}
-  .al-listen .dz-micwrap,.al-listen .dz-mic{width:40px !important;height:40px !important}
-  .al-say{font-size:14px;padding:8px 11px;margin-bottom:6px}
-  .al-done li{padding:3px 0}.al-done li svg{width:30px;height:30px}
-  .al-done span{font-size:11.5px}
-}
-@media (prefers-reduced-motion:reduce){.al-done li{opacity:1}.al-done em s{display:none}.al-done em u{opacity:1;transform:none}}
 </style>
 <script src="/assets/team.js?v=11211500"></script>
 <script>(function(){try{var T=window.alajoomTeam;if(!T)return;document.querySelectorAll('[data-al-ch]').forEach(function(i){i.outerHTML=T.svg(i.getAttribute('data-al-ch'),64);});}catch(e){}})();</script>
