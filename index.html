@@ -730,13 +730,21 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 <a class="al-kakao" href="#mates">카카오로 무료 시작</a>
 <p class="al-note">하루 10회 무료 · 카드 등록 없음</p>
 </div>
-<div class="al-crew" aria-label="알아줌 팀 다섯 캐릭터">
+<div class="al-stage">
+<div class="al-listen">
+<span class="dz-micwrap" style="position:relative;width:48px;height:48px;flex-shrink:0"><span class="dz-ring" aria-hidden="true"></span><span class="dz-ring dz-r2" aria-hidden="true"></span><span class="dz-mic" style="position:relative;width:48px;height:48px;border-radius:50%;background:#3B5B92;display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></span></span>
+<span style="display:flex;align-items:flex-end;gap:3px;height:24px" aria-hidden="true"><span class="dz-bar" style="width:4px;height:10px;border-radius:2px;background:#7D95C0"></span><span class="dz-bar" style="width:4px;height:20px;border-radius:2px;background:#7D95C0"></span><span class="dz-bar" style="width:4px;height:14px;border-radius:2px;background:#7D95C0"></span><span class="dz-bar" style="width:4px;height:24px;border-radius:2px;background:#7D95C0"></span><span class="dz-bar" style="width:4px;height:12px;border-radius:2px;background:#7D95C0"></span><span class="dz-bar" style="width:4px;height:18px;border-radius:2px;background:#7D95C0"></span><span class="dz-bar" style="width:4px;height:8px;border-radius:2px;background:#7D95C0"></span></span>
+<span class="dz-status" style="font-size:13.5px;font-weight:700;color:#3B5B92;display:inline-flex;align-items:center;gap:6px"><span class="dz-rec" aria-hidden="true"></span>듣고 있어요<span class="dz-dots"><i>.</i><i>.</i><i>.</i></span></span>
+</div>
+<p class="al-say"><span class="dz-w" style="animation-delay:500ms">"이번</span> <span class="dz-w" style="animation-delay:620ms">주말</span> <span class="dz-w" style="animation-delay:740ms">수분관리</span> <span class="dz-w" style="animation-delay:860ms">이벤트,</span> <span class="dz-w" style="animation-delay:980ms">인스타에</span> <span class="dz-w" style="animation-delay:1100ms">올려줘"</span></p>
+<p class="al-go-t">알아줌 팀이 바로 시작해요</p>
+<div class="al-crew al-crew-in" aria-label="알아줌 팀 다섯 캐릭터">
 <div><i data-al-ch="plan"></i><b>반짝이</b><span>기획</span></div>
 <div><i data-al-ch="write"></i><b>술술이</b><span>글</span></div>
 <div><i data-al-ch="photo"></i><b>찰칵이</b><span>사진</span></div>
 <div><i data-al-ch="check"></i><b>꼼꼼이</b><span>검토</span></div>
 <div><i data-al-ch="book"></i><b>차곡이</b><span>장부</span></div>
-</div>
+</div></div>
 </div>
 </section>
 
@@ -989,7 +997,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 <div class="mate-grid" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
 <article data-cat="beauty" class="mate-card is-live" data-mate="skin" tabindex="0" role="button" aria-label="스킨메이트 소개 보기" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
 <div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
-<span class="mv-badge">● 바로 써보기</span><img class="mv-photo" src="assets/skin-photo.jpg?v=1121" alt="햇살이 드는 1인 피부관리실" loading="lazy"><div class="mv-tile" style="background: linear-gradient(140deg,#FBE7EE,#F7EFEA); color: #8F2C4E"><small style="color: #B83C66">첫 방문 이벤트</small><b>수분 관리<br>평일 오전 예약</b><em style="color: #B83C66">#피부관리 #1인샵</em></div>
+<span class="mv-badge">● 바로 써보기</span><img class="mv-photo" src="assets/skin-photo.jpg?v=1121b" alt="햇살이 드는 1인 피부관리실" loading="lazy"><div class="mv-tile" style="background: linear-gradient(140deg,#FBE7EE,#F7EFEA); color: #8F2C4E"><small style="color: #B83C66">첫 방문 이벤트</small><b>수분 관리<br>평일 오전 예약</b><em style="color: #B83C66">#피부관리 #1인샵</em></div>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
@@ -1677,6 +1685,15 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 .erp-guide p b{display:block;font-size:13px;color:#8A520E;margin-bottom:2px}
 .erp-list .erp-ic{font-style:normal;font-size:12px;font-weight:800;color:#3B5B92;background:#E6ECF5;border-radius:10px;min-width:44px;height:32px;display:inline-flex;align-items:center;justify-content:center}
 .al-kakao{box-sizing:border-box;max-width:100%}
+</style>
+<style>
+.al-stage{background:#fff;border-radius:26px;padding:18px 16px 16px;box-shadow:0 14px 40px rgba(120,90,20,.12);border:1px solid #F0E3BF}
+.al-listen{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.al-say{margin:0 0 12px;padding:12px 14px;border-radius:16px 16px 16px 4px;background:#EEF2F8;font-size:16px;font-weight:700;line-height:1.5;color:#14161F}
+.al-go-t{margin:0 0 4px;font-size:13px;font-weight:700;color:#5B6070}
+.al-stage .al-crew-in{box-shadow:none;padding:8px 0 0;border-radius:0;background:transparent}
+.al-crew-in>div svg{animation-delay:1.5s,2.4s}
+.al-crew-in>div:nth-child(2) svg{animation-delay:1.62s,2.8s}.al-crew-in>div:nth-child(3) svg{animation-delay:1.74s,2.6s}.al-crew-in>div:nth-child(4) svg{animation-delay:1.86s,3s}.al-crew-in>div:nth-child(5) svg{animation-delay:1.98s,3.2s}
 </style>
 <script src="/assets/team.js?v=11211500"></script>
 <script>(function(){try{var T=window.alajoomTeam;if(!T)return;document.querySelectorAll('[data-al-ch]').forEach(function(i){i.outerHTML=T.svg(i.getAttribute('data-al-ch'),64);});}catch(e){}})();</script>
