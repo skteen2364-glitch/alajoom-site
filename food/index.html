@@ -196,10 +196,10 @@ header .brand:active{opacity:.7}
 
 /* ---------- v3: 시안 A·B·C 섞기 ---------- */
 .hd-date{margin:4px 0 6px;font-size:13px;color:var(--muted)}
-.hd-h1{font-family:'Gowun Batang','Noto Serif KR',serif;font-size:31px;line-height:1.3;font-weight:700;letter-spacing:-.02em;margin:0 0 14px;text-wrap:balance;color:var(--ink)}
+.hd-h1{font-family:var(--font);font-size:30px;line-height:1.28;font-weight:900;letter-spacing:-.045em;margin:0 0 14px;text-wrap:balance;color:var(--ink)}
 .tl{list-style:none;margin:0 0 4px;padding:0}
 .tl li{display:flex;gap:16px;align-items:baseline;padding:13px 0;border-top:1px solid var(--line)}
-.tl-t{flex:none;width:62px;font-family:'Gowun Batang','Noto Serif KR',serif;font-size:21px;font-weight:700;letter-spacing:-.02em}
+.tl-t{flex:none;width:62px;font-family:var(--font);font-size:19px;font-weight:900;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .tl li:first-child .tl-t{color:var(--blue)}
 .tl-m{display:flex;flex-direction:column;gap:2px;font-size:15.5px;min-width:0}.tl-m b{font-weight:700}.tl-m small{font-size:12.5px;color:var(--muted)}
 .hd-sum{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 18px;padding-top:4px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
@@ -288,12 +288,12 @@ header .brand:active{opacity:.7}
 .ai-ex{display:flex;align-items:center;gap:6px}.ai-ex figure{flex:1;margin:0;min-width:0}.ai-ex img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block}.ai-ex figcaption{font-size:11.5px;color:var(--muted);text-align:center;margin-top:4px}.ai-ex span{font-weight:900;color:#DB2777}
 </style>
 <link rel="manifest" href="/food/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-food.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="푸드메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11201430"></script><script src="/assets/mate-install.js?v=11201430" defer></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap">
+
 </head>
 <body>
 <div class="app">
   <header>
-    <div class="brand"><div class="logo" aria-hidden="true">알</div><div><b>푸드메이트</b><small>알아줌 · 음식점 사장님 AI 비서</small></div></div>
+    <div class="brand"><div class="logo" aria-hidden="true">알</div><div><b>푸드메이트</b><small>알아줌 · 음식점 사장님 비서</small></div></div>
     <span class="quota" id="quota">오늘 10회 남음</span>
   </header>
 
@@ -361,7 +361,7 @@ header .brand:active{opacity:.7}
 
 <script>
 var CFG = {
-  title:'푸드메이트', sub:'알아줌 · 음식점 사장님 AI 비서', h1:'사장님, 오늘은 뭘 만들까요?', prof:'가게 정보',
+  title:'푸드메이트', sub:'알아줌 · 음식점 사장님 비서', h1:'사장님, 오늘은 뭘 만들까요?', prof:'가게 정보',
   offline:'체험판 · 예시 문구로 보여드려요',
   studio:{ name:'골목밥상', area:'연남동', cls:'제육볶음 정식, 된장찌개, 계절 반찬', feat:'매일 아침 직접 담그는 반찬, 혼밥 환영', contact:'전화 02-000-0000 · 네이버 예약', tone:'다정하게' },
   clsName:'대표 메뉴', who:'손님', blogTag:'맛집',
