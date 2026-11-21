@@ -71,7 +71,7 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 #how .card>span:nth-child(2){width:40px !important;height:40px !important;margin:0 !important;grid-row:1 / span 2;border-radius:12px !important}
 #how .card h3{margin:0 !important;font-size:16px !important}
 #how .card p{grid-column:2;font-size:13px !important}
-#video .wrap>div:first-child{max-width:150px !important}
+#video .wrap>div:first-child{max-width:320px !important;flex:1 1 100% !important;width:100%}
 #video .cta-row a{min-height:46px !important;font-size:15px !important}
 #team .lead{display:none !important}
 #trust .trust-foot{display:none !important}
@@ -98,7 +98,7 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 #funi .cta-row a{flex:1 1 0 !important;padding:0 10px !important;font-size:14px !important;min-height:46px !important;justify-content:center}
 .mate-body{gap:8px !important}
 #video .lead{display:none !important}
-#video .wrap>div:first-child{max-width:130px !important}
+#video .wrap>div:first-child{max-width:320px !important;flex:1 1 100% !important;width:100%}
 #video .cta-row{flex-wrap:nowrap !important}
 #video .cta-row a{flex:1 1 0 !important;padding:0 10px !important;font-size:14px !important;justify-content:center}
 #team .form-box>div[role="group"],#team .form-box>div:last-child,#team .form-box>div[style*="flex-wrap: wrap; gap: 6px"]{display:none !important}
@@ -297,6 +297,9 @@ section[id]{scroll-margin-top:72px}
 #video video,#beau video,#funi video{border-radius:20px !important}
 #video .wrap{flex-direction:column-reverse !important;align-items:stretch !important;gap:18px !important}
 #video .wrap>div,#funi .wrap>div{flex:0 0 auto !important}
+#video .wrap>div:first-child{max-width:300px !important;width:min(300px,84vw) !important}
+#video .wrap>div:first-child>div{padding:9px !important;border-radius:38px !important}
+#video video{border-radius:30px !important}
 #funi .wrap{flex-direction:column !important;align-items:stretch !important;gap:18px !important}
 #beau .wrap{gap:18px !important}
 #video .h2,#beau .h2,#funi .h2{margin-bottom:12px !important}
