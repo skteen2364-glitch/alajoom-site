@@ -297,9 +297,11 @@ section[id]{scroll-margin-top:72px}
 #video video,#beau video,#funi video{border-radius:20px !important}
 #video .wrap{flex-direction:column-reverse !important;align-items:stretch !important;gap:18px !important}
 #video .wrap>div,#funi .wrap>div{flex:0 0 auto !important}
-#video .wrap>div:first-child{max-width:300px !important;width:min(300px,84vw) !important}
-#video .wrap>div:first-child>div{padding:9px !important;border-radius:38px !important}
-#video video{border-radius:30px !important}
+#video .wrap>div:first-child{max-width:240px !important;width:min(240px,66vw) !important}
+#video .wrap>div:first-child>div,#skin div:has(>video),#food div:has(>video){padding:7px !important;border-radius:32px !important}
+#video video,#skin video,#food video{border-radius:25px !important}
+#skin div:has(>div>video),#food div:has(>div>video){max-width:240px !important;margin:0 auto !important}
+#skin div:has(>video),#food div:has(>video){max-width:240px !important}
 #funi .wrap{flex-direction:column !important;align-items:stretch !important;gap:18px !important}
 #beau .wrap{gap:18px !important}
 #video .h2,#beau .h2,#funi .h2{margin-bottom:12px !important}
@@ -957,7 +959,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 <div class="mate-grid" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
 <article data-cat="beauty" class="mate-card is-live" data-mate="skin" tabindex="0" role="button" aria-label="스킨메이트 소개 보기" style="display: flex; flex-direction: column; min-width: 0; border-radius: 16px; border: 1px solid #E8EAEE; background: #FFFFFF; overflow: hidden">
 <div class="mate-visual" style="aspect-ratio: 4 / 3; position: relative; overflow: hidden; color: #2A2D36">
-<span class="mv-badge">● 바로 써보기</span><img class="mv-photo" src="assets/skin-photo.jpg" alt="햇살이 드는 1인 피부관리실" loading="lazy"><div class="mv-tile" style="background: linear-gradient(140deg,#FBE7EE,#F7EFEA); color: #8F2C4E"><small style="color: #B83C66">첫 방문 이벤트</small><b>수분 관리<br>평일 오전 예약</b><em style="color: #B83C66">#피부관리 #1인샵</em></div>
+<span class="mv-badge">● 바로 써보기</span><img class="mv-photo" src="assets/skin-photo.jpg?v=1121" alt="햇살이 드는 1인 피부관리실" loading="lazy"><div class="mv-tile" style="background: linear-gradient(140deg,#FBE7EE,#F7EFEA); color: #8F2C4E"><small style="color: #B83C66">첫 방문 이벤트</small><b>수분 관리<br>평일 오전 예약</b><em style="color: #B83C66">#피부관리 #1인샵</em></div>
 </div>
 <div class="mate-body" style="padding: 14px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1">
 <div style="flex-grow: 1">
