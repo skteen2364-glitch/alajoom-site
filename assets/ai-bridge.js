@@ -54,7 +54,9 @@
     var d = {}; try { d = await r.json(); } catch (e) {}
     if (!r.ok) { toast(d.message || 'AI가 잠시 바빠요. 조금 뒤 다시 눌러 주세요'); var e1 = new Error(d.error || 'ai_error'); e1.code = d.error || 'ai_error'; throw e1; }
     if (d.admin) setMode('알아줌이 직접 써요 · 관리자 무제한');
+    else if (d.bonus_left != null) setMode('알아줌이 직접 써요 · 보너스 ' + d.bonus_left + '회 남음');
     else if (d.used != null && d.limit) setMode('알아줌이 직접 써요 · 오늘 ' + Math.max(0, d.limit - d.used) + '회 남음');
+    try { window.dispatchEvent(new CustomEvent('alajoom:used')); } catch (e) {}
     return d;
   }
   async function call(prompt, opts) {
@@ -75,7 +77,9 @@
       var e1 = new Error(d.error || 'ai_error'); e1.code = d.error || 'ai_error'; throw e1;
     }
     if (d.admin) setMode('알아줌이 직접 써요 · 관리자 무제한');
+    else if (d.bonus_left != null) setMode('알아줌이 직접 써요 · 보너스 ' + d.bonus_left + '회 남음');
     else if (d.used != null && d.limit) setMode('알아줌이 직접 써요 · 오늘 ' + Math.max(0, d.limit - d.used) + '회 남음');
+    try { window.dispatchEvent(new CustomEvent('alajoom:used')); } catch (e) {}
     return { text: d.text || '' };
   }
 
@@ -121,6 +125,18 @@
       var m = await me(); if (!m) throw new Error('login_required');
       var r = await m.sb.from('feedback').insert({ user_id: m.uid, kind: kind, message: String(message).slice(0, 2000), mate: mate || null, page: location.pathname.slice(0, 200) });
       if (r.error) throw r.error; return true;
+    },
+    rpc: async function (name, args) {
+      var sb = await client();
+      var r = await sb.rpc(name, args || {});
+      if (r.error) throw r.error; return r.data;
+    },
+    guestAgent: async function (p) {
+      var body = { guest: true, mate: MATE, mode: 'agent', topic: p.topic, channels: (p.channels || []).slice(0, 3), detail: p.detail, store: p.store, tool: 'set' };
+      var r = await fetch(URL_ + '/functions/v1/generate', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY }, body: JSON.stringify(body) });
+      var d = {}; try { d = await r.json(); } catch (e) {}
+      if (!r.ok) { var e1 = new Error(d.error || 'ai_error'); e1.code = d.error || 'ai_error'; e1.msg = d.message; throw e1; }
+      return d;
     },
     agent: async function (p) {
       var body = { mode: 'agent', topic: p.topic, channels: p.channels, detail: p.detail, store: p.store, tool: 'set' };

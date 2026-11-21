@@ -247,7 +247,7 @@ header .brand:active{opacity:.7}
 .ai-go:disabled{opacity:.75;cursor:wait}
 .ai-note{font-size:12px!important}
 </style>
-<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11201430"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/pilates/members.js?v=11121526" defer></script><script src="/assets/team.js?v=11211500" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
+<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11212130"></script><script src="/assets/family.js?v=11212130"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/pilates/members.js?v=11121526" defer></script><script src="/assets/team.js?v=11211500" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">
 </head>
@@ -469,7 +469,30 @@ var CFG = {
     } catch(e){ clearInterval(tick); if (tm) tm.fail(); r.innerHTML = '<div class="check bad"><span>!</span><span>' + (e && e.code === 'limit' ? '오늘 AI 횟수를 다 썼어요.' : '지금은 만들지 못했어요. 잠시 후 다시 눌러주세요.') + '</span></div>'; }
   }
   /* 로그인 전: 예시 세트 보여주고 로그인 안내 */
-  function demoSet(detail){
+  async function demoSet(detail){
+    if (window.alajoomAI && window.alajoomAI.guestAgent){
+      var r0 = $('#result'); r0.classList.remove('hidden');
+      var chs = setSel.slice(0, 3);
+      var tm = window.alajoomTeam ? window.alajoomTeam.progress(r0, { photo: false, channels: chs.length }) : null;
+      if (!tm) r0.innerHTML = '<div class="out thinking" style="white-space:normal">알아줌이 쓰는 중…</div>';
+      try {
+        var d = await window.alajoomAI.guestAgent({ topic: pick.topic, channels: chs, detail: detail,
+          store: [studio.name, studio.area, studio.cls, studio.feat].filter(Boolean).join(' / ') });
+        setRes = d.results || {}; setCur = Object.keys(setRes)[0];
+        var fin = function(){
+          showSet('체험으로 만든 진짜 글이에요. 체험은 하루 한 번, 카카오로 시작하면 매일 무료로 써요' + (setSel.length > 3 ? ' (체험은 3곳까지)' : ''));
+          var rr = $('#result');
+          rr.insertAdjacentHTML('afterbegin', '<button type="button" id="demoLogin" style="display:flex;align-items:center;justify-content:center;width:100%;min-height:50px;margin:0 0 12px;border:0;border-radius:14px;background:#FEE500;color:#191600;font:inherit;font-weight:800;font-size:15.5px;cursor:pointer">카카오로 시작하고 매일 무료로 쓰기</button>');
+          if (window.alajoomTeam) rr.insertAdjacentHTML('afterbegin', window.alajoomTeam.strip(['plan','write','check']));
+          var lb = document.getElementById('demoLogin'); if (lb) lb.onclick = function(){ if (window.alajoomLogin) window.alajoomLogin(); };
+        };
+        if (tm) tm.done(d.reviewed, fin); else fin();
+        return;
+      } catch(e){ if (tm) tm.fail(); if (e && e.code === 'guest_used') toast('오늘 체험은 끝났어요. 아래는 예시 글이에요'); }
+    }
+    demoExamples(detail);
+  }
+  function demoExamples(detail){
     var keepTool = tool, keepCh = pick.ch, res = {};
     tool = 'post';
     setSel.forEach(function(c){ pick.ch = ({insta:'인스타',blog:'블로그'})[c] || '문자'; var t = fallback(detail); if (t) res[c] = t; });
@@ -1141,7 +1164,7 @@ var CFG = {
       if (!window.alajoomAI || !(await window.alajoomAI.loggedIn())){ if (!setSel.length){ toast('채널을 하나 이상 골라주세요'); return; } demoSet(detail); return; }
       if (!setSel.length){ toast('채널을 하나 이상 골라주세요'); return; }
     }
-    if (!useQuota()){ toast('오늘 횟수를 다 썼어요. 내일 다시 10회가 생겨요'); return; }
+    if (!window.alajoomFamilyMe && !useQuota()){ toast('오늘 횟수를 다 썼어요. 내일 다시 10회가 생겨요'); return; }
     busy = true; var go = $('#go'); go.disabled = true;
     try {
       if (tool === 'photo'){ await genPhoto(extra); }
@@ -1588,8 +1611,8 @@ var CFG = {
     go.addEventListener('click', async function(){
       var v = qi.value.trim(); if (!v){ toast('한 줄만 적어 주세요'); qi.focus(); return; }
       var on = false; try { on = !!(window.alajoomAI && await window.alajoomAI.loggedIn()); } catch(e){}
-      var sb = document.querySelector('.tool[data-tool="' + (on ? 'set' : 'post') + '"]'); if (sb) sb.click();
-      if (!on) toast('로그인 전이라 홍보글 체험으로 보여드려요');
+      var sb = document.querySelector('.tool[data-tool="set"]'); if (sb) sb.click();
+      if (!on) toast('로그인 전 체험으로 만들어 드려요');
       setTimeout(function(){ var d = document.getElementById('detail'); if (d) d.value = v; var g = document.getElementById('go'); if (g) g.click(); }, 80);
     });
     qi.addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); go.click(); } });
