@@ -247,7 +247,7 @@ header .brand:active{opacity:.7}
 .ai-go:disabled{opacity:.75;cursor:wait}
 .ai-note{font-size:12px!important}
 </style>
-<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11201430"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/pilates/members.js?v=11121526" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
+<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11201430"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/pilates/members.js?v=11121526" defer></script><script src="/assets/team.js?v=11211500" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">
 </head>
@@ -456,16 +456,17 @@ var CFG = {
     var detail = ($('#detail') && $('#detail').value.trim()) || '';
     if (!setSel.length){ toast('채널을 하나 이상 골라주세요'); return; }
     var r = $('#result'); r.classList.remove('hidden');
-    var steps = ['자료 담당 · 가게 정보 정리', '전략 담당 · 강조할 점 기획', '카피 담당 · 채널별 글 작성', '검토 담당 · 표현 점검'], k = 0;
-    r.innerHTML = '<div class="out thinking" id="setWait" style="white-space:normal">' + steps[0] + '…</div>';
-    var tick = setInterval(function(){ k = Math.min(k + 1, steps.length - 1); var w = $('#setWait'); if (w) w.textContent = steps[k] + '…'; }, 3500);
+    var tm = window.alajoomTeam ? window.alajoomTeam.progress(r, { photo: !!att, channels: setSel.length }) : null;
+    if (!tm) r.innerHTML = '<div class="out thinking" style="white-space:normal">알아줌이 쓰는 중…</div>';
+    var tick = 0;
     try {
       var d = await window.alajoomAI.agent({ topic: pick.topic, channels: setSel.slice(), detail: detail, image: att ? att.blob : null,
         store: [studio.name, studio.area, studio.cls, studio.feat, studio.contact ? '예약·문의: ' + studio.contact : ''].filter(Boolean).join(' / ') });
       clearTimeout(tick); clearInterval(tick);
       setRes = d.results || {}; setCur = Object.keys(setRes)[0];
-      showSet(d.reviewed && d.reviewed.length ? '검토 담당이 ' + d.reviewed.map(chName).join('·') + ' 글의 표현을 고쳤어요' : '');
-    } catch(e){ clearInterval(tick); r.innerHTML = '<div class="check bad"><span>!</span><span>' + (e && e.code === 'limit' ? '오늘 AI 횟수를 다 썼어요.' : '지금은 만들지 못했어요. 잠시 후 다시 눌러주세요.') + '</span></div>'; }
+      var fin = function(){ showSet(d.reviewed && d.reviewed.length ? '꼼꼼이가 ' + d.reviewed.map(chName).join('·') + ' 글의 표현을 고쳤어요' : ''); if (window.alajoomTeam) $('#result').insertAdjacentHTML('afterbegin', window.alajoomTeam.strip(att ? ['plan','photo','write','check'] : ['plan','write','check'])); };
+      if (tm) tm.done(d.reviewed, fin); else fin();
+    } catch(e){ clearInterval(tick); if (tm) tm.fail(); r.innerHTML = '<div class="check bad"><span>!</span><span>' + (e && e.code === 'limit' ? '오늘 AI 횟수를 다 썼어요.' : '지금은 만들지 못했어요. 잠시 후 다시 눌러주세요.') + '</span></div>'; }
   }
   function showSet(note){
     var r = $('#result'); r.classList.remove('hidden');
@@ -528,7 +529,7 @@ var CFG = {
     if (tool === 'set') h += '<div class="step"><p>어디에 올릴 글을 만들까요? <small style="font-weight:500;color:var(--muted)">(여러 개 고르기)</small></p><div class="chips" role="group" aria-label="채널">' + SETCH.map(function(c){ return '<button type="button" class="chip" data-chm="' + c[0] + '" aria-pressed="' + (setSel.indexOf(c[0]) >= 0) + '">' + c[1] + '</button>'; }).join('') + '</div></div>';
     if (tool === 'post' || tool === 'card' || tool === 'set') h += '<div class="step"><p>사진 넣기 <small style="font-weight:500;color:var(--muted)">(선택' + (tool === 'card' ? ' · 카드 배경이 돼요' : ' · AI가 사진을 보고 써요') + ')</small></p><div id="attBox">' + attHtml() + '</div></div>';
     h += '<div class="step"><label for="detail">'+t.detail+'</label>' + (t.area ? '<textarea id="detail" placeholder="'+esc(t.ph)+'"></textarea>' : '<input type="text" id="detail" placeholder="'+esc(t.ph)+'">') + '</div>';
-    if (tool === 'set') h += '<p class="note" style="margin:0">자료 정리 → 전략 담당이 강조점 기획 → 카피 담당이 채널별로 작성 → 검토 담당이 위험 표현 점검. AI 1회로 계산돼요.' + (voiceOn ? ' <b>우리 가게 말투</b>로 써요.' : '') + '</p>';
+    if (tool === 'set') h += '<p class="note" style="margin:0">반짝이가 강조점을 정하고 → 술술이가 채널별로 쓰고 → 꼼꼼이가 과장 표현을 살펴요. AI 1회로 계산돼요.' + (voiceOn ? ' <b>우리 가게 말투</b>로 써요.' : '') + '</p>';
     if (tool === 'card') h += '<div class="step"><p>디자인 먼저 고르기 <small>나중에 바꿔도 돼요</small></p><div class="tpl-strip" id="tplPick" role="group" aria-label="카드 디자인">' + THEMES.map(function(t, i){ return '<button type="button" class="tpl" data-th="' + i + '" aria-pressed="' + (i === theme) + '"><img alt="" src="' + drawCard(cardFallback(''), i, cfmt, .2).toDataURL('image/jpeg', .75) + '"><span>' + t.name + '</span></button>'; }).join('') + '</div></div>';
     h += '<button class="go" type="button" id="go">' + (tool === 'set' ? '알아줌에게 맡기기' : '만들기') + '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>';
     h += '<div class="result hidden" id="result"></div>';
