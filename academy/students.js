@@ -1,4 +1,4 @@
-/* 학원메이트 · 원생 장부
+/* 알아줌 학원 · 원생 장부
    원생·반·출결·수납·상담을 이 기기(브라우저)에 저장하고, 로그인하면 계정에도 저장.
    학원은 '월 수강료 + 매월 납부일' 기준. 등·하원 알림과 수강료 안내는 원장님 휴대폰 문자로 바로 보내요. */
 (function () {
@@ -350,7 +350,7 @@
     var rows = [COLS].concat(DB.members.map(function (m) { return [m.name, m.grade, m.phone, m.sphone, clsNames(m).join(' / '), m.fee, m.payDay, m.start, m.quit || '', lastAtt(m) || '', (m.att || []).slice().sort().join(' '), m.memo]; }));
     var csv = '﻿' + rows.map(function (r) { return r.map(q).join(','); }).join('\r\n');
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
-    a.download = '학원메이트_원생_' + ymd() + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+    a.download = '알아줌 학원_원생_' + ymd() + '.csv'; document.body.appendChild(a); a.click(); a.remove();
     toast('엑셀 파일로 내보냈어요');
   }
   function copy(text) {

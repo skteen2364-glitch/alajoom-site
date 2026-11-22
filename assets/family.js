@@ -50,7 +50,8 @@
     '.fam-logo{flex:none;width:40px;height:40px;border-radius:12px;background:#FFD43B;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#14161F}',
     '.fam-t{flex:1;min-width:0}.fam-t small{display:block;font-size:12px;color:#7A6A3A;font-weight:700}.fam-t b{display:block;font-size:17px;line-height:1.3}',
     '.fam-badge{flex:none;font-size:11.5px;font-weight:800;padding:4px 9px;border-radius:999px;background:#14161F;color:#FFD43B}',
-    '.fam-left{margin:12px 0 10px;font-size:14px;color:#3A3F4C}.fam-left b{color:#14161F}',
+    '.fam-left{margin:12px 0 4px;font-size:14px;color:#3A3F4C}.fam-left b{color:#14161F}',
+    '.fam-rank{margin:0 0 10px;font-size:13.5px;color:#3A3F4C}.fam-rank b{color:#14161F}.fam-rank small{display:block;font-size:11.5px;color:#8A7A4A;margin-top:2px}',
     '.fam-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}',
     '.fam-btns button{min-height:48px;border-radius:12px;border:1px solid #EADBA8;background:#fff;color:#14161F;font:inherit;font-size:13px;font-weight:800;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 4px}',
     '.fam-btns button small{font-size:11px;font-weight:600;color:#8A7A4A}',
@@ -87,6 +88,7 @@
         ls(LS.ref, null);
       }
       me = await AI().rpc('family_me');
+      try { var rk = await AI().rpc('family_rank'); if (me && rk) { me.rank = rk.rank; me.points = rk.points; me.total = rk.total; } } catch (e2) {}
     } catch (e) { me = null; }
     window.alajoomFamilyMe = me;
     if (me) { var qt = document.getElementById('quota'); if (qt) { var lf = Math.max(0, me.base - me.used); qt.textContent = lf > 0 ? '오늘 ' + lf + '회 남음' + (me.bonus > 0 ? ' +' + me.bonus : '') : (me.bonus > 0 ? '보너스 ' + me.bonus + '회 남음' : '오늘 횟수를 다 썼어요'); } }
@@ -103,6 +105,7 @@
       '<div class="fam-t"><small>알아줌 패밀리</small><b>' + esc(me.family_no) + '번째 사장님</b></div>' +
       (me.founder ? '<span class="fam-badge">창립 사장님</span>' : '') + '</div>' +
       '<p class="fam-left">오늘 남은 횟수 <b>' + left + '회</b>' + (me.bonus > 0 ? ' · 보너스 <b>' + me.bonus + '회</b>' : '') + '</p>' +
+      (me.rank ? '<p class="fam-rank">함께 키운 순위 <b>' + me.rank + '위</b> · ' + (me.points || 0) + '점 <small>출석 1 · 피드백 2 · 투표 1 · 소개 5</small></p>' : '') +
       '<div class="fam-btns">' +
       '<button type="button" data-fam="checkin"' + (me.checked ? ' disabled' : '') + '>' + (me.checked ? '출석 완료' : '출석하기') + '<small>' + (me.checked ? '내일 또 만나요' : '+2회') + '</small></button>' +
       '<button type="button" data-fam="invite">사장님 소개<small>둘 다 +10회</small></button>' +

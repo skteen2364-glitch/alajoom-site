@@ -1,7 +1,7 @@
 {
   "id": "/academy/",
-  "name": "학원메이트 · 알아줌",
-  "short_name": "학원메이트",
+  "name": "알아줌 학원",
+  "short_name": "알아줌 학원",
   "description": "공부방·교습소·학원 원장님 원생 모집 홍보글·학부모 문자·후기 답글·원생 장부·출결을 AI가 도와드려요",
   "lang": "ko",
   "start_url": "/academy/?source=homescreen",

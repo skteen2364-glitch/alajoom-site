@@ -1,7 +1,7 @@
 {
   "id": "/bakery/",
-  "name": "베이커리메이트 · 알아줌",
-  "short_name": "베이커리메이트",
+  "name": "알아줌 베이커리",
+  "short_name": "알아줌 베이커리",
   "description": "빵집 홍보글·케이크 주문 문자·리뷰 답글·주문 장부를 AI가 도와드려요",
   "lang": "ko",
   "start_url": "/bakery/?source=homescreen",

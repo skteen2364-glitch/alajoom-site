@@ -1,4 +1,4 @@
-/* 필라테스메이트 · 회원 장부 (고객관리)
+/* 알아줌 필라테스 · 회원 장부 (고객관리)
    회원·수강권·출석·결제를 이 기기(브라우저)에 저장. 엑셀(CSV)로 내보내기/불러오기. */
 (function () {
   var KEY = 'al_pilates_members_v1';
@@ -255,7 +255,7 @@
     var rows = [COLS].concat(DB.members.map(function (m) { return [m.name, m.phone, m.pass, m.total, left(m), m.start, m.end, lastAtt(m) || '', (m.att || []).slice().sort().join(' '), m.memo]; }));
     var csv = '﻿' + rows.map(function (r) { return r.map(q).join(','); }).join('\r\n');
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
-    a.download = '필라테스메이트_회원_' + ymd() + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+    a.download = '알아줌 필라테스_회원_' + ymd() + '.csv'; document.body.appendChild(a); a.click(); a.remove();
     toast('엑셀 파일로 내보냈어요');
   }
   function parseCsv(text) {
@@ -276,7 +276,7 @@
     r.onload = function () {
       var rows = parseCsv(String(r.result)); if (rows.length < 2) { toast('읽을 회원이 없어요'); return; }
       var hd = rows[0].map(function (x) { return x.trim(); }), ix = function (n) { return hd.indexOf(n); };
-      if (ix('이름') < 0) { toast('필라테스메이트에서 내보낸 파일을 골라주세요'); return; }
+      if (ix('이름') < 0) { toast('알아줌 필라테스에서 내보낸 파일을 골라주세요'); return; }
       var n = 0;
       rows.slice(1).forEach(function (c) {
         var name = (c[ix('이름')] || '').trim(); if (!name) return;

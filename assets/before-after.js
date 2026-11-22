@@ -11,7 +11,7 @@
   var S = { a: null, b: null, lay: 'lr', lab: 'en', bri: 0, ok: false, pos: { a: { x: 0, y: 0, z: 1 }, b: { x: 0, y: 0, z: 1 } } };
   var esc = function (t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var LAYS = [['lr', '좌우 (인스타 4:5)'], ['tb', '위아래 (4:5)'], ['sq', '좌우 정사각형']];
-  function shop() { try { var t = (document.title || '').trim(); var s = JSON.parse(localStorage.getItem('pm_' + t + '_studio') || 'null'); if (s && s.name) return s.name; } catch (e) {} return ''; }
+  function shop() { try { var OLD = { skin: '스킨메이트', nail: '네일메이트', hair: '헤어메이트', pilates: '필라테스메이트', academy: '학원메이트', food: '푸드메이트', cafe: '카페메이트', bakery: '베이커리메이트' }; var t = OLD[(location.pathname.split('/')[1] || '')] || (document.title || '').trim(); var s = JSON.parse(localStorage.getItem('pm_' + t + '_studio') || 'null'); if (s && s.name) return s.name; } catch (e) {} return ''; }
   function toast(t) { var el = document.getElementById('toast'); if (!el) return; el.textContent = t; el.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(function () { el.classList.remove('on'); }, 1900); }
 
   function size() { return S.lay === 'sq' ? [1080, 1080] : [1080, 1350]; }

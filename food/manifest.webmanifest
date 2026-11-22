@@ -1,7 +1,7 @@
 {
   "id": "/food/",
-  "name": "푸드메이트 · 알아줌",
-  "short_name": "푸드메이트",
+  "name": "알아줌 음식점",
+  "short_name": "알아줌 음식점",
   "description": "음식점 홍보글·메뉴판·손님 문자·리뷰 답글을 AI가 써 드려요",
   "lang": "ko",
   "start_url": "/food/?source=homescreen",

@@ -1,7 +1,7 @@
 {
   "id": "/hair/",
-  "name": "헤어메이트 · 알아줌",
-  "short_name": "헤어메이트",
+  "name": "알아줌 헤어샵",
+  "short_name": "알아줌 헤어샵",
   "description": "미용실 홍보글·고객 문자·리뷰 답글·고객 장부·예약을 AI가 도와드려요",
   "lang": "ko",
   "start_url": "/hair/?source=homescreen",

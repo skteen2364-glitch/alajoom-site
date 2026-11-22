@@ -1,7 +1,7 @@
 {
   "id": "/pilates/",
-  "name": "필라테스메이트 · 알아줌",
-  "short_name": "필라테스메이트",
+  "name": "알아줌 필라테스",
+  "short_name": "알아줌 필라테스",
   "description": "필라테스 스튜디오 홍보글·회원 문자·리뷰 답글을 AI가 써 드려요",
   "lang": "ko",
   "start_url": "/pilates/?source=homescreen",

@@ -3,7 +3,7 @@
 <head><script>if(location.hostname==='www.alajoom.com')location.replace('https://alajoom.com'+location.pathname+location.search+location.hash)</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>필라테스메이트</title>
+<title>알아줌 필라테스</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -247,14 +247,14 @@ header .brand:active{opacity:.7}
 .ai-go:disabled{opacity:.75;cursor:wait}
 .ai-note{font-size:12px!important}
 </style>
-<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="필라테스메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11221200"></script><script src="/assets/family.js?v=11220905"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/pilates/members.js?v=11121526" defer></script><script src="/assets/team.js?v=11211500" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
+<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="알아줌 필라테스"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11221200"></script><script src="/assets/family.js?v=11220905"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/pilates/members.js?v=11121526" defer></script><script src="/assets/team.js?v=11211500" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">
 </head>
 <body>
 <div class="app">
   <header>
-    <div class="brand"><div class="logo" aria-hidden="true">알</div><div><b>필라테스메이트</b><small>알아줌 · 필라테스·요가 원장님 비서</small></div></div>
+    <div class="brand"><div class="logo" aria-hidden="true">알</div><div><b>알아줌 필라테스</b><small>필라테스·요가 원장님 비서</small></div></div>
     <span class="quota" id="quota">오늘 10회 남음</span>
   </header>
 
@@ -264,7 +264,7 @@ header .brand:active{opacity:.7}
     <button class="link-btn" id="editStudio" type="button">정보 수정</button>
   </section>
 
-  <nav class="mtabs" role="tablist" aria-label="필라테스메이트 메뉴">
+  <nav class="mtabs" role="tablist" aria-label="알아줌 필라테스 메뉴">
     <button class="mtab" type="button" role="tab" data-tab="home" aria-selected="true">오늘</button>
     <button class="mtab" type="button" role="tab" data-tab="make" aria-selected="false">AI 만들기</button>
     <button class="mtab" type="button" role="tab" data-tab="members" aria-selected="false">회원 장부</button>
@@ -315,7 +315,7 @@ header .brand:active{opacity:.7}
 
 <script>
 var CFG = {
-  title:'필라테스메이트', sub:'알아줌 · 필라테스·요가 원장님 비서', h1:'원장님, 오늘은 뭘 만들까요?', prof:'스튜디오 정보',
+  title:'알아줌 필라테스', sub:'필라테스·요가 원장님 비서', h1:'원장님, 오늘은 뭘 만들까요?', prof:'스튜디오 정보',
   offline:'체험판 · 예시 문구로 보여드려요',
   studio:{ name:'하루필라테스', area:'망원동', cls:'1:1 기구 필라테스, 4인 소그룹', feat:'원장 직강, 바른 자세 습관 만들기', contact:'인스타 DM · 네이버 예약', tone:'다정하게' },
   clsName:'대표 수업', who:'회원', blogTag:'필라테스',
@@ -392,8 +392,8 @@ var CFG = {
   var $ = function(s, r){ return (r||document).querySelector(s); };
   var esc = function(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
   var store = {
-    get: function(k, d){ try { var v = localStorage.getItem('pm_'+CFG.title+'_'+k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
-    set: function(k, v){ try { localStorage.setItem('pm_'+CFG.title+'_'+k, JSON.stringify(v)); } catch(e){} }
+    get: function(k, d){ try { var v = localStorage.getItem('pm_필라테스메이트_'+k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+    set: function(k, v){ try { localStorage.setItem('pm_필라테스메이트_'+k, JSON.stringify(v)); } catch(e){} }
   };
   var TONES = ['다정하게','밝고 경쾌하게','차분하고 전문적으로'];
   var studio = store.get('studio', CFG.studio);

@@ -1,7 +1,7 @@
 {
   "id": "/cafe/",
-  "name": "카페메이트 · 알아줌",
-  "short_name": "카페메이트",
+  "name": "알아줌 카페",
+  "short_name": "알아줌 카페",
   "description": "카페 홍보글·손님 문자·리뷰 답글·단체 주문 장부를 AI가 도와드려요",
   "lang": "ko",
   "start_url": "/cafe/?source=homescreen",

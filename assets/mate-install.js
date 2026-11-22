@@ -3,14 +3,14 @@
    window.alajoomShowInstall() 로도 열 수 있다(첫 로그인 직후 등). */
 (function () {
   var MATES = {
-    skin: { name: '스킨메이트', icon: '/assets/icon-skin-192.png' },
-    pilates: { name: '필라테스메이트', icon: '/assets/icon-pilates-192.png' },
-    food: { name: '푸드메이트', icon: '/assets/icon-food-192.png' },
-    academy: { name: '학원메이트', icon: '/assets/icon-academy-192.png' },
-    nail: { name: '네일메이트', icon: '/assets/icon-nail-192.png' },
-    hair: { name: '헤어메이트', icon: '/assets/icon-hair-192.png' },
-    cafe: { name: '카페메이트', icon: '/assets/icon-cafe-192.png' },
-    bakery: { name: '베이커리메이트', icon: '/assets/icon-bakery-192.png' }
+    skin: { name: '알아줌 피부관리샵', icon: '/assets/icon-skin-192.png' },
+    pilates: { name: '알아줌 필라테스', icon: '/assets/icon-pilates-192.png' },
+    food: { name: '알아줌 음식점', icon: '/assets/icon-food-192.png' },
+    academy: { name: '알아줌 학원', icon: '/assets/icon-academy-192.png' },
+    nail: { name: '알아줌 네일샵', icon: '/assets/icon-nail-192.png' },
+    hair: { name: '알아줌 헤어샵', icon: '/assets/icon-hair-192.png' },
+    cafe: { name: '알아줌 카페', icon: '/assets/icon-cafe-192.png' },
+    bakery: { name: '알아줌 베이커리', icon: '/assets/icon-bakery-192.png' }
   };
   var key = (location.pathname.match(/^\/([a-z]+)\//) || [])[1];
   var M = MATES[key]; if (!M) return;
