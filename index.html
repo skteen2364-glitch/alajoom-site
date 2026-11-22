@@ -1942,7 +1942,7 @@ post('family_top',{p_n:5}).then(function(l){if(!Array.isArray(l)||!l.length)retu
 </div>
 <div id="dz-usermenu" role="menu"><p class="um-name"></p><button type="button" class="um-out" role="menuitem">로그아웃</button></div>
 <script src="/assets/supabase-2.119.0.js"></script>
-<script src="/assets/onboard.js?v=11201430"></script>
+<script src="/assets/onboard.js?v=11221930"></script>
 <script>
 (function(){
   var URL_='https://zuxbloxstkcixqpzqalk.supabase.co', KEY='sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH';
@@ -2009,7 +2009,9 @@ post('family_top',{p_n:5}).then(function(l){if(!Array.isArray(l)||!l.length)retu
     user=session?session.user:null;render();loadMy();
     if(session&&window.alajoomOnboard)setTimeout(function(){window.alajoomOnboard(sb)},700);
     if(ev==='SIGNED_IN'){close();var h=null;try{h=sessionStorage.getItem('dz_after_login');sessionStorage.removeItem('dz_after_login')}catch(e){}
-      if(h){setTimeout(function(){var t=document.querySelector(h);if(t)t.scrollIntoView({behavior:'smooth'});},400);}}
+      if(h){var su=session&&session.user;var goSec=function(){setTimeout(function(){var t=document.querySelector(h);if(t)t.scrollIntoView({behavior:'smooth'});},400);};
+        // 이미 업종을 고른 사장님은 업종 고르기로 돌아가지 않고 바로 내 업종 화면으로
+        if(su){sb.from('profiles').select('business_type').eq('id',su.id).maybeSingle().then(function(q){var bt=q&&q.data&&q.data.business_type;if(bt&&LIVE[bt]){location.href=LIVE[bt][1];}else goSec();},goSec);}else goSec();}}
   });
 })();
 </script>

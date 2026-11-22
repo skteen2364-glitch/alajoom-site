@@ -41,11 +41,11 @@
       '<h2 style="margin:14px 0 6px;font-size:20px;font-weight:900">' + m[0] + '를 바탕화면에 둘까요?</h2>' +
       '<p style="margin:0 0 16px;font-size:14px;color:#5B6070;line-height:1.55">다음부터 알아줌을 거치지 않고<br>아이콘 하나로 바로 열 수 있어요.</p>' +
       '<button type="button" data-go style="width:100%;min-height:54px;border:0;border-radius:14px;background:#14161F;color:#FFE45C;font:inherit;font-size:16px;font-weight:800;cursor:pointer">네, 깔게요</button>' +
-      '<button type="button" data-x style="display:block;width:100%;min-height:44px;margin-top:6px;border:0;background:none;font:inherit;font-size:13px;color:#8A8F9C;cursor:pointer">나중에 할게요</button></div>';
+      '<button type="button" data-x style="display:block;width:100%;min-height:44px;margin-top:6px;border:0;background:none;font:inherit;font-size:13px;color:#8A8F9C;cursor:pointer">나중에 할게요 · 바로 쓰기</button></div>';
     document.body.appendChild(w);
     w.addEventListener('click', function (e) {
       var t = e.target.closest('[data-go],[data-x]'); if (!t) return;
-      if (t.hasAttribute('data-go')) location.href = '/' + k + '/?install=1'; else w.remove();
+      if (t.hasAttribute('data-go')) location.href = '/' + k + '/?install=1'; else location.href = '/' + k + '/';
     });
   }
 
@@ -73,7 +73,7 @@
         '<label class="ob-agree"><input type="checkbox" id="al-ob-mkt"><span><b>(선택) 마케팅 정보 수신 동의</b><small>새 기능·혜택·이벤트 소식을 이메일로 받아요. 동의하지 않아도 모든 기능을 쓸 수 있고, 언제든 철회할 수 있어요. <a href="/privacy/" target="_blank" style="color:inherit">자세히</a></small></span></label>' +
         '<button type="button" class="ob-go">시작하기</button>' +
         '<p class="ob-err" role="alert"></p>' +
-        '<button type="button" class="ob-later">나중에 할게요</button></div>';
+        '<button type="button" class="ob-later">나중에 할게요 · 바로 쓰기</button></div>';
       document.body.appendChild(box);
       var $ = function (x) { return box.querySelector(x); };
       if (p.store_name) $('#al-ob-store').value = p.store_name;
