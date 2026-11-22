@@ -297,7 +297,7 @@ header .brand:active{opacity:.7}
 .ai-note{font-size:12px!important}
 .ai-ex{display:flex;align-items:center;gap:6px}.ai-ex figure{flex:1;margin:0;min-width:0}.ai-ex img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block}.ai-ex figcaption{font-size:11.5px;color:var(--muted);text-align:center;margin-top:4px}.ai-ex span{font-weight:900;color:#DB2777}
 </style>
-<link rel="manifest" href="/cafe/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-cafe.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="알아줌 카페"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11221200"></script><script src="/assets/family.js?v=11221315"></script><script src="/assets/team.js?v=11221310" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script>
+<link rel="manifest" href="/cafe/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-cafe.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="알아줌 카페"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11221200"></script><script src="/assets/family.js?v=11221315"></script><script src="/assets/reels.js?v=11222010" defer></script><script src="/assets/team.js?v=11221310" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">
 <style id="tool-grid">
@@ -352,6 +352,7 @@ header .brand:active{opacity:.7}
 
   <div class="tools" role="group" aria-label="만들 것 고르기">
     <button class="tool hero" type="button" data-tool="photo" aria-pressed="true"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span><div><b>사진 올리고 홍보하기</b><span>음식 사진을 맛있게 보정하고, 그 사진으로 홍보글까지</span></div></button>
+    <button class="tool" type="button" data-tool="reels" aria-pressed="false"><b>사진 릴스</b></button>
     <button class="tool" type="button" data-tool="retouch" aria-pressed="false"><b>사진 보정</b></button>
     <button class="tool wide" type="button" data-tool="set" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M16 4l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg></span><span style="flex:1;min-width:0"><b style="display:block">홍보글 한 번에</b><span>한 줄·사진이면 인스타·블로그(두 가지씩)·카톡 문자까지</span></span></button>
     <button class="tool" type="button" data-tool="post" aria-pressed="false" hidden style="display:none"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></span><b>홍보글</b><span>인스타·블로그·당근·플레이스</span></button>
@@ -649,6 +650,7 @@ var CFG = {
 
   function renderPanel(){
     if (tool === 'photo' || tool === 'retouch') return renderPhoto();
+    if (tool === 'reels'){ if (window.alajoomReels) window.alajoomReels.render($('#panel')); else $('#panel').innerHTML = '<p class="note">잠시 후 다시 눌러 주세요</p>'; return; }
     if (tool === 'board') return renderBoard();
     if (tool === 'pop') return renderPop();
     var t = TOOLS[tool]; pick = {}; t.steps.forEach(function(s){ pick[s.key] = s.opts[0]; });
@@ -1701,6 +1703,7 @@ var CFG = {
   function PV(k){
     var A = 'var(--blue)', s = studio.name || CFG.title;
     if (k === 'photo') return '<span style="position:absolute;inset:0;' + PHG + '"></span><span style="position:absolute;left:0;right:0;bottom:0;height:40px;background:' + A + ';display:flex;align-items:center;padding:0 10px;color:#fff;font-size:12px;font-weight:900">사진 + 글</span>';
+    if (k === 'reels') return '<span style="position:absolute;inset:0;background:#14161F"></span><span style="position:absolute;left:50%;top:12px;bottom:30px;width:58%;transform:translateX(-50%);border-radius:10px;' + PHG + '"></span><span style="position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-26px 0 0 -17px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#14161F"/></svg></span><span style="position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10.5px;font-weight:900;color:#FFD43B">사진 → 15초 릴스</span>';
     if (k === 'retouch') return '<span style="position:absolute;inset:0;' + PHG + ';filter:saturate(.55) brightness(.82)"></span><span style="position:absolute;top:0;bottom:0;right:0;width:50%;' + PHG + ';filter:brightness(1.12) saturate(1.15);border-left:2px solid #fff"></span><span style="position:absolute;left:8px;bottom:8px;font-size:10.5px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)">전</span><span style="position:absolute;right:8px;bottom:8px;font-size:10.5px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)">후</span>';
     if (k === 'set') return '<span style="position:absolute;inset:0;background:var(--blue-tint)"></span>' +
       '<span style="position:absolute;left:14px;top:16px;width:70px;height:90px;border-radius:10px;background:#fff;transform:rotate(-8deg);box-shadow:0 4px 10px -6px rgba(0,0,0,.4)"></span>' +
