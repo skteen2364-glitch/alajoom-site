@@ -283,8 +283,8 @@ header .brand:active{opacity:.7}
     <button class="tool hero" type="button" data-tool="photo" aria-pressed="true"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span><div><b>사진 올리고 홍보하기</b><span>사진을 밝고 예쁘게 보정하고, 그 사진으로 홍보글까지</span></div></button>
     <button class="tool" type="button" data-tool="retouch" aria-pressed="false"><b>사진 보정</b></button>
     <button class="tool" type="button" data-tool="ba" aria-pressed="false"><b>전후 사진</b></button>
-    <button class="tool wide" type="button" data-tool="set" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M16 4l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg></span><span style="flex:1;min-width:0"><b style="display:block">알아줌 한 번에</b><span>인스타·블로그·릴스·문자를 한 번에 · 전략→작성→검토</span></span></button>
-    <button class="tool" type="button" data-tool="post" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></span><b>홍보글</b><span>인스타·블로그·당근·플레이스</span></button>
+    <button class="tool wide" type="button" data-tool="set" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M16 4l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg></span><span style="flex:1;min-width:0"><b style="display:block">홍보글 한 번에</b><span>한 줄·사진이면 인스타·블로그(두 가지씩)·카톡 문자까지</span></span></button>
+    <button class="tool" type="button" data-tool="post" aria-pressed="false" hidden style="display:none"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></span><b>홍보글</b><span>인스타·블로그·당근·플레이스</span></button>
     <button class="tool" type="button" data-tool="card" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 15l5-4 4 3 3-2 6 4"/></svg></span><b>안내 카드</b><span>메뉴·가격·이벤트·휴무 이미지</span></button>
     <button class="tool" type="button" data-tool="sms" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg></span><b>고객 문자</b><span>예약 확인·재방문·안부</span></button>
     <button class="tool" type="button" data-tool="review" aria-pressed="false"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.9 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg></span><b>리뷰 답글</b><span>네이버·카카오 리뷰</span></button>
@@ -351,7 +351,7 @@ var CFG = {
     }; } },
   tools:{
     post:{ title:'홍보글 만들기', steps:[ {key:'topic', label:'무엇을 알릴까요?', opts:['이달의 스타일','신규 고객 이벤트','시술 메뉴 소개','집에서 손질 팁','원장 소개','휴무·일정 안내']}, {key:'ch', label:'어디에 올릴까요?', opts:['인스타','블로그','릴스 대본','당근','네이버 플레이스']} ], detail:'한 줄로 더 알려주세요 (선택)', ph:'예: 겨울 브라운 염색, 뿌리 염색 손님 클리닉 할인' },
-    set:{ title:'알아줌 한 번에', steps:[ {key:'topic', label:'무엇을 알릴까요?', opts:['이달의 스타일','신규 고객 이벤트','시술 메뉴 소개','집에서 손질 팁','원장 소개','휴무·일정 안내']} ], detail:'자세히 알려주세요 (선택)', area:true, ph:'예: 12월 첫 방문 커트 20% 할인. 평일 오전 한가해요. 주차 1대 가능' },
+    set:{ title:'홍보글 한 번에', steps:[ {key:'topic', label:'무엇을 알릴까요?', opts:['이달의 스타일','신규 고객 이벤트','시술 메뉴 소개','집에서 손질 팁','원장 소개','휴무·일정 안내']} ], detail:'자세히 알려주세요 (선택)', area:true, ph:'예: 12월 첫 방문 커트 20% 할인. 평일 오전 한가해요. 주차 1대 가능' },
     card:{ title:'안내 카드 만들기', steps:[ {key:'topic', label:'어떤 카드인가요?', opts:['시술 메뉴·가격','이벤트','예약 가능 시간','휴무 안내']} ], detail:'카드에 넣을 내용 (선택)', ph:'예: 12/25(금) 휴무, 26일부터 정상 예약' },
     sms:{ title:'고객 문자 만들기', steps:[ {key:'topic', label:'어떤 문자인가요?', opts:['예약 확인','시술 후 안부','뿌리 염색 시기 안내','재방문 안내','신규 고객 환영','생일 축하','휴무 안내','이벤트·소식 알림']} ], detail:'덧붙일 내용 (선택)', ph:'예: 이번 달 재방문 시 클리닉 서비스' },
     review:{ title:'리뷰 답글 만들기', steps:[ {key:'topic', label:'어떤 리뷰인가요?', opts:['좋은 리뷰','아쉬운 리뷰']} ], detail:'받은 리뷰를 붙여 넣어주세요', ph:'예: 상담을 꼼꼼히 해주셔서 원하던 스타일 그대로 나왔어요!', area:true }
@@ -451,7 +451,7 @@ var CFG = {
   }
 
   /* ---------- AI 직원 세트 ---------- */
-  var SETCH = [['insta','인스타'],['blog','블로그'],['reels','릴스 대본'],['sms','고객 문자'],['place','플레이스'],['daangn','당근']];
+  var SETCH = [['insta','인스타'],['blog','블로그'],['reels','릴스 대본'],['sms','카톡·문자'],['place','플레이스'],['daangn','당근']];
   var setSel = ['insta','blog','sms'], setRes = null, setCur = '', voiceOn = false;
   function chName(c){ var f = SETCH.filter(function(x){ return x[0] === c; })[0]; return f ? f[1] : c; }
   async function genSet(){
@@ -1696,7 +1696,7 @@ var CFG = {
   /* ---------- 이벤트 ---------- */
   document.addEventListener('click', async function(e){
     var t = e.target.closest('button'); if (!t) return;
-    if (t.dataset.tool){ if (e.isTrusted) window.alajoomRecipient = null; tool = t.dataset.tool; document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); renderPanel(); $('#panel').scrollIntoView({behavior:'smooth', block:'start'}); return; }
+    if (t.dataset.tool){ if (e.isTrusted) window.alajoomRecipient = null; tool = t.dataset.tool === 'post' ? 'set' : t.dataset.tool; if (t.dataset.tool === 'post'){ var sb0 = document.querySelector('.tool[data-tool="set"]'); if (sb0) t = sb0; } document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); renderPanel(); $('#panel').scrollIntoView({behavior:'smooth', block:'start'}); return; }
     if (t.classList.contains('chip') && t.dataset.k){ if (tool === 'card' && t.dataset.k === 'topic' && t.dataset.v === '시술 메뉴·가격' && window.alajoomWeekSchedule && $('#detail') && !$('#detail').value.trim()){ var ws = window.alajoomWeekSchedule(); if (ws){ $('#detail').value = ws; toast('시술 메뉴를 넣었어요'); } } pick[t.dataset.k] = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); return; }
     if (t.id === 'go'){ curWork = null; return generate(); }
     if (t.dataset.chm){ var c = t.dataset.chm, i = setSel.indexOf(c); if (i >= 0) setSel.splice(i, 1); else setSel.push(c); t.setAttribute('aria-pressed', i < 0); return; }
