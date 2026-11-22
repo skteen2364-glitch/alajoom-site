@@ -300,6 +300,18 @@ header .brand:active{opacity:.7}
 <link rel="manifest" href="/cafe/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-cafe.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="알아줌 카페"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11221200"></script><script src="/assets/family.js?v=11221315"></script><script src="/assets/team.js?v=11221310" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">
+<style id="tool-grid">
+/* 만들기 메뉴 전체가 한눈에: 옆으로 넘기지 않고 줄 바꿈 */
+#v-promo .tools,#v-make .tools{display:grid !important;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 10px;overflow:visible;padding:4px 2px 6px}
+#v-promo .tool,#v-make .tool{width:auto !important;min-width:0}
+#v-promo .pv,#v-make .pv{width:100% !important;height:118px !important}
+#v-promo .tool b,#v-make .tool b{font-size:13px;line-height:1.3;word-break:keep-all}
+@media (min-width:900px){
+  #v-promo .tools,#v-make .tools{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:18px 14px}
+  #v-promo .pv,#v-make .pv{height:160px !important}
+  #v-promo .tool b,#v-make .tool b{font-size:14px}
+}
+</style>
 </head>
 <body>
 <div class="app">
