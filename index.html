@@ -47,7 +47,7 @@ html{scroll-behavior:smooth}
 #how>*,#team>*,#features>*,#mates>*,#pricing>*,#contact>*,#trust>*,#video>*{position:relative;z-index:1}
 @media (prefers-reduced-motion: reduce){.marquee,.mq{animation:none}}
 @media (max-width: 720px){
-html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
+html{scroll-snap-type:none;scroll-padding-top:72px}
 .dz-root>section:not([aria-label]){scroll-snap-align:start}
 .snap-pt{scroll-snap-align:start}
 .dz-root>section:not([aria-label]):not(#top):not(#cta){margin:8px 10px 0 !important}
@@ -542,7 +542,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 /* fullpage paging (all screens) */
 .dz-root{overflow-x:clip !important;overflow-y:visible !important}
 html{scroll-snap-type:none;scroll-padding-top:72px}
-@media (pointer:coarse){html{scroll-snap-type:y mandatory}}
+@media (pointer:coarse){html{scroll-snap-type:none}}
 .dz-root>section:not([aria-label]){scroll-snap-align:start;scroll-snap-stop:always;min-height:calc(100vh - 72px);min-height:calc(100svh - 72px);display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
 .dz-root>section:not([aria-label])>*{width:100%;box-sizing:border-box}
 .dz-root>section:not([aria-label])>.eyebrow,.dz-root>section:not([aria-label]) .eyebrow{align-self:flex-start;width:auto !important}
@@ -1660,7 +1660,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
     var boxOf = function(sec){ return sec.classList.contains('wrap') ? sec : (sec.querySelector(':scope > .wrap') || sec); };
     var io = new IntersectionObserver(function(entries){ entries.forEach(function(en){ if(!en.isIntersecting) return;
       en.target.classList.add('dz-in'); Array.prototype.slice.call(boxOf(en.target).children).forEach(function(k){ k.classList.add('dz-in'); });
-      io.unobserve(en.target); }); }, {threshold:0.3});
+      io.unobserve(en.target); }); }, {threshold:0.05});
     secs.forEach(function(sec){ sec.classList.add('dz-sr'); io.observe(sec); });
   } catch(err) {}
 })();
@@ -1749,7 +1749,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 </style>
 <script src="/assets/family.js?v=11221315"></script>
 <style>
-.al-fam{padding:56px 0;background:linear-gradient(180deg,#FFF8E7,#FFFFFF)}
+.al-fam{scroll-snap-align:none !important;padding:56px 0;background:linear-gradient(180deg,#FFF8E7,#FFFFFF)}
 .al-fam .al-w{max-width:760px}
 .af-count{margin:6px 0 18px;padding:18px;border-radius:20px;background:#14161F;color:#fff}
 .af-num{display:flex;align-items:baseline;gap:8px}.af-num b{font-size:46px;line-height:1;color:#FFD43B;font-weight:900}.af-num span{font-size:16px;color:#C9CEDA;font-weight:700}
