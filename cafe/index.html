@@ -311,6 +311,13 @@ header .brand:active{opacity:.7}
   #v-promo .pv,#v-make .pv{height:160px !important}
   #v-promo .tool b,#v-make .tool b{font-size:14px}
 }
+#v-promo .tool[data-tool=set],#v-make .tool[data-tool=set]{order:-1}
+#v-promo .tool[data-tool=set] .pv,#v-make .tool[data-tool=set] .pv{box-shadow:0 0 0 3px #FFD43B,0 10px 22px -10px rgba(255,180,0,.75);animation:setGlow 2.4s ease-in-out infinite}
+#v-promo .tool[data-tool=set][aria-pressed="true"] .pv,#v-make .tool[data-tool=set][aria-pressed="true"] .pv{box-shadow:0 0 0 3px var(--blue),0 0 0 7px #FFD43B}
+#v-promo .tool[data-tool=set] .pv::after,#v-make .tool[data-tool=set] .pv::after{content:"추천";position:absolute;left:8px;top:8px;z-index:3;padding:4px 9px;border-radius:999px;background:#14161F;color:#FFD43B;font-size:11px;font-weight:900;letter-spacing:-.2px}
+#v-promo .tool[data-tool=set] b,#v-make .tool[data-tool=set] b{font-weight:900}
+@keyframes setGlow{50%{box-shadow:0 0 0 5px #FFD43B,0 14px 28px -10px rgba(255,180,0,.9)}}
+@media (prefers-reduced-motion:reduce){#v-promo .tool[data-tool=set] .pv,#v-make .tool[data-tool=set] .pv{animation:none}}
 </style>
 </head>
 <body>
