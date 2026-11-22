@@ -30,7 +30,7 @@
     var el = document.querySelectorAll('[data-family-count]');
     if (!el.length) return;
     window.alajoomFamilyCount().then(function (n) {
-      if (n == null) return;
+      if (typeof n !== 'number') return;
       el.forEach(function (x) { x.textContent = x.getAttribute('data-family-count') === 'left' ? Math.max(0, 100 - n) : n; x.closest('[data-family-wrap]') && x.closest('[data-family-wrap]').removeAttribute('hidden'); });
     });
   });

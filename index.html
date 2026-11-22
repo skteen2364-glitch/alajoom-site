@@ -1747,7 +1747,7 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 @media (max-width:860px){.al-hero h1{margin-bottom:4px}.al-crew-b svg{width:50px;height:50px}}
 @media (max-width:860px) and (max-height:800px){.al-hero .al-pill{display:none}.al-hero{padding-top:18px}.al-hero h1{font-size:38px}}
 </style>
-<script src="/assets/family.js?v=11220905"></script>
+<script src="/assets/family.js?v=11221315"></script>
 <style>
 .al-fam{padding:56px 0;background:linear-gradient(180deg,#FFF8E7,#FFFFFF)}
 .al-fam .al-w{max-width:760px}
@@ -1777,10 +1777,10 @@ html{scroll-snap-type:none;scroll-padding-top:72px}
 var BZ={skin:'피부관리',pilates:'필라테스',food:'음식점',academy:'학원',nail:'네일',hair:'헤어',cafe:'카페',bakery:'베이커리'};
 var U='https://zuxbloxstkcixqpzqalk.supabase.co/rest/v1/rpc/',K='sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH';
 var post=function(n,b){return fetch(U+n,{method:'POST',headers:{apikey:K,'Content-Type':'application/json'},body:JSON.stringify(b||{})}).then(function(r){return r.ok?r.json():null}).catch(function(){return null})};
-post('family_count').then(function(n){if(n==null)return;var b=document.getElementById('afBar');if(b)b.style.width=Math.max(2,Math.min(100,n))+'%';});
-post('family_top',{p_n:5}).then(function(l){if(!l||!l.length)return;var ol=document.getElementById('afTop');if(!ol)return;ol.innerHTML=l.map(function(x,i){return '<li><em>'+(i+1)+'</em><span>'+x.no+'번째 사장님'+(BZ[x.biz]?' · '+BZ[x.biz]:'')+'</span><b>'+x.points+'점</b></li>'}).join('');});
+post('family_count').then(function(n){if(typeof n!=='number')return;var b=document.getElementById('afBar');if(b)b.style.width=Math.max(2,Math.min(100,n))+'%';});
+post('family_top',{p_n:5}).then(function(l){if(!Array.isArray(l)||!l.length)return;var ol=document.getElementById('afTop');if(!ol)return;ol.innerHTML=l.map(function(x,i){return '<li><em>'+(i+1)+'</em><span>'+x.no+'번째 사장님'+(BZ[x.biz]?' · '+BZ[x.biz]:'')+'</span><b>'+x.points+'점</b></li>'}).join('');});
 }catch(e){}})();</script>
-<script src="/assets/team.js?v=11211500"></script>
+<script src="/assets/team.js?v=11221310"></script>
 <script>(function(){try{var T=window.alajoomTeam;if(!T)return;document.querySelectorAll('[data-al-ch]').forEach(function(i){i.outerHTML=T.svg(i.getAttribute('data-al-ch'),64);});}catch(e){}})();</script>
 <script src="/assets/mate-picker.js?v=11201430" defer></script><script src="/assets/mate-nav.js?v=11181530" defer></script>
 <div id="dz-install" role="dialog" aria-label="홈 화면에 추가" style="display:none;position:fixed;left:12px;right:12px;bottom:14px;z-index:9999;max-width:420px;margin:0 auto;padding:12px 12px 12px 14px;border-radius:18px;background:#14161F;color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.28);align-items:center;gap:12px;font-size:14px;line-height:1.4">
