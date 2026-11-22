@@ -260,6 +260,19 @@ header .brand:active{opacity:.7}
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">
 <style id="tool-grid">
+.alb-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 10px}.alb-bar>span{font-size:13px;font-weight:800;color:var(--muted);margin-right:auto}
+.alb-bar .sub{flex:none !important;width:auto !important;min-width:0;min-height:36px;padding:0 12px;font-size:13px}
+.alb-grid button[aria-pressed="true"]{box-shadow:0 0 0 3px var(--blue)}
+.alb-grid .alb-ck{position:absolute;right:6px;top:6px;width:22px;height:22px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.25)}
+.alb-grid button[aria-pressed="true"] .alb-ck{background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/14px no-repeat}
+.alb-grid .alb-none{background:#F3EEE3 !important}.alb-grid .alb-none span{color:#8A8F9C !important;text-shadow:none !important;white-space:normal !important}
+@media (min-width:900px){.alb-grid{grid-template-columns:repeat(5,minmax(0,1fr)) !important;gap:10px !important}}
+.alb-view{position:fixed;inset:0;z-index:100006}.alb-bg{position:absolute;inset:0;background:rgba(10,12,18,.72)}
+.alb-pan{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(92vw,520px);max-height:92vh;overflow:auto;background:#fff;border-radius:22px;padding:14px;box-sizing:border-box;display:flex;flex-direction:column;gap:10px}
+.alb-pan img{width:100%;max-height:60vh;object-fit:contain;border-radius:14px;background:#F3EEE3}.alb-pan p{margin:0;font-size:13px;font-weight:800;color:var(--muted)}
+.alb-x{position:absolute;right:10px;top:10px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(20,22,31,.75);color:#fff;font-size:22px;line-height:1;cursor:pointer;z-index:1}
+.alb-acts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.alb-acts .sub{min-width:0}
+
 #v-promo .tool[data-tool=photo],#v-make .tool[data-tool=photo]{display:none !important}
 
 /* 만들기 메뉴 전체가 한눈에: 옆으로 넘기지 않고 줄 바꿈 */
@@ -1425,7 +1438,7 @@ var CFG = {
 
   /* ---------- 내 작업실: 만든 글·카드 자동 저장, 이어서 작업 ---------- */
   var WKEY = 'al_nail_works_v1', WMAX = 80;
-  var TNAME = { retouch:'사진 보정', photo:'사진 홍보', post:'홍보글', card:'안내 카드', sms:'고객 문자', review:'리뷰 답글', set:'알아줌 한 번에' };
+  var TNAME = { retouch:'보정한 사진', photo:'홍보글', post:'홍보글', card:'안내 카드', sms:'고객 문자', review:'리뷰 답글', set:'홍보글' };
   function wLoad(){ try { return JSON.parse(localStorage.getItem(WKEY)) || []; } catch(e){ return []; } }
   function wSave(list){ try { localStorage.setItem(WKEY, JSON.stringify(list.slice(0, WMAX))); } catch(e){ toast('저장 공간이 부족해요. 오래된 작업을 지워주세요'); } }
   var idb = null;
@@ -1494,21 +1507,15 @@ var CFG = {
     var box = $('#v-works'); if (!box) return;
     if (wFilter === 'trash') return renderTrash(box);
     var list = wLoad(), f = wFilter;
-    var show = list.filter(function(w){ return f === 'all' || w.tool === f; });
-    var chip = function(v, l){ var n = v === 'all' ? list.length : list.filter(function(w){ return w.tool === v; }).length; if (!n && v !== 'all' && v !== 'retouch' && f !== v) return ''; return '<button type="button" class="chip" data-wf="' + v + '" aria-pressed="' + (f === v) + '">' + (v === 'all' ? '' : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>') + l + (n ? ' ' + n : '') + '</button>'; };
+    var G = function(t){ return (t === 'post' || t === 'photo') ? 'set' : t; }; var show = list.filter(function(w){ return f === 'all' || G(w.tool) === f; }); if (f !== 'retouch') albSel = null;
+    var chip = function(v, l){ var n = v === 'all' ? list.length : list.filter(function(w){ return G(w.tool) === v; }).length; if (!n && v !== 'all' && v !== 'retouch' && f !== v) return ''; return '<button type="button" class="chip" data-wf="' + v + '" aria-pressed="' + (f === v) + '">' + (v === 'all' ? '' : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>') + l + (n ? ' ' + n : '') + '</button>'; };
     var h = '<div style="display:flex;justify-content:space-between;align-items:flex-end;margin:0 0 10px"><div><h2 style="margin:0;font-size:19px;font-weight:900">내 작업실</h2><p style="margin:2px 0 0;font-size:13px;color:var(--muted)">AI로 만든 글·카드가 자동으로 모여요. 눌러서 이어서 작업하세요.</p></div></div>';
-    h += '<div class="chips" role="group" aria-label="작업 종류" style="margin:0 0 12px">' + chip('all', '전체') + chip('retouch', TNAME.retouch) + chip('set', TNAME.set) + chip('post', TNAME.post) + chip('photo', TNAME.photo) + chip('card', TNAME.card) + chip('sms', TNAME.sms) + chip('review', TNAME.review) + (srvTrash.length ? '<button type="button" class="chip" data-wf="trash" aria-pressed="false">휴지통 ' + srvTrash.length + '</button>' : '') + '</div>';
-    if (f === 'retouch'){
-      h += show.length ? '<div class="rt-grid">' + show.map(function(w){ return '<button type="button" data-rtopen="' + w.id + '" data-wthumb="' + w.id + '" aria-label="' + esc(w.title || '보정 사진') + ' 열기"><span>' + esc(w.title || '') + '</span></button>'; }).join('') + '</div><p class="note" style="margin-top:10px">사진을 누르면 다시 보정하거나 휴대폰에 저장할 수 있어요. 지우려면 전체 목록에서 삭제하세요.</p>' :
-        '<div class="panel" style="text-align:center;padding:28px 16px"><b>아직 보정한 사진이 없어요</b><p style="margin:6px 0 12px;font-size:14px;color:var(--muted)">홍보 → 사진 보정에서 보정하고 작업실에 저장하세요.</p><button type="button" class="sub primary" data-hgo="retouch" style="margin:0 auto">사진 보정하러 가기</button></div>';
-      box.innerHTML = h;
-      box.querySelectorAll('[data-wthumb]').forEach(async function(el){ var b = await workPhoto(el.dataset.wthumb); if (b) el.style.backgroundImage = 'url(' + URL.createObjectURL(b) + ')'; });
-      return;
-    }
+    h += '<div class="chips" role="group" aria-label="작업 종류" style="margin:0 0 12px">' + chip('all', '전체') + chip('retouch', TNAME.retouch) + chip('set', TNAME.set) + chip('card', TNAME.card) + chip('sms', TNAME.sms) + chip('review', TNAME.review) + (srvTrash.length ? '<button type="button" class="chip" data-wf="trash" aria-pressed="false">휴지통 ' + srvTrash.length + '</button>' : '') + '</div>';
+    if (f === 'retouch') return renderAlbum(box, h, show);
     if (!show.length) h += '<div class="panel" style="text-align:center;padding:28px 16px"><b>' + (list.length ? '이 종류의 작업이 없어요' : '아직 만든 작업이 없어요') + '</b><p style="margin:6px 0 0;font-size:14px;color:var(--muted)">AI로 만들기에서 글이나 카드를 만들면 여기에 쌓여요.</p></div>';
     else h += '<div style="display:flex;flex-direction:column;gap:10px">' + show.map(function(w){
       return '<article style="display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 12px">' +
-        '<div data-wthumb="' + (w.photo ? w.id : '') + '" style="flex:none;width:56px;height:56px;border-radius:12px;background:var(--ivory) center/cover no-repeat;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--muted)">' + (w.photo ? '' : TNAME[w.tool].replace(' ', '<br>')) + '</div>' +
+        '<div data-wthumb="' + (w.photo || w.tool === 'retouch' ? w.id : '') + '" style="flex:none;width:56px;height:56px;border-radius:12px;background:var(--ivory) center/cover no-repeat;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--muted)">' + (w.photo ? '' : TNAME[w.tool].replace(' ', '<br>')) + '</div>' +
         '<button type="button" data-wopen="' + w.id + '" style="flex:1;min-width:0;border:0;background:none;padding:0;text-align:left;font:inherit;cursor:pointer"><b style="display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + esc(wTitle(w)) + '</b><span style="font-size:12.5px;color:var(--muted)">' + TNAME[w.tool] + (w.ch && (w.tool === 'post' || w.tool === 'photo') ? ' · ' + esc(w.ch) : '') + ' · ' + wWhen(w.updated) + '</span></button>' +
         '<div style="display:flex;flex-direction:column;gap:6px;flex:none"><button type="button" class="sub primary" data-wopen="' + w.id + '" style="min-width:0;min-height:36px;padding:0 10px;font-size:12.5px">이어서</button>' +
         '<button type="button" class="sub" data-wdel="' + w.id + '" style="min-width:0;min-height:36px;padding:0 10px;font-size:12.5px;color:#C2410C">삭제</button></div></article>';
@@ -1517,6 +1524,63 @@ var CFG = {
     box.innerHTML = h;
     box.querySelectorAll('[data-wthumb]').forEach(async function(el){ var id = el.dataset.wthumb; if (!id) return; var b = await workPhoto(id); if (b) el.style.backgroundImage = 'url(' + URL.createObjectURL(b) + ')'; });
   }
+  /* ---------- 작업실 · 보정한 사진 사진첩 ---------- */
+  var albSel = null;
+  function albumBlobs(){ return wLoad().filter(function(w){ return w.tool === 'retouch'; }); }
+  async function albumSave(b, title){
+    if (!b) return;
+    var list = wLoad(), now = new Date().toISOString(), d = new Date(), sig = b.size + ':' + b.type;
+    if (list[0] && list[0].tool === 'retouch' && list[0].phSig === sig) return;
+    var w = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5), created: now, updated: now, tool: 'retouch', text: '', card: null, set: null, topic: '', ch: '', detail: '', photo: true, phSig: sig,
+      title: title || ('보정 사진 ' + (d.getMonth() + 1) + '/' + d.getDate() + ' ' + d.getHours() + ':' + ('0' + d.getMinutes()).slice(-2)) };
+    await phPut(w.id, b); list.unshift(w); wSave(list); srvPut(w, b);
+  }
+  function albDel(ids){
+    var set = {}; ids.forEach(function(i){ set[i] = 1; });
+    wSave(wLoad().filter(function(x){ return !set[x.id]; }));
+    ids.forEach(function(id){ if (curWork === id) curWork = null; });
+    if (window.alajoomAI){ window.alajoomAI.loggedIn().then(function(on){ ids.forEach(function(id){ if (on) window.alajoomAI.works.trash(id, true); else phDel(id); }); }); }
+    else ids.forEach(phDel);
+  }
+  function renderAlbum(box, h, show){
+    var picking = !!albSel;
+    h += '<div class="alb-bar"><span>' + show.length + '장</span>' + (show.length ? (picking ? '<button type="button" class="sub" data-alb="all">모두 고르기</button><button type="button" class="sub primary" data-alb="savesel">저장 <b id="albN">0</b></button><button type="button" class="sub" data-alb="delsel" style="color:#C2410C">지우기</button><button type="button" class="sub" data-alb="pickoff">취소</button>' : '<button type="button" class="sub" data-alb="pick">여러 장 고르기</button>') : '') + '</div>';
+    h += show.length ? '<div class="rt-grid alb-grid">' + show.map(function(w){ return '<button type="button" data-albv="' + w.id + '" data-wthumb="' + w.id + '" aria-label="' + esc(w.title || '보정 사진') + '" aria-pressed="' + (picking && albSel[w.id] ? 'true' : 'false') + '"><span>' + esc(w.title || '') + '</span>' + (picking ? '<i class="alb-ck"></i>' : '') + '</button>'; }).join('') + '</div><p class="note" style="margin-top:10px">사진을 누르면 크게 보고 저장하거나, 그 사진으로 바로 홍보글을 만들 수 있어요.</p>' :
+      '<div class="panel" style="text-align:center;padding:28px 16px"><b>아직 보정한 사진이 없어요</b><p style="margin:6px 0 12px;font-size:14px;color:var(--muted)">사진 보정이나 홍보글 한 번에서 사진을 보정하고 <b>사진 저장</b>을 누르면 여기에 모여요.</p><button type="button" class="sub primary" data-hgo="retouch" style="margin:0 auto">사진 보정하러 가기</button></div>';
+    box.innerHTML = h;
+    var empty = 0, pend = 0;
+    box.querySelectorAll('[data-wthumb]').forEach(function(el){ pend++; workPhoto(el.dataset.wthumb).then(function(b){ if (b) el.style.backgroundImage = 'url(' + URL.createObjectURL(b) + ')'; else { el.classList.add('alb-none'); el.querySelector('span').textContent = '사진이 저장되지 않았어요'; empty++; } if (!--pend && empty){ var bar = box.querySelector('.alb-bar'); if (bar && !bar.querySelector('[data-alb="clean"]')) bar.insertAdjacentHTML('beforeend', '<button type="button" class="sub" data-alb="clean" style="color:#C2410C">빈 항목 ' + empty + '개 정리</button>'); } }); });
+    if (picking) albCount();
+  }
+  function albCount(){ var n = Object.keys(albSel || {}).length, el = document.getElementById('albN'); if (el) el.textContent = n; }
+  async function albView(id){
+    var w = wLoad().filter(function(x){ return x.id === id; })[0]; if (!w) return;
+    var b = await workPhoto(id); if (!b){ toast('사진이 저장되지 않았어요'); return; }
+    var url = URL.createObjectURL(b), v = document.createElement('div'); v.className = 'alb-view'; v.setAttribute('role', 'dialog'); v.setAttribute('aria-modal', 'true');
+    v.innerHTML = '<div class="alb-bg" data-av="x"></div><div class="alb-pan"><button type="button" class="alb-x" data-av="x" aria-label="닫기">×</button><img src="' + url + '" alt="' + esc(w.title || '보정 사진') + '"><p>' + esc(w.title || '') + '</p>' +
+      '<div class="alb-acts"><button type="button" class="sub primary" data-av="save">사진 저장</button><button type="button" class="sub" data-av="post" style="background:#FFD43B;border-color:#FFD43B;color:#14161F;font-weight:900">이 사진으로 홍보글</button><button type="button" class="sub" data-av="edit">다시 보정</button><button type="button" class="sub" data-av="del" style="color:#C2410C">지우기</button></div></div>';
+    document.body.appendChild(v);
+    var close = function(){ v.remove(); URL.revokeObjectURL(url); };
+    v.addEventListener('click', async function(e){
+      var t = e.target.closest('[data-av]'); if (!t) return; var a = t.dataset.av;
+      if (a === 'x') return close();
+      if (a === 'save'){ if (downloads){ try { await downloads.save({ filename: (studio.name || CFG.title) + '_보정사진.jpg', data: b }); toast('저장했어요'); } catch(err){ toast('사진을 길게 눌러 저장해 주세요'); } } else { saveBlob(b, (studio.name || CFG.title) + '_보정사진.jpg'); toast('저장했어요'); } return; }
+      if (a === 'post'){ close(); if (window.alajoomTab) window.alajoomTab('make'); await setAtt(b); curWork = null; var sb = document.querySelector('.tool[data-tool="set"]'); if (sb) sb.click(); toast('사진을 넣었어요. 알릴 내용을 고르고 만들기를 누르세요'); return; }
+      if (a === 'edit'){ close(); return openRetouch(id); }
+      if (a === 'del'){ if (t.dataset.arm !== '1'){ t.dataset.arm = '1'; t.textContent = '정말 지울까요?'; return; } albDel([id]); close(); renderWorks(); toast('지웠어요'); }
+    });
+  }
+  document.addEventListener('click', async function(e){
+    var t = e.target.closest && e.target.closest('[data-albv],[data-alb]'); if (!t) return;
+    if (t.dataset.albv){ if (albSel){ var i = t.dataset.albv; if (albSel[i]) delete albSel[i]; else albSel[i] = 1; t.setAttribute('aria-pressed', albSel[i] ? 'true' : 'false'); albCount(); return; } return albView(t.dataset.albv); }
+    var a = t.dataset.alb;
+    if (a === 'pick'){ albSel = {}; renderWorks(); return; }
+    if (a === 'pickoff'){ albSel = null; renderWorks(); return; }
+    if (a === 'all'){ albumBlobs().forEach(function(w){ albSel[w.id] = 1; }); renderWorks(); return; }
+    if (a === 'savesel'){ var ids = Object.keys(albSel || {}); if (!ids.length){ toast('사진을 골라 주세요'); return; } for (var k = 0; k < ids.length; k++){ var b = await workPhoto(ids[k]); if (b) saveBlob(b, (studio.name || CFG.title) + '_보정사진_' + (k + 1) + '.jpg'); await new Promise(function(r){ setTimeout(r, 350); }); } toast(ids.length + '장 저장했어요'); return; }
+    if (a === 'delsel'){ var ds = Object.keys(albSel || {}); if (!ds.length){ toast('사진을 골라 주세요'); return; } if (t.dataset.arm !== '1'){ t.dataset.arm = '1'; t.textContent = ds.length + '장 정말 지울까요?'; return; } albDel(ds); albSel = null; renderWorks(); toast(ds.length + '장 지웠어요'); return; }
+    if (a === 'clean'){ var all = albumBlobs(), gone = []; for (var j = 0; j < all.length; j++){ if (!(await workPhoto(all[j].id))) gone.push(all[j].id); } if (gone.length) albDel(gone); renderWorks(); toast('빈 항목 ' + gone.length + '개를 정리했어요'); }
+  });
   function renderTrash(box){
     var h = '<div style="display:flex;align-items:center;gap:8px;margin:0 0 12px"><button type="button" class="sub" data-wf="all" style="flex:none;min-width:0;padding:0 14px">← 작업실</button><h2 style="margin:0;font-size:18px;font-weight:900">휴지통</h2></div>';
     h += '<p class="note" style="margin:0 0 10px">지운 작업은 30일 뒤 완전히 사라져요.</p>';
@@ -1595,7 +1659,7 @@ var CFG = {
     w.photo = true; phPut(w.id, b);
     var sig = b.size + ':' + b.type, up = w.phSig !== sig ? b : null; w.phSig = sig;
     list = list.filter(function(x){ return x.id !== w.id; }); list.unshift(w); wSave(list); srvPut(w, up);
-    toast('작업실 · 사진 보정 폴더에 저장했어요');
+    toast('작업실 · 보정한 사진에 저장했어요');
   }
   async function retBack(){
     if (!ph.img){ toast('사진을 먼저 골라주세요'); return; }
@@ -1755,6 +1819,7 @@ var CFG = {
       var b = await photoBlob(2160, .92);
       if (downloads){ try { await downloads.save({filename:(studio.name || CFG.title) + '_사진.jpg', data:b}); toast('저장했어요'); } catch(err){ toast(err && err.code === 'declined' ? '저장을 취소했어요' : '사진을 길게 눌러 저장해 주세요'); } }
       else { saveBlob(b, (studio.name || CFG.title) + '_보정사진.jpg'); if (lastText) saveWork(); }
+      try { var sb2 = await photoBlob(1600, .9); await albumSave(sb2, ph.text || ''); toast('저장했어요 · 작업실 보정한 사진에도 넣었어요'); } catch(er){}
       return;
     }
     var act = t.dataset.act;
