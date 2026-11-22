@@ -73,7 +73,7 @@ summary{font-size:13px;font-weight:700;color:var(--muted);cursor:pointer}
 .out-c b{font-size:14px}.out-c span{font-size:12px;color:var(--muted);line-height:1.4}
 .out-c em{align-self:flex-start;margin-bottom:2px;font-style:normal;font-size:10.5px;font-weight:900;padding:2px 7px;border-radius:999px;background:#EAF6EF;color:#0B6B3A}
 .out-c em.soon{background:#F1EEE6;color:#7A7365}
-.stepno{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--yellow);font-size:11px;font-weight:900;margin-right:6px}
+.stepno{display:inline-flex;align-items:center;justify-content:center;min-width:20px;padding:0 5px;box-sizing:border-box;height:20px;border-radius:10px;background:var(--ink);color:var(--yellow);font-size:11px;font-weight:900;margin-right:6px}
 .soon-box{border:1px dashed #CFC5AE;border-radius:14px;background:var(--ivory);padding:16px;display:flex;flex-direction:column;gap:8px}
 .soon-box b{font-size:15px}.soon-box p{margin:0;font-size:13px;color:var(--muted)}
 .ex{display:flex;flex-wrap:wrap;gap:6px}.ex span{font-size:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 10px}
@@ -260,6 +260,8 @@ header .brand:active{opacity:.7}
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">
 <style id="tool-grid">
+#v-promo .tool[data-tool=photo],#v-make .tool[data-tool=photo]{display:none !important}
+
 /* 만들기 메뉴 전체가 한눈에: 옆으로 넘기지 않고 줄 바꿈 */
 #v-promo .tools,#v-make .tools{display:grid !important;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 10px;overflow:visible;padding:4px 2px 6px}
 #v-promo .tool,#v-make .tool{width:auto !important;min-width:0}
@@ -294,7 +296,7 @@ header .brand:active{opacity:.7}
 
   <nav class="mtabs" role="tablist" aria-label="알아줌 학원 메뉴">
     <button class="mtab" type="button" role="tab" data-tab="home" aria-selected="true">오늘</button>
-    <button class="mtab" type="button" role="tab" data-tab="make" aria-selected="false">AI 만들기</button>
+    <button class="mtab" type="button" role="tab" data-tab="make" aria-selected="false">홍보</button>
     <button class="mtab" type="button" role="tab" data-tab="members" aria-selected="false">원생 장부</button>
     <button class="mtab" type="button" role="tab" data-tab="works" aria-selected="false">작업실</button>
   </nav>
@@ -601,6 +603,7 @@ var CFG = {
   });
 
   function renderPanel(){
+    if (tool === 'set'){ var keepAtt = att; renderPhoto(); if (keepAtt && keepAtt.blob){ loadPhoto(keepAtt.blob); } return; }
     if (tool === 'photo' || tool === 'retouch') return renderPhoto();
     if (tool === 'reels'){ if (window.alajoomReels) window.alajoomReels.render($('#panel')); else $('#panel').innerHTML = '<p class="note">잠시 후 다시 눌러 주세요</p>'; return; }
     var t = TOOLS[tool]; pick = {}; t.steps.forEach(function(s){ pick[s.key] = s.opts[0]; });
@@ -1028,14 +1031,14 @@ var CFG = {
     x.fillStyle = 'rgba(20,14,16,.45)'; if (x.roundRect){ x.beginPath(); x.roundRect(bx, by, bw, bh, bh / 2); x.fill(); } else x.fillRect(bx, by, bw, bh);
     x.fillStyle = '#fff'; x.textBaseline = 'middle'; x.fillText(t, bx + pad, by + bh / 2 + 1); x.restore();
   }
-  function renderPhoto(){
-    var P = CFG.photo; pick = { topic:P.topics[0], ch:'인스타' };
-    var h = '<h2>사진 올리고 홍보하기</h2>';
-    h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">1</span>사진 올리기</p>';
+  function renderPhoto(){ var MS = tool === 'set';
+    var P = CFG.photo; pick = { topic:(MS ? TOOLS.set.steps[0].opts[0] : P.topics[0]), ch:'인스타' }; if (MS){ ph.img = null; }
+    var h = '<h2>' + (MS ? '홍보글 한 번에' : '사진 올리고 홍보하기') + '</h2>';
+    h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">1</span>사진 올리기' + (MS ? ' <small style="font-weight:500;color:var(--muted)">(선택 · 올리면 바로 보정해요)</small>' : '') + '</p>';
     h += '<div class="drop" id="drop"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2A7A57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg><b>사진 고르기</b><span>' + P.hint + '</span><input type="file" id="phFile" accept="image/*" aria-label="사진 고르기" class="file-cover"></div>';
     h += '<div class="alt-pick" id="altPick"><span>앨범이 안 열리면 아래 버튼을 눌러주세요</span><input type="file" id="phFile2" accept="image/*,.heic,.heif"></div>';
     h += '<div id="phBody" class="hidden" style="display:flex;flex-direction:column;gap:14px">';
-    h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">2</span>어떤 사진으로 만들까요?</p><div class="outs" role="group" aria-label="결과물 종류">' + P.outputs.map(function(o){ return '<button type="button" class="out-c" data-out="' + o.key + '" aria-pressed="' + (o.key === ph.out) + '"><em class="' + (o.ai ? 'ai' : '') + '">' + (o.ai ? 'AI · 하루 3장' : '무료') + '</em><b>' + o.name + '</b><span>' + o.desc + '</span></button>'; }).join('') + '</div>';
+    h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">' + (MS ? '1-2' : '2') + '</span>어떤 사진으로 만들까요?</p><div class="outs" role="group" aria-label="결과물 종류">' + P.outputs.map(function(o){ return '<button type="button" class="out-c" data-out="' + o.key + '" aria-pressed="' + (o.key === ph.out) + '"><em class="' + (o.ai ? 'ai' : '') + '">' + (o.ai ? 'AI · 하루 3장' : '무료') + '</em><b>' + o.name + '</b><span>' + o.desc + '</span></button>'; }).join('') + '</div>';
     h += '<div class="soon-box hidden" id="phSoon"></div>';
     h += '<div id="phEdit" style="display:flex;flex-direction:column;gap:14px">';
     h += '<div class="ph-wrap"><img id="phImg" alt="보정한 사진 미리보기"><span class="tag" id="phTag">자동 보정됨</span><button type="button" class="hold" id="phHold">누르고 있으면 원본</button></div>';
@@ -1049,13 +1052,14 @@ var CFG = {
     h += '<div class="row"><button type="button" class="sub primary" data-act="phsave">' + '사진 저장' + '</button><button type="button" class="sub" data-act="phnew">다른 사진</button></div>';
     h += '<p class="note">' + P.privacy + '</p>';
     h += '</div>';
+    if (MS) h += '</div>';
     h += '<hr style="border:0;border-top:1px solid var(--line);margin:2px 0">';
-    h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">3</span>홍보글 만들기</p>';
-    h += '<div class="step"><p id="lb_topic">이 사진으로 무엇을 알릴까요?</p><div class="chips" role="group" aria-labelledby="lb_topic">' + P.topics.map(function(o, i){ return '<button type="button" class="chip" data-k="topic" data-v="' + esc(o) + '" aria-pressed="' + (i===0) + '">' + esc(o) + '</button>'; }).join('') + '</div></div>';
+    h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">' + (MS ? '2' : '3') + '</span>홍보글 만들기</p>';
+    h += '<div class="step"><p id="lb_topic">' + (MS ? '무엇을 알릴까요?' : '이 사진으로 무엇을 알릴까요?') + '</p><div class="chips" role="group" aria-labelledby="lb_topic">' + (MS ? TOOLS.set.steps[0].opts : P.topics).map(function(o, i){ return '<button type="button" class="chip" data-k="topic" data-v="' + esc(o) + '" aria-pressed="' + (i===0) + '">' + esc(o) + '</button>'; }).join('') + '</div></div>';
     h += '<div class="step"><p>어디에 올릴 글을 만들까요? <small style="font-weight:500;color:var(--muted)">(여러 개 고르기)</small></p><div class="chips" role="group" aria-label="채널">' + SETCH.map(function(c){ return '<button type="button" class="chip" data-chm="' + c[0] + '" aria-pressed="' + (setSel.indexOf(c[0]) >= 0) + '">' + c[1] + '</button>'; }).join('') + '</div></div>';
     h += '<div class="step"><label for="detail">한 줄로 더 알려주세요 (선택)</label><input type="text" id="detail" placeholder="' + esc(P.detailPh) + '"></div>';
-    h += '<button class="go" type="button" id="goSet">이 사진으로 홍보글 세트 만들기</button><p class="note" style="margin:0">보정한 사진을 보고 반짝이·술술이·꼼꼼이가 고른 곳마다 글을 써요.</p>';
-    h += '<div class="result hidden" id="result"></div></div>';
+    h += '' + (MS ? '<button class="go" type="button" id="go" style="background:#FFD43B;color:#14161F">홍보글 세트 만들기</button>' : '<button class="go" type="button" id="goSet">이 사진으로 홍보글 세트 만들기</button>') + '<p class="note" style="margin:0">' + (MS ? '사진을 올렸으면 보정한 사진을 보고, 없으면 한 줄만으로 반짝이·술술이·꼼꼼이가 고른 곳마다 글을 써요.' : '보정한 사진을 보고 반짝이·술술이·꼼꼼이가 고른 곳마다 글을 써요.') + '</p>';
+    h += '<div class="result hidden" id="result"></div>' + (MS ? '' : '</div>');
     $('#panel').innerHTML = h;
     if (tool === 'retouch') retouchUI();
     ['phFile','phFile2'].forEach(function(id){ var inp = $('#' + id); if (!inp) return; var onPick = function(e){ var f = e.target.files && e.target.files[0]; if (f){ loadPhoto(f); } else { toast('사진을 받지 못했어요. 다시 골라주세요'); } }; inp.addEventListener('change', onPick); });
@@ -1492,7 +1496,7 @@ var CFG = {
     h += '<div class="chips" role="group" aria-label="작업 종류" style="margin:0 0 12px">' + chip('all', '전체') + chip('retouch', TNAME.retouch) + chip('set', TNAME.set) + chip('post', TNAME.post) + chip('photo', TNAME.photo) + chip('card', TNAME.card) + chip('sms', TNAME.sms) + chip('review', TNAME.review) + (srvTrash.length ? '<button type="button" class="chip" data-wf="trash" aria-pressed="false">휴지통 ' + srvTrash.length + '</button>' : '') + '</div>';
     if (f === 'retouch'){
       h += show.length ? '<div class="rt-grid">' + show.map(function(w){ return '<button type="button" data-rtopen="' + w.id + '" data-wthumb="' + w.id + '" aria-label="' + esc(w.title || '보정 사진') + ' 열기"><span>' + esc(w.title || '') + '</span></button>'; }).join('') + '</div><p class="note" style="margin-top:10px">사진을 누르면 다시 보정하거나 휴대폰에 저장할 수 있어요. 지우려면 전체 목록에서 삭제하세요.</p>' :
-        '<div class="panel" style="text-align:center;padding:28px 16px"><b>아직 보정한 사진이 없어요</b><p style="margin:6px 0 12px;font-size:14px;color:var(--muted)">AI 만들기 → 사진 보정에서 보정하고 작업실에 저장하세요.</p><button type="button" class="sub primary" data-hgo="retouch" style="margin:0 auto">사진 보정하러 가기</button></div>';
+        '<div class="panel" style="text-align:center;padding:28px 16px"><b>아직 보정한 사진이 없어요</b><p style="margin:6px 0 12px;font-size:14px;color:var(--muted)">홍보 → 사진 보정에서 보정하고 작업실에 저장하세요.</p><button type="button" class="sub primary" data-hgo="retouch" style="margin:0 auto">사진 보정하러 가기</button></div>';
       box.innerHTML = h;
       box.querySelectorAll('[data-wthumb]').forEach(async function(el){ var b = await workPhoto(el.dataset.wthumb); if (b) el.style.backgroundImage = 'url(' + URL.createObjectURL(b) + ')'; });
       return;
@@ -1720,9 +1724,9 @@ var CFG = {
   /* ---------- 이벤트 ---------- */
   document.addEventListener('click', async function(e){
     var t = e.target.closest('button'); if (!t) return;
-    if (t.dataset.tool){ if (e.isTrusted) window.alajoomRecipient = null; tool = t.dataset.tool === 'post' ? 'set' : t.dataset.tool; if (t.dataset.tool === 'post'){ var sb0 = document.querySelector('.tool[data-tool="set"]'); if (sb0) t = sb0; } document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); renderPanel(); $('#panel').scrollIntoView({behavior:'smooth', block:'start'}); return; }
+    if (t.dataset.tool){ if (e.isTrusted) window.alajoomRecipient = null; tool = (t.dataset.tool === 'post' || t.dataset.tool === 'photo') ? 'set' : t.dataset.tool; if (t.dataset.tool === 'post' || t.dataset.tool === 'photo'){ var sb0 = document.querySelector('.tool[data-tool="set"]'); if (sb0) t = sb0; } document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); renderPanel(); $('#panel').scrollIntoView({behavior:'smooth', block:'start'}); return; }
     if (t.classList.contains('chip') && t.dataset.k){ if (tool === 'card' && t.dataset.k === 'topic' && t.dataset.v === '이번 주 시간표' && window.alajoomWeekSchedule && $('#detail') && !$('#detail').value.trim()){ var ws = window.alajoomWeekSchedule(); if (ws){ $('#detail').value = ws; toast('시간표를 넣었어요'); } } pick[t.dataset.k] = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); return; }
-    if (t.id === 'go'){ curWork = null; return generate(); }
+    if (t.id === 'go'){ curWork = null; if (tool === 'set' && $('#phBody')){ return (async function(){ if (ph.img){ var pb = null; try { pb = await photoBlob(1600, .86); } catch(er){} await setAtt(pb); } generate(); })(); } return generate(); }
     if (t.dataset.chm){ var c = t.dataset.chm, i = setSel.indexOf(c); if (i >= 0) setSel.splice(i, 1); else setSel.push(c); t.setAttribute('aria-pressed', i < 0); return; }
     if (t.dataset.setc){ if (setRes && $('#out')) setRes[setCur] = $('#out').innerText; setCur = t.dataset.setc; showSet(''); return; }
     if (t.dataset.act === 'igpost' || t.dataset.act === 'nppost' || t.dataset.act === 'igcard') return postTo(t.dataset.act);
