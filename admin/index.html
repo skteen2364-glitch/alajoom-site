@@ -117,6 +117,20 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + lines.map(function(r){ return r.map(cell).join(','); }).join('\r\n')], { type:'text/csv;charset=utf-8' }));
     a.download = '알아줌_' + (mktOnly ? '마케팅동의자' : '회원') + '_' + D.today + '.csv'; document.body.appendChild(a); a.click(); a.remove();
   }
+  var RS = { pending:'확인 전', approved:'올림', rejected:'안 올림' };
+  async function loadRecos(){
+    var box = $('#recoBox'); if (!box) return;
+    var r = await sb.rpc('reco_admin', { p_id: null, p_status: null });
+    if (r.error){ box.innerHTML = '<p class="note">추천을 불러오지 못했어요.</p>'; return; }
+    var A = r.data || [];
+    if (!A.length){ box.innerHTML = '<p class="note">아직 받은 추천이 없어요. 홈페이지 아래쪽 \'도움 된 곳 추천하기\'로 들어와요.</p>'; return; }
+    box.innerHTML = '<div class="tw"><table><thead><tr><th>날짜</th><th>상태</th><th>이름</th><th>분야</th><th>좋았던 점</th><th></th></tr></thead><tbody>' + A.map(function(x){
+      var nm = x.url ? '<a href="' + esc(x.url) + '" target="_blank" rel="noopener nofollow">' + esc(x.name) + '</a>' : esc(x.name);
+      return '<tr><td>' + fdate(x.created_at) + '</td><td><b>' + (RS[x.status] || x.status) + '</b></td><td>' + nm + '</td><td>' + esc(x.kind || '') + '</td><td>' + esc(x.reason) + '</td><td style="white-space:nowrap">' +
+        (x.status !== 'approved' ? '<button class="btn" data-rid="' + x.id + '" data-rs="approved">올리기</button> ' : '') + (x.status !== 'rejected' ? '<button class="btn" data-rid="' + x.id + '" data-rs="rejected">안 올림</button>' : '') + '</td></tr>';
+    }).join('') + '</tbody></table></div><p class="note" style="margin:10px 0 0">민간 업체는 올리기 전에 그 업체에 소개해도 되는지 한 번 물어봐 주세요. 본인 가게·돈 받은 추천은 올리지 않아요.</p>';
+    box.querySelectorAll('[data-rid]').forEach(function(b){ b.onclick = async function(){ b.disabled = true; var q = await sb.rpc('reco_admin', { p_id: +b.dataset.rid, p_status: b.dataset.rs }); if (q.error) { b.textContent = '다시 눌러 주세요'; b.disabled = false; return; } loadRecos(); }; });
+  }
   function render(){
     var T = D.totals;
     var k = function(n, l, hl){ return '<div class="kpi' + (hl ? ' hl' : '') + '"><span>' + l + '</span><b>' + n + '</b></div>'; };
@@ -135,7 +149,9 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
       return '<tr><td>' + esc(new Date(new Date(f.created_at).getTime() + 9 * 3600e3).toISOString().slice(0, 16).replace('T', ' ')) + '</td><td><b style="color:' + (FC[f.kind] || '#14161F') + '">' + esc(FK[f.kind] || f.kind) + '</b></td><td>' + esc(MATE[f.mate] || f.mate || '') + '</td><td>' + esc(f.store_name || f.email) + '</td><td style="white-space:pre-wrap;min-width:220px">' + esc(f.message) + '</td></tr>';
     }).join('') + '</tbody></table></div>';
     h += '</div>';
+    h += '<div class="card" id="recoCard"><h2>사장님 추천 업체 <small class="note">확인 후 올리기를 누르면 홈페이지 \'사장님들이 추천한 곳\'에 보여요</small></h2><div id="recoBox"><p class="note">불러오는 중…</p></div></div>';
     $('#main').innerHTML = h;
+    loadRecos();
     $('#q').oninput = function(){ q = this.value.trim(); table(); };
     $('#mk').onclick = function(){ onlyMkt = !onlyMkt; this.setAttribute('aria-pressed', onlyMkt); table(); };
     $('#csvAll').onclick = function(){ csv(false); };
