@@ -56,9 +56,12 @@
     '.fam-btns button small{font-size:11px;font-weight:600;color:#8A7A4A}',
     '.fam-btns button[disabled]{opacity:.55;cursor:default}',
     '.fam-go{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;margin-top:10px;border:0;border-radius:12px;background:#FEE500;color:#191600;font:inherit;font-weight:800;font-size:15px;cursor:pointer}',
-    '.fam-dlg{border:0;border-radius:20px;padding:0;width:min(420px,92vw);max-height:86vh}',
+    '.fam-dlg{border:0;border-radius:20px;padding:0;width:min(420px,92vw);max-height:82vh;overflow:hidden}',
+    '.fam-dlg .in{position:relative;max-height:82vh;overflow-y:auto;-webkit-overflow-scrolling:touch}',
+    '.fam-dlg .fam-xt{position:absolute;top:10px;right:10px;width:40px;height:40px;border:0;border-radius:50%;background:#F2F3F6;font-size:22px;line-height:1;cursor:pointer}',
+    '.fam-dlg .fam-x{position:sticky;bottom:0;box-shadow:0 -10px 14px #fff}',
     '.fam-dlg::backdrop{background:rgba(20,22,31,.45)}',
-    '.fam-dlg .in{padding:20px}.fam-dlg h3{margin:0 0 4px;font-size:18px}.fam-dlg p.s{margin:0 0 14px;font-size:13.5px;color:#5B6070}',
+    '.fam-dlg .in{padding:20px}.fam-dlg h3{margin:0 0 4px;padding-right:44px;font-size:18px}.fam-dlg p.s{margin:0 0 14px;font-size:13.5px;color:#5B6070}',
     '.fam-f{display:flex;gap:10px;align-items:center;padding:12px 0;border-top:1px solid #EEE9DC}',
     '.fam-f div{flex:1;min-width:0}.fam-f b{display:block;font-size:15px}.fam-f span{display:block;font-size:12.5px;color:#6A6F7C}',
     '.fam-f button{flex:none;min-width:74px;min-height:40px;border-radius:999px;border:1px solid #D9CFB8;background:#fff;font:inherit;font-size:13px;font-weight:800;cursor:pointer}',
@@ -116,7 +119,7 @@
   }
 
   function dlg(html) {
-    var d = document.createElement('dialog'); d.className = 'fam-dlg'; d.innerHTML = '<div class="in">' + html + '<button type="button" class="fam-x" data-x>닫기</button></div>';
+    var d = document.createElement('dialog'); d.className = 'fam-dlg'; d.innerHTML = '<div class="in"><button type="button" class="fam-xt" data-x aria-label="닫기">×</button>' + html + '<button type="button" class="fam-x" data-x>닫기</button></div>';
     document.body.appendChild(d);
     d.addEventListener('click', function (e) { if (e.target === d || e.target.closest('[data-x]')) { d.close(); d.remove(); } });
     if (d.showModal) d.showModal(); else d.setAttribute('open', '');

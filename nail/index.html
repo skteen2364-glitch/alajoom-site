@@ -247,7 +247,7 @@ header .brand:active{opacity:.7}
 .ai-go:disabled{opacity:.75;cursor:wait}
 .ai-note{font-size:12px!important}
 </style>
-<link rel="manifest" href="/nail/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-nail.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="네일메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11212130"></script><script src="/assets/family.js?v=11212130"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/skin/customers.js?v=11201500" defer></script><script src="/assets/before-after.js?v=11210800" defer></script><script src="/assets/team.js?v=11211500" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
+<link rel="manifest" href="/nail/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-nail.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="네일메이트"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11221200"></script><script src="/assets/family.js?v=11220905"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/skin/customers.js?v=11201500" defer></script><script src="/assets/before-after.js?v=11210800" defer></script><script src="/assets/team.js?v=11211500" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">
 </head>
@@ -326,7 +326,7 @@ var CFG = {
   tags:['{동네}네일','{동네}네일샵','{동네}','네일','젤네일','네일아트','1인샵'],
   ch:{
     '인스타':'인스타그램 게시글. 첫 줄은 눈길 끄는 한 문장. 본문 4~7줄, 이모지 2~4개. 디자인·컬러를 구체적으로. 마지막 줄에 예약 방법. 맨 아래 해시태그 8~10개(동네+네일 포함).',
-    '블로그':'네이버 블로그 글. 첫 줄에 제목. 소제목 3개로 나눠 500~700자. 디자인·컬러·시술 과정·위생 위주로. 마지막에 위치·예약 안내.',
+    '블로그':'네이버 블로그 글. 첫 줄에 제목. 소제목 4~5개로 나눠 1,500~2,000자. 디자인·컬러·시술 과정·위생 위주로. 마지막에 위치·예약 안내.',
     '당근':'당근 동네생활/비즈프로필 소식. 이웃에게 말하듯 담백하게 5~7줄. 이모지는 1개 이하, 해시태그 없음.',
     '네이버 플레이스':'네이버 플레이스 소식. 3~5줄로 짧고 핵심만. 해시태그 없음.',
     '릴스 대본':'인스타 릴스·쇼츠 15~30초 세로 영상 대본. 첫 3초 후킹 문장, 장면 4~6개. 장면마다 [화면] 무엇을 찍을지(손 클로즈업, 컬러 고르기, 완성 디자인) / [자막] / [말] 내레이션을 줄로 나눠 쓰기. 맨 끝에 캡션 한 줄과 해시태그 5개.'
@@ -475,10 +475,10 @@ var CFG = {
     if (window.alajoomAI && window.alajoomAI.guestAgent){
       var r0 = $('#result'); r0.classList.remove('hidden');
       var chs = setSel.slice(0, 3);
-      var tm = window.alajoomTeam ? window.alajoomTeam.progress(r0, { photo: false, channels: chs.length }) : null;
+      var tm = window.alajoomTeam ? window.alajoomTeam.progress(r0, { photo: !!att, channels: chs.length }) : null;
       if (!tm) r0.innerHTML = '<div class="out thinking" style="white-space:normal">알아줌이 쓰는 중…</div>';
       try {
-        var d = await window.alajoomAI.guestAgent({ topic: pick.topic, channels: chs, detail: detail,
+        var d = await window.alajoomAI.guestAgent({ topic: pick.topic, channels: chs, detail: detail, image: att ? att.blob : null,
           store: [studio.name, studio.area, studio.cls, studio.feat].filter(Boolean).join(' / ') });
         setRes = d.results || {}; setCur = Object.keys(setRes)[0];
         var fin = function(){
@@ -507,11 +507,28 @@ var CFG = {
     var b = document.getElementById('demoLogin'); if (b) b.onclick = function(){ if (window.alajoomLogin) window.alajoomLogin(); };
     try { r.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
   }
+  /* 사진 보정 → 바로 '알아줌 한 번에' 세트로 */
+  async function photoToSet(){
+    if (!ph.img){ toast('사진을 먼저 골라주세요'); return; }
+    if (!setSel.length){ toast('채널을 하나 이상 골라주세요'); return; }
+    var d = ($('#detail') && $('#detail').value.trim()) || '';
+    var b = null; try { b = await photoBlob(1600, .86); } catch(e){}
+    if (b) await setAtt(b);
+    var sb = document.querySelector('.tool[data-tool="set"]'); if (sb) sb.click();
+    setTimeout(function(){ var de = $('#detail'); if (de) de.value = d; var g = $('#go'); if (g) g.click(); }, 60);
+  }
+  document.addEventListener('click', function(e){ if (e.target.closest && e.target.closest('#goSet')){ e.preventDefault(); photoToSet(); } });
   function showSet(note){
     var r = $('#result'); r.classList.remove('hidden');
     var keys = Object.keys(setRes || {}); if (!keys.length) return;
     if (keys.indexOf(setCur) < 0) setCur = keys[0];
-    var h = '<div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:10px" role="tablist">' + keys.map(function(c){ return '<button type="button" class="setc" role="tab" data-setc="' + c + '" aria-selected="' + (c === setCur) + '">' + chName(c) + '</button>'; }).join('') + '</div>';
+    var base = setCur.replace(/_b$/, ''), tabs = keys.filter(function(k){ return !/_b$/.test(k); });
+    var h = '<div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:10px" role="tablist">' + tabs.map(function(c){ return '<button type="button" class="setc" role="tab" data-setc="' + c + '" aria-selected="' + (c === base) + '">' + chName(c) + '</button>'; }).join('') + '</div>';
+    if (setRes[base + '_b']){
+      var VL = { insta: ['공감형', '정보형'], blog: ['정보형', '이야기형'] }[base] || ['A', 'B'];
+      var vb = function(k, i){ var on = setCur === k; return '<button type="button" data-setc="' + k + '" aria-pressed="' + on + '" style="flex:1;min-height:42px;border-radius:12px;border:1px solid ' + (on ? 'var(--ink)' : 'var(--line)') + ';background:' + (on ? 'var(--ink)' : '#fff') + ';color:' + (on ? '#fff' : 'var(--ink)') + ';font:inherit;font-size:13.5px;font-weight:800;cursor:pointer">' + (i ? 'B안' : 'A안') + ' · ' + VL[i] + '</button>'; };
+      h += '<div style="display:flex;gap:8px;margin:0 0 10px" role="group" aria-label="두 가지 버전">' + vb(base, 0) + vb(base + '_b', 1) + '</div>';
+    }
     if (note) h += '<div class="check"><span>✓</span><span>' + esc(note) + '</span></div>';
     h += '<img id="resPh" alt="함께 올릴 사진" class="card-prev hidden" style="margin-bottom:10px"><div class="out" id="out"></div><div id="chk"></div><div class="row" id="acts"></div>';
     r.innerHTML = h;
@@ -862,7 +879,7 @@ var CFG = {
     if (!$('#out')) r.innerHTML = '<img id="resPh" alt="함께 올릴 사진" class="card-prev hidden" style="margin-bottom:10px"><div class="out" id="out"></div><div id="chk"></div><div class="row" id="acts"></div>';
     var rp = $('#resPh'); if ((tool === 'post' || (tool === 'set' && /insta|place|daangn|blog/.test(setCur))) && att){ rp.src = att.url; rp.classList.remove('hidden'); } else rp.classList.add('hidden');
     if (tool === 'photo' && ph.url){ rp.src = ph.url; rp.classList.remove('hidden'); }
-    igFrame(!rp.classList.contains('hidden') && (tool === 'set' ? setCur === 'insta' : pick.ch === '인스타'));
+    igFrame(!rp.classList.contains('hidden') && (tool === 'set' ? setCur.replace(/_b$/, '') === 'insta' : pick.ch === '인스타'));
     var out = $('#out'); out.textContent = text || '쓰는 중…'; out.classList.toggle('thinking', !text);
     out.contentEditable = streaming ? 'false' : 'true';
     if (streaming) return;
@@ -874,7 +891,7 @@ var CFG = {
     if (!hits.length) chk.innerHTML = '<div class="check"><span>✓</span><span>광고 표현 검사 통과. 과장·의료 표현이 없어요.</span></div>';
     else chk.innerHTML = '<div class="check bad"><span>!</span><span>광고 주의 표현 ' + hits.length + '개<ul>' + hits.map(function(h){ return '<li>"' + esc(h.w) + '" · ' + h.why + '</li>'; }).join('') + '</ul></span></div>';
     var a = '';
-    var chNow = tool === 'set' ? ({insta:'인스타', place:'네이버 플레이스'})[setCur] : pick.ch;
+    var chNow = tool === 'set' ? ({insta:'인스타', place:'네이버 플레이스'})[setCur.replace(/_b$/, '')] : pick.ch;
     if ((tool === 'post' || tool === 'photo' || tool === 'set') && chNow === '인스타') a += '<button type="button" class="sub primary" data-act="igpost" style="flex-basis:100%;background:linear-gradient(90deg,#F58529,#DD2A7B,#8134AF);border:0">인스타에 올리기</button>';
     if ((tool === 'post' || tool === 'photo' || tool === 'set') && chNow === '네이버 플레이스') a += '<button type="button" class="sub primary" data-act="nppost" style="flex-basis:100%;background:#03C75A;border:0">네이버 플레이스에 올리기</button>';
     if (tool === 'sms' || (tool === 'set' && setCur === 'sms')){
@@ -1008,9 +1025,9 @@ var CFG = {
     h += '<hr style="border:0;border-top:1px solid var(--line);margin:2px 0">';
     h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">3</span>홍보글 만들기</p>';
     h += '<div class="step"><p id="lb_topic">이 사진으로 무엇을 알릴까요?</p><div class="chips" role="group" aria-labelledby="lb_topic">' + P.topics.map(function(o, i){ return '<button type="button" class="chip" data-k="topic" data-v="' + esc(o) + '" aria-pressed="' + (i===0) + '">' + esc(o) + '</button>'; }).join('') + '</div></div>';
-    h += '<div class="step"><p id="lb_ch">어디에 올릴까요?</p><div class="chips" role="group" aria-labelledby="lb_ch">' + Object.keys(CH).map(function(o, i){ return '<button type="button" class="chip" data-k="ch" data-v="' + esc(o) + '" aria-pressed="' + (i===0) + '">' + esc(o) + '</button>'; }).join('') + '</div></div>';
+    h += '<div class="step"><p>어디에 올릴 글을 만들까요? <small style="font-weight:500;color:var(--muted)">(여러 개 고르기)</small></p><div class="chips" role="group" aria-label="채널">' + SETCH.map(function(c){ return '<button type="button" class="chip" data-chm="' + c[0] + '" aria-pressed="' + (setSel.indexOf(c[0]) >= 0) + '">' + c[1] + '</button>'; }).join('') + '</div></div>';
     h += '<div class="step"><label for="detail">한 줄로 더 알려주세요 (선택)</label><input type="text" id="detail" placeholder="' + esc(P.detailPh) + '"></div>';
-    h += '<button class="go" type="button" id="go">이 사진으로 홍보글 만들기</button>';
+    h += '<button class="go" type="button" id="goSet">이 사진으로 홍보글 세트 만들기</button><p class="note" style="margin:0">보정한 사진을 보고 반짝이·술술이·꼼꼼이가 고른 곳마다 글을 써요.</p>';
     h += '<div class="result hidden" id="result"></div></div>';
     $('#panel').innerHTML = h;
     if (tool === 'retouch') retouchUI();

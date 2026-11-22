@@ -133,6 +133,7 @@
     },
     guestAgent: async function (p) {
       var body = { guest: true, mate: MATE, mode: 'agent', topic: p.topic, channels: (p.channels || []).slice(0, 3), detail: p.detail, store: p.store, tool: 'set' };
+      if (p.image) { try { body.image = await b64(p.image); } catch (e) {} }
       var r = await fetch(URL_ + '/functions/v1/generate', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY }, body: JSON.stringify(body) });
       var d = {}; try { d = await r.json(); } catch (e) {}
       if (!r.ok) { var e1 = new Error(d.error || 'ai_error'); e1.code = d.error || 'ai_error'; e1.msg = d.message; throw e1; }
