@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="only light">
+<title>음식점 사장님께 · 알아줌 음식점</title>
+<meta name="description" content="혼자 가게 하는 사장이 만든 음식점 사장님 홍보 비서. 사진 한 장, 한 줄이면 인스타·블로그·카톡 글을 써 드려요. 로그인 없이 한 번 써보세요.">
+<meta property="og:title" content="음식점 사장님, 홍보는 제가 도와드릴게요">
+<meta property="og:description" content="사진 한 장, 한 줄이면 인스타·블로그·카톡 글을 한 번에. 로그인 없이 바로 써보세요.">
+<meta property="og:image" content="https://alajoom.com/assets/food-ai-after.jpg">
+<meta property="og:url" content="https://alajoom.com/food/hi/">
+<link rel="icon" href="/assets/icon-food-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-food.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#FFF8EC;color:#24262E;font-family:'Noto Sans KR',-apple-system,'Apple SD Gothic Neo',sans-serif;line-height:1.7;word-break:keep-all}
+.w{max-width:520px;margin:0 auto;padding:22px 20px calc(110px + env(safe-area-inset-bottom))}
+.top{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:#6B5A3A}
+.top i{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#FFD43B;color:#14161F;font-style:normal;font-weight:900}
+.hand{font-family:'Gaegu',cursive;font-weight:700;letter-spacing:-.5px}
+h1{margin:26px 0 6px;font-size:38px;line-height:1.22}
+h1 em{font-style:normal;background:linear-gradient(transparent 62%,#FFD43B 62%)}
+.chick{display:flex;align-items:flex-end;gap:10px;margin:18px 0 6px}
+.chick svg{width:64px;height:64px;flex:none}
+.bubble{position:relative;background:#fff;border:1.5px solid #F0E3C6;border-radius:18px 18px 18px 4px;padding:10px 14px;font-size:14.5px}
+.letter{margin:18px 0;padding:20px 18px;background:#fff;border-radius:20px;border:1px solid #F0E3C6;box-shadow:0 10px 26px -18px rgba(120,90,20,.45);font-size:15.5px}
+.letter p{margin:0 0 12px}.letter p:last-child{margin:0}
+.letter .sign{text-align:right;font-size:22px;color:#6B5A3A}
+h2{margin:34px 0 10px;font-size:28px;line-height:1.3}
+.ex{background:#fff;border-radius:20px;border:1px solid #F0E3C6;overflow:hidden}
+.ex-in{padding:14px 16px;border-bottom:1px dashed #F0E3C6;font-size:14px;color:#6B5A3A}
+.ex-in b{display:block;color:#24262E;font-size:16px}
+.ex-photo{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#F0E3C6}
+.ex-photo figure{margin:0;position:relative}
+.ex-photo img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.ex-photo figcaption{position:absolute;left:8px;top:8px;padding:2px 9px;border-radius:999px;background:rgba(20,22,31,.75);color:#fff;font-size:11.5px;font-weight:800}
+.ex-out{padding:14px 16px;font-size:14.5px;white-space:pre-line}
+.ex-out small{display:block;margin-top:10px;color:#9A8B6A;font-size:12px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 16px}
+.tags span{padding:4px 10px;border-radius:999px;background:#FFF1C2;font-size:12.5px;font-weight:800;color:#6B5A3A}
+.can{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.can li{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid #F0E3C6;border-radius:16px;padding:12px 14px;font-size:15px}
+.can li svg{width:44px;height:44px;flex:none}
+.can li b{display:block;font-size:15.5px}.can li span{font-size:13px;color:#7A6F58}
+.why{background:#FFF1C2;border-radius:20px;padding:18px;font-size:15px}
+.why p{margin:0 0 8px}.why p:last-child{margin:0}
+.note{font-size:12.5px;color:#9A8B6A;margin:10px 0 0}
+.cta{position:fixed;left:0;right:0;bottom:0;z-index:10;padding:10px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(rgba(255,248,236,0),#FFF8EC 30%)}
+.cta a{display:flex;align-items:center;justify-content:center;gap:8px;max-width:488px;margin:0 auto;min-height:58px;border-radius:18px;background:#FFD43B;color:#14161F;text-decoration:none;font-size:17px;font-weight:900;box-shadow:0 12px 24px -12px rgba(220,160,0,.9);animation:bob 2.6s ease-in-out infinite}
+.cta small{display:block;text-align:center;font-size:12px;color:#8A7B5A;margin-top:6px}
+@keyframes bob{50%{transform:translateY(-3px)}}
+.foot{margin-top:30px;font-size:12px;color:#A99A7A;text-align:center}
+.foot a{color:inherit}
+@media (prefers-reduced-motion:reduce){.cta a{animation:none}}
+</style>
+</head>
+<body>
+<main class="w">
+  <div class="top"><i>알</i>알아줌 음식점</div>
+
+  <h1 class="hand">사장님, 마감하고<br>홍보까지 하시느라<br><em>힘드시죠?</em></h1>
+
+  <div class="chick"><span data-ch="write"></span><div class="bubble">저는 글 쓰는 병아리 <b>술술이</b>예요. 사장님은 한 줄만 말씀해 주세요!</div></div>
+
+  <div class="letter">
+    <p>안녕하세요. 저도 혼자 가게를 꾸리는 1인 사장이에요.</p>
+    <p>장사하랴, 재료 챙기랴, 끝나고 나면 인스타·블로그·리뷰 답글까지… 해야 하는 건 아는데 늘 밤늦게 폰 붙잡고 있더라고요.</p>
+    <p>그래서 <b>사진 한 장이랑 한 줄만 주면 홍보글을 대신 써 주는 비서</b>를 만들었어요. 음식점 사장님들 쓰시기 편하게 메뉴판, 단체 주문 견적서, 주문 장부도 넣었어요.</p>
+    <p>거창한 회사 서비스가 아니라, 같은 사장 입장에서 필요해서 만든 거예요. 한 번만 써 보시고 솔직하게 말씀해 주세요.</p>
+    <p class="sign hand">— 알아줌 만든 사장 드림</p>
+  </div>
+
+  <h2 class="hand">이렇게 써 드려요</h2>
+  <div class="ex">
+    <div class="ex-in">사장님이 한 줄<b>"오늘 저녁 스테이크 세트 2인 10% 할인"</b></div>
+    <div class="ex-photo">
+      <figure><img src="/assets/food-ai-before.jpg" alt="사장님이 찍은 원래 사진" loading="lazy"><figcaption>찍은 사진</figcaption></figure>
+      <figure><img src="/assets/food-ai-after.jpg" alt="음식은 그대로 두고 배경만 매장처럼 바꾼 사진" loading="lazy"><figcaption>배경만 정리</figcaption></figure>
+    </div>
+    <div class="ex-out">오늘 저녁, 둘이 오시면 더 좋아요 🍽
+스테이크 세트 2인 주문 시 10% 할인해 드려요.
+
+고기는 매일 아침 직접 손질하고,
+굽기는 원하시는 대로 맞춰 드려요.
+
+📍 위치·예약은 프로필 링크에서
+오늘 저녁 7시까지만 이 가격이에요!
+<small>예시예요. 실제로는 사장님 가게 이름·말투로 써 드려요. 음식 양·모양은 바꾸지 않고 배경만 정리해요.</small></div>
+    <div class="tags"><span>인스타</span><span>블로그</span><span>카톡·문자</span><span>플레이스</span><span>당근</span></div>
+  </div>
+
+  <h2 class="hand">이런 것도 해요</h2>
+  <ul class="can">
+    <li><span data-ch="photo"></span><div><b>메뉴 사진 보정</b><span>대충 찍은 사진도 밝고 맛있어 보이게</span></div></li>
+    <li><span data-ch="check"></span><div><b>리뷰 답글</b><span>배달앱·플레이스 리뷰에 정성 답글</span></div></li>
+    <li><span data-ch="book"></span><div><b>메뉴판·주문 장부</b><span>가격표, 단체 주문 견적서, 매출 정리</span></div></li>
+  </ul>
+
+  <h2 class="hand">왜 무료냐면요</h2>
+  <div class="why">
+    <p>지금은 사장님들 의견을 듣고 같이 다듬는 단계라서 <b>무료</b>예요. 하루 10번까지 쓰실 수 있어요.</p>
+    <p>나중에 유료 기능이 생겨도, 지금 함께해 주시는 <b>창립 사장님 100분은 평생 무료</b>로 약속드려요.</p>
+    <p>광고 보여 주거나, 사장님 정보를 파는 일은 없어요.</p>
+  </div>
+  <p class="note">로그인 없이 한 번 써볼 수 있어요. 계속 쓰시려면 카카오로 3초 만에 시작해요.</p>
+
+  <p class="foot"><a href="/">알아줌</a> · <a href="/privacy/">개인정보처리방침</a></p>
+</main>
+<div class="cta"><a href="/food/?from=hi">로그인 없이 한 번 써보기 →</a><small>한 줄만 적으면 술술이가 바로 써 드려요</small></div>
+<script src="/assets/team.js?v=11221310"></script>
+<script>
+(function(){var T=window.alajoomTeam;if(!T)return;document.querySelectorAll('[data-ch]').forEach(function(el){el.outerHTML=T.svg(el.getAttribute('data-ch'),64);});})();
+</script>
+</body>
+</html>
