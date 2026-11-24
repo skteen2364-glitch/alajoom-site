@@ -301,6 +301,11 @@ header .brand:active{opacity:.7}
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">
 <style id="tool-grid">
+.alb-hit{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px;border-radius:14px;background:#FFF6D6;border:1px solid #F2DE9C;font-size:13.5px}
+.alb-hit span{flex:1;min-width:180px}.alb-hit .sub{flex:none !important;width:auto !important;min-width:0;min-height:34px;padding:0 12px;font-size:12.5px}
+.alb-tag{display:flex;gap:6px;align-items:center}.alb-tag input{flex:1;min-width:0;font:inherit;font-size:15px;padding:9px 11px;border:1px solid var(--line);border-radius:10px}
+.alb-pickbtn{align-self:flex-start;min-width:0 !important;width:auto !important;flex:none !important;padding:0 14px !important}
+
 .alb-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 10px}.alb-bar>span{font-size:13px;font-weight:800;color:var(--muted);margin-right:auto}
 .alb-bar .sub{flex:none !important;width:auto !important;min-width:0;min-height:36px;padding:0 12px;font-size:13px}
 .alb-grid button[aria-pressed="true"]{box-shadow:0 0 0 3px var(--blue)}
@@ -664,7 +669,7 @@ var CFG = {
   });
 
   function renderPanel(){
-    if (tool === 'set'){ var keepAtt = att; renderPhoto(); if (keepAtt && keepAtt.blob){ loadPhoto(keepAtt.blob); } return; }
+    if (tool === 'set'){ var keepAtt = att; if (keepAtt && keepAtt.used){ att = null; keepAtt = null; } renderPhoto(); if (keepAtt && keepAtt.blob){ loadPhoto(keepAtt.blob); } return; }
     if (tool === 'photo' || tool === 'retouch') return renderPhoto();
     if (tool === 'reels'){ if (window.alajoomReels) window.alajoomReels.render($('#panel')); else $('#panel').innerHTML = '<p class="note">잠시 후 다시 눌러 주세요</p>'; return; }
     if (tool === 'board') return renderBoard();
@@ -1105,6 +1110,7 @@ var CFG = {
     var h = '<h2>' + (MS ? '홍보글 한 번에' : '사진 올리고 홍보하기') + '</h2>';
     h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">1</span>사진 올리기' + (MS ? ' <small style="font-weight:500;color:var(--muted)">(선택 · 올리면 바로 보정해요)</small>' : '') + '</p>';
     h += '<div class="drop" id="drop"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D9480F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg><b>사진 고르기</b><span>' + P.hint + '</span><input type="file" id="phFile" accept="image/*" aria-label="사진 고르기" class="file-cover"></div>';
+    if (MS && albumBlobs().length) h += '<button type="button" class="sub alb-pickbtn" data-albpick="1">작업실 사진에서 고르기 (' + albumBlobs().length + '장)</button>';
     h += '<div class="alt-pick" id="altPick"><span>앨범이 안 열리면 아래 버튼을 눌러주세요</span><input type="file" id="phFile2" accept="image/*,.heic,.heif"></div>';
     h += '<div id="phBody" class="hidden" style="display:flex;flex-direction:column;gap:14px">';
     h += '<p class="note" style="font-size:13px;font-weight:700;color:var(--ink)"><span class="stepno">' + (MS ? '1-2' : '2') + '</span>어떤 사진으로 만들까요?</p><div class="outs" role="group" aria-label="결과물 종류">' + P.outputs.map(function(o){ return '<button type="button" class="out-c" data-out="' + o.key + '" aria-pressed="' + (o.key === ph.out) + '"><em class="' + (o.ai ? 'ai' : '') + '">' + (o.ai ? 'AI · 하루 3장' : '무료') + '</em><b>' + o.name + '</b><span>' + o.desc + '</span></button>'; }).join('') + '</div>';
@@ -1591,7 +1597,7 @@ var CFG = {
   async function albumSave(b, title){
     if (!b) return;
     var list = wLoad(), now = new Date().toISOString(), d = new Date(), sig = b.size + ':' + b.type;
-    if (list[0] && list[0].tool === 'retouch' && list[0].phSig === sig) return;
+    if (list.some(function(x){ return x.tool === 'retouch' && x.phSig === sig; })) return;
     var w = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5), created: now, updated: now, tool: 'retouch', text: '', card: null, set: null, topic: '', ch: '', detail: '', photo: true, phSig: sig,
       title: title || ('보정 사진 ' + (d.getMonth() + 1) + '/' + d.getDate() + ' ' + d.getHours() + ':' + ('0' + d.getMinutes()).slice(-2)) };
     await phPut(w.id, b); list.unshift(w); wSave(list); srvPut(w, b);
@@ -1606,7 +1612,7 @@ var CFG = {
   function renderAlbum(box, h, show){
     var picking = !!albSel;
     h += '<div class="alb-bar"><span>' + show.length + '장</span>' + (show.length ? (picking ? '<button type="button" class="sub" data-alb="all">모두 고르기</button><button type="button" class="sub primary" data-alb="savesel">저장 <b id="albN">0</b></button><button type="button" class="sub" data-alb="delsel" style="color:#C2410C">지우기</button><button type="button" class="sub" data-alb="pickoff">취소</button>' : '<button type="button" class="sub" data-alb="pick">여러 장 고르기</button>') : '') + '</div>';
-    h += show.length ? '<div class="rt-grid alb-grid">' + show.map(function(w){ return '<button type="button" data-albv="' + w.id + '" data-wthumb="' + w.id + '" aria-label="' + esc(w.title || '보정 사진') + '" aria-pressed="' + (picking && albSel[w.id] ? 'true' : 'false') + '"><span>' + esc(w.title || '') + '</span>' + (picking ? '<i class="alb-ck"></i>' : '') + '</button>'; }).join('') + '</div><p class="note" style="margin-top:10px">사진을 누르면 크게 보고 저장하거나, 그 사진으로 바로 홍보글을 만들 수 있어요.</p>' :
+    h += show.length ? '<div class="rt-grid alb-grid">' + show.map(function(w){ return '<button type="button" data-albv="' + w.id + '" data-wthumb="' + w.id + '" aria-label="' + esc(w.title || '보정 사진') + '" aria-pressed="' + (picking && albSel[w.id] ? 'true' : 'false') + '"><span>' + esc(w.tag || w.title || '') + '</span>' + (picking ? '<i class="alb-ck"></i>' : '') + '</button>'; }).join('') + '</div><p class="note" style="margin-top:10px">사진을 누르면 크게 보고 저장하거나, 그 사진으로 바로 홍보글을 만들 수 있어요.</p>' :
       '<div class="panel" style="text-align:center;padding:28px 16px"><b>아직 보정한 사진이 없어요</b><p style="margin:6px 0 12px;font-size:14px;color:var(--muted)">사진 보정이나 홍보글 한 번에서 사진을 보정하고 <b>사진 저장</b>을 누르면 여기에 모여요.</p><button type="button" class="sub primary" data-hgo="retouch" style="margin:0 auto">사진 보정하러 가기</button></div>';
     box.innerHTML = h;
     var empty = 0, pend = 0;
@@ -1619,12 +1625,13 @@ var CFG = {
     var b = await workPhoto(id); if (!b){ toast('사진이 저장되지 않았어요'); return; }
     var url = URL.createObjectURL(b), v = document.createElement('div'); v.className = 'alb-view'; v.setAttribute('role', 'dialog'); v.setAttribute('aria-modal', 'true');
     v.innerHTML = '<div class="alb-bg" data-av="x"></div><div class="alb-pan"><button type="button" class="alb-x" data-av="x" aria-label="닫기">×</button><img src="' + url + '" alt="' + esc(w.title || '보정 사진') + '"><p>' + esc(w.title || '') + '</p>' +
-      '<div class="alb-acts"><button type="button" class="sub primary" data-av="save">사진 저장</button><button type="button" class="sub" data-av="post" style="background:#FFD43B;border-color:#FFD43B;color:#14161F;font-weight:900">이 사진으로 홍보글</button><button type="button" class="sub" data-av="edit">다시 보정</button><button type="button" class="sub" data-av="del" style="color:#C2410C">지우기</button></div></div>';
+      '<label class="alb-tag"><input id="albTag" maxlength="30" placeholder="메뉴·시술 이름 (예: 돈가스)" value="' + esc(w.tag || '') + '"><button type="button" class="sub" data-av="tag" style="min-width:0;flex:none;padding:0 12px">이름 저장</button></label><p class="note" style="margin:-4px 0 0;font-weight:500">이름을 붙여 두면 "돈가스 20% 할인"처럼 말할 때 이 사진을 알아서 찾아 넣어요.</p>' + '<div class="alb-acts"><button type="button" class="sub primary" data-av="save">사진 저장</button><button type="button" class="sub" data-av="post" style="background:#FFD43B;border-color:#FFD43B;color:#14161F;font-weight:900">이 사진으로 홍보글</button><button type="button" class="sub" data-av="edit">다시 보정</button><button type="button" class="sub" data-av="del" style="color:#C2410C">지우기</button></div></div>';
     document.body.appendChild(v);
     var close = function(){ v.remove(); URL.revokeObjectURL(url); };
     v.addEventListener('click', async function(e){
       var t = e.target.closest('[data-av]'); if (!t) return; var a = t.dataset.av;
       if (a === 'x') return close();
+      if (a === 'tag'){ var tv = document.getElementById('albTag').value; albTagSet(id, tv); w.tag = tv; toast('이름을 붙였어요'); renderWorks(); return; }
       if (a === 'save'){ if (downloads){ try { await downloads.save({ filename: (studio.name || CFG.title) + '_보정사진.jpg', data: b }); toast('저장했어요'); } catch(err){ toast('사진을 길게 눌러 저장해 주세요'); } } else { saveBlob(b, (studio.name || CFG.title) + '_보정사진.jpg'); toast('저장했어요'); } return; }
       if (a === 'post'){ close(); if (window.alajoomTab) window.alajoomTab('make'); await setAtt(b); curWork = null; var sb = document.querySelector('.tool[data-tool="set"]'); if (sb) sb.click(); toast('사진을 넣었어요. 알릴 내용을 고르고 만들기를 누르세요'); return; }
       if (a === 'edit'){ close(); return openRetouch(id); }
@@ -1642,6 +1649,44 @@ var CFG = {
     if (a === 'delsel'){ var ds = Object.keys(albSel || {}); if (!ds.length){ toast('사진을 골라 주세요'); return; } if (t.dataset.arm !== '1'){ t.dataset.arm = '1'; t.textContent = ds.length + '장 정말 지울까요?'; return; } albDel(ds); albSel = null; renderWorks(); toast(ds.length + '장 지웠어요'); return; }
     if (a === 'clean'){ var all = albumBlobs(), gone = []; for (var j = 0; j < all.length; j++){ if (!(await workPhoto(all[j].id))) gone.push(all[j].id); } if (gone.length) albDel(gone); renderWorks(); toast('빈 항목 ' + gone.length + '개를 정리했어요'); }
   });
+  /* ---------- 작업실 사진 자동 찾기: 말한 메뉴와 맞는 보정 사진 ---------- */
+  var ALB_STOP = /^(사진|보정|할인|이벤트|오늘|이번|이번주|이번달|주말|평일|저녁|점심|아침|메뉴|신메뉴|주문|예약|손님|고객|가게|매장|원장님|사장님|안내|소개|진행|시작|오픈|특가|세일|무료|증정|드려요|합니다|해요|있어요|까지|부터|만|씩)$/;
+  function albTokens(t){ return String(t || '').replace(/[0-9%~!?.,()\[\]"'·:;\/+\-]/g, ' ').split(/\s+/).map(function(w){ return w.replace(/(은|는|이|가|을|를|에|에서|으로|로|와|과|도|만|랑|이랑|하고|세트|정식)$/, ''); }).filter(function(w){ return w.length >= 2 && !ALB_STOP.test(w); }); }
+  async function albumFind(text){
+    var tk = albTokens(text); if (!tk.length) return null;
+    var best = null, bs = 0;
+    albumBlobs().forEach(function(w){
+      var hay = ((w.tag || '') + ' ' + (/^보정 사진/.test(w.title || '') ? '' : (w.title || ''))).replace(/\s+/g, '');
+      if (!hay) return;
+      var s = 0; tk.forEach(function(k){ if (hay.indexOf(k) >= 0) s += k.length; });
+      if (s > bs){ bs = s; best = w; }
+    });
+    if (!best) return null;
+    var b = await workPhoto(best.id); return b ? { w: best, b: b } : null;
+  }
+  function albTagSet(id, tag){ var list = wLoad(), w = list.filter(function(x){ return x.id === id; })[0]; if (!w) return; w.tag = String(tag || '').trim().slice(0, 30); w.updated = new Date().toISOString(); wSave(list); srvPut(w, null); }
+  function albHitNote(w){
+    var n = document.getElementById('albHit'); if (n) n.remove();
+    var anchor = document.getElementById('phBody'); if (!anchor) return;
+    anchor.insertAdjacentHTML('afterbegin', '<div id="albHit" class="alb-hit"><span>작업실 보정한 사진에서 <b>' + esc(w.tag || w.title || '사진') + '</b> 사진을 찾아서 넣었어요.</span><button type="button" class="sub" data-albpick="1">다른 사진 고르기</button></div>');
+  }
+  function albPicker(){
+    var list = albumBlobs();
+    if (!list.length){ toast('작업실에 보정한 사진이 아직 없어요. 사진을 올려 주세요'); return; }
+    var v = document.createElement('div'); v.className = 'alb-view'; v.setAttribute('role', 'dialog'); v.setAttribute('aria-modal', 'true');
+    v.innerHTML = '<div class="alb-bg" data-ap="x"></div><div class="alb-pan"><button type="button" class="alb-x" data-ap="x" aria-label="닫기">×</button><b style="font-size:16px">작업실 사진에서 고르기</b><div class="rt-grid alb-grid">' + list.map(function(w){ return '<button type="button" data-ap="' + w.id + '" data-wthumb="' + w.id + '" aria-label="' + esc(w.tag || w.title || '보정 사진') + '"><span>' + esc(w.tag || w.title || '') + '</span></button>'; }).join('') + '</div></div>';
+    document.body.appendChild(v);
+    v.querySelectorAll('[data-wthumb]').forEach(function(el){ workPhoto(el.dataset.wthumb).then(function(b){ if (b) el.style.backgroundImage = 'url(' + URL.createObjectURL(b) + ')'; }); });
+    v.addEventListener('click', async function(e){
+      var t = e.target.closest('[data-ap]'); if (!t) return; var id = t.dataset.ap; v.remove(); if (id === 'x') return;
+      var b = await workPhoto(id); if (!b){ toast('사진을 찾지 못했어요'); return; }
+      await loadPhoto(new File([b], 'photo.jpg', { type: b.type || 'image/jpeg' }));
+      var w = wLoad().filter(function(x){ return x.id === id; })[0]; if (w) albHitNote(w);
+      var hn = document.getElementById('albHit'); if (hn) hn.querySelector('span').innerHTML = '작업실 사진 <b>' + esc((w && (w.tag || w.title)) || '') + '</b>을 넣었어요.';
+      toast('사진을 넣었어요. 보정하고 만들기를 누르세요');
+    });
+  }
+  document.addEventListener('click', function(e){ var t = e.target.closest && e.target.closest('[data-albpick]'); if (t) albPicker(); });
   function renderTrash(box){
     var h = '<div style="display:flex;align-items:center;gap:8px;margin:0 0 12px"><button type="button" class="sub" data-wf="all" style="flex:none;min-width:0;padding:0 14px">← 작업실</button><h2 style="margin:0;font-size:18px;font-weight:900">휴지통</h2></div>';
     h += '<p class="note" style="margin:0 0 10px">지운 작업은 30일 뒤 완전히 사라져요.</p>';
@@ -1847,7 +1892,7 @@ var CFG = {
     var t = e.target.closest('button'); if (!t) return;
     if (t.dataset.tool){ if (e.isTrusted) window.alajoomRecipient = null; tool = (t.dataset.tool === 'post' || t.dataset.tool === 'photo') ? 'set' : t.dataset.tool; if (t.dataset.tool === 'post' || t.dataset.tool === 'photo'){ var sb0 = document.querySelector('.tool[data-tool="set"]'); if (sb0) t = sb0; } document.querySelectorAll('.tool').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); renderPanel(); $('#panel').scrollIntoView({behavior:'smooth', block:'start'}); return; }
     if (t.classList.contains('chip') && t.dataset.k){ pick[t.dataset.k] = t.dataset.v; t.parentNode.querySelectorAll('.chip').forEach(function(b){ b.setAttribute('aria-pressed', b === t); }); return; }
-    if (t.id === 'go'){ curWork = null; if (tool === 'set' && $('#phBody')){ return (async function(){ if (ph.img){ var pb = null; try { pb = await photoBlob(1600, .86); } catch(er){} await setAtt(pb); } generate(); })(); } return generate(); }
+    if (t.id === 'go'){ curWork = null; if (tool === 'set' && $('#phBody')){ return (async function(){ var dtx = (($('#detail') && $('#detail').value) || '') + ' ' + (pick.topic || ''), found = null; if (!ph.img && !att){ try { found = await albumFind(dtx); } catch(er){} if (found){ await loadPhoto(new File([found.b], 'photo.jpg', { type: found.b.type || 'image/jpeg' })); albHitNote(found.w); toast('작업실에서 맞는 사진을 찾아서 넣었어요'); } else if (albumBlobs().length || dtx.trim()) toast('맞는 사진이 없어서 글만 써요. 사진을 올리면 같이 넣어 드려요'); } if (ph.img){ var pb = null; try { pb = await photoBlob(1600, .86); } catch(er){} await setAtt(pb); if (att) att.used = 1; if (!found && pb && !document.getElementById('albHit')){ try { await albumSave(pb, (($('#detail') && $('#detail').value) || '').trim().slice(0, 30)); var nl = wLoad(); if (nl[0] && nl[0].tool === 'retouch' && !nl[0].tag){ nl[0].tag = (($('#detail') && $('#detail').value) || '').trim().slice(0, 30); wSave(nl); } } catch(er){} } } generate(); })(); } return generate(); }
     if (t.dataset.chm){ var c = t.dataset.chm, i = setSel.indexOf(c); if (i >= 0) setSel.splice(i, 1); else setSel.push(c); t.setAttribute('aria-pressed', i < 0); return; }
     if (t.dataset.setc){ if (setRes && $('#out')) setRes[setCur] = $('#out').innerText; setCur = t.dataset.setc; showSet(''); return; }
     if (t.dataset.act === 'igpost' || t.dataset.act === 'nppost' || t.dataset.act === 'igcard') return postTo(t.dataset.act);
@@ -1861,7 +1906,7 @@ var CFG = {
       var b = await photoBlob(2160, .92);
       if (downloads){ try { await downloads.save({filename:(studio.name || CFG.title) + '_사진.jpg', data:b}); toast('저장했어요'); } catch(err){ toast(err && err.code === 'declined' ? '저장을 취소했어요' : '사진을 길게 눌러 저장해 주세요'); } }
       else { saveBlob(b, (studio.name || CFG.title) + '_보정사진.jpg'); if (lastText) saveWork(); }
-      try { var sb2 = await photoBlob(1600, .9); await albumSave(sb2, ph.text || ''); toast('저장했어요 · 작업실 보정한 사진에도 넣었어요'); } catch(er){}
+      try { var sb2 = await photoBlob(1600, .9); await albumSave(sb2, ph.text || ''); var al2 = wLoad(); if (al2[0] && al2[0].tool === 'retouch' && ph.text && !al2[0].tag){ al2[0].tag = ph.text.slice(0, 30); wSave(al2); } toast('저장했어요 · 작업실 보정한 사진에도 넣었어요'); } catch(er){}
       return;
     }
     var act = t.dataset.act;
