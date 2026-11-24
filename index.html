@@ -2068,7 +2068,14 @@ post('family_top',{p_n:5}).then(function(l){if(!Array.isArray(l)||!l.length)retu
   Array.prototype.forEach.call(document.querySelectorAll('header a[href="#mates"]'),function(a){if(/무료/.test(a.textContent))headBtn=a;});
   document.addEventListener('click',function(e){
     var a=e.target.closest&&e.target.closest('a[href="#mates"]');
-    if(!a||!kakaoOn||user||!/무료/.test(a.textContent))return;
+    if(!a)return;
+    var fam=a.classList.contains('af-go')||a.classList.contains('af-go2');
+    if(!fam&&!/무료/.test(a.textContent))return;
+    if(user){
+      // 이미 로그인한 사장님: 패밀리 카드가 있는 내 업종 화면으로
+      if(fam){var mm=LIVE[myType];if(mm){e.preventDefault();location.href=mm[1];}}
+      return;
+    }
     e.preventDefault();open('#mates');
   },true);
   var chip=null,mym=null,myType=null,LIVE={skin:['알아줌 피부관리샵','/skin/','/assets/icon-skin-192.png'],pilates:['알아줌 필라테스','/pilates/','/assets/icon-pilates-192.png'],food:['알아줌 음식점','/food/','/assets/icon-food-192.png'],academy:['알아줌 학원','/academy/','/assets/icon-academy-192.png'],nail:['알아줌 네일샵','/nail/','/assets/icon-nail-192.png'],hair:['알아줌 헤어샵','/hair/','/assets/icon-hair-192.png'],cafe:['알아줌 카페','/cafe/','/assets/icon-cafe-192.png'],bakery:['알아줌 베이커리','/bakery/','/assets/icon-bakery-192.png']};
