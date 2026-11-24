@@ -256,10 +256,14 @@ header .brand:active{opacity:.7}
 .ai-go:disabled{opacity:.75;cursor:wait}
 .ai-note{font-size:12px!important}
 </style>
-<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="알아줌 필라테스"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11221200"></script><script src="/assets/family.js?v=11221315"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/pilates/members.js?v=11121526" defer></script><script src="/assets/reels.js?v=11222010" defer></script><script src="/assets/team.js?v=11221310" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
+<link rel="manifest" href="/pilates/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-pilates.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="알아줌 필라테스"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11241830"></script><script src="/assets/family.js?v=11221315"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/pilates/members.js?v=11121526" defer></script><script src="/assets/reels.js?v=11222010" defer></script><script src="/assets/team.js?v=11221310" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">
 <style id="tool-grid">
+.trend-ck{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,#FFF6D6,#FFEFB0);border:1.5px solid #F2D46A;cursor:pointer}
+.trend-ck.hidden{display:none}.trend-ck input{width:20px;height:20px;margin:2px 0 0;accent-color:#14161F;flex:none}
+.trend-ck b{display:block;font-size:14.5px}.trend-ck small{display:block;font-size:12.5px;color:#6B5A1A;margin-top:2px;line-height:1.45}
+
 .alb-hit{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px;border-radius:14px;background:#FFF6D6;border:1px solid #F2DE9C;font-size:13.5px}
 .alb-hit span{flex:1;min-width:180px}.alb-hit .sub{flex:none !important;width:auto !important;min-width:0;min-height:34px;padding:0 12px;font-size:12.5px}
 .alb-tag{display:flex;gap:6px;align-items:center}.alb-tag input{flex:1;min-width:0;font:inherit;font-size:15px;padding:9px 11px;border:1px solid var(--line);border-radius:10px}
@@ -509,7 +513,7 @@ var CFG = {
     if (!tm) r.innerHTML = '<div class="out thinking" style="white-space:normal">알아줌이 쓰는 중…</div>';
     var tick = 0;
     try {
-      var d = await window.alajoomAI.agent({ topic: pick.topic, channels: setSel.slice(), detail: detail, image: att ? att.blob : null,
+      var d = await window.alajoomAI.agent({ topic: pick.topic, channels: setSel.slice(), detail: detail, trend: trendOn(), image: att ? att.blob : null,
         store: [studio.name, studio.area, studio.cls, studio.feat, studio.contact ? '예약·문의: ' + studio.contact : ''].filter(Boolean).join(' / ') });
       clearTimeout(tick); clearInterval(tick);
       setRes = d.results || {}; setCur = Object.keys(setRes)[0];
@@ -525,7 +529,7 @@ var CFG = {
       var tm = window.alajoomTeam ? window.alajoomTeam.progress(r0, { photo: !!att, channels: chs.length }) : null;
       if (!tm) r0.innerHTML = '<div class="out thinking" style="white-space:normal">알아줌이 쓰는 중…</div>';
       try {
-        var d = await window.alajoomAI.guestAgent({ topic: pick.topic, channels: chs, detail: detail, image: att ? att.blob : null,
+        var d = await window.alajoomAI.guestAgent({ topic: pick.topic, channels: chs, detail: detail, trend: trendOn(), image: att ? att.blob : null,
           store: [studio.name, studio.area, studio.cls, studio.feat].filter(Boolean).join(' / ') });
         setRes = d.results || {}; setCur = Object.keys(setRes)[0];
         var fin = function(){
@@ -621,7 +625,7 @@ var CFG = {
   });
 
   function renderPanel(){
-    if (tool === 'set'){ var keepAtt = att; if (keepAtt && keepAtt.used){ att = null; keepAtt = null; } renderPhoto(); if (keepAtt && keepAtt.blob){ loadPhoto(keepAtt.blob); } return; }
+    if (tool === 'set'){ var keepAtt = att; if (keepAtt && keepAtt.used){ att = null; keepAtt = null; } renderPhoto(); trendLoad(); if (keepAtt && keepAtt.blob){ loadPhoto(keepAtt.blob); } return; }
     if (tool === 'photo' || tool === 'retouch') return renderPhoto();
     if (tool === 'reels'){ if (window.alajoomReels) window.alajoomReels.render($('#panel')); else $('#panel').innerHTML = '<p class="note">잠시 후 다시 눌러 주세요</p>'; return; }
     var t = TOOLS[tool]; pick = {}; t.steps.forEach(function(s){ pick[s.key] = s.opts[0]; });
@@ -1077,7 +1081,7 @@ var CFG = {
     h += '<div class="step"><p id="lb_topic">' + (MS ? '무엇을 알릴까요?' : '이 사진으로 무엇을 알릴까요?') + '</p><div class="chips" role="group" aria-labelledby="lb_topic">' + (MS ? TOOLS.set.steps[0].opts : P.topics).map(function(o, i){ return '<button type="button" class="chip" data-k="topic" data-v="' + esc(o) + '" aria-pressed="' + (i===0) + '">' + esc(o) + '</button>'; }).join('') + '</div></div>';
     h += '<div class="step"><p>어디에 올릴 글을 만들까요? <small style="font-weight:500;color:var(--muted)">(여러 개 고르기)</small></p><div class="chips" role="group" aria-label="채널">' + SETCH.map(function(c){ return '<button type="button" class="chip" data-chm="' + c[0] + '" aria-pressed="' + (setSel.indexOf(c[0]) >= 0) + '">' + c[1] + '</button>'; }).join('') + '</div></div>';
     h += '<div class="step"><label for="detail">한 줄로 더 알려주세요 (선택)</label><input type="text" id="detail" placeholder="' + esc(P.detailPh) + '"></div>';
-    h += '' + (MS ? '<button class="go" type="button" id="go" style="background:#FFD43B;color:#14161F">홍보글 세트 만들기</button>' : '<button class="go" type="button" id="goSet">이 사진으로 홍보글 세트 만들기</button>') + '<p class="note" style="margin:0">' + (MS ? '사진을 올렸으면 보정한 사진을 보고, 없으면 한 줄만으로 반짝이·술술이·꼼꼼이가 고른 곳마다 글을 써요.' : '보정한 사진을 보고 반짝이·술술이·꼼꼼이가 고른 곳마다 글을 써요.') + '</p>';
+    h += '' + (MS ? '<label class="trend-ck hidden" id="trendBox"><input type="checkbox" id="trendOn" checked><span><b>✨ <span id="trendT">이달 인기 형식</span>으로 쓰기</b><small id="trendS"></small></span></label>' : '') + '' + (MS ? '<button class="go" type="button" id="go" style="background:#FFD43B;color:#14161F">홍보글 세트 만들기</button>' : '<button class="go" type="button" id="goSet">이 사진으로 홍보글 세트 만들기</button>') + '<p class="note" style="margin:0">' + (MS ? '사진을 올렸으면 보정한 사진을 보고, 없으면 한 줄만으로 반짝이·술술이·꼼꼼이가 고른 곳마다 글을 써요.' : '보정한 사진을 보고 반짝이·술술이·꼼꼼이가 고른 곳마다 글을 써요.') + '</p>';
     h += '<div class="result hidden" id="result"></div>' + (MS ? '' : '</div>');
     $('#panel').innerHTML = h;
     if (tool === 'retouch') retouchUI();
@@ -1621,6 +1625,20 @@ var CFG = {
     });
   }
   document.addEventListener('click', function(e){ var t = e.target.closest && e.target.closest('[data-albpick]'); if (t) albPicker(); });
+  /* ---------- 이달 인기 형식 (매달 업데이트) ---------- */
+  var trendCache = null;
+  function trendOn(){ var b = document.getElementById('trendBox'), c = document.getElementById('trendOn'); return !!(b && !b.classList.contains('hidden') && c && c.checked); }
+  async function trendLoad(){
+    try {
+      if (trendCache === null){
+        var r = await fetch('https://zuxbloxstkcixqpzqalk.supabase.co/rest/v1/rpc/trend_style', { method: 'POST', headers: { apikey: 'sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH', 'Content-Type': 'application/json' }, body: JSON.stringify({ p_mate: location.pathname.split('/')[1] }) });
+        trendCache = r.ok ? (await r.json()) : false;
+      }
+      var t = trendCache, box = document.getElementById('trendBox'); if (!box || !t || !t.title) return;
+      document.getElementById('trendT').textContent = t.title; document.getElementById('trendS').textContent = t.summary || '';
+      box.classList.remove('hidden');
+    } catch(e){}
+  }
   function renderTrash(box){
     var h = '<div style="display:flex;align-items:center;gap:8px;margin:0 0 12px"><button type="button" class="sub" data-wf="all" style="flex:none;min-width:0;padding:0 14px">← 작업실</button><h2 style="margin:0;font-size:18px;font-weight:900">휴지통</h2></div>';
     h += '<p class="note" style="margin:0 0 10px">지운 작업은 30일 뒤 완전히 사라져요.</p>';

@@ -119,6 +119,18 @@
   /* 메이트 화면용 추가 기능: AI 직원 세트, 말투, 내 작업실(계정 저장) */
   var uidP = null;
   async function me() { var sb = await client(); var s = (await sb.auth.getSession()).data.session; return s ? { sb: sb, uid: s.user.id } : null; }
+  /* 이달 인기 형식으로 썼을 때 결과 위에 표시 */
+  function trendNote(d){
+    if (!d || !d.trend) return;
+    var n = 0, t = setInterval(function(){
+      var r = document.getElementById('result'); n++;
+      if (n > 60){ clearInterval(t); return; }
+      if (!r || r.classList.contains('hidden') || !r.querySelector('#out, .out, [data-setch], .set-tabs, textarea')) return;
+      clearInterval(t);
+      if (r.querySelector('.trend-done')) return;
+      r.insertAdjacentHTML('afterbegin', '<p class="trend-done" style="margin:0 0 8px;padding:8px 12px;border-radius:12px;background:#FFF1C2;font-size:13px;font-weight:800;color:#6B5A1A">✨ ' + String(d.trend).replace(/[<>&]/g, '') + '으로 썼어요 · 형식만 따르고 내용은 우리 가게 이야기예요</p>');
+    }, 250);
+  }
   window.alajoomAI = {
     loggedIn: async function () { try { return !!(await me()); } catch (e) { return false; } },
     feedback: async function (kind, message, mate) {
@@ -132,17 +144,17 @@
       if (r.error) throw r.error; return r.data;
     },
     guestAgent: async function (p) {
-      var body = { guest: true, mate: MATE, mode: 'agent', topic: p.topic, channels: (p.channels || []).slice(0, 3), detail: p.detail, store: p.store, tool: 'set' };
+      var body = { guest: true, mate: MATE, mode: 'agent', topic: p.topic, channels: (p.channels || []).slice(0, 3), detail: p.detail, store: p.store, tool: 'set', trend: !!p.trend };
       if (p.image) { try { body.image = await b64(p.image); } catch (e) {} }
       var r = await fetch(URL_ + '/functions/v1/generate', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY }, body: JSON.stringify(body) });
       var d = {}; try { d = await r.json(); } catch (e) {}
       if (!r.ok) { var e1 = new Error(d.error || 'ai_error'); e1.code = d.error || 'ai_error'; e1.msg = d.message; throw e1; }
-      return d;
+      trendNote(d); return d;
     },
     agent: async function (p) {
-      var body = { mode: 'agent', topic: p.topic, channels: p.channels, detail: p.detail, store: p.store, tool: 'set' };
+      var body = { mode: 'agent', topic: p.topic, channels: p.channels, detail: p.detail, store: p.store, tool: 'set', trend: !!p.trend };
       if (p.image) body.image = await b64(p.image);
-      return raw(body);
+      var d = await raw(body); trendNote(d); return d;
     },
     photo: async function (mode, blob) {
       var m = await me(); if (!m) { var e0 = new Error('login'); e0.code = 'login_required'; throw e0; }
