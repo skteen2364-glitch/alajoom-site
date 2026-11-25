@@ -479,6 +479,13 @@
   window.alajoomUndoBook = function (id) { var n = (DB.book || []).length; DB.book = (DB.book || []).filter(function (b) { return b.id !== id; }); if (DB.book.length !== n) { save(); render(); return true; } return false; };
   /* 여러 고객 한꺼번에: away(오래 안 옴) · renew(재등록 안내) · all(관리 중 전체) */
   window.alajoomMemberList = function (kind) {
+    if (kind === 'tomorrow') {
+      var tm = addDays(ymd(), 1);
+      return sortedRsv().filter(function (r) { return r.date === tm; }).map(function (r) {
+        var m = DB.members.filter(function (x) { return x.name === r.name; })[0];
+        return { name: r.name, phone: (m && m.phone) || r.phone || '', time: r.time || '', what: r.what || '', date: r.date };
+      });
+    }
     return DB.members.filter(function (m) { var k = status(m).k; return kind === 'all' ? k !== 'end' : kind === 'renew' ? (k === 'renew' || k === 'end') : k === kind; })
       .map(function (m) { return { name: m.name, phone: m.phone || '' }; });
   };
