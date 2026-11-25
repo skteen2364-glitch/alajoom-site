@@ -23,6 +23,7 @@
     '.boss-mic{flex:none;width:64px;height:64px;border-radius:50%;border:0;background:#14161F;color:#FFD43B;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 0 0 rgba(20,22,31,.35);animation:bossP 2s infinite}' +
     '.boss-mic svg{width:30px;height:30px}' +
     '.boss h2{margin:0;font-size:21px;line-height:1.25;letter-spacing:-.3px}' +
+    '.boss .boss-safe{margin:10px 0 0;padding-top:10px;border-top:1px dashed rgba(20,22,31,.25);font-size:13px;font-weight:700;color:#14161F}' +
     '.boss p{margin:4px 0 0;font-size:14.5px;line-height:1.45;color:#3A3F4C;font-weight:600}' +
     '.boss-ex{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:7px}' +
     '.boss-ex li{background:rgba(255,255,255,.72);border-radius:12px;padding:9px 12px;font-size:14px;font-weight:600;line-height:1.4}' +
@@ -57,10 +58,10 @@
   /* '오늘' 화면 맨 위 큰 카드 */
   window.alajoomBossCard = function () {
     var ex = EX[MATE] || EX.skin;
-    return '<section class="boss" aria-label="사장님, 말만 하세요"><div class="boss-top"><button type="button" class="boss-mic" data-hvoice="1" aria-label="말로 시키기">' + MIC + '</button>' +
-      '<div><h2>사장님, 말만 하세요</h2><p>고객 카톡·장부 기록·홍보글까지<br>말 한마디면 알아서 해줌</p></div></div>' +
+    return '<section class="boss" aria-label="사장님, 말로 하세요? 듣고 있어요"><div class="boss-top"><button type="button" class="boss-mic" data-hvoice="1" aria-label="말로 시키기">' + MIC + '</button>' +
+      '<div><h2>말로 하세요? 듣고 있어요</h2><p>고객 카톡·장부 기록·홍보글까지<br>말 한마디면 알아서 해줌</p></div></div>' +
       '<ul class="boss-ex" aria-label="이렇게 말해 보세요">' + ex.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +
-      '<p class="boss-cap">마이크를 누르고 이렇게 말해 보세요</p></section>';
+      '<p class="boss-cap">마이크를 누르고 이렇게 말해 보세요</p><p class="boss-safe">🔒 카톡 아이디·비밀번호는 안 맡겨요 · 보내기는 사장님이 버튼 한 번</p></section>';
   };
 
   var CH = { plan: '반짝이', write: '술술이', photo: '찰칵이', check: '꼼꼼이', book: '차곡이' };
