@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.alajoom.app",
+    "sha256_cert_fingerprints": ["C6:15:66:80:EF:10:8C:22:D0:E9:86:68:CA:9D:D3:1D:03:DC:04:95:D8:45:AC:9B:CB:67:8E:3B:FB:8F:1F:F2"]
+  }
+}]

@@ -22,3 +22,6 @@
 /admin/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
+/.well-known/assetlinks.json
+  Content-Type: application/json
+  Access-Control-Allow-Origin: *
