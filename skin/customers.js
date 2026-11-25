@@ -458,6 +458,30 @@
     m.att.push(td); save(); render();
     var l = left(m); return m.name + '님 방문 기록 · 남은 ' + l + '회' + (l <= 2 ? ' (재등록 안내 시기예요)' : '');
   };
+  /* 사장님, 말만 하세요: "박민수님 수분관리 7만원 카드 결제" → 매출 장부에 기록 */
+  window.alajoomPay = function (name, item, amount, pay) {
+    amount = Math.round(+amount || 0);
+    if (!amount) return { ok: false, msg: '얼마인지 못 들었어요. 금액까지 말해 주세요' };
+    var m = null;
+    if (name) {
+      var hits = DB.members.filter(function (x) { return x.name === name; });
+      if (!hits.length) hits = DB.members.filter(function (x) { return x.name.indexOf(name) >= 0 || name.indexOf(x.name) >= 0; });
+      if (hits.length === 1) m = hits[0];
+    }
+    var who = m ? m.name : (name || '');
+    var what = [who, item].filter(Boolean).join(' · ') || '매출';
+    DB.book = DB.book || [];
+    var bid = uid();
+    DB.book.push({ id: bid, date: ymd(), type: '매출', what: what, amount: amount, pay: PAYS.indexOf(pay) >= 0 ? pay : '' });
+    save(); render();
+    return { ok: true, id: bid, msg: what + ' ' + won(amount) + (pay ? ' (' + pay + ')' : '') + ' 매출 장부에 적었어요' + (name && !m ? ' · 고객 장부에서 ' + name + '님은 못 찾아서 이름만 적었어요' : '') };
+  };
+  window.alajoomUndoBook = function (id) { var n = (DB.book || []).length; DB.book = (DB.book || []).filter(function (b) { return b.id !== id; }); if (DB.book.length !== n) { save(); render(); return true; } return false; };
+  /* 여러 고객 한꺼번에: away(오래 안 옴) · renew(재등록 안내) · all(관리 중 전체) */
+  window.alajoomMemberList = function (kind) {
+    return DB.members.filter(function (m) { var k = status(m).k; return kind === 'all' ? k !== 'end' : kind === 'renew' ? (k === 'renew' || k === 'end') : k === kind; })
+      .map(function (m) { return { name: m.name, phone: m.phone || '' }; });
+  };
   function init() {
     var box = $('#v-members'); if (!box) return;
     box.addEventListener('click', onClick);

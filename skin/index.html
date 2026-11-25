@@ -264,7 +264,7 @@ header .brand:active{opacity:.7}
 .ai-go:disabled{opacity:.75;cursor:wait}
 .ai-note{font-size:12px!important}
 </style>
-<link rel="manifest" href="/skin/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-skin.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="알아줌 피부관리샵"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11241830"></script><script src="/assets/family.js?v=11221315"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/skin/customers.js?v=11201500" defer></script><script src="/assets/before-after.js?v=11221300" defer></script><script src="/assets/margin.js?v=11251330" defer></script><script src="/assets/reels.js?v=11222010" defer></script><script src="/assets/team.js?v=11221310" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
+<link rel="manifest" href="/skin/manifest.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-skin.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="알아줌 피부관리샵"><meta name="theme-color" content="#FFF8E7"><script src="/assets/ai-bridge.js?v=11241830"></script><script src="/assets/family.js?v=11221315"></script><script src="/assets/mate-nav.js?v=11181530"></script><script src="/assets/feedback.js?v=11181530" defer></script><script src="/skin/customers.js?v=11261000" defer></script><script src="/assets/boss-voice.js?v=11261000" defer></script><script src="/assets/before-after.js?v=11221300" defer></script><script src="/assets/margin.js?v=11251330" defer></script><script src="/assets/reels.js?v=11222010" defer></script><script src="/assets/team.js?v=11221310" defer></script><script src="/assets/mate-install.js?v=11201430" defer></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">
 <style id="tool-grid">
@@ -1306,7 +1306,21 @@ var CFG = {
     if (tl === 'review') r.detail = t.replace(/(리뷰|후기)?\s*(에\s*)?(답글|댓글)\s*(써|달아|만들어)\s*(줘|주세요)?\.?$/, '').replace(/^(이|이런)\s*(리뷰|후기)\s*(에|:)?/, '').trim();
     return r;
   }
-  async function vRun(say){
+  /* 사장님, 말만 하세요: 알아줌 귀(boss-voice.js)가 먼저 알아듣고, 안 되면 아래 방식으로 */
+  async function vRun(say){ if (window.alajoomBoss) return window.alajoomBoss(say, vRunLocal); return vRunLocal(say); }
+  async function vExec(r){
+    if (window.alajoomTab) window.alajoomTab('make');
+    if (r.tool === 'sms'){ var mm = r.to && window.alajoomFindMember ? window.alajoomFindMember(r.to) : null; window.alajoomRecipient = mm || (r.to ? { name: r.to, phone: '' } : null); }
+    var b = document.querySelector('.tool[data-tool="' + r.tool + '"]'); if (b) b.click();
+    await new Promise(function(res){ setTimeout(res, 60); });
+    [['topic', r.topic], ['ch', r.ch]].forEach(function(kv){ if (!kv[1]) return; var c = document.querySelector('#panel .chip[data-k="' + kv[0] + '"][data-v="' + kv[1] + '"]'); if (c) c.click(); });
+    var d = $('#detail'); if (d) d.value = r.detail || '';
+    var g = $('#go'); if (g){ g.scrollIntoView({ behavior:'smooth', block:'center' }); setTimeout(function(){ g.click(); }, 350); }
+  }
+  window.alajoomVoiceExec = vExec;
+  window.alajoomToolOpts = function(){ var o = {}; ['sms','post','review','card'].forEach(function(k){ o[k] = TOOLS[k] ? TOOLS[k].steps[0].opts.slice() : []; }); return o; };
+  window.alajoomSmsTpl = function(topic){ try { return CFG.fallback(studio)[topic] || ''; } catch(e){ return ''; } };
+  async function vRunLocal(say){
     var r = vParse(say);
     if (r.attend){
       if (window.alajoomAttend){ var msg = window.alajoomAttend(r.attend); toast(msg); } else toast('고객 장부를 먼저 열어 주세요');
@@ -1845,6 +1859,7 @@ var CFG = {
     var hl = tc.length ? (isCls ? '오늘 수업이<br>' + tc.length + '개 있어요.' : '오늘은 ' + KN(tc.length) + ' 분이<br>오세요.') : (isCls ? '오늘은 수업이 없어요.<br>홍보하기 좋은 날이에요.' : '오늘은 예약이 없어요.<br>홍보하기 좋은 날이에요.');
     h += '<h1 class="hd-h1">' + (hl.indexOf('<br>') > 0 ? hl.replace('<br>', '<br><span class="hd-note">') + '</span>' : hl) + '</h1>';
     if (tc.length) h += '<ol class="tl" aria-label="' + (isCls ? '오늘 수업' : '오늘 예약') + '">' + tc.map(function(c){ return '<li><b class="tl-t">' + esc(c.time) + '</b><span class="tl-m"><b>' + esc(c.name) + (c.what ? ' · ' + esc(c.what) : '') + '</b>' + (c.cap ? '<small>정원 ' + c.cap + '명</small>' : '') + '</span></li>'; }).join('') + '</ol>';
+    if (window.alajoomBossCard) h += window.alajoomBossCard();
     h += '<p class="hd-sum"><span>' + (st ? st.active + '명 ' + (isCls ? '수강 중' : '관리 중') + ' · 이번 달 매출 ' + won(st.sales) : '') + '</span><button type="button" data-hcls="1">' + (isCls ? '시간표' : '예약') + ' ' + (tc.length ? '보기' : '적기') + '</button></p>';
     // 할 일
     var todo = [];
