@@ -8,13 +8,14 @@ const { chromium } = require('playwright');
     ['1-home', 'https://alajoom.com/', null],
     ['2-day', 'https://alajoom.com/', '#day'],
     ['3-food', 'https://alajoom.com/food/', 'make'],
-    ['4-margin', 'https://alajoom.com/skin/?margin=1', null],
+    ['4-margin', 'https://alajoom.com/skin/', 'margin'],
     ['5-mates', 'https://alajoom.com/', '#mates'],
   ];
   for (const [n, u, t] of shots) {
     await pg.goto(u, { waitUntil: 'networkidle' }).catch(()=>{});
     await clean();
     if (t && t.startsWith('#')) { await pg.evaluate(s => { const e = document.querySelector(s); e && e.scrollIntoView(); }, t); await pg.waitForTimeout(1500); }
+    else if (t==='margin') { await pg.evaluate(() => window.alajoomMargin && window.alajoomMargin.open()); await pg.waitForTimeout(1500); }
     else if (t) { await pg.evaluate(t => window.alajoomTab && window.alajoomTab(t), t); await pg.waitForTimeout(1500); await clean(); }
     await pg.screenshot({ path: `out/shot-${n}.png` });
   }
