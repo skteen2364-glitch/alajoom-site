@@ -31,6 +31,7 @@
     '@keyframes bossP{0%{box-shadow:0 0 0 0 rgba(20,22,31,.35)}70%{box-shadow:0 0 0 14px rgba(20,22,31,0)}100%{box-shadow:0 0 0 0 rgba(20,22,31,0)}}' +
     '#bossSheet{position:fixed;inset:0;z-index:100007}#bossSheet .bg{position:absolute;inset:0;background:rgba(20,22,31,.5)}' +
     '#bossSheet .bd{position:absolute;left:0;right:0;bottom:0;max-width:480px;max-height:86vh;overflow:auto;margin:0 auto;background:#fff;border-radius:22px 22px 0 0;padding:20px 18px 18px;color:#14161F}' +
+    '#bossSheet #smsGo{display:block;width:100%;border:0;border-radius:12px;padding:13px;font:inherit;font-size:15.5px;font-weight:900;background:#14161F;color:#fff;cursor:pointer}#bossSheet .smsauto{margin:12px 0 6px;padding:12px;border-radius:14px;background:#FFF7D1}#bossSheet .smsauto .main{width:100%}#bossSheet .smsad{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 0;font-size:13.5px;font-weight:700}#bossSheet .smsad small{font-weight:500;color:#5B6070}#bossSheet .smscf{margin:10px 0 6px;font-weight:800;font-size:14.5px}' +
     '#bossSheet h3{margin:0 0 4px;font-size:18px}#bossSheet .bsub{margin:0 0 12px;font-size:13.5px;color:#5B6070}' +
     '#bossSheet textarea{width:100%;min-height:96px;border:1.5px solid #E6DCC2;border-radius:12px;padding:10px 12px;font:inherit;font-size:15px;background:#FFFDF6}' +
     '#bossSheet .ppl{list-style:none;margin:12px 0 0;padding:0}#bossSheet .ppl li{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid #EEE}' +
@@ -107,6 +108,37 @@
     setTimeout(function () { location.href = 'kakaotalk://launch'; }, 600);
   }
 
+  /* 문자 자동 발송 (등록된 사장님만, 서버 sms-send) */
+  var smsSt = null;
+  async function smsApi(body) {
+    var tk = window.alajoomToken ? await window.alajoomToken() : null; if (!tk) return { enabled: false };
+    try { var r = await fetch(URL_ + '/functions/v1/sms-send', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: KEY, Authorization: 'Bearer ' + tk }, body: JSON.stringify(body) }); var d = {}; try { d = await r.json(); } catch (e) {} d._ok = r.ok; return d; } catch (e) { return { enabled: false, message: '인터넷 연결을 확인해 주세요' }; }
+  }
+  async function smsBox(w, list, txt, kind, fill) {
+    if (!smsSt) smsSt = await smsApi({ check: true });
+    if (!smsSt || !smsSt.enabled || !document.body.contains(w)) return;
+    var ppl = list.filter(function (p) { return p.phone; }); if (!ppl.length) return;
+    var box = document.createElement('div'); box.className = 'smsauto';
+    var adDef = kind === 'all';
+    box.innerHTML = '<button type="button" class="main y" id="smsGo">알아줌이 문자로 한 번에 보내기 (' + ppl.length + '분)</button>' +
+      '<label class="smsad"><input type="checkbox" id="smsAd"' + (adDef ? ' checked' : '') + '> 할인·이벤트 같은 광고 문자예요 <small>(광고)·수신거부 문구가 자동으로 붙어요</small></label>' +
+      '<p class="bsub" style="margin:4px 0 0">이번 달 남은 문자 ' + smsSt.left + '건 · 보내는 번호 ' + esc(smsSt.from || '') + '</p><div id="smsCf"></div>';
+    var ul = w.querySelector('.ppl'); ul.parentNode.insertBefore(box, ul);
+    box.addEventListener('click', async function (e) {
+      var cf = box.querySelector('#smsCf');
+      if (e.target.id === 'smsGo') {
+        if (/\[(날짜|시간|소식 내용)\]/.test(txt.value)) { toast('[ ] 빈칸을 채운 뒤 보내 주세요'); return; }
+        cf.innerHTML = '<p class="smscf">' + ppl.length + '분께 문자를 바로 보내요. 보낸 문자는 되돌릴 수 없어요.</p><div class="act"><button type="button" class="main" id="smsYes">네, 보내 주세요</button><button type="button" id="smsNo">취소</button></div>';
+      } else if (e.target.id === 'smsNo') { cf.innerHTML = ''; }
+      else if (e.target.id === 'smsYes') {
+        e.target.disabled = true; e.target.textContent = '보내는 중…';
+        var d = await smsApi({ kind: kind, ad: box.querySelector('#smsAd').checked, items: ppl.map(function (p) { return { to: p.phone, text: fill(p) }; }) });
+        if (d._ok) { smsSt.left = d.left; close(); done(d.ok + '분께 문자를 보냈어요' + (d.fail ? ' (' + d.fail + '분은 실패)' : ''), null, 'book'); }
+        else { cf.innerHTML = '<p class="smscf" style="color:#C2410C">' + esc(d.message || '보내지 못했어요') + '</p>'; }
+      }
+    });
+  }
+
   /* 여러 고객께 한 분씩 */
   function group(it) {
     var kind = it.group || 'away';
@@ -129,10 +161,11 @@
     var txt = w.querySelector('#bTxt'), warn = w.querySelector('#bWarn');
     var chk = function () { if (kind === 'tomorrow') { warn.style.display = /\[(소식 내용)\]/.test(txt.value) ? '' : 'none'; return; } warn.style.display = /\[(날짜|시간|소식 내용|[^\]고]{1,8})\]/.test(txt.value.replace(/\[고객님\]/g, '')) ? '' : 'none'; };
     txt.addEventListener('input', chk); chk();
+    var fill = function (p) { var t = txt.value.replace(/\[고객님\]/g, p.name + '님'); if (p.date) t = t.replace('[날짜]', (+p.date.slice(5, 7)) + '월 ' + (+p.date.slice(8, 10)) + '일').replace('[시간]', p.time || '[시간]'); return t; };
+    smsBox(w, list, txt, kind, fill);
     w.addEventListener('click', function (e) {
       var b = e.target.closest('[data-k],[data-s]'); if (!b) return;
-      var p = list[+(b.dataset.k || b.dataset.s)], t = txt.value.replace(/\[고객님\]/g, p.name + '님');
-      if (p.date) t = t.replace('[날짜]', (+p.date.slice(5, 7)) + '월 ' + (+p.date.slice(8, 10)) + '일').replace('[시간]', p.time || '[시간]');
+      var p = list[+(b.dataset.k || b.dataset.s)], t = fill(p);
       if (b.dataset.s) { var ios = /iPhone|iPad|iPod/.test(navigator.userAgent); location.href = 'sms:' + p.phone.replace(/[^0-9+]/g, '') + (ios ? '&' : '?') + 'body=' + encodeURIComponent(t); }
       else shareText(t);
       b.classList.add('done'); b.textContent = '보냄 ✓';

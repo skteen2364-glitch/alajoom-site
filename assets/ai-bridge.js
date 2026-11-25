@@ -131,6 +131,7 @@
       r.insertAdjacentHTML('afterbegin', '<p class="trend-done" style="margin:0 0 8px;padding:8px 12px;border-radius:12px;background:#FFF1C2;font-size:13px;font-weight:800;color:#6B5A1A">✨ ' + String(d.trend).replace(/[<>&]/g, '') + '으로 썼어요 · 형식만 따르고 내용은 우리 가게 이야기예요</p>');
     }, 250);
   }
+  window.alajoomToken = async function () { try { var sb = await client(); var ss = (await sb.auth.getSession()).data.session; return ss ? ss.access_token : null; } catch (e) { return null; } };
   window.alajoomAI = {
     loggedIn: async function () { try { return !!(await me()); } catch (e) { return false; } },
     feedback: async function (kind, message, mate) {
