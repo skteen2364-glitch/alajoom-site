@@ -97,7 +97,7 @@
   function card() {
     if (!me) {
       return '<section class="fam" id="famCard" aria-label="알아줌 패밀리"><div class="fam-top"><span class="fam-logo">알</span><div class="fam-t"><small>알아줌 패밀리</small><b>창립 사장님 100분을 모셔요</b></div></div>' +
-        '<p class="fam-left">카카오로 시작하면 패밀리 번호를 드려요. 1~100번 창립 사장님은 매일 <b>20회</b> 무료예요.</p>' +
+        '<p class="fam-left">카카오로 시작하면 패밀리 번호를 드려요. 1~100번 창립 사장님은 더 넉넉하게 무료예요.</p>' +
         '<button type="button" class="fam-go" data-fam="login">카카오로 패밀리 되기</button></section>';
     }
     var left = Math.max(0, me.base - me.used);

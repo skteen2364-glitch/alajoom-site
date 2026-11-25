@@ -301,10 +301,8 @@ section[id]{scroll-margin-top:0}
 #video .wrap{flex-direction:column-reverse !important;align-items:stretch !important;gap:18px !important}
 #video .wrap>div,#funi .wrap>div{flex:0 0 auto !important}
 #video .wrap>div:first-child{max-width:240px !important;width:min(240px,66vw) !important}
-#video .wrap>div:first-child>div,#skin div:has(>video),#food div:has(>video){padding:7px !important;border-radius:32px !important}
-#video video,#skin video,#food video{border-radius:25px !important}
-#skin div:has(>div>video),#food div:has(>div>video){max-width:240px !important;margin:0 auto !important}
-#skin div:has(>video),#food div:has(>video){max-width:240px !important}
+#video .wrap>div:first-child>div{padding:7px !important;border-radius:32px !important}
+#video video{border-radius:25px !important}
 #funi .wrap{flex-direction:column !important;align-items:stretch !important;gap:18px !important}
 #beau .wrap{gap:18px !important}
 #video .h2,#beau .h2,#funi .h2{margin-bottom:12px !important}
@@ -789,6 +787,42 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 </div>
 </div>
 </section>
+
+
+
+
+
+
+<!-- 이용 방법 -->
+<section id="how" style="background: #FBF7EE">
+<div class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
+<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>이렇게 일해요</p>
+<h2 class="hx h2" style="margin: 0 0 40px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="말하고, 확인하면 끝"><span aria-hidden="true"><span class="hx-a" style="--s:0">말하고, 확인하면</span> <span class="hx-k"><i style="--i:0">끝</i></span></span></h2>
+<div class="dz-steps" style="display: flex; flex-wrap: wrap; gap: 40px">
+<div class="card" style="flex: 1 1 260px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E6E8ED; position: relative">
+<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #C9BFA8">STEP 1</span>
+<span style="width: 52px; height: 52px; border-radius: 16px; background: #14161F; color: #FFE45C; display: flex; align-items: center; justify-content: center; margin-bottom: 20px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></span>
+<h3 style="margin: 0 0 8px; font-size: 20px; font-weight: 700">말로 시켜요</h3>
+<p style="margin: 0; font-size: 15px; color: #4A5060">음성이나 글로 오늘 할 일을 말해요. 시술 중이어도 한마디면 돼요.</p>
+<div class="dz-v dz-v1" aria-hidden="true"><span class="dz-v1-mic"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></span><span class="dz-v1-bars"><i></i><i></i><i></i><i></i><i></i></span><span class="dz-v1-txt">“이벤트 인스타에 올려줘”</span></div><span class="dz-link" aria-hidden="true"></span>
+</div>
+<div class="card" style="flex: 1 1 260px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E6E8ED; position: relative">
+<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #C9BFA8">STEP 2</span>
+<span style="width: 52px; height: 52px; border-radius: 16px; background: #14161F; color: #FFE45C; display: flex; align-items: center; justify-content: center; margin-bottom: 20px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"></path><circle cx="18" cy="16" r="3"></circle></svg></span>
+<h3 style="margin: 0 0 8px; font-size: 20px; font-weight: 700">알아줌이 처리해요</h3>
+<p style="margin: 0; font-size: 15px; color: #4A5060">할 일을 나누고, 업종별 알아줌이 글·이미지·답장을 준비해요.</p>
+<div class="dz-v dz-v2" aria-hidden="true"><span class="dz-chip"><b>홍보글</b><i><em></em></i></span><span class="dz-chip"><b>이미지</b><i><em></em></i></span><span class="dz-chip"><b>답장</b><i><em></em></i></span></div><span class="dz-link" aria-hidden="true"></span>
+</div>
+<div class="card" style="flex: 1 1 260px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E6E8ED; position: relative">
+<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #C9BFA8">STEP 3</span>
+<span style="width: 52px; height: 52px; border-radius: 16px; background: #14161F; color: #FFE45C; display: flex; align-items: center; justify-content: center; margin-bottom: 20px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+<h3 style="margin: 0 0 8px; font-size: 20px; font-weight: 700">확인 누르면 끝</h3>
+<p style="margin: 0; font-size: 15px; color: #4A5060">결과를 보고 확인을 누르면 게시·발송돼요. 마음대로 나가지 않아요.</p>
+<div class="dz-v dz-v3" aria-hidden="true"><span class="dz-btn">확인</span><span class="dz-done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>게시 완료</span></div>
+</div>
+</div>
+</div>
+</section>
 <section id="mates" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
 <div style="margin-bottom: 32px; max-width: 640px">
 <p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>업종별 알아줌</p>
@@ -941,78 +975,6 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 <div class="dy-go"><a class="al-kakao" href="#mates">무료로 시작하기</a><button type="button" class="dy-inst" onclick="window.alajoomPickInstall&&window.alajoomPickInstall()">앱 설치하기</button></div>
 </div>
 </section>
-<section id="family" class="al al-fam">
-<div class="al-w">
-<p class="al-pill">알아줌 패밀리</p>
-<h2 class="hx al-h al-gaegu" aria-label="창립 사장님 100분을 모셔요"><span aria-hidden="true"><span class="hx-a" style="--s:0">창립 사장님</span> <span class="hx-k"><i style="--i:0">1</i><i style="--i:1">0</i><i style="--i:2">0</i><i style="--i:3">분</i></span><span class="hx-a" style="--s:1">을 모셔요</span></span></h2>
-<p class="al-sub">먼저 써 보고 조언해 주시는 사장님과 알아줌을 같이 키워요. 100명이 차면 마감해요.</p>
-<div class="af-count"><div class="af-num"><b data-family-count>0</b><span>/ 100명</span></div><div class="af-bar"><i id="afBar"></i></div><p>지금 <b data-family-count="left">100</b>자리 남았어요</p></div>
-<div class="af-perks">
-<div><i data-al-ch="plan"></i><b>평생 창립 배지</b><p>패밀리 번호 1~100번, 금색 배지는 계속 남아요</p></div>
-<div><i data-al-ch="write"></i><b>하루 20회 무료</b><p>일반 10회의 두 배. 출석·소개 보너스도 쌓여요</p></div>
-<div><i data-al-ch="check"></i><b>새 기능 먼저</b><p>다음 기능 투표에 참여하고 가장 먼저 써 봐요</p></div>
-<div><i data-al-ch="book"></i><b>명예의 전당</b><p>활동 순위가 높은 사장님 가게를 홈페이지에 소개해요(동의한 분만)</p></div>
-</div>
-<a class="al-kakao af-go" href="#mates">무료로 패밀리 되기</a>
-<p class="af-free af-free2">나중에 유료 기능이 생겨도, <b>창립 사장님께는 평생 무료</b>로 드려요.</p>
-</div>
-</section>
-<!-- 함께 키운 순위 -->
-<section id="rank" class="al al-rank">
-<div class="al-w">
-<p class="al-pill">알아줌 패밀리</p>
-<h2 class="hx al-h al-gaegu" aria-label="함께 키운 순위"><span aria-hidden="true"><span class="hx-a" style="--s:0">함께 키운</span> <span class="hx-k"><i style="--i:0">순</i><i style="--i:1">위</i></span></span></h2>
-<p class="al-sub">글을 많이 만든 순서가 아니라, 알아줌을 같이 키운 순서예요. 순위가 높은 사장님은 명예의 전당에 소개해요.</p>
-<div class="af-rank">
-<div class="af-pts" aria-label="점수 얻는 법">
-<div><i data-al-ch="book"></i><b>출석하기</b><em>+1점</em></div>
-<div><i data-al-ch="check"></i><b>피드백 남기기</b><em>+2점</em></div>
-<div><i data-al-ch="plan"></i><b>기능 투표</b><em>+1점</em></div>
-<div><i data-al-ch="write"></i><b>사장님 소개</b><em>+5점</em></div>
-</div>
-<div class="af-rank-h"><b>지금 순위</b></div>
-<ol id="afTop"><li class="af-empty">첫 번째 주인공이 되어 주세요</li></ol>
-<p class="af-note">글을 많이 만든 순서가 아니라, 알아줌을 같이 키운 순서예요. 가게 이름은 동의한 분만 보여요.</p>
-</div>
-<a class="af-go2" href="#mates">출석하고 순위 올리기</a>
-</div>
-</section>
-
-
-
-
-
-
-<!-- 이용 방법 -->
-<section id="how" style="background: #FBF7EE">
-<div class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
-<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>이렇게 일해요</p>
-<h2 class="hx h2" style="margin: 0 0 40px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="말하고, 확인하면 끝"><span aria-hidden="true"><span class="hx-a" style="--s:0">말하고, 확인하면</span> <span class="hx-k"><i style="--i:0">끝</i></span></span></h2>
-<div class="dz-steps" style="display: flex; flex-wrap: wrap; gap: 40px">
-<div class="card" style="flex: 1 1 260px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E6E8ED; position: relative">
-<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #C9BFA8">STEP 1</span>
-<span style="width: 52px; height: 52px; border-radius: 16px; background: #14161F; color: #FFE45C; display: flex; align-items: center; justify-content: center; margin-bottom: 20px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></span>
-<h3 style="margin: 0 0 8px; font-size: 20px; font-weight: 700">말로 시켜요</h3>
-<p style="margin: 0; font-size: 15px; color: #4A5060">음성이나 글로 오늘 할 일을 말해요. 시술 중이어도 한마디면 돼요.</p>
-<div class="dz-v dz-v1" aria-hidden="true"><span class="dz-v1-mic"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></span><span class="dz-v1-bars"><i></i><i></i><i></i><i></i><i></i></span><span class="dz-v1-txt">“이벤트 인스타에 올려줘”</span></div><span class="dz-link" aria-hidden="true"></span>
-</div>
-<div class="card" style="flex: 1 1 260px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E6E8ED; position: relative">
-<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #C9BFA8">STEP 2</span>
-<span style="width: 52px; height: 52px; border-radius: 16px; background: #14161F; color: #FFE45C; display: flex; align-items: center; justify-content: center; margin-bottom: 20px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"></path><circle cx="18" cy="16" r="3"></circle></svg></span>
-<h3 style="margin: 0 0 8px; font-size: 20px; font-weight: 700">알아줌이 처리해요</h3>
-<p style="margin: 0; font-size: 15px; color: #4A5060">할 일을 나누고, 업종별 알아줌이 글·이미지·답장을 준비해요.</p>
-<div class="dz-v dz-v2" aria-hidden="true"><span class="dz-chip"><b>홍보글</b><i><em></em></i></span><span class="dz-chip"><b>이미지</b><i><em></em></i></span><span class="dz-chip"><b>답장</b><i><em></em></i></span></div><span class="dz-link" aria-hidden="true"></span>
-</div>
-<div class="card" style="flex: 1 1 260px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E6E8ED; position: relative">
-<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #C9BFA8">STEP 3</span>
-<span style="width: 52px; height: 52px; border-radius: 16px; background: #14161F; color: #FFE45C; display: flex; align-items: center; justify-content: center; margin-bottom: 20px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
-<h3 style="margin: 0 0 8px; font-size: 20px; font-weight: 700">확인 누르면 끝</h3>
-<p style="margin: 0; font-size: 15px; color: #4A5060">결과를 보고 확인을 누르면 게시·발송돼요. 마음대로 나가지 않아요.</p>
-<div class="dz-v dz-v3" aria-hidden="true"><span class="dz-btn">확인</span><span class="dz-done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>게시 완료</span></div>
-</div>
-</div>
-</div>
-</section>
 
 <!-- 결과물 미리보기 -->
 <section id="preview" style="background: #FBF7EE; color: #14161F">
@@ -1048,6 +1010,32 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 <div class="pv-sm-tag">알아줌이 만든 문구 · 복사해서 보내요</div>
 </div></div><p class="pv-hint">↕ 화면 안을 밀어서 보세요</p><p class="pv-cap"><b>단골 문자</b><span>재방문 쿠폰 · 예약 안내까지</span></p></div></div>
 <p class="pv-note">이해를 돕기 위한 예시 화면이에요.</p>
+</div>
+</section>
+<!-- 실제 화면 (피부관리샵·음식점 영상 대신, 2026-11-26) -->
+<section id="screens" aria-labelledby="sc-h" style="background:#FBF7EE;padding:72px 0 64px">
+<style>
+#screens .in{max-width:1152px;margin:0 auto;padding:0 20px}
+#screens .eyebrow2{display:inline-flex;align-items:center;gap:8px;margin:0 0 12px;padding:6px 14px;border-radius:999px;background:#E6ECF5;font-size:14px;font-weight:700;color:#2E4877}
+#screens h2{font-family:'Gaegu','Noto Sans KR',sans-serif;font-size:clamp(36px,5.6vw,50px);line-height:1.15;margin:0 0 10px;color:#14161F;word-break:keep-all}
+#screens h2 b{color:#2E4877;background:linear-gradient(transparent 62%,#FFD43B 62%);font-weight:700}
+#screens .lead2{font-size:17px;line-height:1.6;color:#4A5060;margin:0 0 24px;word-break:keep-all}
+#screens .gal{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 20px 18px;margin:0 -20px;-webkit-overflow-scrolling:touch}
+#screens .gal figure{flex:none;width:min(62vw,250px);margin:0;scroll-snap-align:start}
+#screens .gal img{display:block;width:100%;height:auto;border-radius:22px;box-shadow:0 14px 30px rgba(20,22,31,.14)}
+#screens .hint{font-size:13.5px;color:#6A6F7C;margin:2px 0 18px}
+#screens .bt{display:flex;flex-wrap:wrap;gap:10px}
+#screens .bt a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:800;font-size:16px;padding:13px 20px;border-radius:14px;background:#14161F;color:#fff}
+#screens .bt a.y{background:#FFD43B;color:#14161F;box-shadow:0 3px 0 #D9A900}
+@media(min-width:1100px){#screens .gal{overflow:visible;margin:0;padding:4px 0 18px;justify-content:space-between}#screens .gal figure{width:calc((100% - 80px)/6)}#screens .hint{display:none}}
+</style>
+<div class="in">
+<p class="eyebrow2">실제 화면 · 알아줌</p>
+<h2 id="sc-h">이런 화면으로 <b>일해요</b></h2>
+<p class="lead2">홍보글, 리뷰 답글, 고객 장부까지 휴대폰 하나로. 지금 쓰는 실제 화면이에요.</p>
+<div class="gal" aria-label="알아줌 실제 화면"><figure><img src="/assets/screens/s1.jpg?v=1126" alt="혼자 다 하는 사장님, 말만 하세요 — 알아줌 첫 화면" width="540" height="960" loading="lazy"></figure><figure><img src="/assets/screens/s2.jpg?v=1126" alt="사장님 하루, 알아줌 하나로 — 하루 일과 화면" width="540" height="960" loading="lazy"></figure><figure><img src="/assets/screens/s3.jpg?v=1126" alt="한 줄이면 인스타·블로그 끝 — 홍보 화면" width="540" height="960" loading="lazy"></figure><figure><img src="/assets/screens/s4.jpg?v=1126" alt="리뷰 답글, 붙여넣으면 끝 — 리뷰 답글 화면" width="540" height="960" loading="lazy"></figure><figure><img src="/assets/screens/s5.jpg?v=1126" alt="고객·매출 장부도 알아서 정리 — 고객 장부 화면" width="540" height="960" loading="lazy"></figure><figure><img src="/assets/screens/s6.jpg?v=1126" alt="우리 업종 고르면 바로 시작 — 업종 고르기 화면" width="540" height="960" loading="lazy"></figure></div>
+<p class="hint">← 옆으로 밀어서 보세요 →</p>
+<div class="bt"><a class="y" href="/skin/?utm_source=home_screens">피부관리샵으로 써 보기 →</a><a href="/food/?utm_source=home_screens">음식점으로 써 보기 →</a></div>
 </div>
 </section>
 <!-- 알아줌 영상 -->
@@ -1167,56 +1155,6 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 </div>
 </section>
 
-<!-- 알아줌 피부관리샵 영상 -->
-<section id="skin" style="background: #FBF7EE">
-<div class="wrap sec" style="max-width: 1100px; margin: 0 auto; padding: 96px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
-<div style="flex: 0 1 320px; min-width: 0; margin: 0 auto">
-<div style="position: relative; width: 100%; max-width: 320px; margin: 0 auto; padding: 10px; border-radius: 42px; background: #05060A; box-shadow: 0 30px 60px rgba(20, 22, 31, 0.22)">
-<video src="assets/skinmate-short.mp4?v=1120b" poster="assets/skinmate-poster.jpg?v=1120b" autoplay muted loop playsinline controls preload="metadata" aria-label="알아줌 피부관리샵 실제 사용 화면 영상" style="display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 30px; background: #05060A; object-fit: cover"></video>
-</div>
-</div>
-<div style="flex: 1 1 420px; min-width: 0">
-<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>실제 화면 · 알아줌 피부관리샵</p>
-<h2 class="hx h2" style="margin: 0 0 14px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="한 줄만 적으면 홍보가 끝나요"><span aria-hidden="true"><span class="hx-k"><i style="--i:0">한</i><i class="sp"> </i><i style="--i:2">줄</i></span><span class="hx-a" style="--s:0">만 적으면</span><br><span class="hx-a" style="--s:1">홍보가 끝나요</span></span></h2>
-<p class="lead" style="margin: 0 0 24px; font-size: 17px; color: #4A5060">오늘 알릴 것 한 줄이면 알아줌이 인스타·블로그·고객 문자·당근·플레이스 글을 한 번에 써요. 관리실 사진은 AI가 화보처럼 보정하고, 의료·과장 표현은 알아서 걸러요.</p>
-<ul class="beau-list" style="list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-direction: column; gap: 12px">
-<li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600"><span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #3B5B92; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>한 줄 → 5개 채널 글 한 번에</li>
-<li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600"><span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #3B5B92; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>관리실·제품 사진은 AI가 화보처럼</li>
-<li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600"><span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #3B5B92; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>고객 장부·예약·관리권까지 한곳에서</li>
-</ul>
-<div class="cta-row" style="display: flex; flex-wrap: wrap; gap: 12px">
-<a href="/skin/" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 14px; background: #3B5B92; color: #FFFFFF; font-size: 16px; font-weight: 700; text-decoration: none">내 사진으로 무료 체험</a>
-<a href="#contact" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1px solid #D9CFB8; background: #FFFFFF; color: #14161F; font-size: 16px; font-weight: 700; text-decoration: none">우리 업종 문의하기</a>
-</div>
-</div>
-</div>
-</section>
-
-<!-- 알아줌 음식점 영상 -->
-<section id="food" style="background: #FFFFFF">
-<div class="wrap sec" style="max-width: 1100px; margin: 0 auto; padding: 96px 24px; display: flex; flex-wrap: wrap-reverse; align-items: center; gap: 56px">
-<div style="flex: 1 1 420px; min-width: 0">
-<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>실제 화면 · 알아줌 음식점</p>
-<h2 class="hx h2" style="margin: 0 0 14px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="한 줄만 적으면 홍보가 끝나요"><span aria-hidden="true"><span class="hx-k"><i style="--i:0">한</i><i class="sp"> </i><i style="--i:2">줄</i></span><span class="hx-a" style="--s:0">만 적으면</span><br><span class="hx-a" style="--s:1">홍보가 끝나요</span></span></h2>
-<p class="lead" style="margin: 0 0 24px; font-size: 17px; color: #4A5060">신메뉴 한 줄이면 알아줌이 인스타·블로그·단골 문자·당근·플레이스 글을 한 번에 써요. 대충 찍은 메뉴 사진은 AI가 식당 화보처럼 바꿔 드려요.</p>
-<ul class="funi-list" style="list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-direction: column; gap: 12px">
-<li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600"><span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #3B5B92; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>한 줄 → 5개 채널 글 한 번에</li>
-<li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600"><span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #3B5B92; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>메뉴 사진은 AI가 화보처럼 (음식은 그대로)</li>
-<li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600"><span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #3B5B92; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>메뉴판·가격 POP·장부까지 한곳에서</li>
-</ul>
-<div class="cta-row" style="display: flex; flex-wrap: wrap; gap: 12px">
-<a href="/food/" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 14px; background: #3B5B92; color: #FFFFFF; font-size: 16px; font-weight: 700; text-decoration: none">내 사진으로 무료 체험</a>
-<a href="#contact" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1px solid #D9CFB8; background: #FFFFFF; color: #14161F; font-size: 16px; font-weight: 700; text-decoration: none">우리 업종 문의하기</a>
-</div>
-</div>
-<div style="flex: 0 1 320px; min-width: 0; margin: 0 auto">
-<div style="position: relative; width: 100%; max-width: 320px; margin: 0 auto; padding: 10px; border-radius: 42px; background: #05060A; box-shadow: 0 30px 60px rgba(20, 22, 31, 0.22)">
-<video src="assets/foodmate-short.mp4?v=1120b" poster="assets/foodmate-poster.jpg?v=1120b" autoplay muted loop playsinline controls preload="metadata" aria-label="알아줌 음식점 실제 사용 화면 영상" style="display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 30px; background: #05060A; object-fit: cover"></video>
-</div>
-</div>
-</div>
-</section>
-
 
 
 <!-- 매장관리 ERP -->
@@ -1265,30 +1203,6 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 </div>
 </section>
 
-<!-- 요금제 -->
-<section id="pricing" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
-<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>요금제</p>
-<h2 class="hx h2" style="margin: 0 0 32px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="구독료 0원, 부담 없이 시작하세요"><span aria-hidden="true"><span class="hx-a" style="--s:0">구독료</span> <span class="hx-k"><i style="--i:0">0</i><i style="--i:1">원</i></span><span class="hx-a" style="--s:1">, 부담 없이 시작하세요</span></span></h2>
-<div class="card" style="display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: center; padding: 40px; border-radius: 28px; border: 2px solid #3B5B92; background: #F4F6FA">
-<div style="flex: 1 1 260px; min-width: 0">
-<p style="display: inline-block; margin: 0 0 12px; padding: 3px 12px; border-radius: 999px; background: #3B5B92; color: #FFFFFF; font-size: 13px; font-weight: 700">무료 플랜</p>
-<p style="margin: 0 0 4px"><span class="price" style="font-size: 56px; font-weight: 900; letter-spacing: -2px">0원</span><span style="font-size: 16px; color: #5B6070"> / 월</span></p>
-<p style="margin: 0 0 24px; font-size: 15px; color: #4A5060">카드 등록 없이 가입만 하면 바로 써요.</p>
-<div class="cta-row" style="display: flex; flex-wrap: wrap; gap: 10px">
-<a href="#mates" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 14px; background: #3B5B92; color: #FFFFFF; font-size: 16px; font-weight: 700; text-decoration: none">무료로 시작하기</a>
-
-<a href="#contact" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1px solid #C9CEDA; background: #FFFFFF; color: #14161F; font-size: 16px; font-weight: 700; text-decoration: none">문의하기</a>
-</div>
-</div>
-<ul style="flex: 1 1 340px; min-width: 0; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px">
-<li style="display: flex; gap: 12px; align-items: flex-start"><span style="flex-shrink: 0; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 16px">하루 10회 글·콘텐츠 만들기</b><span style="font-size: 14px; color: #5B6070">홍보글, 블로그, 이미지 등 매일 10회까지</span></span></li>
-<li style="display: flex; gap: 12px; align-items: flex-start"><span style="flex-shrink: 0; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 16px">ERP는 계속 무료</b><span style="font-size: 14px; color: #5B6070">매출·운영 관리는 앞으로도 구독료 없이</span></span></li>
-<li style="display: flex; gap: 12px; align-items: flex-start"><span style="flex-shrink: 0; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 16px">브랜드 정보 저장</b><span style="font-size: 14px; color: #5B6070">매장명·지역·톤을 기억해 매번 설명할 필요 없이</span></span></li>
-<li style="display: flex; gap: 12px; align-items: flex-start"><span style="flex-shrink: 0; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 16px">업종별 알아줌</b><span style="font-size: 14px; color: #5B6070">스킨·필라테스·알아줌 음식점 바로 사용</span></span></li>
-</ul>
-</div>
-</section>
-
 <!-- 신뢰 -->
 <section id="trust" style="background: #FFF8E7; color: #14161F">
 <div class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
@@ -1314,7 +1228,7 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 <div class="card" style="flex: 1 1 200px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #EADFC8">
 <span style="width: 48px; height: 48px; border-radius: 14px; background: #FFE45C; color: #14161F; display: flex; align-items: center; justify-content: center; margin-bottom: 18px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M3 10h18M7 15h4"></path></svg></span>
 <h3 style="margin: 0 0 8px; font-size: 19px; font-weight: 700">숨은 비용 없는 무료</h3>
-<p style="margin: 0; font-size: 15px; color: #4A5060">카드 등록 없이 하루 10회, ERP는 계속 무료.</p>
+<p style="margin: 0; font-size: 15px; color: #4A5060">카드 등록 없이 무료, 장부(ERP)도 계속 무료.</p>
 </div>
 </div>
 <div class="trust-row" style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px">
@@ -1337,12 +1251,72 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 </div>
 </section>
 
+<!-- 요금제 -->
+<section id="pricing" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
+<p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>요금제</p>
+<h2 class="hx h2" style="margin: 0 0 32px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="구독료 0원, 부담 없이 시작하세요"><span aria-hidden="true"><span class="hx-a" style="--s:0">구독료</span> <span class="hx-k"><i style="--i:0">0</i><i style="--i:1">원</i></span><span class="hx-a" style="--s:1">, 부담 없이 시작하세요</span></span></h2>
+<div class="card" style="display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: center; padding: 40px; border-radius: 28px; border: 2px solid #3B5B92; background: #F4F6FA">
+<div style="flex: 1 1 260px; min-width: 0">
+<p style="display: inline-block; margin: 0 0 12px; padding: 3px 12px; border-radius: 999px; background: #3B5B92; color: #FFFFFF; font-size: 13px; font-weight: 700">무료 플랜</p>
+<p style="margin: 0 0 4px"><span class="price" style="font-size: 56px; font-weight: 900; letter-spacing: -2px">0원</span><span style="font-size: 16px; color: #5B6070"> / 월</span></p>
+<p style="margin: 0 0 24px; font-size: 15px; color: #4A5060">카드 등록 없이 가입만 하면 바로 써요.</p>
+<div class="cta-row" style="display: flex; flex-wrap: wrap; gap: 10px">
+<a href="#mates" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 14px; background: #3B5B92; color: #FFFFFF; font-size: 16px; font-weight: 700; text-decoration: none">무료로 시작하기</a>
+
+<a href="#contact" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1px solid #C9CEDA; background: #FFFFFF; color: #14161F; font-size: 16px; font-weight: 700; text-decoration: none">문의하기</a>
+</div>
+</div>
+<ul style="flex: 1 1 340px; min-width: 0; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px">
+<li style="display: flex; gap: 12px; align-items: flex-start"><span style="flex-shrink: 0; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 16px">홍보글·콘텐츠 무료로 만들기</b><span style="font-size: 14px; color: #5B6070">홍보글, 블로그, 이미지까지 매일 무료로</span></span></li>
+<li style="display: flex; gap: 12px; align-items: flex-start"><span style="flex-shrink: 0; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 16px">ERP는 계속 무료</b><span style="font-size: 14px; color: #5B6070">매출·운영 관리는 앞으로도 구독료 없이</span></span></li>
+<li style="display: flex; gap: 12px; align-items: flex-start"><span style="flex-shrink: 0; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 16px">브랜드 정보 저장</b><span style="font-size: 14px; color: #5B6070">매장명·지역·톤을 기억해 매번 설명할 필요 없이</span></span></li>
+<li style="display: flex; gap: 12px; align-items: flex-start"><span style="flex-shrink: 0; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 16px">업종별 알아줌</b><span style="font-size: 14px; color: #5B6070">스킨·필라테스·알아줌 음식점 바로 사용</span></span></li>
+</ul>
+</div>
+</section>
+<section id="family" class="al al-fam">
+<div class="al-w">
+<p class="al-pill">알아줌 패밀리</p>
+<h2 class="hx al-h al-gaegu" aria-label="창립 사장님 100분을 모셔요"><span aria-hidden="true"><span class="hx-a" style="--s:0">창립 사장님</span> <span class="hx-k"><i style="--i:0">1</i><i style="--i:1">0</i><i style="--i:2">0</i><i style="--i:3">분</i></span><span class="hx-a" style="--s:1">을 모셔요</span></span></h2>
+<p class="al-sub">먼저 써 보고 조언해 주시는 사장님과 알아줌을 같이 키워요. 100명이 차면 마감해요.</p>
+<div class="af-count"><div class="af-num"><b data-family-count>0</b><span>/ 100명</span></div><div class="af-bar"><i id="afBar"></i></div><p>지금 <b data-family-count="left">100</b>자리 남았어요</p></div>
+<div class="af-perks">
+<div><i data-al-ch="plan"></i><b>평생 창립 배지</b><p>패밀리 번호 1~100번, 금색 배지는 계속 남아요</p></div>
+<div><i data-al-ch="write"></i><b>더 넉넉하게 무료</b><p>일반 사장님보다 두 배 넉넉하게. 출석·소개 보너스도 쌓여요</p></div>
+<div><i data-al-ch="check"></i><b>새 기능 먼저</b><p>다음 기능 투표에 참여하고 가장 먼저 써 봐요</p></div>
+<div><i data-al-ch="book"></i><b>명예의 전당</b><p>활동 순위가 높은 사장님 가게를 홈페이지에 소개해요(동의한 분만)</p></div>
+</div>
+<a class="al-kakao af-go" href="#mates">무료로 패밀리 되기</a>
+<p class="af-free af-free2">나중에 유료 기능이 생겨도, <b>창립 사장님께는 평생 무료</b>로 드려요.</p>
+</div>
+</section>
+<!-- 함께 키운 순위 -->
+<section id="rank" class="al al-rank">
+<div class="al-w">
+<p class="al-pill">알아줌 패밀리</p>
+<h2 class="hx al-h al-gaegu" aria-label="함께 키운 순위"><span aria-hidden="true"><span class="hx-a" style="--s:0">함께 키운</span> <span class="hx-k"><i style="--i:0">순</i><i style="--i:1">위</i></span></span></h2>
+<p class="al-sub">글을 많이 만든 순서가 아니라, 알아줌을 같이 키운 순서예요. 순위가 높은 사장님은 명예의 전당에 소개해요.</p>
+<div class="af-rank">
+<div class="af-pts" aria-label="점수 얻는 법">
+<div><i data-al-ch="book"></i><b>출석하기</b><em>+1점</em></div>
+<div><i data-al-ch="check"></i><b>피드백 남기기</b><em>+2점</em></div>
+<div><i data-al-ch="plan"></i><b>기능 투표</b><em>+1점</em></div>
+<div><i data-al-ch="write"></i><b>사장님 소개</b><em>+5점</em></div>
+</div>
+<div class="af-rank-h"><b>지금 순위</b></div>
+<ol id="afTop"><li class="af-empty">첫 번째 주인공이 되어 주세요</li></ol>
+<p class="af-note">글을 많이 만든 순서가 아니라, 알아줌을 같이 키운 순서예요. 가게 이름은 동의한 분만 보여요.</p>
+</div>
+<a class="af-go2" href="#mates">출석하고 순위 올리기</a>
+</div>
+</section>
+
 <!-- 자주 묻는 질문 -->
 <section id="faq" style="background: #FFFFFF; color: #14161F">
 <div class="wrap sec" style="max-width: 860px; margin: 0 auto; padding: 96px 24px">
 <p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>자주 묻는 질문</p>
 <h2 class="hx h2" style="margin: 0 0 28px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="궁금한 것부터 풀어드릴게요"><span aria-hidden="true"><span class="hx-k"><i style="--i:0">궁</i><i style="--i:1">금</i><i style="--i:2">한</i><i class="sp"> </i><i style="--i:4">것</i></span><span class="hx-a" style="--s:0">부터 풀어드릴게요</span></span></h2>
-<div class="faq-list"><details class="faq-item"><summary>정말 무료인가요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>지금은 베타 기간이라 무료예요. 하루 10회까지 글과 사진을 만들 수 있고, 매장 관리(ERP)는 앞으로도 무료예요. 유료 기능이 생기면 미리 알려드리고, 동의 없이 결제되는 일은 없어요.</p></details><details class="faq-item"><summary>AI나 인스타를 몰라도 쓸 수 있나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>네. 만들 것을 고르고 버튼을 누르면 글과 사진이 나와요. 사장님은 확인하고 복사해서 붙여 넣기만 하면 돼요.</p></details><details class="faq-item"><summary>네이버·인스타에 자동으로 올라가나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>지금은 알아줌이 만들어 드리면 사장님이 확인하고 올리는 방식이에요. 사장님 확인 없이 올라가는 일은 없어요. 네이버 톡톡 문의 자동 응답처럼 공식으로 연결할 수 있는 기능부터 차례로 붙일 예정이에요.</p></details><details class="faq-item"><summary>사진은 어떻게 찍어야 하나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>휴대폰으로 밝은 곳에서, 메뉴나 공간이 화면에 꽉 차게 찍어주세요. 어둡거나 누렇게 찍혀도 자동으로 보정해 드려요.</p></details><details class="faq-item"><summary>음성 비서와 카톡 문의 답장은 언제 되나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>지금 준비 중이에요. 출시 알림을 신청하시면 가장 먼저 알려드릴게요.</p></details><details class="faq-item"><summary>우리 업종도 쓸 수 있나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>뷰티, 가구, 필라테스, 음식점은 지금 바로 체험할 수 있어요. 다른 업종은 문의를 남겨주시면 순서대로 만들어요.</p></details><details class="faq-item"><summary>제 정보는 안전한가요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>네이버·인스타 아이디와 비밀번호는 받지 않아요. 문의로 남긴 연락처는 답변에만 써요.</p></details></div>
+<div class="faq-list"><details class="faq-item"><summary>정말 무료인가요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>지금은 베타 기간이라 무료예요. 매일 무료로 글과 사진을 만들 수 있고, 매장 관리(ERP)는 앞으로도 무료예요. 유료 기능이 생기면 미리 알려드리고, 동의 없이 결제되는 일은 없어요.</p></details><details class="faq-item"><summary>AI나 인스타를 몰라도 쓸 수 있나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>네. 만들 것을 고르고 버튼을 누르면 글과 사진이 나와요. 사장님은 확인하고 복사해서 붙여 넣기만 하면 돼요.</p></details><details class="faq-item"><summary>네이버·인스타에 자동으로 올라가나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>지금은 알아줌이 만들어 드리면 사장님이 확인하고 올리는 방식이에요. 사장님 확인 없이 올라가는 일은 없어요. 네이버 톡톡 문의 자동 응답처럼 공식으로 연결할 수 있는 기능부터 차례로 붙일 예정이에요.</p></details><details class="faq-item"><summary>사진은 어떻게 찍어야 하나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>휴대폰으로 밝은 곳에서, 메뉴나 공간이 화면에 꽉 차게 찍어주세요. 어둡거나 누렇게 찍혀도 자동으로 보정해 드려요.</p></details><details class="faq-item"><summary>음성 비서와 카톡 문의 답장은 언제 되나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>지금 준비 중이에요. 출시 알림을 신청하시면 가장 먼저 알려드릴게요.</p></details><details class="faq-item"><summary>우리 업종도 쓸 수 있나요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>뷰티, 가구, 필라테스, 음식점은 지금 바로 체험할 수 있어요. 다른 업종은 문의를 남겨주시면 순서대로 만들어요.</p></details><details class="faq-item"><summary>제 정보는 안전한가요?<span class="faq-plus" aria-hidden="true">+</span></summary><p>네이버·인스타 아이디와 비밀번호는 받지 않아요. 문의로 남긴 연락처는 답변에만 써요.</p></details></div>
 <div class="rc" id="recos">
 <div class="rc-h"><i data-al-ch="check"></i><div><b>사장님들이 추천한 곳</b><small>알아줌 사장님이 써 보고 도움 된 곳만, 대표가 확인하고 올려요</small></div></div>
 <ul class="rc-list" id="rcList"><li class="rc-empty">아직 추천이 없어요. 첫 추천을 기다려요</li></ul>
@@ -1890,7 +1864,7 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 @media (max-width:860px){.al-hero h1{margin-bottom:4px}.al-crew-b svg{width:50px;height:50px}}
 @media (max-width:860px) and (max-height:800px){.al-hero .al-pill{display:none}.al-hero{padding-top:18px}.al-hero h1{font-size:38px}}
 </style>
-<script src="/assets/family.js?v=11221315"></script>
+<script src="/assets/family.js?v=11261300"></script>
 <style>
 .al-fam{padding:56px 0;background:linear-gradient(180deg,#FFF8E7,#FFFFFF)}
 .al-fam .al-w{max-width:760px}

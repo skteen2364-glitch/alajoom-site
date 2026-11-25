@@ -245,7 +245,7 @@
           }, 30);
           return null;
         }
-        setTimeout(function () { setMode('알아줌이 직접 써요 · 하루 10회 무료'); }, 30);
+        setTimeout(function () { setMode('알아줌이 직접 써요 · 무료'); }, 30);
         syncProfile(sb, s.user.id);
         window.addEventListener('alajoom:onboarded', function () { syncProfile(sb, s.user.id); });
         window.addEventListener('alajoom:studio-saved', function (ev) { saveStudio(sb, s.user.id, ev.detail); });
