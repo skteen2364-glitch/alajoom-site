@@ -1,0 +1,28 @@
+from playwright.sync_api import sync_playwright
+errs=[]
+with sync_playwright() as p:
+    b=p.chromium.launch(); pg=b.new_page(viewport={'width':390,'height':844})
+    pg.on('pageerror',lambda e: errs.append(str(e)[:200]))
+    pg.route('**/*supabase.co/**',lambda r:r.fulfill(status=200,body='[]',content_type='application/json'))
+    pg.goto('http://localhost:8765/academy/'); pg.wait_for_timeout(1000)
+    ev=lambda js: pg.evaluate(js)
+    ev("window.alajoomTab('members')"); pg.wait_for_timeout(300)
+    click=lambda sel: (pg.locator(sel).first.click(), pg.wait_for_timeout(250))
+    click('[data-m="sub"][data-v="cls"]'); click('[data-m="cnew"]')
+    pg.fill('#cName','중1 수학 A반'); pg.fill('#cTime','16:00')
+    dow=ev("(new Date().getDay()+6)%7"); click(f'#mbDlg [data-m="cday"][data-v="{dow}"]'); click('#mbDlg [data-m="csave"]')
+    for nm,fee,day in (('김민준','280000',3),('이서연','300000',25)):
+        click('[data-m="sub"][data-v="list"]'); click('#v-members [data-m="new"]')
+        pg.fill('#mName',nm); pg.select_option('#mGrade','중1'); pg.fill('#mPhone','010-1234-5678'); click('#mbDlg [data-m="mcls"]'); pg.fill('#mFee',fee); pg.fill('#mPayDay',str(day)); pg.fill('#mStart','2026-10-01'); click('#mbDlg [data-m="save"]')
+    pg.screenshot(path='/tmp/a_list.png')
+    click('[data-m="sub"][data-v="att"]'); click('[data-m="mark"][data-v="출석"]'); pg.screenshot(path='/tmp/a_att.png')
+    print('smslink', ev("(document.querySelector('#v-members a[href^=\"sms:\"]')||{}).href||''")[:120])
+    click('[data-m="note"]'); pg.fill('#nLearn','일차방정식 활용'); pg.fill('#nHw','교재 54쪽'); pg.screenshot(path='/tmp/a_note.png'); click('#mbDlg [data-m="close"]')
+    click('[data-m="sub"][data-v="pay"]'); pg.screenshot(path='/tmp/a_pay.png')
+    click('[data-m="pay"]'); click('#mbDlg [data-m="pay-save"]'); pg.screenshot(path='/tmp/a_pay2.png')
+    click('[data-m="sub"][data-v="book"]'); print('book', ev("document.querySelector('#v-members').innerText.slice(0,120)").replace('\n',' '))
+    click('[data-m="sub"][data-v="list"]'); click('#v-members [data-m="open"]'); pg.fill('#nText','어머님 통화'); click('#mbDlg [data-m="nadd"]'); pg.screenshot(path='/tmp/a_detail.png'); click('#mbDlg [data-m="close"]')
+    ev("window.alajoomTab('home')"); pg.wait_for_timeout(500); pg.screenshot(path='/tmp/a_home.png', full_page=True)
+    print('stats', ev("JSON.stringify(window.alajoomMemberStats().renew)"))
+    b.close()
+print(errs or 'OK')
