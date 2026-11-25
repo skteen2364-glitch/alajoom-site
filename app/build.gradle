@@ -1,0 +1,16 @@
+plugins { id 'com.android.application' }
+android {
+  namespace 'com.alajoom.app'
+  compileSdk 36
+  defaultConfig {
+    applicationId 'com.alajoom.app'
+    minSdk 23
+    targetSdk 36
+    versionCode 1
+    versionName '1.0.0'
+    manifestPlaceholders = [hostName: 'alajoom.com', defaultUrl: 'https://alajoom.com/?source=app', launcherName: '알아줌']
+  }
+  buildTypes { release { minifyEnabled true; proguardFiles getDefaultProguardFile('proguard-android-optimize.txt') } }
+  compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}
+dependencies { implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.7.4' }
