@@ -13,7 +13,7 @@ const { chromium } = require('playwright');
     ], book: [], rsv: [ {id:'r1',date:ymd(0),time:'11:00',name:'김*지',what:'수분 관리',memo:''}, {id:'r2',date:ymd(0),time:'14:30',name:'최*아',what:'수분 관리',memo:''}, {id:'r3',date:ymd(0),time:'17:00',name:'박*은',what:'진정 관리',memo:''} ] }));
   });
   const pg = await c.newPage();
-  const clean = async () => { await pg.waitForTimeout(2500); await pg.evaluate(() => { document.querySelectorAll('[role=dialog],dialog[open],.al-tab').forEach(d => d.remove()); }); await pg.waitForTimeout(300); };
+  const clean = async () => { await pg.waitForTimeout(2500); await pg.evaluate(() => { document.querySelectorAll('[role=dialog],dialog[open],.al-tab,#v-members .mg-entry').forEach(d => d.remove()); }); await pg.waitForTimeout(300); };
   const shots = [
     ['1-home', 'https://alajoom.com/', null],
     ['2-day', 'https://alajoom.com/', '#day'],
