@@ -27,6 +27,7 @@ const { chromium } = require('playwright');
     if (t && t.startsWith('#')) { await pg.evaluate(s => { const e = document.querySelector(s); e && e.scrollIntoView(); }, t); await pg.waitForTimeout(1500); }
     else if (t==='margin') { await pg.evaluate(() => window.alajoomMargin && window.alajoomMargin.open()); await pg.waitForTimeout(1500); }
     else if (t) { await pg.evaluate(t => window.alajoomTab && window.alajoomTab(t), t); await pg.waitForTimeout(1500); await clean(); }
+    if (n==='4-ledger') { await pg.addStyleTag({content:'.mg-entry{display:none!important}'}); await pg.waitForTimeout(300); }
     await pg.screenshot({ path: `out/shot-${n}.png` });
   }
   const g = await b.newPage({ viewport: { width: 1024, height: 500 } });
