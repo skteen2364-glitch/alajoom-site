@@ -1,0 +1,14 @@
+name: store-shots
+on: { push: { branches: [android-src], paths: ['store/**'] }, workflow_dispatch: {} }
+permissions: { contents: write }
+jobs:
+  shots:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk > /dev/null
+      - run: cd store && npm i -s playwright@1.49.1 && npx playwright install chromium > /dev/null && mkdir -p out && node shots.js
+      - run: |
+          git config user.name ci && git config user.email ci@users.noreply.github.com
+          cp -r store/out /tmp/out && git checkout --orphan store-out && git rm -rqf . && cp /tmp/out/* . && git add *.png
+          git commit -qm "shots" && git push -f origin store-out
