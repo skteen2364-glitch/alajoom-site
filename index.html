@@ -3,9 +3,9 @@
 <head><script>if(location.hostname==='www.alajoom.com')location.replace('https://alajoom.com'+location.pathname+location.search+location.hash)</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>알아줌 | 1인 사장님 무료 비서 — AI가 홍보글·장부를 대신 써요</title>
+<title>알아줌 | 소상공인 필수 앱 — 1인 사장님 무료 비서</title>
 <meta name="description" content="혼자 다 하는 사장님, 말만 하세요. 홍보글·카톡 문의 답장·예약 정리까지 알아줌이 알아서 해줘요. 카드 등록 없이 무료.">
-<meta property="og:title" content="알아줌 | 1인 사장님 무료 비서">
+<meta property="og:title" content="알아줌 | 소상공인 필수 앱 · 무료">
 <meta property="og:description" content="혼자 다 하는 사장님, 말만 하세요. 알아서 해줌.">
 <meta property="og:image" content="https://alajoom.com/assets/alajoom-poster.jpg">
 <meta property="og:type" content="website">
@@ -724,7 +724,7 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 <section id="top" class="al al-hero">
 <div class="al-w">
 <div>
-<p class="al-pill">1인 사장님 무료 비서<span data-family-wrap hidden> · 창립 사장님 <b data-family-count>0</b>/100</span></p>
+<div class="al-pillrow"><p class="al-pill"><b class="al-must">소상공인 필수 앱</b> · 무료<span data-family-wrap hidden> · 창립 사장님 <b data-family-count>0</b>/100</span></p><button type="button" class="al-inst" onclick="window.alajoomPickInstall&&window.alajoomPickInstall()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>앱 설치</button></div>
 <h1 class="al-gaegu al-h1a" aria-label="혼자 다 하는 사장님, 말만 하세요. 알아서 해줌"><span class="l1" aria-hidden="true">혼자 다 하는 사장님,</span><br><span class="l2" aria-hidden="true">말만 하세요.</span><br><span class="al-n l3" aria-hidden="true"><i style="--i:0">알</i><i style="--i:1">아</i><i style="--i:2">서</i><i class="sp"> </i><i style="--i:4">해</i><i style="--i:5">줌</i></span></h1>
 </div>
 <div class="al-right">
@@ -886,6 +886,15 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 </section>
 
 <!-- 창립 사장님 100명 -->
+<section id="day" class="al al-day">
+<div class="al-w">
+<p class="al-pill">소상공인 필수 앱</p>
+<h2 class="al-h hx" aria-label="사장님 하루, 알아줌 하나로"><span aria-hidden="true"><span class="hx-a" style="--s:0">사장님 하루,</span><br><span class="hx-k"><i style="--i:0">알</i><i style="--i:1">아</i><i style="--i:2">줌</i><i class="sp"> </i><i style="--i:4">하</i><i style="--i:5">나</i><i style="--i:6">로</i></span></span></h2>
+<p class="al-sub">홍보할 때만 여는 앱이 아니에요. 아침부터 마감까지 매일 열어요.</p>
+<ol class="dy-list"><li><span class="dy-t">아침 9시</span><i data-al-ch="plan"></i><div><b>오늘 할 일 확인</b><small>반짝이 · 예약·재방문 손님, 오늘 올릴 홍보를 한눈에</small></div></li><li><span class="dy-t">점심 12시</span><i data-al-ch="photo"></i><div><b>사진 한 장 → 홍보글</b><small>찰칵이·술술이 · 인스타·블로그·카톡 글을 한 번에, 사진도 보정</small></div></li><li><span class="dy-t">오후 4시</span><i data-al-ch="check"></i><div><b>리뷰 답글·손님 문자</b><small>꼼꼼이 · 과장 표현은 걸러서 정성 답글</small></div></li><li><span class="dy-t">저녁 9시</span><i data-al-ch="book"></i><div><b>매출 장부·원가 마진</b><small>차곡이 · 오늘 번 돈, 메뉴별 남는 돈까지</small></div></li></ol>
+<div class="dy-go"><a class="al-kakao" href="#mates">무료로 시작하기</a><button type="button" class="dy-inst" onclick="window.alajoomPickInstall&&window.alajoomPickInstall()">앱 설치하기</button></div>
+</div>
+</section>
 <section id="family" class="al al-fam">
 <div class="al-w">
 <p class="al-pill">알아줌 패밀리</p>
@@ -2014,6 +2023,18 @@ post('family_top',{p_n:5}).then(function(l){if(!Array.isArray(l)||!l.length)retu
 </div>
 <div id="dz-usermenu" role="menu"><p class="um-name"></p><button type="button" class="um-out" role="menuitem">로그아웃</button></div>
 <style id="hx-css">
+.al-pillrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.al-pillrow .al-pill{margin:0}
+.al-must{color:#14161F;background:#FFD43B;border-radius:999px;padding:1px 8px;margin-left:-4px}
+.al-inst{display:inline-flex;align-items:center;gap:5px;min-height:34px;padding:0 12px;border:1.5px solid #14161F;border-radius:999px;background:#14161F;color:#FFD43B;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.al-day{padding:64px 0;background:#FFFBF0}.al-day .al-w{max-width:880px}
+.dy-list{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.dy-list li{position:relative;display:flex;align-items:center;gap:12px;padding:16px 14px 14px;background:#fff;border:1px solid #EFE6D2;border-radius:20px;box-shadow:0 10px 24px -18px rgba(120,90,20,.45)}
+.dy-list li svg{width:54px;height:54px;flex:none}.dy-list b{display:block;font-size:16px;font-weight:900}.dy-list small{display:block;font-size:12.5px;color:#6A6F7C;line-height:1.45;word-break:keep-all}
+.dy-t{position:absolute;left:12px;top:-10px;padding:2px 10px;border-radius:999px;background:#14161F;color:#FFD43B;font-size:11.5px;font-weight:900}
+.dy-go{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;justify-content:center}.dy-go .al-kakao{min-width:200px}
+.dy-inst{min-height:52px;padding:0 20px;border:1.5px solid #14161F;border-radius:16px;background:#fff;font:inherit;font-size:15px;font-weight:800;cursor:pointer}
+@media (max-width:720px){.al-day{padding:24px 0 18px !important;min-height:calc(100svh - 72px - 64px)}.dy-list{grid-template-columns:1fr;gap:12px;margin-top:14px}.dy-list li{padding:14px 12px 10px}.dy-list li svg{width:44px;height:44px}.al-day .al-sub{font-size:14px}.dy-go{margin-top:14px}.dy-go>*{flex:1;white-space:nowrap}}
+@media (max-width:720px) and (max-height:800px){.al-day h2.al-h{font-size:30px}.dy-list{gap:10px}.dy-list li{padding:12px 10px 8px}.dy-list small{font-size:11.5px;line-height:1.35}.dy-list li svg{width:36px;height:36px}.dy-list b{font-size:15px}.al-day .al-sub{display:none}.dy-go .al-kakao,.dy-inst{min-height:46px}}
 .mate-card img{filter:brightness(1.1) contrast(1.04) saturate(1.05)}
 .mate-card[data-mate="skin"] img{filter:none}
 .mate-cats{display:flex !important;flex-wrap:nowrap !important;gap:8px !important;overflow-x:auto;scrollbar-width:none;padding:4px 2px 8px !important;margin:0 0 12px !important}
