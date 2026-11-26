@@ -477,6 +477,19 @@
     return { ok: true, id: bid, msg: what + ' ' + won(amount) + (pay ? ' (' + pay + ')' : '') + ' 매출 장부에 적었어요' + (name && !m ? ' · 고객 장부에서 ' + name + '님은 못 찾아서 이름만 적었어요' : '') };
   };
   window.alajoomUndoBook = function (id) { var n = (DB.book || []).length; DB.book = (DB.book || []).filter(function (b) { return b.id !== id; }); if (DB.book.length !== n) { save(); render(); return true; } return false; };
+  /* 전화 비서: 통화에서 받아 적은 예약을 예약 장부에 */
+  window.alajoomAddRsv = function (r) {
+    r = r || {}; var nm = String(r.name || '').replace(/\s*(고객)?님$/, '').trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(r.date || '') || !/^\d{2}:\d{2}$/.test(r.time || '')) return { ok: false, msg: '날짜와 시간을 확인해 주세요' };
+    if (!nm) return { ok: false, msg: '고객 이름을 적어 주세요' };
+    DB.rsv = DB.rsv || [];
+    var rec = { id: uid(), date: r.date, time: r.time, name: nm, what: String(r.what || '').slice(0, 40), memo: String(r.memo || '').slice(0, 200) };
+    if (r.phone) rec.phone = String(r.phone).replace(/[^0-9]/g, '');
+    DB.rsv.push(rec); save(); render();
+    return { ok: true, id: rec.id, msg: (+r.date.slice(5, 7)) + '월 ' + (+r.date.slice(8, 10)) + '일 ' + r.time + ' ' + nm + '님 예약을 장부에 넣었어요' };
+  };
+  window.alajoomUndoRsv = function (id) { DB.rsv = (DB.rsv || []).filter(function (x) { return x.id !== id; }); save(); render(); };
+  window.alajoomMenuNames = function () { return (DB.menu || []).map(function (x) { return x.name; }).slice(0, 20); };
   /* 여러 고객 한꺼번에: away(오래 안 옴) · renew(재등록 안내) · all(관리 중 전체) */
   window.alajoomMemberList = function (kind) {
     if (kind === 'tomorrow') {
