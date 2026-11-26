@@ -763,7 +763,7 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 <div class="how-vid"><div class="how-ph"><video src="assets/alajoom-reels.mp4?v=1120d" poster="assets/alajoom-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="알아줌 사용 영상 23초"></video></div><span class="how-vcap">23초 영상</span></div>
 <div class="how-main">
 <p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>이렇게 일해요</p>
-<h2 class="hx h2" style="margin: 0 0 40px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="말하고, 확인하면 끝"><span aria-hidden="true"><span class="hx-a" style="--s:0">말하고, 확인하면</span> <span class="hx-k"><i style="--i:0">끝</i></span></span></h2>
+<h2 class="hx h2" style="margin: 0 0 40px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="말하고, 확인하면 끝"><span aria-hidden="true"><span class="hx-a" style="--s:0">말하고,<br class="how-br"> 확인하면</span> <span class="hx-k"><i style="--i:0">끝</i></span></span></h2>
 <div class="dz-steps" style="display: flex; flex-wrap: wrap; gap: 40px">
 <div class="card" style="flex: 1 1 260px; min-width: 0; padding: 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E6E8ED; position: relative">
 <span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #C9BFA8">STEP 1</span>
@@ -2084,6 +2084,8 @@ post('family_top',{p_n:5}).then(function(l){if(!Array.isArray(l)||!l.length)retu
 <style id="fit-css">
 /* how + 영상 합침 (2026-11-27) */
 #how .how-vid{display:none}
+#how .how-br{display:none}
+@media (max-width:899px){#how .how-br{display:inline}}
 #how .how-ph{padding:8px;border-radius:34px;background:#05060A;box-shadow:0 20px 50px rgba(20,22,31,.25)}
 #how .how-ph video{display:block;width:100%;aspect-ratio:9/16;border-radius:26px;background:#05060A;object-fit:cover}
 #how .how-vcap{display:block;margin-top:10px;text-align:center;font-size:13px;font-weight:700;color:#3B5B92}
@@ -2096,10 +2098,24 @@ post('family_top',{p_n:5}).then(function(l){if(!Array.isArray(l)||!l.length)retu
   #how .dz-steps .card>span:first-child{right:18px !important;top:18px !important}
 }
 @media (max-width:899px){
-  #how .how-play{display:inline-flex;align-items:center;gap:8px;margin:14px 0 0;padding:10px 16px;border-radius:999px;border:1px solid #D9CFB8;background:#fff;font:inherit;font-size:14px;font-weight:800;color:#14161F;cursor:pointer}
-  #how .how-play span{color:#3B5B92;font-size:12px}
+  #how>.sec{display:grid !important;grid-template-columns:150px minmax(0,1fr);column-gap:18px;align-items:center}
+  #how .how-vid{display:block;grid-column:1;grid-row:1}
+  #how .how-main{grid-column:2;grid-row:1;min-width:0}
+  #how .how-ph{padding:5px;border-radius:22px;cursor:pointer}
+  #how .how-ph video{border-radius:17px}
+  #how .how-vcap{margin-top:8px;font-size:12px}
+  #how .how-play{display:none !important}
+  #how .eyebrow{margin-bottom:10px !important}
+  #how h2.h2{margin:0 0 14px !important;word-break:keep-all}
+  body #how .dz-steps{display:flex !important;flex-direction:column !important;gap:8px !important}
+  body #how .dz-steps .card{display:flex !important;flex:0 0 auto !important;align-items:center;gap:10px;padding:0 !important;border:0 !important;background:none !important;box-shadow:none !important;animation:none !important}
+  body #how .dz-steps .card>span:first-child,body #how .dz-steps .card p,body #how .dz-steps .dz-v,body #how .dz-steps .dz-link{display:none !important}
+  body #how .dz-steps .card>span:nth-child(2){width:34px !important;height:34px !important;border-radius:10px !important;margin:0 !important;flex:0 0 auto;animation:none !important}
+  body #how .dz-steps .card>span:nth-child(2) svg{width:17px;height:17px}
+  body #how .dz-steps .card h3{margin:0 !important;font-size:16px !important;font-weight:800 !important;white-space:nowrap}
   #how.vid-open .how-vid{display:flex;position:fixed;inset:0;z-index:2000;background:rgba(10,12,20,.9);align-items:center;justify-content:center;flex-direction:column}
-  #how.vid-open .how-ph{width:min(300px,72vw)}
+  #how.vid-open .how-ph{width:min(300px,72vw);padding:8px;border-radius:34px}
+  #how.vid-open .how-ph video{border-radius:26px}
   #how.vid-open .how-vcap{color:#fff;font-size:15px;cursor:pointer}
 }
 
@@ -2174,9 +2190,11 @@ body section[id]:not(#top) h2{font-family:'Noto Sans KR',sans-serif !important;f
   #freetool a{flex-wrap:nowrap !important} #freetool a>span:nth-child(2){min-width:0 !important} #freetool a b{font-size:15.5px !important;word-break:keep-all} #freetool a>span:last-child{padding:9px 12px !important;font-size:14px !important}
 }
 </style>
-<script>(function(){var h=document.getElementById('how');if(!h)return;var v=h.querySelector('video'),c=h.querySelector('.how-vcap');
-function close(){h.classList.remove('vid-open');if(c)c.textContent='23초 영상';}
-h.querySelector('.how-play').addEventListener('click',function(){h.classList.add('vid-open');if(c)c.textContent='닫기 ✕';try{v.currentTime=0;v.play();}catch(e){}});
+<script>(function(){var h=document.getElementById('how');if(!h)return;var v=h.querySelector('video'),c=h.querySelector('.how-vcap'),ph=h.querySelector('.how-ph'),mq=matchMedia('(max-width:899px)');
+function sync(){if(!h.classList.contains('vid-open')){if(mq.matches)v.removeAttribute('controls');else v.setAttribute('controls','');}}sync();mq.addEventListener&&mq.addEventListener('change',sync);
+function open(){h.classList.add('vid-open');v.setAttribute('controls','');v.muted=false;if(c)c.textContent='닫기 ✕';try{v.currentTime=0;v.play();}catch(e){}}
+function close(){h.classList.remove('vid-open');v.muted=true;if(c)c.textContent='23초 영상';sync();try{v.play();}catch(e){}}
+ph.addEventListener('click',function(e){if(mq.matches&&!h.classList.contains('vid-open')){e.preventDefault();open();}});
 h.querySelector('.how-vid').addEventListener('click',function(e){if(h.classList.contains('vid-open')&&e.target.tagName!=='VIDEO')close();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});})();</script>
 </body>
