@@ -894,8 +894,9 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 <div class="al-w">
 <p class="al-pill">소상공인 필수 앱</p>
 <h2 class="al-h hx" aria-label="사장님 하루, 알아줌 하나로"><span aria-hidden="true"><span class="hx-a" style="--s:0">사장님 하루,</span><br><span class="hx-k"><i style="--i:0">알</i><i style="--i:1">아</i><i style="--i:2">줌</i><i class="sp"> </i><i style="--i:4">하</i><i style="--i:5">나</i><i style="--i:6">로</i></span></span></h2>
-<p class="al-sub">홍보할 때만 여는 앱이 아니에요. 아침부터 마감까지 매일 열어요.</p>
-<ol class="dy-list"><li><span class="dy-t">아침 9시</span><i data-al-ch="plan"></i><div><b>오늘 할 일 확인</b><small>반짝이 · 예약·재방문 손님, 오늘 올릴 홍보를 한눈에</small></div></li><li><span class="dy-t">점심 12시</span><i data-al-ch="photo"></i><div><b>사진 한 장 → 홍보글</b><small>찰칵이·술술이 · 인스타·블로그·카톡 글을 한 번에, 사진도 보정</small></div></li><li><span class="dy-t">오후 4시</span><i data-al-ch="check"></i><div><b>리뷰 답글·손님 문자</b><small>꼼꼼이 · 과장 표현은 걸러서 정성 답글</small></div></li><li><span class="dy-t">저녁 9시</span><i data-al-ch="book"></i><div><b>매출 장부·원가 마진</b><small>차곡이 · 오늘 번 돈, 메뉴별 남는 돈까지</small></div></li></ol>
+<p class="al-sub dy-flow"><span>🎤 말하고</span><i>→</i><span>🐣 알아줌이 준비하고</span><i>→</i><span>✅ 사장님은 확인만</span></p>
+<ol class="dy-list"><li><span class="dy-t">아침 9시</span><i data-al-ch="plan"></i><div><b>사장님, 오늘의 브리핑</b><small>반짝이 · 오늘 예약, 다시 오실 손님, 올릴 홍보를 한눈에</small></div></li><li><span class="dy-t">점심 12시</span><i data-al-ch="photo"></i><div><b>사진 한 장 → 홍보글</b><small>🎤 "오늘 신메뉴 인스타 올려줘" · 글·해시태그·사진 보정까지</small></div></li><li class="dy-soon"><span class="dy-t">오후 2시</span><i data-al-ch="write"></i><div><b>관리 중 걸려 온 전화 <em class="dy-badge">준비 중</em></b><small>못 받을 때만 알아줌이 대신 받아 예약을 적어 둬요</small></div></li><li><span class="dy-t">오후 4시</span><i data-al-ch="check"></i><div><b>리뷰 답글·손님 카톡</b><small>🎤 "김지은님 내일 예약 확인 보내줘" · 문구 완성, 카톡 버튼 한 번</small></div></li><li class="dy-soon"><span class="dy-t">저녁 6시</span><i data-al-ch="plan"></i><div><b>내일 예약 손님 확인 전화 <em class="dy-badge">준비 중</em></b><small>원장님이 확인하면 알아줌이 대신 걸어요</small></div></li><li><span class="dy-t">저녁 9시</span><i data-al-ch="book"></i><div><b>매출·예약 장부</b><small>🎤 "박민수님 7만원 카드" · 통화 녹음만 올려도 예약 장부에</small></div></li></ol>
+<p class="dy-safe">🔒 카톡·네이버 비밀번호는 받지 않아요. 보내기·올리기는 사장님이 확인 한 번.</p>
 <div class="dy-go"><a class="al-kakao" href="#mates">무료로 시작하기</a><button type="button" class="dy-inst" onclick="window.alajoomPickInstall&&window.alajoomPickInstall()">앱 설치하기</button></div>
 </div>
 </section>
@@ -2035,10 +2036,14 @@ post('family_top',{p_n:5}).then(function(l){if(!Array.isArray(l)||!l.length)retu
 .dy-list li{position:relative;display:flex;align-items:center;gap:12px;padding:16px 14px 14px;background:#fff;border:1px solid #EFE6D2;border-radius:20px;box-shadow:0 10px 24px -18px rgba(120,90,20,.45)}
 .dy-list li svg{width:54px;height:54px;flex:none}.dy-list b{display:block;font-size:16px;font-weight:900}.dy-list small{display:block;font-size:12.5px;color:#6A6F7C;line-height:1.45;word-break:keep-all}
 .dy-t{position:absolute;left:12px;top:-10px;padding:2px 10px;border-radius:999px;background:#14161F;color:#FFD43B;font-size:11.5px;font-weight:900}
+.dy-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-weight:700}.dy-flow span{background:#fff;border:1px solid #EFE6D2;border-radius:999px;padding:5px 12px;font-size:14px;color:#14161F}.dy-flow i{font-style:normal;color:#B9A774;font-weight:900}
+.dy-badge{display:inline-block;vertical-align:2px;margin-left:6px;padding:1px 8px;border-radius:999px;background:#E6ECF5;color:#3B5B92;font-size:11px;font-weight:800;font-style:normal}
+.dy-soon{background:#FBFAF6 !important;border-style:dashed !important}
+.dy-safe{margin:16px 0 0;text-align:center;font-size:13.5px;font-weight:700;color:#24412F}
 .dy-go{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;justify-content:center}.dy-go .al-kakao{min-width:200px}
 .dy-inst{min-height:52px;padding:0 20px;border:1.5px solid #14161F;border-radius:16px;background:#fff;font:inherit;font-size:15px;font-weight:800;cursor:pointer}
 @media (max-width:720px){.al-day{padding:24px 0 18px !important;min-height:calc(100svh - 72px - 64px)}.dy-list{grid-template-columns:1fr;gap:12px;margin-top:14px}.dy-list li{padding:14px 12px 10px}.dy-list li svg{width:44px;height:44px}.al-day .al-sub{font-size:14px}.dy-go{margin-top:14px}.dy-go>*{flex:1;white-space:nowrap}}
-@media (max-width:720px) and (max-height:800px){.al-day h2.al-h{font-size:30px}.dy-list{gap:10px}.dy-list li{padding:12px 10px 8px}.dy-list small{font-size:11.5px;line-height:1.35}.dy-list li svg{width:36px;height:36px}.dy-list b{font-size:15px}.al-day .al-sub{display:none}.dy-go .al-kakao,.dy-inst{min-height:46px}}
+@media (max-width:720px) and (max-height:800px){.al-day h2.al-h{font-size:30px}.dy-list{gap:10px}.dy-list li{padding:12px 10px 8px}.dy-list small{font-size:11.5px;line-height:1.35}.dy-list li svg{width:36px;height:36px}.dy-list b{font-size:15px}.al-day .al-sub:not(.dy-flow){display:none}.dy-flow span{font-size:12px;padding:4px 9px}.dy-go .al-kakao,.dy-inst{min-height:46px}}
 .mate-card img{filter:brightness(1.1) contrast(1.04) saturate(1.05)}
 .mate-card[data-mate="skin"] img{filter:none}
 .mate-cats{display:flex !important;flex-wrap:nowrap !important;gap:8px !important;overflow-x:auto;scrollbar-width:none;padding:4px 2px 8px !important;margin:0 0 12px !important}
