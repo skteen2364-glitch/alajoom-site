@@ -54,6 +54,8 @@
     if (!data) return;
     var box = document.getElementById('v-home'); if (!box || !box.innerHTML.trim()) return;
     if (document.getElementById('wkCard')) return;
+    var tx = document.getElementById('txCard');
+    if (tx) { tx.insertAdjacentHTML('beforebegin', cardHtml()); return; }
     var at = box.querySelector('h1.hd-h1') || box.querySelector('.hd-sum');
     if (at) at.insertAdjacentHTML('afterend', cardHtml()); else box.insertAdjacentHTML('afterbegin', cardHtml());
   }
@@ -90,6 +92,20 @@
   }
 
   document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('#wkCard')) open(); });
+
+  /* 세금 미리보기 바로가기 (장부 쓰는 사장님용) */
+  var taxCss = document.createElement('style');
+  taxCss.textContent = '.txc{display:flex;align-items:center;gap:12px;margin:0 0 14px;padding:12px 16px;border-radius:16px;background:#fff;border:1.5px solid #EFE5CC;color:#14161F;text-decoration:none}.txc i{flex:none;font-style:normal;font-size:22px}.txc span{flex:1;min-width:0}.txc b{display:block;font-size:15px;font-weight:800}.txc small{display:block;font-size:12.5px;color:#6B7080}.txc em{flex:none;font-style:normal;font-size:13px;font-weight:800;color:#3B5B92}';
+  document.head.appendChild(taxCss);
+  function taxInject() {
+    var box = document.getElementById('v-home'); if (!box || !box.innerHTML.trim() || document.getElementById('txCard')) return;
+    var at = document.getElementById('wkCard') || box.querySelector('h1.hd-h1') || box.querySelector('.hd-sum');
+    var h = '<a class="txc" id="txCard" href="/tax/?utm_source=' + M + '"><i aria-hidden="true">🧾</i><span><b>세금 미리보기</b><small>장부 매출로 올해 부가세·종합소득세 대략 보기</small></span><em>보기 →</em></a>';
+    if (at) at.insertAdjacentHTML('afterend', h); else box.insertAdjacentHTML('afterbegin', h);
+  }
+  (function () {
+    var tries = 0, t = setInterval(function () { taxInject(); if (document.getElementById('txCard') || ++tries > 20) { clearInterval(t); var box = document.getElementById('v-home'); if (box && 'MutationObserver' in window) new MutationObserver(function () { if (!document.getElementById('txCard')) setTimeout(taxInject, 0); }).observe(box, { childList: true }); } }, 500);
+  })();
 
   fetch(U, { method: 'POST', headers: { apikey: K, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_mate: M }) })
     .then(function (r) { return r.ok ? r.json() : null; })

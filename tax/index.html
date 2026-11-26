@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko"><head><script>if(location.hostname==='www.alajoom.com')location.replace('https://alajoom.com'+location.pathname+location.search+location.hash)</script><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>세금 미리보기 (무료) · 사장님 부가세·종합소득세 대략 얼마?</title>
+<meta name="description" content="한 달 매출과 경비만 넣으면 올해 부가세·종합소득세가 대략 얼마쯤 나올지, 한 달에 얼마씩 모아 두면 되는지 바로 보여 드려요. 가입 없이 무료.">
+<link rel="canonical" href="https://alajoom.com/tax/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="세금 미리보기 — 무료">
+<meta property="og:description" content="매출·경비만 넣으면 부가세·종합소득세 예상이 한눈에. 가입 없이 무료.">
+<meta property="og:url" content="https://alajoom.com/tax/">
+<meta property="og:image" content="https://alajoom.com/assets/og-review.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Gaegu:wght@700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#FFF8E7"><meta name="color-scheme" content="only light">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"세금 미리보기","url":"https://alajoom.com/tax/","applicationCategory":"BusinessApplication","operatingSystem":"Web","inLanguage":"ko","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"description":"1인 사장님의 부가세·종합소득세를 대략 미리 보여 주는 무료 도구","publisher":{"@type":"Organization","name":"알아줌","url":"https://alajoom.com/"}}</script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FFF8E7;color:#14161F;font-family:'Noto Sans KR',system-ui,sans-serif;line-height:1.65;font-size:16px;word-break:keep-all}
+header{position:sticky;top:0;background:rgba(255,248,231,.94);backdrop-filter:blur(8px);border-bottom:1px solid #EFE5CC;z-index:5}
+header .in{max-width:680px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+header a.logo{display:flex;align-items:center;gap:8px;color:#14161F;text-decoration:none;font-weight:900;font-size:18px}
+header a.logo img{width:28px;height:28px;border-radius:8px}
+main{max-width:680px;margin:0 auto;padding:22px 20px 60px}
+.tag{display:inline-block;background:#FFD84D;color:#14161F;font-weight:800;font-size:13px;padding:4px 10px;border-radius:999px}
+h1{font-family:'Gaegu','Noto Sans KR',sans-serif;font-size:36px;line-height:1.2;margin:12px 0 6px;letter-spacing:-.5px}
+.lead{color:#3A3F4C;margin:0 0 20px}
+.card{background:#fff;border:1px solid #EFE5CC;border-radius:18px;padding:18px;box-shadow:0 2px 0 #F1E6C8}
+label{display:block;font-weight:800;font-size:14.5px;margin:0 0 6px}
+textarea{width:100%;min-height:130px;border:1.5px solid #E6DCC2;border-radius:12px;padding:12px;font:inherit;font-size:16px;resize:vertical;background:#FFFDF6}
+textarea:focus,select:focus,input:focus{outline:none;border-color:#F2B705}
+.row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.row>div{flex:1;min-width:140px}
+select,input{width:100%;border:1.5px solid #E6DCC2;border-radius:12px;padding:11px 12px;font:inherit;font-size:15px;background:#FFFDF6;color:#14161F}
+.tones{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.tones button{flex:1;min-width:84px;border:1.5px solid #E6DCC2;background:#FFFDF6;border-radius:999px;padding:9px 10px;font:inherit;font-size:14.5px;font-weight:700;color:#3A3F4C;cursor:pointer}
+.tones button[aria-pressed=true]{background:#14161F;color:#fff;border-color:#14161F}
+.go{width:100%;margin-top:16px;border:0;border-radius:14px;background:#FFD84D;color:#14161F;font:inherit;font-weight:900;font-size:18px;padding:15px;cursor:pointer;box-shadow:0 3px 0 #D9A900}
+.go:disabled{opacity:.6;cursor:wait}
+.ex{background:none;border:0;color:#6A6F7C;text-decoration:underline;font:inherit;font-size:13.5px;cursor:pointer;padding:6px 0 0}
+#out{margin-top:20px;display:none}
+.rep{background:#fff;border:1px solid #EFE5CC;border-radius:16px;padding:14px 16px;margin-bottom:10px}
+.rep .h{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.rep .h b{font-size:13px;color:#8A6A00;background:#FFF1C7;border-radius:999px;padding:2px 10px}
+.rep p{margin:0;white-space:pre-wrap}
+.cp{border:1.5px solid #14161F;background:#fff;border-radius:999px;padding:5px 12px;font:inherit;font-size:13.5px;font-weight:800;cursor:pointer}
+.more{margin-top:14px;background:#14161F;color:#fff;border-radius:18px;padding:18px;text-align:center}
+.more p{margin:0 0 10px;color:#E3E6EE;font-size:15px}
+.more a{display:inline-block;background:#FFD84D;color:#14161F;font-weight:900;text-decoration:none;padding:12px 20px;border-radius:12px}
+.err{color:#B3261E;font-weight:700;margin-top:10px;display:none}
+.tips{margin-top:34px}
+.tips h2{font-size:20px;margin:0 0 10px}
+.tips h3{font-size:16px;margin:16px 0 4px}
+.tips p{margin:0;color:#3A3F4C}
+.spin{display:inline-block;width:16px;height:16px;border:2.5px solid #14161F;border-right-color:transparent;border-radius:50%;animation:s .8s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes s{to{transform:rotate(360deg)}}
+footer{color:#6A6F7C;font-size:13px;text-align:center;padding:20px}
+footer a{color:#6A6F7C}
+.txh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 6px}
+.txh label{margin:0}
+.mic{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;background:#14161F;color:#fff;font:inherit;font-size:14.5px;font-weight:800;padding:9px 16px;cursor:pointer}
+.mic[aria-pressed=true]{background:#D93025;animation:mp 1.2s ease-in-out infinite}
+@keyframes mp{50%{box-shadow:0 0 0 8px rgba(217,48,37,.18)}}
+.mhint{margin:0 0 8px;font-size:13.5px;font-weight:700;color:#B04A00}
+</style><style>
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;min-width:84px;border:1.5px solid #E6DCC2;background:#FFFDF6;border-radius:12px;padding:10px 8px;font:inherit;font-size:14.5px;font-weight:800;color:#3A3F4C;cursor:pointer;line-height:1.3}
+.seg button small{display:block;font-size:11.5px;font-weight:600;color:#8A8F9C;margin-top:2px}
+.seg button[aria-pressed=true]{background:#14161F;color:#fff;border-color:#14161F}
+.seg button[aria-pressed=true] small{color:#C9CDD8}
+.f{margin-top:14px}
+.f label{display:flex;justify-content:space-between;align-items:baseline}
+.f label small{font-weight:600;color:#8A8F9C;font-size:12.5px}
+.won{position:relative}.won input{padding-right:46px;font-size:17px;font-weight:700}.won span{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#6A6F7C;font-weight:700}
+.imp{display:none;margin-top:12px;width:100%;border:1.5px dashed #D9A900;background:#FFF6D6;border-radius:12px;padding:11px;font:inherit;font-size:14.5px;font-weight:800;color:#14161F;cursor:pointer}
+#res{margin-top:20px}
+.big{background:#14161F;color:#fff;border-radius:20px;padding:20px}
+.big small{display:block;color:#C9CDD8;font-size:13.5px;font-weight:700}
+.big b{display:block;font-size:34px;font-weight:900;letter-spacing:-1px;margin:2px 0 4px;color:#FFD84D}
+.big p{margin:0;color:#E3E6EE;font-size:14.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.two div{background:#fff;border:1px solid #EFE5CC;border-radius:16px;padding:14px}
+.two small{display:block;font-size:13px;font-weight:700;color:#6A6F7C}
+.two b{display:block;font-size:22px;font-weight:900;letter-spacing:-.5px}
+.two em{display:block;font-style:normal;font-size:12.5px;color:#8A6A00;font-weight:700;margin-top:2px}
+.bars{background:#fff;border:1px solid #EFE5CC;border-radius:16px;padding:16px;margin-top:10px}
+.bars h3{margin:0 0 10px;font-size:15px}
+.bar{display:grid;grid-template-columns:72px 1fr 96px;align-items:center;gap:8px;margin:8px 0;font-size:13.5px;font-weight:700}
+.bar i{display:block;height:18px;border-radius:6px;min-width:3px}
+.bar span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.cal{background:#fff;border:1px solid #EFE5CC;border-radius:16px;padding:16px;margin-top:10px}
+.cal h3{margin:0 0 8px;font-size:15px}
+.cal li{margin:4px 0;font-size:14.5px}
+.cal li b{display:inline-block;min-width:110px}
+.cal .next{color:#B04A00;font-weight:800}
+.note{margin-top:12px;font-size:13px;color:#6A6F7C;line-height:1.6}
+</style></head>
+<body>
+<header><div class="in"><a class="logo" href="/?utm_source=tax_tool"><img src="/assets/icon-192.png" alt="">알아줌</a><span class="tag">무료 · 가입 없음</span></div></header>
+<main>
+<h1>세금, 미리 알면 덜 무서워요</h1>
+<p class="lead">한 달 매출과 경비만 넣으면 올해 부가세·종합소득세가 <b>대략</b> 얼마쯤 나올지, 한 달에 얼마씩 모아 두면 되는지 바로 보여 드려요.</p>
+
+<div class="card">
+  <label>사업자 유형</label>
+  <div class="seg" id="kind">
+    <button type="button" data-v="gen" aria-pressed="true">일반과세<small>보통 여기</small></button>
+    <button type="button" data-v="simple" aria-pressed="false">간이과세<small>연 매출 1억 4백만 원 미만</small></button>
+    <button type="button" data-v="free" aria-pressed="false">면세<small>학원 등</small></button>
+  </div>
+  <div class="f" id="bizBox" hidden>
+    <label>업종 <small>간이과세 세금 계산에 써요</small></label>
+    <div class="seg" id="biz">
+      <button type="button" data-v="0.15" aria-pressed="true">음식점·카페·소매</button>
+      <button type="button" data-v="0.2" aria-pressed="false">직접 만들어 팜<small>제조</small></button>
+      <button type="button" data-v="0.3" aria-pressed="false">미용·네일·피부·운동<small>서비스</small></button>
+    </div>
+  </div>
+  <button type="button" class="imp" id="imp"></button>
+  <div class="f"><label for="sale">한 달 평균 매출 <small>카드+현금, 부가세 포함</small></label><div class="won"><input id="sale" type="text" inputmode="numeric" placeholder="예) 800"><span>만 원</span></div></div>
+  <div class="f"><label for="card">그중 카드·현금영수증 비율 <small>대부분 카드면 90</small></label><div class="won"><input id="card" type="text" inputmode="numeric" value="90"><span>%</span></div></div>
+  <div class="f"><label for="buy">한 달 재료·물품 구입 <small>세금계산서·카드로 산 것</small></label><div class="won"><input id="buy" type="text" inputmode="numeric" placeholder="예) 250"><span>만 원</span></div></div>
+  <div class="f"><label for="etc">한 달 그 밖의 경비 <small>월세·인건비·공과금 등</small></label><div class="won"><input id="etc" type="text" inputmode="numeric" placeholder="예) 200"><span>만 원</span></div></div>
+  <button class="go" id="go" type="button">세금 미리보기</button>
+  <div class="err" id="err"></div>
+</div>
+
+<div id="res" hidden></div>
+
+<section class="tips">
+  <h2>알아 두면 좋아요</h2>
+  <h3>부가세는 손님이 맡겨 둔 돈이에요</h3>
+  <p>매출에 부가세가 섞여 있어서, 통장에 들어온 돈을 다 쓰면 신고 때 목돈이 필요해져요. 매달 조금씩 따로 모아 두면 편해요.</p>
+  <h3>경비는 증빙이 있어야 인정돼요</h3>
+  <p>재료·물품은 사업자 카드나 세금계산서로 사 두세요. 홈택스에 사업용 카드를 등록해 두면 자동으로 모여요.</p>
+  <h3>정확한 금액은</h3>
+  <p>이 숫자는 2026년 세율 기준의 대략적인 예상이에요. 공제·감면과 다른 소득에 따라 달라지니, 실제 신고는 홈택스나 세무사와 확인해 주세요.</p>
+</section>
+</main>
+<footer>알아줌 · 혼자 일하는 사장님 옆에 · <a href="/terms/">이용약관</a> · <a href="/privacy/">개인정보처리방침</a><br>입력한 숫자는 이 기기에서만 계산하고 어디에도 보내지 않아요.</footer>
+
+<script src="/assets/family.js" defer></script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var kind='gen', rate=0.15;
+  function seg(id,set){document.querySelectorAll('#'+id+' button').forEach(function(b){b.onclick=function(){set(b.dataset.v);document.querySelectorAll('#'+id+' button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});if(!$('res').hidden)calc()}})}
+  seg('kind',function(v){kind=v;$('bizBox').hidden=(v!=='simple')});
+  seg('biz',function(v){rate=+v});
+  function num(id){return Math.max(0,+String($(id).value).replace(/[^0-9.]/g,'')||0)}
+  ['sale','card','buy','etc'].forEach(function(id){$(id).addEventListener('input',function(){var v=$(id).value.replace(/[^0-9]/g,'');$(id).value=v?(+v).toLocaleString('ko-KR'):''})});
+  function won(n){n=Math.round(n/10000);if(n>=10000){var e=Math.floor(n/10000),m=n%10000;return e+'억'+(m?' '+m.toLocaleString('ko-KR')+'만':'')+' 원'}return n.toLocaleString('ko-KR')+'만 원'}
+  // 2026년 종합소득세 기본세율 (과세표준 × 세율 − 누진공제)
+  var BR=[[14e6,.06,0],[50e6,.15,126e4],[88e6,.24,576e4],[150e6,.35,1544e4],[300e6,.38,1994e4],[500e6,.40,2594e4],[1e9,.42,3594e4],[Infinity,.45,6594e4]];
+  function itax(t){if(t<=0)return 0;for(var i=0;i<BR.length;i++)if(t<=BR[i][0])return t*BR[i][1]-BR[i][2];return 0}
+  function nextDates(){var now=new Date(),y=now.getFullYear(),list=[];
+    if(kind==='gen'){list.push([new Date(y,0,25),'부가세 (작년 7~12월)']);list.push([new Date(y,6,25),'부가세 (1~6월)'])}
+    else if(kind==='simple'){list.push([new Date(y,0,25),'부가세 (작년 1년치)'])}
+    list.push([new Date(y,4,31),'종합소득세 (작년 1년치)']);
+    list=list.map(function(d){if(d[0]<now)d[0]=new Date(d[0].getFullYear()+1,d[0].getMonth(),d[0].getDate());return d}).sort(function(a,b){return a[0]-b[0]});
+    return list}
+  function calc(){
+    $('err').style.display='none';
+    var S=num('sale')*1e4*12, cp=Math.min(100,num('card'))/100, B=num('buy')*1e4*12, E=num('etc')*1e4*12;
+    if(!S){$('err').textContent='한 달 평균 매출을 적어 주세요.';$('err').style.display='block';$('sale').focus();return}
+    var cardCredit=Math.min(S*cp*0.013,1e7), vat=0, vatNote='', rev, exp;
+    if(kind==='gen'){vat=Math.max(0,S/11-B/11-cardCredit);rev=S/1.1;exp=B/1.1+E;vatNote='1년에 두 번 나눠 내요 (한 번에 약 '+won(vat/2)+')'}
+    else if(kind==='simple'){
+      if(S<48e6){vat=0;vatNote='연 매출 4,800만 원 미만이면 부가세를 안 내요 (신고는 해요)'}
+      else{vat=Math.max(0,S*rate*0.1-B*0.005-cardCredit);vatNote='1년에 한 번, 1월에 내요'}
+      if(S>=104e6)vatNote+=' · 연 매출이 1억 4백만 원을 넘으면 일반과세로 바뀔 수 있어요';
+      rev=S-vat;exp=B+E}
+    else{vat=0;vatNote='면세 사업자는 부가세가 없어요';rev=S;exp=B+E}
+    var inc=Math.max(0,rev-exp), base=Math.max(0,inc-15e5), it=itax(base), lt=it*0.1, income=it+lt, total=vat+income, keep=Math.max(0,S-B-E-total);
+    var max=Math.max(S,1), col={'매출':'#3B5B92','경비':'#C9CDD8','세금':'#D93025','남는 돈':'#1E8E3E'};
+    var bars=[['매출',S],['경비',B+E],['세금',total],['남는 돈',keep]].map(function(r){return '<div class="bar"><span>'+r[0]+'</span><i style="width:'+Math.max(1,r[1]/max*100)+'%;background:'+col[r[0]]+'"></i><span>'+won(r[1])+'</span></div>'}).join('');
+    var dates=nextDates().map(function(d,i){return '<li'+(i===0?' class="next"':'')+'><b>'+(d[0].getMonth()===4?'5월 말까지':(d[0].getMonth()+1)+'월 '+d[0].getDate()+'일까지')+'</b>'+d[1]+(i===0?' · 다음 신고':'')+'</li>'}).join('');
+    $('res').innerHTML='<div class="big"><small>올해 세금, 대략</small><b>약 '+won(total)+'</b><p>한 달에 <strong style="color:#FFD84D">약 '+won(total/12)+'</strong>씩 따로 모아 두면 편해요</p></div>'+
+      '<div class="two"><div><small>부가세 (1년)</small><b>약 '+won(vat)+'</b><em>'+vatNote+'</em></div><div><small>종합소득세 + 지방소득세</small><b>약 '+won(income)+'</b><em>5월에 내요 · 소득 약 '+won(inc)+'</em></div></div>'+
+      '<div class="bars"><h3>1년으로 보면</h3>'+bars+'</div>'+
+      '<div class="cal"><h3>신고 날짜</h3><ul style="margin:0;padding-left:18px">'+dates+'</ul></div>'+
+      '<p class="note">2026년 세율 기준의 대략적인 예상이에요. 본인 기본공제와 카드 매출 세액공제(1.3%)만 넣었고, 다른 공제·감면이나 다른 소득은 넣지 않았어요. 실제 신고 전에는 홈택스나 세무사와 꼭 확인해 주세요.</p>'+
+      '<div class="more"><p>매출·매입은 알아줌 장부에 적어 두면 매달 저절로 쌓여요.</p><a href="/?utm_source=tax_tool#mates">알아줌에서 장부 무료로 쓰기</a></div>';
+    $('res').hidden=false; try{$('res').scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}
+  }
+  $('go').onclick=calc;
+  // 알아줌 장부에서 불러오기 (같은 기기에 적어 둔 매출·매입)
+  try{
+    var y=String(new Date().getFullYear()), s=0, b=0, months={};
+    for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(!/^pm_.+_ledger$/.test(k))continue;
+      var L=JSON.parse(localStorage.getItem(k)||'[]');if(!Array.isArray(L))continue;
+      L.forEach(function(r){if(!r||!r.date||String(r.date).slice(0,4)!==y)return;var a=+r.amount||0;months[String(r.date).slice(0,7)]=1;if(r.type==='매출')s+=a;else if(r.type==='매입')b+=a})}
+    var n=Object.keys(months).length;
+    if(n&&s>0){var imp=$('imp');imp.style.display='block';imp.textContent='📒 알아줌 장부에서 불러오기 (올해 '+n+'달 · 매출 '+won(s)+')';
+      imp.onclick=function(){$('sale').value=Math.round(s/n/1e4).toLocaleString('ko-KR');$('buy').value=Math.round(b/n/1e4).toLocaleString('ko-KR');imp.textContent='장부에서 불러왔어요. 그 밖의 경비만 적어 주세요';$('etc').focus()}}
+  }catch(e){}
+})();
+</script>
+</body></html>
