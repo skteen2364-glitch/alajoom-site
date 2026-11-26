@@ -4,7 +4,7 @@ import { createClient } from "npm:@supabase/supabase-js@2.119.0";
 // 알아줌 전화 비서 ① 통화 녹음 정리 — 녹음을 듣고 예약·요청을 JSON으로. 녹음은 저장하지 않음.
 // IP당 하루 20번, 전체 하루 1000번 (tool_trials 'call')
 const PER_IP = 20, CAP = 1000;
-const MODELS = [Deno.env.get("GEMINI_AUDIO_MODEL") ?? "gemini-3-flash", "gemini-2.5-flash"];
+const MODELS = [Deno.env.get("GEMINI_AUDIO_MODEL") ?? "gemini-flash-latest", "gemini-3.1-flash", "gemini-3-flash", "gemini-2.5-flash"];
 const ALLOWED = ["https://alajoom.com", "https://www.alajoom.com", "https://alajoom-site.pages.dev", "http://localhost:8765"];
 function cors(origin: string | null) {
   const o = origin && (ALLOWED.includes(origin) || origin.endsWith(".alajoom-site.pages.dev")) ? origin : ALLOWED[0];
@@ -98,6 +98,6 @@ ${menu.length ? `가게 메뉴·관리 이름: ${JSON.stringify(menu)} — 맞�
     });
   } catch (e) {
     console.error("gemini", String(e));
-    return json({ error: "ai_error", message: "녹음을 정리하지 못했어요. 잠시 뒤 다시 올려 주세요" }, 502);
+    return json({ error: "ai_error", why: String(e).slice(0, 160).replace(/key=[^&\s]+/g, ""), message: "녹음을 정리하지 못했어요. 잠시 뒤 다시 올려 주세요" }, 502);
   }
 });
