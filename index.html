@@ -835,7 +835,7 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 </div>
 <p class="sum" id="wkSum">·</p>
 </div>
-<div id="freetool"><a href="/review/?utm_source=home" style="display:flex;align-items:center;gap:16px;margin:20px 0 0;padding:18px 22px;border-radius:18px;background:#FFD84D;color:#14161F;text-decoration:none;box-shadow:0 3px 0 #D9A900;flex-wrap:wrap"><span style="font-size:30px;line-height:1" aria-hidden="true">💬</span><span style="flex:1;min-width:200px"><b style="display:block;font-size:19px;font-weight:900;letter-spacing:-.3px">무료 도구 · 리뷰 답글, 붙여넣으면 끝</b><span style="font-size:15px;color:#3A3F4C">가입 없이 바로 써 보세요. 손님 리뷰를 넣으면 답글 3개가 나와요.</span></span><span style="background:#14161F;color:#fff;font-weight:800;font-size:15px;padding:11px 18px;border-radius:12px;white-space:nowrap">써 보기 →</span></a></div>
+<div id="freetool" class="ft2"><a href="/review/?utm_source=home"><span aria-hidden="true">💬</span><span><small>무료 도구</small><b><i class="lg">리뷰 답글, 붙여넣으면 끝</i><i class="sh">리뷰 답글 만들기</i></b></span><em>써 보기 →</em></a><a href="/polish/?utm_source=home"><span aria-hidden="true">✍️</span><span><small>무료 도구</small><b><i class="lg">대충 쓴 글, 보내기 좋게</i><i class="sh">글 다듬기</i></b></span><em>써 보기 →</em></a></div>
 </div>
 <script>
 (function(){
@@ -2082,6 +2082,16 @@ post('family_top',{p_n:5}).then(function(l){if(!Array.isArray(l)||!l.length)retu
 </script>
 
 <style id="fit-css">
+.ft2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.ft2 a{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:18px;background:#FFD84D;color:#14161F;text-decoration:none;box-shadow:0 3px 0 #D9A900;min-width:0}
+.ft2 a>span:first-child{font-size:28px;line-height:1;flex:none}
+.ft2 a>span:nth-child(2){flex:1;min-width:0}
+.ft2 small{display:block;font-size:13px;font-weight:700;color:#5A4A00}
+.ft2 b{display:block;font-size:18px;font-weight:900;letter-spacing:-.3px;word-break:keep-all}
+.ft2 b i{font-style:normal}.ft2 .sh{display:none}
+.ft2 em{font-style:normal;flex:none;background:#14161F;color:#fff;font-weight:800;font-size:14px;padding:10px 14px;border-radius:12px;white-space:nowrap}
+@media (max-width:720px){.ft2{gap:8px}.ft2 a{flex-direction:column;align-items:flex-start;gap:6px;padding:12px 14px}.ft2 a>span:first-child{font-size:22px}.ft2 b{font-size:14.5px;line-height:1.35}.ft2 small{font-size:11.5px}.ft2 em{display:none}.ft2 .lg{display:none}.ft2 .sh{display:inline}.ft2 b{font-size:16px}}
+
 /* how + 영상 합침 (2026-11-27) */
 #how .how-vid{display:none}
 #how .how-br{display:none}
@@ -2184,10 +2194,6 @@ body section[id]:not(#top) h2{font-family:'Noto Sans KR',sans-serif !important;f
   #weekly .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:-22px;padding-right:22px}
   #weekly .chips button{flex:0 0 auto}
   #weekly .now-h small{display:none}
-  #freetool a{padding:14px 16px !important;gap:12px !important}
-  #freetool a>span:nth-child(2)>span{display:none}
-  #freetool a>span:first-child{font-size:24px !important}
-  #freetool a{flex-wrap:nowrap !important} #freetool a>span:nth-child(2){min-width:0 !important} #freetool a b{font-size:15.5px !important;word-break:keep-all} #freetool a>span:last-child{padding:9px 12px !important;font-size:14px !important}
 }
 </style>
 <script>(function(){var h=document.getElementById('how');if(!h)return;var v=h.querySelector('video'),c=h.querySelector('.how-vcap'),ph=h.querySelector('.how-ph'),mq=matchMedia('(max-width:899px)');
