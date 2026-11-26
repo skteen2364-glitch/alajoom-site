@@ -23,17 +23,27 @@
 
   /* 2) 창립 사장님 인원 (로그인 없이) */
   window.alajoomFamilyCount = function () {
-    return fetch(URL_ + '/rest/v1/rpc/family_count', { method: 'POST', headers: { 'apikey': KEY, 'Content-Type': 'application/json' }, body: '{}' })
-      .then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    var once = function () {
+      return fetch(URL_ + '/rest/v1/rpc/family_count', { method: 'POST', cache: 'no-store', headers: { 'apikey': KEY, 'Content-Type': 'application/json' }, body: '{}' })
+        .then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    };
+    // 휴대폰 데이터가 느리거나 끊겨도 0으로 남지 않게 3번까지 다시 시도
+    return once().then(function (n) { return typeof n === 'number' ? n : new Promise(function (ok) { setTimeout(ok, 1500); }).then(once); })
+      .then(function (n) { return typeof n === 'number' ? n : new Promise(function (ok) { setTimeout(ok, 4000); }).then(once); });
   };
-  document.addEventListener('DOMContentLoaded', function () {
+  function fillCount() {
     var el = document.querySelectorAll('[data-family-count]');
     if (!el.length) return;
     window.alajoomFamilyCount().then(function (n) {
       if (typeof n !== 'number') return;
       el.forEach(function (x) { x.textContent = x.getAttribute('data-family-count') === 'left' ? Math.max(0, 100 - n) : n; x.closest('[data-family-wrap]') && x.closest('[data-family-wrap]').removeAttribute('hidden'); });
+      var b = document.getElementById('afBar'); if (b) b.style.width = Math.max(2, Math.min(100, n)) + '%';
     });
-  });
+  }
+  document.addEventListener('DOMContentLoaded', fillCount);
+  // 뒤로가기로 돌아오거나 앱을 다시 열었을 때도 새로 받기
+  window.addEventListener('pageshow', function (e) { if (e.persisted) fillCount(); });
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') fillCount(); });
 
   /* 아래는 메이트 화면에서만 */
   var AI = function () { return window.alajoomAI; };
