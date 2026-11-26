@@ -66,6 +66,8 @@
     '.fam-btns button{min-height:48px;border-radius:12px;border:1px solid #EADBA8;background:#fff;color:#14161F;font:inherit;font-size:13px;font-weight:800;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 4px}',
     '.fam-btns button small{font-size:11px;font-weight:600;color:#8A7A4A}',
     '.fam-btns button[disabled]{opacity:.55;cursor:default}',
+    '.fam-cp{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:50px;margin-top:8px;padding:0 14px;border:0;border-radius:12px;background:#14161F;color:#fff;font:inherit;font-size:14.5px;font-weight:900;cursor:pointer}',
+    '.fam-cp small{font-size:12px;font-weight:600;color:#FFD43B}',
     '.fam-go{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;margin-top:10px;border:0;border-radius:12px;background:#FEE500;color:#191600;font:inherit;font-weight:800;font-size:15px;cursor:pointer}',
     '.fam-dlg{border:0;border-radius:20px;padding:0;width:min(420px,92vw);max-height:82vh;overflow:hidden}',
     '.fam-dlg .in{position:relative;max-height:82vh;overflow-y:auto;-webkit-overflow-scrolling:touch}',
@@ -120,7 +122,7 @@
       '<button type="button" data-fam="checkin"' + (me.checked ? ' disabled' : '') + '>' + (me.checked ? '출석 완료' : '출석하기') + '<small>' + (me.checked ? '내일 또 만나요' : '+2회') + '</small></button>' +
       '<button type="button" data-fam="invite">사장님 소개<small>둘 다 +10회</small></button>' +
       '<button type="button" data-fam="vote">다음 기능 투표<small>3개까지</small></button>' +
-      '</div></section>';
+      '</div><button type="button" class="fam-cp" data-fam="coupon">🎟️ 동네 패밀리 쿠폰<small>이웃 가게와 손님 주고받기</small></button></section>';
   }
 
   function inject() {
@@ -186,6 +188,7 @@
     }
     if (k === 'invite') return inviteDlg();
     if (k === 'vote') return voteDlg();
+    if (k === 'coupon') { if (window.alajoomCoupon) window.alajoomCoupon(); return; }
   });
 
   var loaded = load();

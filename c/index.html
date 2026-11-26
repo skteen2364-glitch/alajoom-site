@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>이웃 가게 쿠폰 · 알아줌 패밀리</title>
+<meta name="theme-color" content="#FBF7EE">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#FBF7EE;color:#14161F;font-family:Pretendard,'Noto Sans KR',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:440px;margin:0 auto;padding:28px 20px 40px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.badge{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;padding:6px 12px;border-radius:999px;background:#14161F;color:#FFD43B;font-size:13px;font-weight:800}
+.badge i{font-style:normal;display:inline-flex;width:20px;height:20px;border-radius:6px;background:#FFD43B;color:#14161F;align-items:center;justify-content:center;font-size:12px;font-weight:900}
+.tk{position:relative;margin-top:16px;padding:28px 24px;border-radius:24px;background:#fff;border:2px dashed #E3C657;box-shadow:0 12px 30px rgba(20,22,31,.08)}
+.sub{margin:0;font-size:14px;color:#6B7080;font-weight:600}
+h1{margin:6px 0 0;font-size:28px;font-weight:900;letter-spacing:-.8px;line-height:1.25}
+.offer{margin:18px 0 0;padding:16px;border-radius:16px;background:#FFF6D6;font-size:22px;font-weight:900;letter-spacing:-.5px;line-height:1.35;color:#B04A00}
+.terms{margin:10px 0 0;font-size:14px;color:#4A4F5C}
+.from{margin:18px 0 0;padding-top:16px;border-top:1px solid #EEE7D6;font-size:14px;color:#4A4F5C}
+.from b{color:#14161F}
+.how{margin:20px 0 0;text-align:center;font-size:16px;font-weight:800}
+.none{margin-top:16px;padding:24px;border-radius:20px;background:#fff;font-size:16px;line-height:1.6;text-align:center}
+.foot{margin:28px 0 0;text-align:center;font-size:12.5px;color:#8A8F9C}
+.foot a{color:#3B5B92;font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+  <span class="badge"><i>알</i>알아줌 패밀리 쿠폰</span>
+  <div id="out"><div class="none">쿠폰을 불러오고 있어요…</div></div>
+  <p class="foot">동네 가게끼리 손님을 소개하는 <a href="/?utm_source=coupon">알아줌 패밀리</a></p>
+</main>
+<script>
+(function(){
+  var MATE={skin:'피부관리샵',nail:'네일샵',hair:'미용실',pilates:'필라테스',academy:'학원',food:'음식점',cafe:'카페',bakery:'베이커리'};
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  var q=new URLSearchParams(location.search), k=(q.get('k')||'').replace(/[^A-Za-z0-9]/g,'').slice(0,12), f=(q.get('f')||'').replace(/[^A-Za-z0-9]/g,'').slice(0,12);
+  var out=document.getElementById('out');
+  function none(t){out.innerHTML='<div class="none">'+t+'</div>';}
+  if(!k){none('쿠폰 주소가 올바르지 않아요.');return;}
+  fetch('https://zuxbloxstkcixqpzqalk.supabase.co/rest/v1/rpc/coupon_public',{method:'POST',headers:{apikey:'sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH','Content-Type':'application/json'},body:JSON.stringify({p_code:k,p_from:f||null})})
+  .then(function(r){return r.ok?r.json():null;})
+  .then(function(c){
+    if(!c||!c.offer){none('이 쿠폰은 지금 쉬고 있거나 끝났어요.<br>가게에 직접 물어봐 주세요.');return;}
+    document.title=c.store+' 쿠폰 · 알아줌 패밀리';
+    out.innerHTML='<div class="tk"><p class="sub">'+esc(MATE[c.mate]||'')+(c.area?' · '+esc(c.area):'')+'</p><h1>'+esc(c.store)+'</h1>'+
+      '<p class="offer">'+esc(c.offer)+'</p>'+(c.terms?'<p class="terms">'+esc(c.terms)+'</p>':'')+
+      (c.from?'<p class="from"><b>'+esc(c.from)+'</b>에서 보내 드린 이웃 가게 쿠폰이에요</p>':'')+'</div>'+
+      '<p class="how">가게에서 이 화면을 보여 주세요</p>';
+  }).catch(function(){none('쿠폰을 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.');});
+})();
+</script>
+</body>
+</html>
