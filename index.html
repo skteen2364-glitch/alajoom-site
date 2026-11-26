@@ -1175,7 +1175,7 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 <!-- 요금제 -->
 <section id="pricing" class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
 <p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>요금제</p>
-<h2 class="hx h2" style="margin: 0 0 32px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="구독료 0원, 부담 없이 시작하세요"><span aria-hidden="true"><span class="hx-a" style="--s:0">구독료</span> <span class="hx-k"><i style="--i:0">0</i><i style="--i:1">원</i></span><span class="hx-a" style="--s:1">, 부담 없이 시작하세요</span></span></h2>
+<h2 class="hx h2" style="margin: 0 0 32px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="구독료 0원, 부담 없이 시작하세요"><span aria-hidden="true"><span class="hx-a" style="--s:0">구독료</span> <span style="white-space:nowrap"><span class="hx-k"><i style="--i:0">0</i><i style="--i:1">원</i></span><span class="hx-a" style="--s:1">,</span></span> <span class="hx-a" style="--s:1">부담 없이 시작하세요</span></span></h2>
 <div class="card" style="display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: center; padding: 40px; border-radius: 28px; border: 2px solid #3B5B92; background: #F4F6FA">
 <div style="flex: 1 1 260px; min-width: 0">
 <p style="display: inline-block; margin: 0 0 12px; padding: 3px 12px; border-radius: 999px; background: #3B5B92; color: #FFFFFF; font-size: 13px; font-weight: 700">무료 플랜</p>
@@ -2101,42 +2101,59 @@ post('family_top',{p_n:5}).then(function(l){if(!Array.isArray(l)||!l.length)retu
 </script>
 
 <style id="fit-css">
-/* 화면 맞춤 (2026-11-26): PC에서 업종 카드는 한 줄 가로 넘기기, 질문은 두 줄 */
+/* 화면 정리 (2026-11-26 밤): 모든 섹션 제목 같은 크기, 같은 위아래 여백, PC 한 화면에 들어오게 내용 정리 */
+body section[id]:not(#top) h2{font-family:'Noto Sans KR',sans-serif !important;font-weight:900 !important;font-size:40px !important;line-height:1.25 !important;letter-spacing:-1px !important}
+@media (max-width:720px){ body section[id]:not(#top) h2{font-size:26px !important;letter-spacing:-.6px !important} #weekly h2{min-height:2.5em} }
 @media (min-width:721px){
+  body section[id]:not(#freetool){min-height:calc(100vh - 69px) !important;box-sizing:border-box !important;display:flex !important;flex-direction:column !important;justify-content:center !important}
+  #how>.sec,#food>.sec,#preview>.sec,#video>.sec,#trust>.sec,#faq>.sec,#contact>.sec{padding-top:56px !important;padding-bottom:56px !important}
+  #mates,#erp,#family,#pricing,#cta,#weekly,#rank{padding-top:56px !important;padding-bottom:56px !important}
+  /* 업종 고르기: 카드 한 줄 넘기기, 아래 업종 띠는 PC에서 빼기 */
   #mates .mate-grid{display:flex !important;flex-wrap:nowrap !important;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px}
+  #mates .mate-grid::-webkit-scrollbar{display:none}
   #mates .mate-card{flex:0 0 calc((100% - 48px) / 5) !important;scroll-snap-align:start}
+  #mates .mq-strip{display:none !important}
+  #mates .mate-grid{zoom:.76}
+  #mates .mate-grid+.dz-cdots+.swipe-hint+p,#mates .swipe-hint+p{display:none}
+  /* 그림(휴대폰 예시)만 조금 작게 — 제목·글자는 그대로 */
+  #preview .pv-row{zoom:.54}
+  #preview .pv-note{display:none}
+  #food .sec>div:last-child{zoom:.86}
+  #video .sec>div:last-child{zoom:.78}
+  #video>.sec{padding-top:40px !important;padding-bottom:40px !important}
+  #mates{padding-top:44px !important;padding-bottom:44px !important}
+  #mates>div:first-of-type{margin-bottom:18px !important}
+  #erp .erp-visual{zoom:.86}
+  #erp .erp-list li{padding-top:10px !important;padding-bottom:10px !important}
+  #erp .erp-note{display:none}
+  #erp{padding-top:24px !important;padding-bottom:24px !important}
+  #erp .erp-list li{gap:10px !important}
+  #erp .erp-guide{padding-top:12px !important;padding-bottom:12px !important;margin-bottom:12px !important}
+  #erp .erp-list{margin-top:8px !important}
+  #erp .lead{margin-bottom:14px !important}
+  #trust .trust-row .card{padding-top:18px !important;padding-bottom:18px !important}
+  #trust .trust-foot{display:none}
+  #trust .trust-row{zoom:.74}
   #faq .faq-list{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;align-items:start}
   #faq .faq-list>*{margin:0 !important}
+  #faq .rc{zoom:.78}
+  #faq .faq-item summary{padding-top:13px !important;padding-bottom:13px !important}
+  #family .af-count{padding-top:12px !important;padding-bottom:12px !important}
+  #family .af-perks{zoom:.88}
+  #contact .sec{display:grid !important;max-width:1040px !important;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);column-gap:56px;align-items:start;align-content:center}
+  #contact .sec>*{grid-column:1}
+  #contact .sec>div:first-child,#contact .sec>h2,#contact .sec>.lead{text-align:left !important}
+  #contact .sec>div[data-show]>*{grid-column:2;grid-row:1 / span 4}
+  #contact .form-box{gap:12px !important;padding:24px !important}
+}
+
+@media (max-width:720px){
+  #mates .mq-strip{display:none !important}
+  body #preview h2.h2,body #erp h2.h2,.dz-root #preview .h2,.dz-root #erp .h2{font-size:26px !important}
+  #erp .erp-visual{zoom:.66} #erp .erp-note{display:none}
+  #faq .rc{zoom:.66}
+  #faq .faq-item summary{padding-top:11px !important;padding-bottom:11px !important}
 }
 </style>
-<script id="fit-js">
-/* 모든 섹션을 한 화면 높이에 맞추기: 넘치면 내용을 살짝 줄이고, PC는 섹션 높이를 한 화면으로 통일 */
-(function(){
-  var SKIP={freetool:1};
-  function secs(){return Array.prototype.filter.call(document.querySelectorAll('body section[id]'),function(s){return !s.parentElement.closest('section')&&!SKIP[s.id];});}
-  function kids(s){return Array.prototype.filter.call(s.children,function(k){return !/^(STYLE|SCRIPT)$/.test(k.tagName);});}
-  function fit(){
-    var hd=document.querySelector('header'), H=(window.innerHeight||800)-(hd?hd.getBoundingClientRect().height:0);
-    var desk=window.innerWidth>720;
-    secs().forEach(function(s){
-      var ks=kids(s); ks.forEach(function(k){k.style.zoom=''; k.style.removeProperty('padding-top'); k.style.removeProperty('padding-bottom');});
-      s.style.minHeight=''; s.style.display=''; s.style.flexDirection=''; s.style.justifyContent='';
-      var avail=desk?H:H-12;
-      s.style.removeProperty('padding-top'); s.style.removeProperty('padding-bottom');
-      s.style.setProperty('min-height','0','important');
-      var nat=s.offsetHeight, z=1;
-      if(nat>avail){ s.style.setProperty('padding-top',desk?'40px':'20px','important'); s.style.setProperty('padding-bottom',desk?'40px':'20px','important'); ks.forEach(function(k){ if(k.classList.contains('sec')||k.classList.contains('wrap')){ k.style.setProperty('padding-top','8px','important'); k.style.setProperty('padding-bottom','8px','important'); } }); nat=s.offsetHeight; }
-      for(var i=0;i<4&&nat>avail;i++){ z=Math.max(desk?.6:.72, z*avail/nat*0.99); ks.forEach(function(k){k.style.zoom=z;}); nat=s.offsetHeight; if(z<=(desk?.6:.72)) break; }
-      s.style.removeProperty('min-height');
-      if(desk){ s.style.setProperty('min-height',H+'px','important'); s.style.display='flex'; s.style.flexDirection='column'; s.style.justifyContent='center'; }
-    });
-  }
-  var t; function later(){clearTimeout(t);t=setTimeout(fit,120);}
-  window.addEventListener('resize',later); window.addEventListener('load',later);
-  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(later);
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',later); else later();
-  window.alajoomFit=fit;
-})();
-</script>
 </body>
 </html>
