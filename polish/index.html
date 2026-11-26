@@ -2,7 +2,7 @@
 <html lang="ko"><head><script>if(location.hostname==='www.alajoom.com')location.replace('https://alajoom.com'+location.pathname+location.search+location.hash)</script><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>글 다듬기 (무료) · 사장님 이메일·안내 문자 깔끔하게</title>
-<meta name="description" content="대충 쓴 이메일·안내 문자·사과 글을 붙여넣으면 보내기 좋게 깔끔하게 다듬어 드려요. 거래처 메일, 휴무 안내, 예약 변경까지. 가입 없이 무료.">
+<meta name="description" content="대충 쓰거나 말로 한 이메일·안내 문자·사과 글을 보내기 좋게 깔끔하게 다듬어 드려요. 거래처 메일, 휴무 안내, 예약 변경까지. 가입 없이 무료.">
 <link rel="canonical" href="https://alajoom.com/polish/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="글 다듬기 — 무료">
@@ -56,12 +56,18 @@ select,input{width:100%;border:1.5px solid #E6DCC2;border-radius:12px;padding:11
 @keyframes s{to{transform:rotate(360deg)}}
 footer{color:#6A6F7C;font-size:13px;text-align:center;padding:20px}
 footer a{color:#6A6F7C}
+.txh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 6px}
+.txh label{margin:0}
+.mic{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;background:#14161F;color:#fff;font:inherit;font-size:14.5px;font-weight:800;padding:9px 16px;cursor:pointer}
+.mic[aria-pressed=true]{background:#D93025;animation:mp 1.2s ease-in-out infinite}
+@keyframes mp{50%{box-shadow:0 0 0 8px rgba(217,48,37,.18)}}
+.mhint{margin:0 0 8px;font-size:13.5px;font-weight:700;color:#B04A00}
 </style></head>
 <body>
 <header><div class="in"><a class="logo" href="/?utm_source=polish_tool"><img src="/assets/icon-192.png" alt="">알아줌</a><span class="tag">무료 · 가입 없음</span></div></header>
 <main>
 <h1>대충 쓴 글, 보내기 좋게</h1>
-<p class="lead">거래처 메일, 손님 안내 문자, 사과 글을 대충 적어 붙여넣으면 깔끔하게 다듬어 드려요. 날짜·금액 같은 사실은 그대로 지켜요.</p>
+<p class="lead">거래처 메일, 손님 안내 문자, 사과 글을 대충 적거나 <b>말로 하면</b> 깔끔하게 다듬어 드려요. 날짜·금액 같은 사실은 그대로 지켜요.</p>
 
 <div class="card">
   <label>어떤 글이에요?</label>
@@ -72,7 +78,8 @@ footer a{color:#6A6F7C}
     <button type="button" data-k="ask" aria-pressed="false">부탁·문의</button>
     <button type="button" data-k="post" aria-pressed="false">가게 공지</button>
   </div>
-  <label for="tx" style="margin-top:14px">다듬을 글</label>
+  <div class="txh"><label for="tx">다듬을 글</label><button type="button" class="mic" id="mic" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span>말로 쓰기</span></button></div>
+  <p class="mhint" id="mhint" hidden></p>
   <textarea id="tx" maxlength="1500" placeholder="예) 담주 화욜 개인사정으로 쉽니다 예약하신분들 수욜로 바꿔드릴께요 연락주세요"></textarea>
   <button class="ex" type="button" id="ex">거래처 메일 예시 넣어 보기</button>
   <div class="row">
@@ -119,8 +126,25 @@ footer a{color:#6A6F7C}
   $('ex').onclick=function(){$('tx').value='사장님 다음주 납품 수요일 말고 목요일로 미뤄도 되나요 저희 쪽 일정이 꼬여서요 수량은 그대로 50개고 단가도 같아요';document.querySelector('#kinds [data-k=email]').click();$('tx').focus()};
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function showErr(m){var e=$('err');e.textContent=m;e.style.display='block'}
+
+  /* 말로 쓰기: 말하면 받아 적어요 (브라우저 음성 인식) */
+  (function(){
+    var SR=window.SpeechRecognition||window.webkitSpeechRecognition, mic=$('mic'), hint=$('mhint'), rec=null, on=false, base='';
+    function say(t){hint.textContent=t;hint.hidden=!t}
+    function stop(){on=false;mic.setAttribute('aria-pressed','false');mic.querySelector('span').textContent='말로 쓰기';try{rec&&rec.stop()}catch(e){}}
+    mic.onclick=function(){
+      if(!SR){say('이 브라우저는 말로 쓰기를 못 해요. 휴대폰 키보드의 마이크 버튼을 눌러 말해 주세요.');$('tx').focus();return}
+      if(on){stop();return}
+      rec=new SR(); rec.lang='ko-KR'; rec.interimResults=true; rec.continuous=true;
+      base=$('tx').value.trim(); if(base) base+=' ';
+      rec.onresult=function(e){var fin='',tmp='';for(var i=0;i<e.results.length;i++){var r=e.results[i];if(r.isFinal)fin+=r[0].transcript;else tmp+=r[0].transcript}$('tx').value=base+fin+tmp};
+      rec.onerror=function(e){say(e.error==='not-allowed'||e.error==='service-not-allowed'?'마이크 사용을 허용해 주세요.':'잘 안 들렸어요. 다시 눌러 말해 주세요.');stop()};
+      rec.onend=function(){if(on){stop();if($('tx').value.trim().length>=5)say('다 말하셨으면 아래 [글 다듬기]를 눌러 주세요.')}};
+      try{rec.start();on=true;mic.setAttribute('aria-pressed','true');mic.querySelector('span').textContent='듣고 있어요 · 멈추기';say('편하게 말해 주세요. 다 하시면 멈추기를 눌러요.')}catch(e){say('마이크를 켤 수 없어요. 잠시 뒤 다시 눌러 주세요.')}
+    };
+  })();
   $('go').onclick=async function(){
-    var text=$('tx').value.trim(); $('err').style.display='none';
+    var text=$('tx').value.trim(); $('err').style.display='none'; $('mhint').hidden=true;
     if(text.length<5){showErr('다듬을 글을 붙여 넣어 주세요.');$('tx').focus();return}
     var btn=this; btn.disabled=true; btn.innerHTML='<span class="spin"></span>다듬는 중…';
     try{
