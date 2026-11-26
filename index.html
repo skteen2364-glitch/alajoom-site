@@ -760,6 +760,8 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 <!-- 이용 방법 -->
 <section id="how" style="background: #FBF7EE">
 <div class="wrap sec" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px">
+<div class="how-vid"><div class="how-ph"><video src="assets/alajoom-reels.mp4?v=1120d" poster="assets/alajoom-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="알아줌 사용 영상 23초"></video></div><span class="how-vcap">23초 영상</span></div>
+<div class="how-main">
 <p class="eyebrow" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 6px 14px; border-radius: 999px; background: #E6ECF5; font-size: 14px; font-weight: 700; color: #2E4877"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3B5B92"></span>이렇게 일해요</p>
 <h2 class="hx h2" style="margin: 0 0 40px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="말하고, 확인하면 끝"><span aria-hidden="true"><span class="hx-a" style="--s:0">말하고, 확인하면</span> <span class="hx-k"><i style="--i:0">끝</i></span></span></h2>
 <div class="dz-steps" style="display: flex; flex-wrap: wrap; gap: 40px">
@@ -785,6 +787,8 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 <div class="dz-v dz-v3" aria-hidden="true"><span class="dz-btn">확인</span><span class="dz-done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>게시 완료</span></div>
 </div>
 </div>
+</div>
+<button type="button" class="how-play" aria-label="23초 사용 영상 보기"><span aria-hidden="true">▶</span> 23초 영상으로 보기</button>
 </div>
 </section>
 <!-- 알아줌만의 무기: 매주 인기 글 분석 (2026-11-26) -->
@@ -1063,30 +1067,7 @@ html{scroll-snap-type:y mandatory;scroll-padding-top:72px}
 </div>
 </section>
 <!-- 알아줌 영상 -->
-<section id="video" style="background: #EEF2F8; color: #14161F; position: relative; overflow: hidden">
-<div aria-hidden="true" style="position: absolute; left: 8%; top: 18%; width: 420px; height: 420px; border-radius: 50%; background: #3B5B92; opacity: 0.12; filter: blur(110px)"></div>
-<div class="wrap sec" style="position: relative; max-width: 1100px; margin: 0 auto; padding: 96px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
-<div style="flex: 0 1 340px; min-width: 0; margin: 0 auto">
-<div style="position: relative; margin-bottom: 64px; width: 100%; max-width: 320px; margin: 0 auto; padding: 10px; border-radius: 42px; background: #05060A; border: 1px solid #2E3242; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55)">
-<video src="assets/alajoom-reels.mp4?v=1120d" poster="assets/alajoom-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="알아줌 소개 영상" style="display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 30px; background: #05060A; object-fit: cover"></video><button type="button" class="vsound" onclick="var v=this.parentNode.querySelector('video');v.muted=false;v.currentTime=0;v.play();this.remove()" style="position:absolute;left:50%;bottom:-60px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 18px;border:1px solid #2E3242;border-radius:999px;background:#14161F;color:#fff;font:inherit;font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>소리 켜고 보기</button>
-</div>
-</div>
-<div style="flex: 1 1 420px; min-width: 0">
-<p style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 16px; padding: 5px 12px; border-radius: 999px; border: 1px solid #D9CFB8; font-size: 13px; font-weight: 700; color: #3B5B92">23초 영상으로 보기</p>
-<h2 class="hx h2" style="margin: 0 0 14px; font-size: 40px; line-height: 1.3; font-weight: 900; letter-spacing: -1px" aria-label="퇴근 후 홍보글, 이제 말 한마디로 끝"><span aria-hidden="true"><span class="hx-a" style="--s:0">퇴근 후 홍보글,</span><br><span class="hx-a" style="--s:1">이제</span> <span class="hx-k" style="color:#3B5B92"><i style="--i:0">말</i><i class="sp"> </i><i style="--i:2">한</i><i style="--i:3">마</i><i style="--i:4">디</i></span><span class="hx-a" style="--s:2">로 끝</span></span></h2>
-<p class="lead" style="margin: 0 0 24px; font-size: 17px; color: #5B6070">사장님이 말하면 알아줌이 할 일을 정리하고, 확인 버튼 하나로 게시와 발송까지 마쳐요.</p>
-<ul style="list-style: none; margin: 0 0 32px; padding: 0">
-<li style="display: flex; gap: 14px; padding: 16px 0; border-top: 1px solid #EADFC8"><span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #FFE45C; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 17px; color: #14161F; margin-bottom: 2px">말로 시키기</b><span style="font-size: 15px; color: #5B6070">"인스타에 올리고 단골한테 문자 보내줘"</span></span></li>
-<li style="display: flex; gap: 14px; padding: 16px 0; border-top: 1px solid #EADFC8"><span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #FFE45C; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 17px; color: #14161F; margin-bottom: 2px">알아줌이 정리</b><span style="font-size: 15px; color: #5B6070">홍보글·이미지는 바로, 게시·발송은 확인 대기</span></span></li>
-<li style="display: flex; gap: 14px; padding: 16px 0; border-top: 1px solid #EADFC8"><span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #FFE45C; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><span><b style="display: block; font-size: 17px; color: #14161F; margin-bottom: 2px">확인 누르면 끝</b><span style="font-size: 15px; color: #5B6070">카톡 답장, 예약·매출 정리도 같은 방식으로</span></span></li>
-</ul>
-<div class="cta-row" style="display: flex; flex-wrap: wrap; gap: 12px">
 
-<a href="#contact" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 14px; border: 1px solid #D9CFB8; color: #14161F; font-size: 17px; font-weight: 700; text-decoration: none">음성 비서 출시 알림</a>
-</div>
-</div>
-</div>
-</section>
 
 
 
@@ -2101,6 +2082,27 @@ post('family_top',{p_n:5}).then(function(l){if(!Array.isArray(l)||!l.length)retu
 </script>
 
 <style id="fit-css">
+/* how + 영상 합침 (2026-11-27) */
+#how .how-vid{display:none}
+#how .how-ph{padding:8px;border-radius:34px;background:#05060A;box-shadow:0 20px 50px rgba(20,22,31,.25)}
+#how .how-ph video{display:block;width:100%;aspect-ratio:9/16;border-radius:26px;background:#05060A;object-fit:cover}
+#how .how-vcap{display:block;margin-top:10px;text-align:center;font-size:13px;font-weight:700;color:#3B5B92}
+#how .how-play{display:none}
+@media (min-width:900px){
+  #how>.sec{display:grid !important;grid-template-columns:240px minmax(0,1fr);column-gap:48px;align-items:center}
+  #how .how-vid{display:block}
+  #how .dz-steps{flex-wrap:nowrap !important;gap:20px !important}
+  #how .dz-steps .card{flex:1 1 0 !important;padding:22px !important}
+  #how .dz-steps .card>span:first-child{right:18px !important;top:18px !important}
+}
+@media (max-width:899px){
+  #how .how-play{display:inline-flex;align-items:center;gap:8px;margin:14px 0 0;padding:10px 16px;border-radius:999px;border:1px solid #D9CFB8;background:#fff;font:inherit;font-size:14px;font-weight:800;color:#14161F;cursor:pointer}
+  #how .how-play span{color:#3B5B92;font-size:12px}
+  #how.vid-open .how-vid{display:flex;position:fixed;inset:0;z-index:2000;background:rgba(10,12,20,.9);align-items:center;justify-content:center;flex-direction:column}
+  #how.vid-open .how-ph{width:min(300px,72vw)}
+  #how.vid-open .how-vcap{color:#fff;font-size:15px;cursor:pointer}
+}
+
 /* 화면 정리 (2026-11-26 밤): 모든 섹션 제목 같은 크기, 같은 위아래 여백, PC 한 화면에 들어오게 내용 정리 */
 body section[id]:not(#top) h2{font-family:'Noto Sans KR',sans-serif !important;font-weight:900 !important;font-size:40px !important;line-height:1.25 !important;letter-spacing:-1px !important}
 @media (max-width:720px){ body section[id]:not(#top) h2{font-size:26px !important;letter-spacing:-.6px !important} #weekly h2{min-height:2.5em} }
@@ -2172,5 +2174,10 @@ body section[id]:not(#top) h2{font-family:'Noto Sans KR',sans-serif !important;f
   #freetool a{flex-wrap:nowrap !important} #freetool a>span:nth-child(2){min-width:0 !important} #freetool a b{font-size:15.5px !important;word-break:keep-all} #freetool a>span:last-child{padding:9px 12px !important;font-size:14px !important}
 }
 </style>
+<script>(function(){var h=document.getElementById('how');if(!h)return;var v=h.querySelector('video'),c=h.querySelector('.how-vcap');
+function close(){h.classList.remove('vid-open');if(c)c.textContent='23초 영상';}
+h.querySelector('.how-play').addEventListener('click',function(){h.classList.add('vid-open');if(c)c.textContent='닫기 ✕';try{v.currentTime=0;v.play();}catch(e){}});
+h.querySelector('.how-vid').addEventListener('click',function(e){if(h.classList.contains('vid-open')&&e.target.tagName!=='VIDEO')close();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});})();</script>
 </body>
 </html>
