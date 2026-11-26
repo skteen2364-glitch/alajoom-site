@@ -2099,5 +2099,44 @@ post('family_top',{p_n:5}).then(function(l){if(!Array.isArray(l)||!l.length)retu
   });
 })();
 </script>
+
+<style id="fit-css">
+/* 화면 맞춤 (2026-11-26): PC에서 업종 카드는 한 줄 가로 넘기기, 질문은 두 줄 */
+@media (min-width:721px){
+  #mates .mate-grid{display:flex !important;flex-wrap:nowrap !important;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px}
+  #mates .mate-card{flex:0 0 calc((100% - 48px) / 5) !important;scroll-snap-align:start}
+  #faq .faq-list{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;align-items:start}
+  #faq .faq-list>*{margin:0 !important}
+}
+</style>
+<script id="fit-js">
+/* 모든 섹션을 한 화면 높이에 맞추기: 넘치면 내용을 살짝 줄이고, PC는 섹션 높이를 한 화면으로 통일 */
+(function(){
+  var SKIP={freetool:1};
+  function secs(){return Array.prototype.filter.call(document.querySelectorAll('body section[id]'),function(s){return !s.parentElement.closest('section')&&!SKIP[s.id];});}
+  function kids(s){return Array.prototype.filter.call(s.children,function(k){return !/^(STYLE|SCRIPT)$/.test(k.tagName);});}
+  function fit(){
+    var hd=document.querySelector('header'), H=(window.innerHeight||800)-(hd?hd.getBoundingClientRect().height:0);
+    var desk=window.innerWidth>720;
+    secs().forEach(function(s){
+      var ks=kids(s); ks.forEach(function(k){k.style.zoom=''; k.style.removeProperty('padding-top'); k.style.removeProperty('padding-bottom');});
+      s.style.minHeight=''; s.style.display=''; s.style.flexDirection=''; s.style.justifyContent='';
+      var avail=desk?H:H-12;
+      s.style.removeProperty('padding-top'); s.style.removeProperty('padding-bottom');
+      s.style.setProperty('min-height','0','important');
+      var nat=s.offsetHeight, z=1;
+      if(nat>avail){ s.style.setProperty('padding-top',desk?'40px':'20px','important'); s.style.setProperty('padding-bottom',desk?'40px':'20px','important'); ks.forEach(function(k){ if(k.classList.contains('sec')||k.classList.contains('wrap')){ k.style.setProperty('padding-top','8px','important'); k.style.setProperty('padding-bottom','8px','important'); } }); nat=s.offsetHeight; }
+      for(var i=0;i<4&&nat>avail;i++){ z=Math.max(desk?.6:.72, z*avail/nat*0.99); ks.forEach(function(k){k.style.zoom=z;}); nat=s.offsetHeight; if(z<=(desk?.6:.72)) break; }
+      s.style.removeProperty('min-height');
+      if(desk){ s.style.setProperty('min-height',H+'px','important'); s.style.display='flex'; s.style.flexDirection='column'; s.style.justifyContent='center'; }
+    });
+  }
+  var t; function later(){clearTimeout(t);t=setTimeout(fit,120);}
+  window.addEventListener('resize',later); window.addEventListener('load',later);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(later);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',later); else later();
+  window.alajoomFit=fit;
+})();
+</script>
 </body>
 </html>
