@@ -1,0 +1,37 @@
+import json, time, os, glob
+exec(open('/tmp/rf/explore3.py').read().split('calls=[]')[0])
+OUT='/tmp/rf/v3'; os.makedirs(OUT,exist_ok=True)
+
+HIDE="#quota,section.fam,.fam{display:none !important} ::-webkit-scrollbar{display:none}"
+def routes(pg):
+    pg.route('**/fonts.g*/**',lambda r:r.abort())
+    pg.route('**/auth/v1/**', lambda r: r.fulfill(status=200, content_type='application/json', body=json.dumps(sess['user'])))
+    pg.route('**/rest/v1/**', lambda r: r.fulfill(status=200, content_type='application/json', body='[]'))
+    def gen(r):
+        time.sleep(1.2)
+        r.fulfill(status=200, content_type='application/json', headers={'access-control-allow-origin':'*'}, body=json.dumps({"text":R["insta"],"results":R,"strategy":{},"reviewed":[]}))
+    pg.route('**/functions/v1/**', gen)
+with sync_playwright() as p:
+    b=p.chromium.launch(executable_path='/usr/bin/google-chrome')
+    c=b.new_context(viewport={'width':780,'height':1688},device_scale_factor=1,record_video_dir=OUT,record_video_size={'width':780,'height':1688})
+    c.add_init_script("localStorage.setItem('sb-zuxbloxstkcixqpzqalk-auth-token',%s);sessionStorage.setItem('al_ob_later','1');localStorage.setItem('pm_푸드메이트_studio',JSON.stringify({name:'골목밥상',area:'연남동',cls:'한식',feat:'아침 7시부터 해장국'}));document.addEventListener('DOMContentLoaded',function(){document.documentElement.style.zoom=2;var s=document.createElement('style');s.textContent=%s;document.head.appendChild(s);});" % (json.dumps(json.dumps(sess)), json.dumps(HIDE)))
+    pg=c.new_page(); routes(pg)
+    t0=time.time()
+    pg.goto('http://localhost:8765/food/'); pg.wait_for_timeout(2600)
+    sv=lambda sel,blk='center': pg.evaluate("(function(){var e=[...document.querySelectorAll(%s)].find(x=>x.offsetParent);if(e)e.scrollIntoView({behavior:'smooth',block:'%s'})})()"%(json.dumps(sel),blk))
+    pg.click('.tab[data-view="promo"]'); pg.wait_for_timeout(1400)
+    pg.evaluate("[...document.querySelectorAll('[data-tool=set]')].find(e=>e.offsetParent).click()"); pg.wait_for_timeout(1200)
+    sv('#drop'); pg.wait_for_timeout(900)
+    pg.set_input_files('#phFile','/home/claude/alajoom-site/assets/haejang-before.jpg'); pg.wait_for_timeout(1500)
+    sv('#phImg'); pg.wait_for_timeout(2200)
+    sv('#detail'); pg.wait_for_timeout(900)
+    pg.click('#detail'); pg.keyboard.type('얼큰 해장국 9,000원, 아침 7시부터', delay=80); pg.wait_for_timeout(600)
+    pg.click('#go'); pg.wait_for_timeout(2800)
+    sv('#result','start'); pg.wait_for_timeout(2200)
+    pg.mouse.wheel(0,700); pg.wait_for_timeout(2000)
+    pg.mouse.wheel(0,500); pg.wait_for_timeout(1800)
+    pg.evaluate("window.scrollTo({top:0})"); pg.wait_for_timeout(500)
+    pg.evaluate("document.querySelector('.tab[data-view=ledger]').click()"); pg.wait_for_timeout(2800)
+    pg.click('.tab[data-view="home"]'); pg.wait_for_timeout(2200)
+    print('dur',time.time()-t0)
+    vp=pg.video.path(); pg.close(); c.close(); b.close(); print(vp)
