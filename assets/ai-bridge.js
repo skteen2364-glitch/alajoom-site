@@ -145,7 +145,7 @@
       if (r.error) throw r.error; return r.data;
     },
     guestAgent: async function (p) {
-      var body = { guest: true, mate: MATE, mode: 'agent', topic: p.topic, channels: (p.channels || []).slice(0, 3), detail: p.detail, store: p.store, tool: 'set', trend: !!p.trend };
+      var body = { guest: true, mate: MATE, mode: 'agent', topic: p.topic, channels: (p.channels || []).slice(0, 3), detail: p.detail, store: p.store, tool: 'set', trend: p.trend !== false };
       if (p.image) { try { body.image = await b64(p.image); } catch (e) {} }
       var r = await fetch(URL_ + '/functions/v1/generate', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY }, body: JSON.stringify(body) });
       var d = {}; try { d = await r.json(); } catch (e) {}
@@ -153,7 +153,7 @@
       trendNote(d); return d;
     },
     agent: async function (p) {
-      var body = { mode: 'agent', topic: p.topic, channels: p.channels, detail: p.detail, store: p.store, tool: 'set', trend: !!p.trend };
+      var body = { mode: 'agent', topic: p.topic, channels: p.channels, detail: p.detail, store: p.store, tool: 'set', trend: p.trend !== false };
       if (p.image) body.image = await b64(p.image);
       var d = await raw(body); trendNote(d); return d;
     },
