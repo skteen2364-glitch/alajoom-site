@@ -10,7 +10,7 @@
 <meta property="og:description" content="특가 종이, 단골 카톡, 장사 기록, 세금 미리보기. 큰 글씨로 쉽게, 무료.">
 <meta property="og:image" content="https://alajoom.com/assets/og-alajoom.jpg?v=1127">
 <meta name="theme-color" content="#FFD84D">
-<link rel="icon" href="/assets/icon-192.png">
+<link rel="icon" href="/assets/icon-192.png"><link rel="manifest" href="/market/app.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><meta name="apple-mobile-web-app-title" content="알아줌 시장"><meta name="apple-mobile-web-app-capable" content="yes">
 <style>
 :root{--ink:#14161F;--paper:#FFF8E7;--sun:#FFD84D;--red:#D62D2D;--blue:#2F55A4;--fs:22px}
 *{box-sizing:border-box;margin:0}
@@ -51,6 +51,7 @@ h2{font-size:1.4rem;font-weight:900;margin:4px 0 6px}
 .inrow{display:flex;gap:10px;align-items:stretch}
 textarea,input[type=text],input[type=tel]{width:100%;border:3px solid var(--ink);border-radius:16px;padding:14px;background:#fff;font-size:1.05rem;font-weight:700}
 textarea{min-height:5.2rem;resize:vertical}
+.hometip{margin-top:1.4rem;padding:1.1rem 1.2rem;border-radius:20px;background:#14161F;color:#FBF7EE}.hometip b{display:block;font-size:1.25rem;font-weight:900;color:#FFD84D}.hometip p{font-size:1.05rem;color:#DADDE5;margin:.35rem 0 .8rem;font-weight:600;line-height:1.45}.hometip button{width:100%;min-height:3.4rem;border:0;border-radius:14px;background:#FFD84D;color:#14161F;font:inherit;font-size:1.2rem;font-weight:900}
 .smic{flex:none;width:4.2rem;border-radius:16px;background:var(--sun);border:3px solid var(--ink);display:flex;align-items:center;justify-content:center}
 .smic svg{width:55%;height:55%}
 .smic.on{background:var(--red)}.smic.on svg{stroke:#fff}
@@ -149,7 +150,8 @@ textarea{min-height:5.2rem;resize:vertical}
 <button class="big" data-go="book"><i>📒</i><b>오늘 장사<br>기록</b><small>판 돈 · 쓴 돈</small></button>
 <a class="big" href="/tax/?utm_source=market" style="text-decoration:none;color:inherit"><i>🧾</i><b>세금<br>미리보기</b><small>올해 세금 대략</small></a>
 </div>
-<p class="note" id="homeEx">예) "고등어 세 마리 만 원" · "오늘 삼십만 원 팔았어" · "내일 하루 쉬어요"</p>
+<p class="note" id="homeEx">예) "통영 굴 들어왔어요, 오늘만 10% 할인" · "오늘 삼십만 원 팔았어" · "내일 하루 쉬어요"</p>
+<div class="hometip" id="homeTip"><b>📲 다음부터 바로 열려면</b><p id="homeTx">홈 화면에 추가해 두세요. 다음부터는 아이콘만 누르면 알아줌 시장이 바로 열려요.</p><button id="homeAdd">홈 화면에 추가</button></div>
 </section>
 
 <!-- 특가 -->
@@ -260,7 +262,7 @@ function parseWon(s){
 function won(n){return n.toLocaleString('ko-KR')+'원'}
 // 가게 종류
 var K={
- fish:{n:'수산',e:'🐟',ex:['고등어 세 마리 만 원','갈치 두 마리 이만 원','생오징어 다섯 마리 만 원'],tag:'오늘 새벽 경매',body:'오늘 새벽에 들어온 물건이라 싱싱해요.\n손질도 해 드려요.',nw:'예) 제철 대방어 들어왔어요'},
+ fish:{n:'수산',e:'🐟',ex:['통영 굴 들어왔어요, 오늘만 10% 할인','고등어 세 마리 만 원','갈치 두 마리 이만 원'],tag:'오늘 새벽 경매',body:'오늘 새벽에 들어온 물건이라 싱싱해요.\n손질도 해 드려요.',nw:'예) 제철 대방어 들어왔어요'},
  meat:{n:'정육',e:'🥩',ex:['삼겹살 한 근 만이천 원','국거리 소고기 한 근 이만 원','닭 두 마리 만 원'],tag:'오늘 들어온 고기',body:'오늘 들어온 고기라 신선해요.\n원하시는 대로 썰어 드려요.',nw:'예) 한우 국거리 좋은 걸로 들어왔어요'},
  fruit:{n:'청과·채소',e:'🍎',ex:['사과 한 봉지 오천 원','귤 한 박스 만오천 원','딸기 두 팩 만 원'],tag:'산지에서 바로',body:'산지에서 바로 온 물건이에요.\n맛보고 사셔도 돼요.',nw:'예) 햇딸기 들어왔어요'},
  side:{n:'반찬',e:'🍱',ex:['반찬 세 가지 만 원','김치 한 통 만오천 원','나물 세 팩 오천 원'],tag:'오늘 아침 만든',body:'오늘 아침에 만든 반찬이에요.\n집밥처럼 정성껏 만들었어요.',nw:'예) 동치미 새로 담갔어요'},
@@ -351,6 +353,14 @@ function undo(r){var e=$('toast');e.innerHTML='지웠어요 · <u style="cursor:
 // 주소로 바로 열기 (#deal 등)
 function resume(){var p=ls('mk_pending');if(!p)return;try{p=JSON.parse(p)}catch(e){return}if(!window.alajoomAI)return;window.alajoomAI.loggedIn().then(function(ok){if(!ok){ls('mk_pending',null);return}if(p.w==='deal'){lastDeal=p.body;show('deal');$('dealIn').value=p.body;makeDeal()}else{lastMsg={kind:p.kind,body:p.body};show('msg');$('msgOut').style.display='block';$('msgTxt').textContent=p.body}setTimeout(function(){upPanel(p.w);toast('로그인됐어요. 올리기를 눌러 주세요')},300)})}
 function fromHash(){var h=location.hash.slice(1);if(/^(deal|msg|book)$/.test(h))show(h)}applyKind();if(!kind0&&!ls('mk_seen')&&!location.hash)show('kind');else fromHash();window.addEventListener('hashchange',fromHash);setTimeout(resume,400);
+})();
+
+// 홈 화면에 추가
+(function(){var dp=null,tip=document.getElementById('homeTip');if(!tip)return;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e});
+if((window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone)tip.style.display='none';
+var ios=/iPhone|iPad|iPod/.test(navigator.userAgent);
+document.getElementById('homeAdd').onclick=function(){if(dp){dp.prompt();dp=null;return}document.getElementById('homeTx').textContent=ios?'사파리 아래 공유 버튼(네모에 화살표)을 누르고 "홈 화면에 추가"를 눌러 주세요.':'크롬 오른쪽 위 점 세 개 → "홈 화면에 추가" 또는 "설치"를 눌러 주세요.'};
 })();
 </script>
 </body>
