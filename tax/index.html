@@ -71,7 +71,7 @@ footer a{color:#6A6F7C}
 .f{margin-top:14px}
 .f label{display:flex;justify-content:space-between;align-items:baseline}
 .f label small{font-weight:600;color:#8A8F9C;font-size:12.5px}
-.won{position:relative}.won input{padding-right:46px;font-size:17px;font-weight:700}.won span{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#6A6F7C;font-weight:700}
+.hint{margin:6px 2px 0;font-size:13px;color:#3B5B92;font-weight:700;min-height:0}.hint.warn{color:#B3261E}.ded{margin:6px 0 14px;border:1.5px dashed #E6DCC2;border-radius:14px;padding:12px 14px;background:#FFFDF6}.ded summary{font-weight:800;cursor:pointer;font-size:15px}.ded summary small{display:block;font-weight:600;color:#6A6F7C;font-size:12.5px;margin-top:2px}.ded .f:first-of-type{margin-top:12px}.warnbox{margin:0 0 14px;padding:14px 16px;border-radius:14px;background:#FFF1D6;border:1.5px solid #F2C14E;font-size:14.5px;line-height:1.55}.warnbox b{display:block;font-size:15.5px;margin-bottom:2px}.won{position:relative}.won input{padding-right:46px;font-size:17px;font-weight:700}.won span{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#6A6F7C;font-weight:700}
 .imp{display:none;margin-top:12px;width:100%;border:1.5px dashed #D9A900;background:#FFF6D6;border-radius:12px;padding:11px;font:inherit;font-size:14.5px;font-weight:800;color:#14161F;cursor:pointer}
 #res{margin-top:20px}
 .big{background:#14161F;color:#fff;border-radius:20px;padding:20px}
@@ -106,7 +106,7 @@ footer a{color:#6A6F7C}
   <div class="seg" id="kind">
     <button type="button" data-v="gen" aria-pressed="true">일반과세<small>보통 여기</small></button>
     <button type="button" data-v="simple" aria-pressed="false">간이과세<small>연 매출 1억 4백만 원 미만</small></button>
-    <button type="button" data-v="free" aria-pressed="false">면세<small>학원 등</small></button>
+    <button type="button" data-v="free" aria-pressed="false">면세<small>생선·채소·과일 그대로 파는 가게, 학원</small></button>
   </div>
   <div class="f" id="bizBox" hidden>
     <label>업종 <small>간이과세 세금 계산에 써요</small></label>
@@ -117,11 +117,17 @@ footer a{color:#6A6F7C}
     </div>
   </div>
   <button type="button" class="imp" id="imp"></button>
-  <div class="f"><label for="sale">한 달 평균 매출 <small>카드+현금, 부가세 포함</small></label><div class="won"><input id="sale" type="text" inputmode="numeric" placeholder="예) 800"><span>만 원</span></div></div>
+  <div class="f"><label for="sale">한 달 평균 매출 <small>카드+현금, 부가세 포함</small></label><div class="won"><input id="sale" type="text" inputmode="numeric" placeholder="예) 800"><span>만 원</span></div><p class="hint" id="saleH"></p></div>
   <div class="f"><label for="card">그중 카드·현금영수증 비율 <small>대부분 카드면 90</small></label><div class="won"><input id="card" type="text" inputmode="numeric" value="90"><span>%</span></div></div>
-  <div class="f"><label for="buy">한 달 재료·물품 구입 <small>세금계산서·카드로 산 것</small></label><div class="won"><input id="buy" type="text" inputmode="numeric" placeholder="예) 250"><span>만 원</span></div></div>
-  <div class="f"><label for="etc">한 달 그 밖의 경비 <small>월세·인건비·공과금 등</small></label><div class="won"><input id="etc" type="text" inputmode="numeric" placeholder="예) 200"><span>만 원</span></div></div>
-  <button class="go" id="go" type="button">세금 미리보기</button>
+  <div class="f"><label for="buy">한 달 재료·물품 구입 <small>세금계산서·카드로 산 것</small></label><div class="won"><input id="buy" type="text" inputmode="numeric" placeholder="예) 250"><span>만 원</span></div><p class="hint" id="buyH"></p></div>
+  <div class="f"><label for="etc">한 달 그 밖의 경비 <small>월세·인건비·공과금 등</small></label><div class="won"><input id="etc" type="text" inputmode="numeric" placeholder="예) 200"><span>만 원</span></div><p class="hint" id="etcH"></p></div>
+  <details class="ded"><summary>공제 더 넣기 <small>넣으면 세금이 줄어요 · 몰라도 괜찮아요</small></summary>
+  <div class="f"><label for="fam">함께 사는 부양가족 <small>나 빼고 · 배우자·자녀·부모님 (소득 없는 분)</small></label><div class="won"><input id="fam" type="text" inputmode="numeric" placeholder="예) 2"><span>명</span></div></div>
+  <div class="f"><label for="yu">노란우산공제 한 달 납입 <small>가입했으면</small></label><div class="won"><input id="yu" type="text" inputmode="numeric" placeholder="예) 25"><span>만 원</span></div></div>
+  <div class="f"><label for="np">국민연금 한 달 <small>내가 내는 돈</small></label><div class="won"><input id="np" type="text" inputmode="numeric" placeholder="예) 18"><span>만 원</span></div></div>
+  <div class="f"><label for="hi">건강보험 한 달 <small>지역가입자로 내는 돈</small></label><div class="won"><input id="hi" type="text" inputmode="numeric" placeholder="예) 15"><span>만 원</span></div></div>
+</details>
+<button class="go" id="go" type="button">세금 미리보기</button>
   <div class="err" id="err"></div>
 </div>
 
@@ -148,7 +154,10 @@ footer a{color:#6A6F7C}
   seg('kind',function(v){kind=v;$('bizBox').hidden=(v!=='simple')});
   seg('biz',function(v){rate=+v});
   function num(id){return Math.max(0,+String($(id).value).replace(/[^0-9.]/g,'')||0)}
-  ['sale','card','buy','etc'].forEach(function(id){$(id).addEventListener('input',function(){var v=$(id).value.replace(/[^0-9]/g,'');$(id).value=v?(+v).toLocaleString('ko-KR'):''})});
+  function fix(id){var v=$(id).value.replace(/[^0-9]/g,'');if(!v)return;var n=+v,big=(id==='sale'?20000:10000);
+    if(id!=='fam'&&id!=='card'&&n>big){n=Math.round(n/1e4);$(id).value=n.toLocaleString('ko-KR');var hh=$(id+'H');if(hh){hh.className='hint warn';hh.textContent='원 단위로 적으신 것 같아 만 원으로 바꿨어요 → '+won(n*1e4)}}}
+  function hint(id){var hh=$(id+'H');if(!hh)return;var n=num(id);hh.className='hint';hh.textContent=n?('= '+won(n*1e4)+' · 1년이면 '+won(n*1e4*12)):''}
+  ['sale','card','buy','etc','fam','yu','np','hi'].forEach(function(id){$(id).addEventListener('input',function(){var v=$(id).value.replace(/[^0-9]/g,'');$(id).value=v?(+v).toLocaleString('ko-KR'):'';hint(id)});$(id).addEventListener('blur',function(){fix(id);})});
   function won(n){n=Math.round(n/10000);if(n>=10000){var e=Math.floor(n/10000),m=n%10000;return e+'억'+(m?' '+m.toLocaleString('ko-KR')+'만':'')+' 원'}return n.toLocaleString('ko-KR')+'만 원'}
   // 2026년 종합소득세 기본세율 (과세표준 × 세율 − 누진공제)
   var BR=[[14e6,.06,0],[50e6,.15,126e4],[88e6,.24,576e4],[150e6,.35,1544e4],[300e6,.38,1994e4],[500e6,.40,2594e4],[1e9,.42,3594e4],[Infinity,.45,6594e4]];
@@ -161,6 +170,7 @@ footer a{color:#6A6F7C}
     return list}
   function calc(){
     $('err').style.display='none';
+    ['sale','buy','etc','yu','np','hi'].forEach(fix);
     var S=num('sale')*1e4*12, cp=Math.min(100,num('card'))/100, B=num('buy')*1e4*12, E=num('etc')*1e4*12;
     if(!S){$('err').textContent='한 달 평균 매출을 적어 주세요.';$('err').style.display='block';$('sale').focus();return}
     var cardCredit=Math.min(S*cp*0.013,1e7), vat=0, vatNote='', rev, exp;
@@ -171,15 +181,18 @@ footer a{color:#6A6F7C}
       if(S>=104e6)vatNote+=' · 연 매출이 1억 4백만 원을 넘으면 일반과세로 바뀔 수 있어요';
       rev=S-vat;exp=B+E}
     else{vat=0;vatNote='면세 사업자는 부가세가 없어요';rev=S;exp=B+E}
-    var inc=Math.max(0,rev-exp), base=Math.max(0,inc-15e5), it=itax(base), lt=it*0.1, income=it+lt, total=vat+income, keep=Math.max(0,S-B-E-total);
+    exp+=num('hi')*1e4*12;
+    var inc=Math.max(0,rev-exp), fam=Math.min(10,num('fam')), yuMax=inc<=4e7?6e6:(inc<=1e8?4e6:2e6), yu=Math.min(num('yu')*1e4*12,yuMax,inc), np=num('np')*1e4*12,
+      ded=15e5+fam*15e5+yu+np, base=Math.max(0,inc-ded), it=Math.max(0,itax(base)-7e4), lt=it*0.1, income=it+lt, total=vat+income, keep=Math.max(0,S-B-E-total);
     var max=Math.max(S,1), col={'매출':'#3B5B92','경비':'#C9CDD8','세금':'#D93025','남는 돈':'#1E8E3E'};
     var bars=[['매출',S],['경비',B+E],['세금',total],['남는 돈',keep]].map(function(r){return '<div class="bar"><span>'+r[0]+'</span><i style="width:'+Math.max(1,r[1]/max*100)+'%;background:'+col[r[0]]+'"></i><span>'+won(r[1])+'</span></div>'}).join('');
     var dates=nextDates().map(function(d,i){return '<li'+(i===0?' class="next"':'')+'><b>'+(d[0].getMonth()===4?'5월 말까지':(d[0].getMonth()+1)+'월 '+d[0].getDate()+'일까지')+'</b>'+d[1]+(i===0?' · 다음 신고':'')+'</li>'}).join('');
-    $('res').innerHTML='<div class="big"><small>올해 세금, 대략</small><b>약 '+won(total)+'</b><p>한 달에 <strong style="color:#FFD84D">약 '+won(total/12)+'</strong>씩 따로 모아 두면 편해요</p></div>'+
+    var noExp=(B+E===0);
+    $('res').innerHTML=(noExp?'<div class="warnbox"><b>경비를 0원으로 계산했어요</b>재료·물건 사는 돈, 월세, 인건비를 넣으면 세금이 크게 줄어요. 장부가 없으면 실제 신고 때는 업종별 경비율로 계산돼서 이 숫자보다 훨씬 적게 나와요.</div>':'')+'<div class="big"><small>올해 세금, 대략</small><b>약 '+won(total)+'</b><p>한 달에 <strong style="color:#FFD84D">약 '+won(total/12)+'</strong>씩 따로 모아 두면 편해요</p></div>'+
       '<div class="two"><div><small>부가세 (1년)</small><b>약 '+won(vat)+'</b><em>'+vatNote+'</em></div><div><small>종합소득세 + 지방소득세</small><b>약 '+won(income)+'</b><em>5월에 내요 · 소득 약 '+won(inc)+'</em></div></div>'+
       '<div class="bars"><h3>1년으로 보면</h3>'+bars+'</div>'+
       '<div class="cal"><h3>신고 날짜</h3><ul style="margin:0;padding-left:18px">'+dates+'</ul></div>'+
-      '<p class="note">2026년 세율 기준의 대략적인 예상이에요. 본인 기본공제와 카드 매출 세액공제(1.3%)만 넣었고, 다른 공제·감면이나 다른 소득은 넣지 않았어요. 실제 신고 전에는 홈택스나 세무사와 꼭 확인해 주세요.</p>'+
+      '<p class="note">2026년 세율 기준의 대략적인 예상이에요. 본인·부양가족 기본공제, 노란우산공제, 국민연금, 건강보험, 표준세액공제(7만 원), 카드 매출 세액공제(1.3%)를 넣었어요. 그 밖의 공제·감면이나 다른 소득은 넣지 않았어요. 실제 신고 전에는 홈택스나 세무사와 꼭 확인해 주세요.</p>'+
       '<div class="more"><p>매출·매입은 알아줌 장부에 적어 두면 매달 저절로 쌓여요.</p><a href="/?utm_source=tax_tool#mates">알아줌에서 장부 무료로 쓰기</a></div>';
     $('res').hidden=false; try{$('res').scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}
   }
