@@ -319,7 +319,7 @@ function doUp(w){var u=upBody(w),shop=$('upShop').value.trim(),ar=$('upArea').va
  ls('mk_shop',shop);ls('mk_area',ar);
  var AI=window.alajoomAI;if(!AI){toast('잠시 뒤 다시 눌러 주세요');return}
  AI.loggedIn().then(function(ok){
-  if(!ok){ls('mk_pending',JSON.stringify({w:w,kind:u.kind,body:u.body}));toast('카카오로 3초 로그인할게요');setTimeout(function(){window.alajoomLogin()},600);return}
+  if(!ok){ls('mk_pending',JSON.stringify({w:w,kind:u.kind,body:u.body,t:Date.now()}));toast('카카오로 3초 로그인할게요');setTimeout(function(){window.alajoomLogin()},600);return}
   $('upOk').disabled=true;$('upOk').textContent='올리는 중…';
   AI.rpc('news_post',{p_body:u.body,p_kind:u.kind,p_store:shop,p_area:ar,p_cat:kind0||'etc'}).then(function(){
    return AI.rpc('family_me').catch(function(){return null})}).then(function(me){
@@ -349,7 +349,7 @@ function renderBook(){var a=getL(),m=ymd().slice(0,7),s=0,b=0;a.forEach(function
  document.querySelectorAll('[data-del]').forEach(function(x){x.onclick=function(){var id=+x.dataset.del,all=getL(),r=all.filter(function(z){return z.id===id})[0];setL(all.filter(function(z){return z.id!==id}));renderBook();undo(r)}})}
 function undo(r){var e=$('toast');e.innerHTML='지웠어요 · <u style="cursor:pointer">되돌리기</u>';e.style.pointerEvents='auto';e.classList.add('on');e.onclick=function(){if(r){var a=getL();a.push(r);a.sort(function(x,y){return x.id-y.id});setL(a);renderBook()}e.classList.remove('on');e.style.pointerEvents='none';r=null};clearTimeout(toast.h);toast.h=setTimeout(function(){e.classList.remove('on');e.style.pointerEvents='none'},5000)}
 // 주소로 바로 열기 (#deal 등)
-function resume(){var p=ls('mk_pending');if(!p)return;try{p=JSON.parse(p)}catch(e){return}if(!window.alajoomAI)return;window.alajoomAI.loggedIn().then(function(ok){if(!ok)return;if(p.w==='deal'){lastDeal=p.body;show('deal');$('dealIn').value=p.body;makeDeal()}else{lastMsg={kind:p.kind,body:p.body};show('msg');$('msgOut').style.display='block';$('msgTxt').textContent=p.body}setTimeout(function(){upPanel(p.w);toast('로그인됐어요. 올리기를 눌러 주세요')},300)})}
+function resume(){var p=ls('mk_pending');if(!p)return;try{p=JSON.parse(p)}catch(e){return}if(!window.alajoomAI)return;window.alajoomAI.loggedIn().then(function(ok){if(!ok){ls('mk_pending',null);return}if(p.w==='deal'){lastDeal=p.body;show('deal');$('dealIn').value=p.body;makeDeal()}else{lastMsg={kind:p.kind,body:p.body};show('msg');$('msgOut').style.display='block';$('msgTxt').textContent=p.body}setTimeout(function(){upPanel(p.w);toast('로그인됐어요. 올리기를 눌러 주세요')},300)})}
 function fromHash(){var h=location.hash.slice(1);if(/^(deal|msg|book)$/.test(h))show(h)}applyKind();if(!kind0&&!ls('mk_seen')&&!location.hash)show('kind');else fromHash();window.addEventListener('hashchange',fromHash);setTimeout(resume,400);
 })();
 </script>
