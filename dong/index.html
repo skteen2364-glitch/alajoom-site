@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><script>if(location.hostname==='www.alajoom.com')location.replace('https://alajoom.com'+location.pathname+location.search+location.hash)</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://alajoom.com/dong/">
+<title>알아줌 동네 | 우리 동네 가게 오늘 소식</title>
+<meta name="description" content="우리 동네 가게들의 오늘 특가·입고·휴무 소식과 쿠폰을 한곳에서. 앱 설치 없이 바로 봐요.">
+<meta property="og:title" content="알아줌 동네 | 우리 동네 가게 오늘 소식">
+<meta property="og:description" content="오늘 굴 들어왔어요, 사과 한 봉지 오천 원 — 동네 가게 소식과 쿠폰을 한곳에서.">
+<meta property="og:image" content="https://alajoom.com/assets/og-alajoom.jpg?v=1125">
+<meta name="theme-color" content="#FFD84D">
+<link rel="icon" href="/assets/icon-192.png">
+<style>
+:root{--ink:#14161F;--paper:#FFF8E7;--sun:#FFD84D;--red:#D62D2D;--blue:#2F55A4;--green:#1F8A4C}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;font-size:18px;line-height:1.45;word-break:keep-all}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+a{color:inherit}
+.w{max-width:620px;margin:0 auto;padding:14px 16px calc(40px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;gap:10px}
+header img{width:40px;height:40px;border-radius:11px}
+header b{font-size:20px;font-weight:900;white-space:nowrap}
+header .area{margin-left:auto;display:inline-flex;align-items:center;gap:4px;max-width:52%;height:44px;padding:0 14px;border-radius:999px;background:#fff;border:2px solid var(--ink);font-weight:900;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+h1{font-size:28px;font-weight:900;line-height:1.25;margin:18px 0 4px;letter-spacing:-.5px}
+.lead{font-size:15px;color:#5A5F6C;font-weight:600}
+.tabs{display:flex;gap:8px;margin:16px 0 4px}
+.tabs button{flex:1;height:50px;border-radius:14px;background:#fff;border:2px solid var(--ink);font-weight:900;font-size:16px}
+.tabs button.on{background:var(--ink);color:var(--sun)}
+.cpn{margin-top:16px;border-radius:22px;background:var(--sun);border:3px solid var(--ink);box-shadow:0 6px 0 var(--ink);padding:18px}
+.cpn small{display:block;font-size:13px;font-weight:900;color:#6B5A1A}
+.cpn h2{font-size:26px;font-weight:900;line-height:1.2;margin:4px 0}
+.cpn p{font-size:14px;font-weight:700;color:#4A4020}
+.cpn .act{display:flex;gap:8px;margin-top:12px}
+.cpn .act button{flex:1;height:52px;border-radius:14px;background:var(--ink);color:var(--sun);font-weight:900;font-size:16px}
+.cpn .act button.l{background:#fff;color:var(--ink);border:2px solid var(--ink)}
+.sec{display:flex;align-items:baseline;gap:8px;margin:24px 0 10px}
+.sec h3{font-size:20px;font-weight:900}
+.sec span{font-size:13px;color:#6A6F7C;font-weight:700}
+.card{display:flex;gap:12px;padding:14px;border-radius:18px;background:#fff;border:2px solid #EADFC4;margin-bottom:10px}
+.card i{flex:none;width:52px;height:52px;border-radius:14px;background:#FFF1C2;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:28px}
+.card .tx{flex:1;min-width:0}
+.card .st{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:#5A5F6C}
+.card .st b{color:var(--ink);font-size:14px}
+.card .bd{font-size:19px;font-weight:900;line-height:1.35;margin:4px 0 6px}
+.badge{display:inline-block;font-size:12px;font-weight:900;padding:2px 9px;border-radius:999px;background:var(--red);color:#fff}
+.badge.new{background:var(--green)}.badge.off{background:#6A6F7C}.badge.news{background:var(--blue)}
+.when{font-size:12px;color:#8A8F9C;font-weight:700}
+.empty{padding:22px 16px;border-radius:18px;background:#fff;border:2px dashed #E2C65A;text-align:center;font-weight:800;color:#5A5F6C;font-size:16px}
+.empty a{display:inline-block;margin-top:10px;color:var(--blue)}
+.pick{margin-top:14px;padding:16px;border-radius:20px;background:#fff;border:2px solid var(--ink)}
+.pick label{display:block;font-weight:900;font-size:16px;margin-bottom:8px}
+.pick .row{display:flex;gap:8px}
+.pick input{flex:1;min-width:0;height:52px;border:2px solid var(--ink);border-radius:14px;padding:0 14px;font-size:17px;font-weight:700;background:#fff}
+.pick .row button{height:52px;padding:0 18px;border-radius:14px;background:var(--ink);color:var(--sun);font-weight:900}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chips button{height:40px;padding:0 14px;border-radius:999px;background:#FFF1B8;border:2px solid #E2C65A;font-weight:800;font-size:14px}
+.chips .all{background:#fff;border-color:#D8D2C2}
+.mine .card i{background:#FFE48A}
+.mine .card .use{flex:none;align-self:center;height:44px;padding:0 12px;border-radius:12px;border:2px solid var(--ink);background:#fff;font-weight:900;font-size:14px}
+.home{margin-top:26px;padding:16px;border-radius:18px;background:#14161F;color:#FBF7EE}
+.home b{display:block;font-size:17px;font-weight:900;color:var(--sun)}
+.home p{font-size:14px;color:#C9CDD8;margin-top:4px;font-weight:600}
+.home button{margin-top:12px;height:48px;padding:0 18px;border-radius:12px;background:var(--sun);color:var(--ink);font-weight:900}
+.owner{margin-top:14px;text-align:center;font-size:14px;font-weight:800}
+.owner a{color:var(--blue)}
+.foot{margin-top:22px;font-size:12px;color:#8A8F9C;text-align:center;font-weight:700}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--sun);font-weight:900;font-size:16px;padding:14px 22px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9;white-space:nowrap}
+.toast.on{opacity:1}
+.show{position:fixed;inset:0;background:var(--sun);z-index:8;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.show.on{display:flex}
+.show small{font-size:18px;font-weight:900}
+.show h2{font-size:40px;font-weight:900;line-height:1.2;margin:10px 0}
+.show p{font-size:18px;font-weight:800}
+.show button{margin-top:28px;height:56px;padding:0 28px;border-radius:16px;background:var(--ink);color:var(--sun);font-weight:900;font-size:18px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="w">
+<header><img src="/assets/icon-192.png" alt=""><b>알아줌 동네</b><button class="area" id="areaBtn">📍 동네 고르기</button></header>
+
+<section id="shopBox" class="hidden"></section>
+
+<h1 id="ttl">우리 동네 오늘 소식</h1>
+<p class="lead">동네 가게 사장님들이 오늘 올린 특가·입고·휴무 소식이에요.</p>
+
+<div class="pick hidden" id="pick">
+ <label for="areaIn">어느 동네 소식을 볼까요?</label>
+ <div class="row"><input id="areaIn" placeholder="예) 부전동, 전포동"><button id="areaGo">보기</button></div>
+ <div class="chips" id="areaChips"></div>
+</div>
+
+<div class="tabs"><button class="on" data-tab="feed">📢 오늘 소식</button><button data-tab="mine">🎟 내 쿠폰 <span id="mineN"></span></button></div>
+
+<div id="tab-feed">
+ <div id="feed"></div>
+ <div class="sec" id="cpHead"><h3>🎟 동네 쿠폰</h3><span>가게에서 보여 주세요</span></div>
+ <div id="cps"></div>
+</div>
+<div id="tab-mine" class="mine hidden"><div id="mine"></div></div>
+
+<div class="home" id="homeTip"><b>📲 다음에도 쉽게 보려면</b><p id="homeTx">이 화면을 홈 화면에 추가해 두세요. 앱 설치 없이 아이콘으로 열려요.</p><button id="homeBtn">홈 화면에 추가</button></div>
+<p class="owner">사장님이세요? <a href="/market/?utm_source=dong">말 한마디로 우리 가게 소식 올리기 →</a></p>
+<p class="foot">알아줌 · 동네 가게 소식은 사장님이 직접 올린 거예요 · <a href="/">alajoom.com</a></p>
+</div>
+<div class="show" id="show"><small id="shS"></small><h2 id="shO"></h2><p id="shT"></p><p style="margin-top:14px;font-size:15px">계산할 때 이 화면을 보여 주세요</p><button id="shX">닫기</button></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+var URL_='https://zuxbloxstkcixqpzqalk.supabase.co',KEY='sb_publishable_cZZ6cVbSIbkG93_rQ8jldg_f_Z9uOYH';
+var $=function(id){return document.getElementById(id)};
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function toast(t){var e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(function(){e.classList.remove('on')},2200)}
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}}
+function rpc(name,args){return fetch(URL_+'/rest/v1/rpc/'+name,{method:'POST',headers:{'Content-Type':'application/json','apikey':KEY,'Authorization':'Bearer '+KEY},body:JSON.stringify(args||{})}).then(function(r){if(!r.ok)throw new Error('rpc');return r.json()})}
+var ICON={fish:'🐟',meat:'🥩',fruit:'🍎',side:'🍱',rice:'🍡',snack:'🍢',dry:'🦐',etc:'🏪',skin:'💆',nail:'💅',hair:'💇',pilates:'🧘',academy:'📚',food:'🍚',cafe:'☕',bakery:'🥐',flower:'💐',pet:'🐶',funi:'🏪',beau:'💄'};
+var KIND={deal:['특가',''],new:['들어왔어요','new'],off:['쉬어요','off'],news:['소식','news']};
+function ago(t){var m=Math.max(0,Math.round((Date.now()-new Date(t))/60000));if(m<1)return'방금';if(m<60)return m+'분 전';var h=Math.round(m/60);if(h<24)return h+'시간 전';return Math.round(h/24)+'일 전'}
+function until(t){var d=new Date(t),n=new Date();var same=d.toDateString()===n.toDateString();return same?'오늘까지':(d.getMonth()+1)+'/'+d.getDate()+'까지'}
+var q=new URLSearchParams(location.search),code=(q.get('s')||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,12);
+var area=q.get('a')||ls('dn_area')||'';
+// 내 쿠폰
+function mineGet(){try{return JSON.parse(ls('dn_mine')||'[]')}catch(e){return[]}}
+function mineSet(a){ls('dn_mine',JSON.stringify(a.slice(0,30)));renderMine()}
+function saveCp(c){var a=mineGet();if(a.some(function(x){return x.code===c.code}))return toast('이미 저장했어요');a.unshift({code:c.code,store:c.store,mate:c.mate,offer:c.offer,terms:c.terms||'',area:c.area||'',at:Date.now()});mineSet(a);toast('내 쿠폰에 저장했어요')}
+function showCp(c){$('shS').textContent=c.store;$('shO').textContent=c.offer;$('shT').textContent=c.terms||'';$('show').classList.add('on')}
+$('shX').onclick=function(){$('show').classList.remove('on')};
+function renderMine(){var a=mineGet();$('mineN').textContent=a.length?a.length:'';
+ $('mine').innerHTML=a.length?a.map(function(c,i){return '<div class="card"><i>'+(ICON[c.mate]||'🎟')+'</i><div class="tx"><p class="st"><b>'+esc(c.store)+'</b>'+(c.area?' · '+esc(c.area):'')+'</p><p class="bd">'+esc(c.offer)+'</p>'+(c.terms?'<p class="when">'+esc(c.terms)+'</p>':'')+'</div><button class="use" data-i="'+i+'">보여 주기</button></div>'}).join('')+'<p class="when" style="text-align:center;margin-top:6px">이 폰에 저장돼요</p>':'<div class="empty">아직 저장한 쿠폰이 없어요.<br>가게 QR을 찍으면 여기에 모여요.</div>';
+ $('mine').querySelectorAll('.use').forEach(function(b){b.onclick=function(){showCp(a[+b.dataset.i])}})}
+// 탭
+document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===b)});$('tab-feed').classList.toggle('hidden',b.dataset.tab!=='feed');$('tab-mine').classList.toggle('hidden',b.dataset.tab!=='mine')}});
+// 동네 고르기
+$('areaBtn').onclick=function(){$('pick').classList.toggle('hidden');if(!$('pick').classList.contains('hidden')){$('areaIn').value=area;$('areaIn').focus();loadAreas()}};
+function setArea(a){area=a.trim().slice(0,30);ls('dn_area',area||null);$('pick').classList.add('hidden');load()}
+$('areaGo').onclick=function(){setArea($('areaIn').value)};
+$('areaIn').onkeydown=function(e){if(e.key==='Enter')setArea($('areaIn').value)};
+function loadAreas(){rpc('town_areas').then(function(a){$('areaChips').innerHTML=(a||[]).map(function(x){return '<button data-a="'+esc(x.name)+'">'+esc(x.name)+'</button>'}).join('')+'<button class="all" data-a="">전체 보기</button>';$('areaChips').querySelectorAll('button').forEach(function(b){b.onclick=function(){setArea(b.dataset.a)}})}).catch(function(){})}
+// 소식
+function card(n){var k=KIND[n.kind]||KIND.news;return '<div class="card"><i>'+(ICON[n.cat]||ICON[n.mate]||'🏪')+'</i><div class="tx"><p class="st"><span class="badge '+k[1]+'">'+k[0]+'</span><b>'+esc(n.store||'')+'</b></p><p class="bd">'+esc(n.body)+'</p><p class="when">'+ago(n.at)+' · '+until(n.until)+(n.area&&!area?' · '+esc(n.area):'')+'</p></div></div>'}
+function cpCard(c,i){return '<div class="card"><i>'+(ICON[c.mate]||'🎟')+'</i><div class="tx"><p class="st"><b>'+esc(c.store)+'</b>'+(c.area?' · '+esc(c.area):'')+'</p><p class="bd">'+esc(c.offer)+'</p>'+(c.terms?'<p class="when">'+esc(c.terms)+'</p>':'')+'</div><button class="use" data-c="'+i+'" style="flex:none;align-self:center;height:44px;padding:0 12px;border-radius:12px;border:2px solid var(--ink);background:#fff;font-weight:900;font-size:14px">저장</button></div>'}
+function load(){
+ $('areaBtn').textContent='📍 '+(area||'동네 고르기');
+ $('ttl').textContent=(area?area+' ':'우리 동네 ')+'오늘 소식';
+ $('feed').innerHTML='<div class="empty">불러오는 중…</div>';
+ rpc('town_feed',{p_area:area,p_code:code}).then(function(d){
+  if(d.shop&&!area&&d.area){area=d.area;$('areaBtn').textContent='📍 '+area;$('ttl').textContent=area+' 오늘 소식'}
+  if(d.shop){var s=d.shop;$('shopBox').classList.remove('hidden');
+   $('shopBox').innerHTML=s.offer?'<div class="cpn"><small>'+esc(s.store)+'에서 드리는 쿠폰</small><h2>'+esc(s.offer)+'</h2>'+(s.terms?'<p>'+esc(s.terms)+'</p>':'')+'<div class="act"><button id="cpSave">내 쿠폰에 저장</button><button class="l" id="cpShow">지금 보여 주기</button></div></div>':'<div class="cpn"><small>반가워요!</small><h2>'+esc(s.store)+'</h2><p>이 동네 가게들의 오늘 소식을 모아 봤어요.</p></div>';
+   if(s.offer){$('cpSave').onclick=function(){saveCp(s)};$('cpShow').onclick=function(){showCp(s)}}}
+  var ns=d.news||[];
+  $('feed').innerHTML=ns.length?ns.map(card).join(''):'<div class="empty">아직 '+(area?esc(area)+'에 ':'')+'오늘 올라온 소식이 없어요.<br>사장님들이 소식을 올리면 여기에 떠요.'+(area?'<br><a href="#" id="seeAll">전체 동네 소식 보기 →</a>':'')+'</div>';
+  var sa=$('seeAll');if(sa)sa.onclick=function(e){e.preventDefault();setArea('')};
+  var cs=d.coupons||[];$('cpHead').classList.toggle('hidden',!cs.length);
+  $('cps').innerHTML=cs.map(cpCard).join('');
+  $('cps').querySelectorAll('.use').forEach(function(b){b.onclick=function(){saveCp(cs[+b.dataset.c])}});
+ }).catch(function(){$('feed').innerHTML='<div class="empty">소식을 불러오지 못했어요.<br>잠시 뒤 다시 열어 주세요.</div>'});
+}
+// 홈 화면 추가
+var dp=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e});
+var ios=/iPhone|iPad|iPod/.test(navigator.userAgent);
+if(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)$('homeTip').classList.add('hidden');
+$('homeBtn').onclick=function(){if(dp){dp.prompt();dp=null;return}$('homeTx').textContent=ios?'사파리 아래 공유 버튼(네모에 화살표)을 누르고 "홈 화면에 추가"를 눌러 주세요.':'크롬 오른쪽 위 점 세 개 → "홈 화면에 추가" 또는 "설치"를 눌러 주세요.'};
+renderMine();if(!area&&!code)$('pick').classList.remove('hidden'),loadAreas();load();
+})();
+</script>
+</body>
+</html>
