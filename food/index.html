@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head><script>if(location.hostname==='www.alajoom.com')location.replace('https://alajoom.com'+location.pathname+location.search+location.hash)</script>
+<head><script src="/assets/slow-mic.js?v=1128"></script><script>if(location.hostname==='www.alajoom.com')location.replace('https://alajoom.com'+location.pathname+location.search+location.hash)</script>
 <meta charset="utf-8"><link rel="canonical" href="https://alajoom.com/food/">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:title" content="알아줌 음식점 | 1인 소상공인 필수 앱 · 무료">
@@ -1393,7 +1393,7 @@ var CFG = {
       rec.onresult = function(e){ var it = ''; for (var i = e.resultIndex; i < e.results.length; i++){ if (e.results[i].isFinal) finalT += e.results[i][0].transcript; else it += e.results[i][0].transcript; } txt.value = (finalT + it).trim(); };
       rec.onerror = function(e){ dot.style.animation = 'none'; state.textContent = e.error === 'not-allowed' ? '마이크 사용을 허용해 주세요 (또는 적어 주세요)' : '잘 못 들었어요. 다시 말하거나 적어 주세요'; };
       rec.onend = function(){ dot.style.animation = 'none'; if (txt.value.trim()){ state.textContent = '이렇게 들었어요'; } else if (state.textContent.indexOf('듣고') === 0) state.textContent = '못 들었어요. 다시 말하기를 눌러 주세요'; };
-      dot.style.animation = ''; state.textContent = '듣고 있어요. 말씀해 주세요';
+      dot.style.animation = ''; state.textContent = '듣고 있어요. 천천히 말씀하셔도 돼요';
       try { rec.start(); } catch(e){ state.textContent = '마이크를 열 수 없어요. 적어 주세요'; }
     };
     w.addEventListener('click', function(e){

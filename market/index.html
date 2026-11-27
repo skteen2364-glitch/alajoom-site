@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head><script>if(location.hostname==='www.alajoom.com')location.replace('https://alajoom.com'+location.pathname+location.search+location.hash)</script>
+<head><script src="/assets/slow-mic.js?v=1128"></script><script>if(location.hostname==='www.alajoom.com')location.replace('https://alajoom.com'+location.pathname+location.search+location.hash)</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="canonical" href="https://alajoom.com/market/">
@@ -228,7 +228,7 @@ var SR=window.SpeechRecognition||window.webkitSpeechRecognition,rec=null,recBtn=
 function listen(btn,cb){
  if(!SR){toast('키보드의 🎤 마이크를 눌러 말씀하세요');return}
  if(rec){try{rec.stop()}catch(e){}return}
- rec=new SR();rec.lang='ko-KR';rec.interimResults=true;rec.continuous=false;recBtn=btn;btn.classList.add('on');
+ rec=new SR();rec.lang='ko-KR';rec.interimResults=true;rec.continuous=false;recBtn=btn;btn.classList.add('on');if(btn.classList.contains('smic'))toast('천천히 말씀하세요. 다 하시면 빨간 마이크를 한 번 더 눌러요');
  var fin='';
  rec.onresult=function(e){var t='';for(var i=0;i<e.results.length;i++)t+=e.results[i][0].transcript;fin=t;cb(t,false)};
  rec.onerror=function(e){if(e.error==='not-allowed')toast('마이크 사용을 허용해 주세요')};
@@ -236,7 +236,7 @@ function listen(btn,cb){
  try{rec.start()}catch(e){btn.classList.remove('on');rec=null}
 }
 document.querySelectorAll('.smic').forEach(function(b){b.onclick=function(){var f=$(b.dataset.mic);listen(b,function(t){f.value=t;if(f.id==='amtIn')seeAmt()})}});
-$('homeMic').onclick=function(){var b=this;$('homeMicT').textContent='듣고 있어요… 다 하시면 멈춰요';
+$('homeMic').onclick=function(){var b=this;$('homeMicT').textContent='듣고 있어요. 천천히 말씀하세요 · 다 하면 한 번 더 누르기';
  listen(b,function(t,done){$('homeHeard').textContent='“'+t+'”';if(!done)return;$('homeMicT').textContent='눌러서 말하기';route(t)})};
 function route(t){
  if(/팔았|벌었|매출|판 돈|썼어|샀어|들었어|지출|쓴 돈/.test(t)&&parseWon(t)>0){var buy=/썼|샀|들었|지출|쓴 돈/.test(t);setType(buy?'매입':'매출');$('amtIn').value=t;show('book');seeAmt();return}
