@@ -5,108 +5,143 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="canonical" href="https://alajoom.com/dong/">
 <title>알아줌 동네 | 우리 동네 가게 오늘 소식</title>
-<meta name="description" content="우리 동네 가게들의 오늘 특가·입고·휴무 소식과 쿠폰을 한곳에서. 앱 설치 없이 바로 봐요.">
+<meta name="description" content="우리 동네 식당·카페·시장·필라테스 사장님들이 직접 올린 오늘 특가·새 소식과 쿠폰을 한곳에서. 앱 설치 없이 바로 봐요.">
 <meta property="og:title" content="알아줌 동네 | 우리 동네 가게 오늘 소식">
-<meta property="og:description" content="오늘 굴 들어왔어요, 사과 한 봉지 오천 원 — 동네 가게 소식과 쿠폰을 한곳에서.">
+<meta property="og:description" content="동네 사장님들이 직접 올린 오늘 특가·새 소식과 쿠폰을 한곳에서.">
 <meta property="og:image" content="https://alajoom.com/assets/og-alajoom.jpg?v=1127">
-<meta name="theme-color" content="#FFD84D">
+<meta name="theme-color" content="#FFFCF5">
 <link rel="icon" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#14161F;--paper:#FFF8E7;--sun:#FFD84D;--red:#D62D2D;--blue:#2F55A4;--green:#1F8A4C}
+:root{--ink:#14161F;--paper:#FFFCF5;--sun:#FFD43B;--blue:#3B5B92;--line:#E9E2D0;--mute:#6B6F7A;--shadow:0 1px 2px rgba(20,22,31,.06),0 8px 24px -12px rgba(20,22,31,.18)}
 *{box-sizing:border-box;margin:0}
-body{background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;font-size:18px;line-height:1.45;word-break:keep-all}
+body{background:var(--paper);color:var(--ink);font-family:"Noto Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:16px;line-height:1.5;word-break:keep-all;-webkit-font-smoothing:antialiased}
 button,input{font:inherit;color:inherit}
 button{cursor:pointer;border:0;background:none}
-a{color:inherit}
-.w{max-width:620px;margin:0 auto;padding:14px 16px calc(40px + env(safe-area-inset-bottom))}
-header{display:flex;align-items:center;gap:10px}
-header img{width:40px;height:40px;border-radius:11px}
-header b{font-size:20px;font-weight:900;white-space:nowrap}
-header .area{margin-left:auto;display:inline-flex;align-items:center;gap:4px;max-width:52%;height:44px;padding:0 14px;border-radius:999px;background:#fff;border:2px solid var(--ink);font-weight:900;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-h1{font-size:28px;font-weight:900;line-height:1.25;margin:18px 0 4px;letter-spacing:-.5px}
-.lead{font-size:15px;color:#5A5F6C;font-weight:600}
-.tabs{display:flex;gap:8px;margin:16px 0 4px}
-.tabs button{flex:1;height:50px;border-radius:14px;background:#fff;border:2px solid var(--ink);font-weight:900;font-size:16px}
-.tabs button.on{background:var(--ink);color:var(--sun)}
-.cpn{margin-top:16px;border-radius:22px;background:var(--sun);border:3px solid var(--ink);box-shadow:0 6px 0 var(--ink);padding:18px}
-.cpn small{display:block;font-size:13px;font-weight:900;color:#6B5A1A}
-.cpn h2{font-size:26px;font-weight:900;line-height:1.2;margin:4px 0}
-.cpn p{font-size:14px;font-weight:700;color:#4A4020}
-.cpn .act{display:flex;gap:8px;margin-top:12px}
-.cpn .act button{flex:1;height:52px;border-radius:14px;background:var(--ink);color:var(--sun);font-weight:900;font-size:16px}
-.cpn .act button.l{background:#fff;color:var(--ink);border:2px solid var(--ink)}
-.sec{display:flex;align-items:baseline;gap:8px;margin:24px 0 10px}
-.sec h3{font-size:20px;font-weight:900}
-.sec span{font-size:13px;color:#6A6F7C;font-weight:700}
-.card{display:flex;gap:12px;padding:14px;border-radius:18px;background:#fff;border:2px solid #EADFC4;margin-bottom:10px}
-.card i{flex:none;width:52px;height:52px;border-radius:14px;background:#FFF1C2;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:28px}
-.card .tx{flex:1;min-width:0}
-.card .st{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:#5A5F6C}
-.card .st b{color:var(--ink);font-size:14px}
-.card .bd{font-size:19px;font-weight:900;line-height:1.35;margin:4px 0 6px}
-.badge{display:inline-block;font-size:12px;font-weight:900;padding:2px 9px;border-radius:999px;background:var(--red);color:#fff}
-.badge.new{background:var(--green)}.badge.off{background:#6A6F7C}.badge.news{background:var(--blue)}
-.when{font-size:12px;color:#8A8F9C;font-weight:700}
-.empty{padding:22px 16px;border-radius:18px;background:#fff;border:2px dashed #E2C65A;text-align:center;font-weight:800;color:#5A5F6C;font-size:16px}
-.empty a{display:inline-block;margin-top:10px;color:var(--blue)}
-.pick{margin-top:14px;padding:16px;border-radius:20px;background:#fff;border:2px solid var(--ink)}
-.pick label{display:block;font-weight:900;font-size:16px;margin-bottom:8px}
+a{color:var(--blue)}
+.w{max-width:560px;margin:0 auto;padding:12px 16px calc(36px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;gap:8px}
+.logo{width:32px;height:32px;border-radius:10px;background:var(--sun);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex:none}
+header b{font-size:16px;font-weight:800;white-space:nowrap}
+.hbtn{display:inline-flex;align-items:center;gap:6px;height:42px;padding:0 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:700;font-size:14px;white-space:nowrap}
+#areaBtn{margin-left:auto;max-width:46%;overflow:hidden;text-overflow:ellipsis}
+#mineBtn{padding:0 12px}
+#mineBtn em{font-style:normal;min-width:20px;height:20px;border-radius:10px;background:var(--sun);font-size:12px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;padding:0 5px}
+.hi{padding:18px 2px 0}
+.hi small{display:block;font-size:14px;font-weight:700;color:var(--blue)}
+h1{font-size:32px;font-weight:900;line-height:1.2;margin-top:4px;letter-spacing:-1px}
+h1 mark{background:linear-gradient(transparent 58%,#FFE27A 58%);color:inherit}
+.lead{font-size:15px;color:#5B6070;margin-top:6px}
+.chips{display:flex;gap:8px;margin:16px -16px 0;padding:0 16px 4px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;height:40px;padding:0 16px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:700;font-size:14px}
+.chips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.jj{display:flex;align-items:center;gap:10px;width:100%;margin-top:16px;padding:6px 16px 6px 6px;border-radius:22px;background:#FFF1BF;text-align:left;animation:pop .5s ease-out both}
+.jj b{display:block;font-size:17px;font-weight:900}
+.jj small{display:block;font-size:13.5px;color:#6B5B1F;font-weight:600;margin-top:1px}
+.jj span{flex:1;min-width:0}
+.feed{display:flex;flex-direction:column;gap:14px;margin-top:14px}
+.card{background:#fff;border-radius:24px;padding:16px;box-shadow:var(--shadow)}
+.ch{display:flex;align-items:center;gap:10px}
+.ic{flex:none;width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center}
+.ch .nm{flex:1;min-width:0}
+.ch .nm b{display:block;font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ch .nm small{display:block;font-size:12.5px;color:var(--mute);font-weight:500}
+.bdg{flex:none;padding:5px 11px;border-radius:999px;font-size:13px;font-weight:800}
+.k-deal{background:#FFE3DA;color:#B42318}.k-new{background:#DDF5E6;color:#146C3B}.k-off{background:#EEF0F3;color:#4A4F5C}.k-news{background:#E2ECFB;color:#2F5DA8}.k-cp{background:#FFF1BF;color:#7A5A00}
+.card .bd{font-size:19px;line-height:1.42;font-weight:800;letter-spacing:-.3px;margin-top:12px;white-space:pre-line}
+.card .ft{display:flex;justify-content:space-between;margin-top:12px;padding-top:11px;border-top:1px solid #F1ECDF;font-size:13px;color:var(--mute);font-weight:600}
+.cpb{margin-top:12px;width:100%;height:48px;border-radius:14px;border:1.5px dashed #E8C64A;background:#FFF8DB;color:#5A4300;font-weight:800;font-size:15px}
+.sec{font-size:18px;font-weight:900;margin:26px 2px 0}
+.empty{margin-top:16px;padding:30px 20px 26px;border-radius:28px;background:#fff;box-shadow:var(--shadow);text-align:center}
+.empty b{display:block;font-size:21px;font-weight:900;margin-top:8px}
+.empty p{font-size:15px;color:#5B6070;margin-top:6px}
+.empty .go{text-decoration:none;display:inline-flex;align-items:center;margin-top:18px;height:48px;padding:0 22px;border-radius:14px;background:var(--ink);color:#fff;font-weight:800;font-size:15px}
+.pick{margin-top:14px;padding:16px;border-radius:22px;background:#fff;box-shadow:var(--shadow)}
+.pick label{display:block;font-weight:800;font-size:15px;margin-bottom:8px}
 .pick .row{display:flex;gap:8px}
-.pick input{flex:1;min-width:0;height:52px;border:2px solid var(--ink);border-radius:14px;padding:0 14px;font-size:17px;font-weight:700;background:#fff}
-.pick .row button{height:52px;padding:0 18px;border-radius:14px;background:var(--ink);color:var(--sun);font-weight:900}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.chips button{height:40px;padding:0 14px;border-radius:999px;background:#FFF1B8;border:2px solid #E2C65A;font-weight:800;font-size:14px}
-.chips .all{background:#fff;border-color:#D8D2C2}
-.mine .card i{background:#FFE48A}
-.mine .card .use{flex:none;align-self:center;height:44px;padding:0 12px;border-radius:12px;border:2px solid var(--ink);background:#fff;font-weight:900;font-size:14px}
-.home{margin-top:26px;padding:16px;border-radius:18px;background:#14161F;color:#FBF7EE}
-.home b{display:block;font-size:17px;font-weight:900;color:var(--sun)}
-.home p{font-size:14px;color:#C9CDD8;margin-top:4px;font-weight:600}
-.home button{margin-top:12px;height:48px;padding:0 18px;border-radius:12px;background:var(--sun);color:var(--ink);font-weight:900}
-.owner{margin-top:14px;text-align:center;font-size:14px;font-weight:800}
-.owner a{color:var(--blue)}
-.foot{margin-top:22px;font-size:12px;color:#8A8F9C;text-align:center;font-weight:700}
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--sun);font-weight:900;font-size:16px;padding:14px 22px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9;white-space:nowrap}
+.pick input{flex:1;min-width:0;height:50px;border:1px solid var(--line);border-radius:14px;padding:0 14px;font-size:16px;background:#FFFCF5}
+.pick .row button{height:50px;padding:0 18px;border-radius:14px;background:var(--ink);color:#fff;font-weight:800}
+.pick .ac{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pick .ac button{height:38px;padding:0 14px;border-radius:999px;background:#FFF1BF;font-weight:700;font-size:14px}
+.cpn{margin-top:16px;border-radius:26px;background:var(--sun);padding:22px 20px 18px;box-shadow:0 14px 30px -16px rgba(150,110,0,.55)}
+.cpn small{display:block;font-size:13px;font-weight:800;color:#6B4F00}
+.cpn h2{font-size:28px;font-weight:900;line-height:1.25;margin-top:6px;letter-spacing:-1px}
+.cpn p{font-size:14px;font-weight:600;color:#5A4300;margin-top:6px}
+.cpn hr{border:0;border-top:2px dashed rgba(20,22,31,.25);margin:16px -20px 0}
+.cpn .act{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.cpn .act button{height:50px;border-radius:14px;background:var(--ink);color:#fff;font-weight:800;font-size:15px}
+.cpn .act button.l{background:#fff;color:var(--ink)}
+.home{margin-top:24px;padding:16px 18px;border-radius:22px;background:var(--ink);color:#fff;display:flex;align-items:center;gap:12px}
+.home div{flex:1;min-width:0}.home b{display:block;font-size:15.5px;font-weight:800}.home p{font-size:13px;color:#C9CDD8;margin-top:2px}
+.home button{flex:none;height:44px;padding:0 14px;border-radius:12px;background:var(--sun);color:var(--ink);font-weight:800;font-size:14px}
+.owner{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding:16px 18px;border-radius:18px;background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.owner small{display:block;font-size:13px;color:var(--mute);font-weight:600}.owner b{display:block;font-size:15.5px;font-weight:800;margin-top:2px}
+.foot{margin-top:18px;font-size:12px;color:var(--mute);text-align:center}
+.foot a{color:var(--mute)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;font-weight:800;font-size:15px;padding:13px 20px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9;white-space:nowrap}
 .toast.on{opacity:1}
-.show{position:fixed;inset:0;background:var(--sun);z-index:8;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.clap{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(92vw,420px);display:flex;align-items:center;gap:8px;padding:8px 18px 8px 8px;border-radius:24px;background:#fff;box-shadow:0 18px 40px -14px rgba(20,22,31,.4);z-index:10;animation:pop .45s ease-out both}
+.clap b{display:block;font-size:18px;font-weight:900}.clap p{font-size:13.5px;color:#5B6070;font-weight:600;margin-top:2px}
+.show{position:fixed;inset:0;background:var(--sun);z-index:11;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
 .show.on{display:flex}
-.show small{font-size:18px;font-weight:900}
+.show small{font-size:18px;font-weight:800}
 .show h2{font-size:40px;font-weight:900;line-height:1.2;margin:10px 0}
-.show p{font-size:18px;font-weight:800}
-.show button{margin-top:28px;height:56px;padding:0 28px;border-radius:16px;background:var(--ink);color:var(--sun);font-weight:900;font-size:18px}
+.show p{font-size:18px;font-weight:700}
+.show button{margin-top:28px;height:56px;padding:0 28px;border-radius:16px;background:var(--ink);color:#fff;font-weight:800;font-size:18px}
 .hidden{display:none!important}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.04);opacity:1}100%{transform:scale(1)}}
+.clap{animation-name:popc}
+@keyframes popc{0%{transform:translateX(-50%) scale(.6);opacity:0}70%{transform:translateX(-50%) scale(1.04);opacity:1}100%{transform:translateX(-50%) scale(1)}}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(0) scale(1.04,.96)}}
+@keyframes wave{from{transform:rotate(-10deg)}to{transform:rotate(25deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes clapL{from{transform:rotate(-18deg)}to{transform:rotate(8deg)}}
+@keyframes clapR{from{transform:rotate(18deg)}to{transform:rotate(-8deg)}}
+@keyframes spark{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.1)}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.03,.97)}}
+@keyframes zz{0%{opacity:0;transform:translate(0,6px)}30%{opacity:1}100%{opacity:0;transform:translate(8px,-14px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
 <body>
 <div class="w">
-<header><img src="/assets/icon-192.png" alt=""><b>알아줌 동네</b><button class="area" id="areaBtn">📍 동네 고르기</button></header>
-
-<section id="shopBox" class="hidden"></section>
-
-<h1 id="ttl">우리 동네 오늘 소식</h1>
-<p class="lead">동네 가게 사장님들이 오늘 올린 특가·입고·휴무 소식이에요.</p>
+<header><span class="logo">알</span><b>알아줌 동네</b>
+<button class="hbtn" id="areaBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5B92" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span id="areaTx">동네 고르기</span></button>
+<button class="hbtn" id="mineBtn" aria-label="내 쿠폰"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/></svg><em id="mineN" class="hidden"></em></button>
+</header>
 
 <div class="pick hidden" id="pick">
  <label for="areaIn">어느 동네 소식을 볼까요?</label>
  <div class="row"><input id="areaIn" placeholder="예) 부전동, 전포동"><button id="areaGo">보기</button></div>
- <div class="chips" id="areaChips"></div>
+ <div class="ac" id="areaChips"></div>
 </div>
 
-<div class="tabs"><button class="on" data-tab="feed">📢 오늘 소식</button><button data-tab="mine">🎟 내 쿠폰 <span id="mineN"></span></button></div>
+<section id="shopBox" class="hidden"></section>
 
-<div id="tab-feed">
- <div id="feed"></div>
- <div class="sec" id="cpHead"><h3>🎟 동네 쿠폰</h3><span>가게에서 보여 주세요</span></div>
- <div id="cps"></div>
+<div id="v-feed">
+ <div class="hi"><small id="today"></small><h1 id="ttl">우리 동네 <mark>오늘</mark></h1><p class="lead">동네 사장님들이 직접 올린 오늘 소식이에요.</p></div>
+ <div class="chips" id="flt"><button class="on" data-f="all">전체</button><button data-f="deal">특가</button><button data-f="new">새로 들어옴</button><button data-f="cp">쿠폰</button></div>
+ <div id="jj"></div>
+ <div class="feed" id="feed"></div>
+ <h3 class="sec hidden" id="cpHead">동네 쿠폰</h3>
+ <div class="feed" id="cps"></div>
 </div>
-<div id="tab-mine" class="mine hidden"><div id="mine"></div></div>
 
-<div class="home" id="homeTip"><b>📲 다음에도 쉽게 보려면</b><p id="homeTx">이 화면을 홈 화면에 추가해 두세요. 앱 설치 없이 아이콘으로 열려요.</p><button id="homeBtn">홈 화면에 추가</button></div>
-<p class="owner">사장님이세요? <a href="/market/?utm_source=dong">말 한마디로 우리 가게 소식 올리기 →</a></p>
-<p class="foot">알아줌 · 동네 가게 소식은 사장님이 직접 올린 거예요 · <a href="/">alajoom.com</a></p>
+<div id="v-mine" class="hidden">
+ <div class="hi"><small>이 폰에 저장돼요</small><h1>내 <mark>쿠폰</mark></h1><p class="lead">가게에서 '보여 주기'를 누르고 화면을 보여 주세요.</p></div>
+ <div class="feed" id="mine"></div>
+ <button class="hbtn" id="backFeed" style="margin-top:16px">← 동네 소식으로</button>
+</div>
+
+<div class="home" id="homeTip"><div><b>매일 보려면</b><p id="homeTx">홈 화면에 추가하면 앱처럼 바로 열려요</p></div><button id="homeBtn">홈 화면에 추가</button></div>
+<a class="owner" href="/market/?utm_source=dong"><span><small>사장님이세요?</small><b>말 한마디로 우리 가게 소식 올리기</b></span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+<p class="foot">알아줌 동네 · 소식은 사장님이 직접 올려요 · 무료 · <a href="/">alajoom.com</a></p>
 </div>
 <div class="show" id="show"><small id="shS"></small><h2 id="shO"></h2><p id="shT"></p><p style="margin-top:14px;font-size:15px">계산할 때 이 화면을 보여 주세요</p><button id="shX">닫기</button></div>
 <div class="toast" id="toast"></div>
+<div id="clapBox"></div>
 
 <script>
 (function(){
@@ -116,54 +151,79 @@ function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return
 function toast(t){var e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(function(){e.classList.remove('on')},2200)}
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}}
 function rpc(name,args){return fetch(URL_+'/rest/v1/rpc/'+name,{method:'POST',headers:{'Content-Type':'application/json','apikey':KEY,'Authorization':'Bearer '+KEY},body:JSON.stringify(args||{})}).then(function(r){if(!r.ok)throw new Error('rpc');return r.json()})}
-var ICON={fish:'🐟',meat:'🥩',fruit:'🍎',side:'🍱',rice:'🍡',snack:'🍢',dry:'🦐',etc:'🏪',skin:'💆',nail:'💅',hair:'💇',pilates:'🧘',academy:'📚',food:'🍚',cafe:'☕',bakery:'🥐',flower:'💐',pet:'🐶',funi:'🏪',beau:'💄'};
-var KIND={deal:['특가',''],new:['들어왔어요','new'],off:['쉬어요','off'],news:['소식','news']};
+// 병아리
+var B='<ellipse cx="0" cy="4" rx="34" ry="38" fill="#FFD43B"/>',CK='<circle cx="-21" cy="-3" r="4.5" fill="#FFB3B3" opacity=".8"/><circle cx="21" cy="-3" r="4.5" fill="#FFB3B3" opacity=".8"/>',SHL='<path d="M-34 14 L-24 6 L-14 15 L-4 6 L6 15 L16 6 L26 15 L34 8 C34 34 18 44 0 44 C-18 44 -34 34 -34 14Z" fill="#FFFDF6" stroke="#14161F" stroke-width="2.4" stroke-linejoin="round"/>',SD='<ellipse cx="0" cy="47" rx="26" ry="4" fill="#E9E1CF"/>';
+var CHICK={
+ jjong:function(s){return '<svg width="'+s+'" height="'+s+'" viewBox="-56 -62 112 112" aria-hidden="true">'+SD+'<g style="animation:hop 1.1s ease-in-out infinite;transform-origin:0 40px">'+B+'<path d="M-3 -40 q3 -10 9 -6" stroke="#E8A800" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="-11" cy="-12" r="3.8" fill="#14161F"/><circle cx="11" cy="-12" r="3.8" fill="#14161F"/><circle cx="-10" cy="-13.4" r="1.2" fill="#fff"/><circle cx="12" cy="-13.4" r="1.2" fill="#fff"/><path d="M-6 -5 L6 -5 L0 -1Z" fill="#FF9F43"/><path d="M-5 -1 L5 -1 L0 4Z" fill="#F07C1B"/>'+CK+'<g style="animation:wave .55s ease-in-out infinite alternate;transform-origin:30px 2px"><ellipse cx="36" cy="-2" rx="7" ry="11" fill="#FFC81F" transform="rotate(-30 36 -2)"/></g>'+SHL+'</g></svg>'},
+ clap:function(s){return '<svg width="'+s+'" height="'+s+'" viewBox="-60 -64 120 116" aria-hidden="true">'+SD+'<g style="animation:bob 1s ease-in-out infinite">'+B+'<path d="M-16 -12 q5 -6 10 0 M6 -12 q5 -6 10 0" stroke="#14161F" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M-6 -5 L6 -5 L0 1Z" fill="#FF9F43"/>'+CK+'<path d="M-7 4 q7 6 14 0" stroke="#14161F" stroke-width="2.4" fill="none" stroke-linecap="round"/>'+SHL+'<g style="animation:clapL .35s ease-in-out infinite alternate;transform-origin:-20px 18px"><ellipse cx="-12" cy="14" rx="7" ry="11" fill="#FFC81F" stroke="#14161F" stroke-width="2" transform="rotate(30 -12 14)"/></g><g style="animation:clapR .35s ease-in-out infinite alternate;transform-origin:20px 18px"><ellipse cx="12" cy="14" rx="7" ry="11" fill="#FFC81F" stroke="#14161F" stroke-width="2" transform="rotate(-30 12 14)"/></g></g><g style="animation:spark 1.2s ease-in-out infinite"><path d="M-46 -40 l3 -8 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3z" fill="#FFD43B" stroke="#14161F" stroke-width="1.6"/><path d="M42 -46 l2 -6 l2 6 l6 2 l-6 2 l-2 6 l-2 -6 l-6 -2z" fill="#FF9F43"/></g></svg>'},
+ sleep:function(s){return '<svg width="'+s+'" height="'+s+'" viewBox="-56 -66 120 116" aria-hidden="true">'+SD+'<g style="animation:breathe 2.6s ease-in-out infinite;transform-origin:0 44px">'+B+'<path d="M-16 -11 q5 4 10 0 M6 -11 q5 4 10 0" stroke="#14161F" stroke-width="2.8" fill="none" stroke-linecap="round"/><path d="M-5 -4 L5 -4 L0 1Z" fill="#FF9F43"/>'+CK+SHL+'<path d="M-30 -24 C-24 -48 24 -48 30 -24 L22 -28 L14 -22 L6 -28 L-2 -22 L-10 -28 L-18 -22 Z" fill="#FFFDF6" stroke="#14161F" stroke-width="2.2" stroke-linejoin="round"/></g><g style="animation:zz 2.6s ease-in-out infinite"><text x="30" y="-36" font-family="Noto Sans KR,sans-serif" font-weight="900" font-size="18" fill="#3B5B92">Z</text></g><g style="animation:zz 2.6s ease-in-out infinite;animation-delay:1.3s"><text x="42" y="-50" font-family="Noto Sans KR,sans-serif" font-weight="900" font-size="13" fill="#3B5B92">z</text></g></svg>'}
+};
+// 업종: 색 · 아이콘
+var P={market:'<path d="M3 9l1.5-5h15L21 9M3 9h18M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0M5 12v9h14v-9M10 21v-5h4v5"/>',food:'<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 21V3c-2 0-3.5 2-3.5 6v4H17"/>',cafe:'<path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9zM17 11h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3"/>',beauty:'<path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/>',fit:'<path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/>',edu:'<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>',etc:'<path d="M3 9l1.5-5h15L21 9M3 9h18M5 12v9h14v-9"/>'};
+var G={market:['시장','#DDF3F6','#0B7285'],food:['식당','#FFE8D9','#C2410C'],cafe:['카페','#F3E8DC','#7C4A1E'],beauty:['뷰티','#FCE4EE','#BE185D'],fit:['운동','#ECE7FC','#5B3FD1'],edu:['학원','#E2ECFB','#2F5DA8'],etc:['가게','#F1F2F5','#5B6070']};
+var CAT={fish:['market','수산'],meat:['market','정육'],fruit:['market','청과'],side:['market','반찬'],rice:['market','떡·방앗간'],snack:['market','분식'],dry:['market','건어물'],etc:['market',''],food:['food',''],cafe:['cafe',''],bakery:['cafe','베이커리'],skin:['beauty','피부관리'],nail:['beauty','네일'],hair:['beauty','헤어'],beau:['beauty',''],pilates:['fit','필라테스'],academy:['edu',''],flower:['etc','꽃집'],pet:['etc','반려동물'],funi:['etc','']};
+function grp(c){var x=CAT[c]||['etc',''];return {g:G[x[0]],p:P[x[0]],sub:x[1]}}
+function ic(c){var o=grp(c);return '<span class="ic" style="background:'+o.g[1]+'"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="'+o.g[2]+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+o.p+'</svg></span>'}
+function metaOf(c,extra){var o=grp(c);return [o.g[0],o.sub,extra].filter(Boolean).join(' · ')}
+var KIND={deal:['특가','k-deal'],new:['들어왔어요','k-new'],off:['쉬어요','k-off'],news:['소식','k-news']};
 function ago(t){var m=Math.max(0,Math.round((Date.now()-new Date(t))/60000));if(m<1)return'방금';if(m<60)return m+'분 전';var h=Math.round(m/60);if(h<24)return h+'시간 전';return Math.round(h/24)+'일 전'}
-function until(t){var d=new Date(t),n=new Date();var same=d.toDateString()===n.toDateString();return same?'오늘까지':(d.getMonth()+1)+'/'+d.getDate()+'까지'}
+function until(t){var d=new Date(t),n=new Date();return d.toDateString()===n.toDateString()?'오늘까지':(d.getMonth()+1)+'/'+d.getDate()+'까지'}
 var q=new URLSearchParams(location.search),code=(q.get('s')||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,12);
-var area=q.get('a')||ls('dn_area')||'';
+var area=q.get('a')||ls('dn_area')||'',flt='all',NEWS=[],CPS=[];
+var D=new Date();$('today').textContent=(D.getMonth()+1)+'월 '+D.getDate()+'일 '+'일월화수목금토'[D.getDay()]+'요일';
 // 내 쿠폰
 function mineGet(){try{return JSON.parse(ls('dn_mine')||'[]')}catch(e){return[]}}
 function mineSet(a){ls('dn_mine',JSON.stringify(a.slice(0,30)));renderMine()}
-function saveCp(c){var a=mineGet();if(a.some(function(x){return x.code===c.code}))return toast('이미 저장했어요');a.unshift({code:c.code,store:c.store,mate:c.mate,offer:c.offer,terms:c.terms||'',area:c.area||'',at:Date.now()});mineSet(a);toast('내 쿠폰에 저장했어요')}
+function clap(store){$('clapBox').innerHTML='<div class="clap" role="status">'+CHICK.clap(70)+'<div><b>저장했어요! 짝짝짝</b><p>'+esc(store)+' 쿠폰을 \'내 쿠폰\'에 넣어 뒀어요</p></div></div>';clearTimeout(clap.h);clap.h=setTimeout(function(){$('clapBox').innerHTML=''},2600)}
+function saveCp(c){var a=mineGet();if(a.some(function(x){return x.code===c.code}))return toast('이미 저장한 쿠폰이에요');a.unshift({code:c.code,store:c.store,mate:c.mate,offer:c.offer,terms:c.terms||'',area:c.area||'',at:Date.now()});mineSet(a);clap(c.store)}
 function showCp(c){$('shS').textContent=c.store;$('shO').textContent=c.offer;$('shT').textContent=c.terms||'';$('show').classList.add('on')}
 $('shX').onclick=function(){$('show').classList.remove('on')};
-function renderMine(){var a=mineGet();$('mineN').textContent=a.length?a.length:'';
- $('mine').innerHTML=a.length?a.map(function(c,i){return '<div class="card"><i>'+(ICON[c.mate]||'🎟')+'</i><div class="tx"><p class="st"><b>'+esc(c.store)+'</b>'+(c.area?' · '+esc(c.area):'')+'</p><p class="bd">'+esc(c.offer)+'</p>'+(c.terms?'<p class="when">'+esc(c.terms)+'</p>':'')+'</div><button class="use" data-i="'+i+'">보여 주기</button></div>'}).join('')+'<p class="when" style="text-align:center;margin-top:6px">이 폰에 저장돼요</p>':'<div class="empty">아직 저장한 쿠폰이 없어요.<br>가게 QR을 찍으면 여기에 모여요.</div>';
- $('mine').querySelectorAll('.use').forEach(function(b){b.onclick=function(){showCp(a[+b.dataset.i])}})}
-// 탭
-document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===b)});$('tab-feed').classList.toggle('hidden',b.dataset.tab!=='feed');$('tab-mine').classList.toggle('hidden',b.dataset.tab!=='mine')}});
+function cpCard(c,i,mine){return '<div class="card"><div class="ch">'+ic(c.mate)+'<div class="nm"><b>'+esc(c.store)+'</b><small>'+esc(metaOf(c.mate,c.area))+'</small></div><span class="bdg k-cp">쿠폰</span></div><p class="bd">'+esc(c.offer)+'</p>'+(c.terms?'<p class="lead" style="margin-top:4px">'+esc(c.terms)+'</p>':'')+(mine?'<button class="cpb" data-use="'+i+'">가게에서 보여 주기</button>':'<button class="cpb" data-cp="'+i+'">쿠폰 받기</button>')+'</div>'}
+function renderMine(){var a=mineGet();$('mineN').textContent=a.length;$('mineN').classList.toggle('hidden',!a.length);
+ $('mine').innerHTML=a.length?a.map(function(c,i){return cpCard(c,i,true)}).join(''):'<div class="empty">'+CHICK.sleep(120)+'<b>아직 저장한 쿠폰이 없어요</b><p>동네 소식에서 \'쿠폰 받기\'를 누르거나<br>가게 QR을 찍으면 여기에 모여요.</p></div>';
+ $('mine').querySelectorAll('[data-use]').forEach(function(b){b.onclick=function(){showCp(a[+b.dataset.use])}})}
+function view(v){$('v-feed').classList.toggle('hidden',v!=='feed');$('v-mine').classList.toggle('hidden',v!=='mine');$('shopBox').classList.toggle('hidden',v!=='feed'||!$('shopBox').innerHTML);window.scrollTo(0,0)}
+$('mineBtn').onclick=function(){renderMine();view('mine')};$('backFeed').onclick=function(){view('feed')};
 // 동네 고르기
 $('areaBtn').onclick=function(){$('pick').classList.toggle('hidden');if(!$('pick').classList.contains('hidden')){$('areaIn').value=area;$('areaIn').focus();loadAreas()}};
-function setArea(a){area=a.trim().slice(0,30);ls('dn_area',area||null);$('pick').classList.add('hidden');load()}
+function setArea(a){area=a.trim().slice(0,30);ls('dn_area',area||null);$('pick').classList.add('hidden');view('feed');load()}
 $('areaGo').onclick=function(){setArea($('areaIn').value)};
 $('areaIn').onkeydown=function(e){if(e.key==='Enter')setArea($('areaIn').value)};
-function loadAreas(){rpc('town_areas').then(function(a){$('areaChips').innerHTML=(a||[]).map(function(x){return '<button data-a="'+esc(x.name)+'">'+esc(x.name)+'</button>'}).join('')+'<button class="all" data-a="">전체 보기</button>';$('areaChips').querySelectorAll('button').forEach(function(b){b.onclick=function(){setArea(b.dataset.a)}})}).catch(function(){})}
-// 소식
-function card(n){var k=KIND[n.kind]||KIND.news;return '<div class="card"><i>'+(ICON[n.cat]||ICON[n.mate]||'🏪')+'</i><div class="tx"><p class="st"><span class="badge '+k[1]+'">'+k[0]+'</span><b>'+esc(n.store||'')+'</b></p><p class="bd">'+esc(n.body)+'</p><p class="when">'+ago(n.at)+' · '+until(n.until)+(n.area&&!area?' · '+esc(n.area):'')+'</p></div></div>'}
-function cpCard(c,i){return '<div class="card"><i>'+(ICON[c.mate]||'🎟')+'</i><div class="tx"><p class="st"><b>'+esc(c.store)+'</b>'+(c.area?' · '+esc(c.area):'')+'</p><p class="bd">'+esc(c.offer)+'</p>'+(c.terms?'<p class="when">'+esc(c.terms)+'</p>':'')+'</div><button class="use" data-c="'+i+'" style="flex:none;align-self:center;height:44px;padding:0 12px;border-radius:12px;border:2px solid var(--ink);background:#fff;font-weight:900;font-size:14px">저장</button></div>'}
+function loadAreas(){rpc('town_areas').then(function(a){$('areaChips').innerHTML=(a||[]).map(function(x){return '<button data-a="'+esc(x.name)+'">'+esc(x.name)+'</button>'}).join('')+'<button data-a="">전체 보기</button>';$('areaChips').querySelectorAll('button').forEach(function(b){b.onclick=function(){setArea(b.dataset.a)}})}).catch(function(){})}
+// 골라 보기
+$('flt').querySelectorAll('button').forEach(function(b){b.onclick=function(){flt=b.dataset.f;$('flt').querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});render()}});
+function card(n){var k=KIND[n.kind]||KIND.news;return '<article class="card"><div class="ch">'+ic(n.cat||n.mate)+'<div class="nm"><b>'+esc(n.store||'')+'</b><small>'+esc(metaOf(n.cat||n.mate,ago(n.at)))+'</small></div><span class="bdg '+k[1]+'">'+k[0]+'</span></div><p class="bd">'+esc(n.body)+'</p><div class="ft"><span>'+until(n.until)+'</span>'+(n.area&&!area?'<span>'+esc(n.area)+'</span>':'')+'</div></article>'}
+function render(){
+ var ns=NEWS.filter(function(n){return flt==='all'||flt===n.kind}),showCps=flt==='all'||flt==='cp';
+ if(flt==='cp')ns=[];
+ var latest=NEWS[0];
+ $('jj').innerHTML=(flt==='all'&&latest)?'<button class="jj" id="jjBtn">'+CHICK.jjong(62)+'<span><b>쫑! '+(NEWS.length>1?'오늘 소식이 '+NEWS.length+'개 있어요':'새 소식이 왔어요')+'</b><small>'+esc(latest.store||'동네 가게')+'에서 '+ago(latest.at)+' 올렸어요</small></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>':'';
+ var jb=$('jjBtn');if(jb)jb.onclick=function(){var f=document.querySelector('#feed .card');if(f)f.scrollIntoView({behavior:'smooth',block:'center'})};
+ var none=!ns.length&&!(showCps&&CPS.length);
+ $('feed').innerHTML=ns.map(card).join('')+(none?'<div class="empty">'+CHICK.sleep(140)+'<b>아직 조용해요</b><p>'+(flt==='all'?'오늘 '+(area?esc(area)+'에 ':'')+'올라온 소식이 없어요.<br>사장님들이 올리면 병아리가 깨워 줄게요.':'고른 소식이 아직 없어요.')+'</p>'+(area&&flt==='all'?'<a class="go" href="#" id="seeAll">전체 동네 소식 보기</a>':'')+'</div>':'');
+ var sa=$('seeAll');if(sa)sa.onclick=function(e){e.preventDefault();setArea('')};
+ $('cpHead').classList.toggle('hidden',!(showCps&&CPS.length&&ns.length));
+ $('cps').innerHTML=showCps?CPS.map(function(c,i){return cpCard(c,i,false)}).join(''):'';
+ $('cps').querySelectorAll('[data-cp]').forEach(function(b){b.onclick=function(){saveCp(CPS[+b.dataset.cp])}});
+}
 function load(){
- $('areaBtn').textContent='📍 '+(area||'동네 고르기');
- $('ttl').textContent=(area?area+' ':'우리 동네 ')+'오늘 소식';
- $('feed').innerHTML='<div class="empty">불러오는 중…</div>';
+ $('areaTx').textContent=area||'동네 고르기';
+ $('ttl').innerHTML=esc(area||'우리 동네')+' <mark>오늘</mark>';
+ $('feed').innerHTML='<div class="empty"><p>불러오는 중…</p></div>';$('jj').innerHTML='';
  rpc('town_feed',{p_area:area,p_code:code}).then(function(d){
-  if(d.shop&&!area&&d.area){area=d.area;$('areaBtn').textContent='📍 '+area;$('ttl').textContent=area+' 오늘 소식'}
-  if(d.shop){var s=d.shop;$('shopBox').classList.remove('hidden');
-   $('shopBox').innerHTML=s.offer?'<div class="cpn"><small>'+esc(s.store)+'에서 드리는 쿠폰</small><h2>'+esc(s.offer)+'</h2>'+(s.terms?'<p>'+esc(s.terms)+'</p>':'')+'<div class="act"><button id="cpSave">내 쿠폰에 저장</button><button class="l" id="cpShow">지금 보여 주기</button></div></div>':'<div class="cpn"><small>반가워요!</small><h2>'+esc(s.store)+'</h2><p>이 동네 가게들의 오늘 소식을 모아 봤어요.</p></div>';
+  if(d.shop&&!area&&d.area){area=d.area;$('areaTx').textContent=area;$('ttl').innerHTML=esc(area)+' <mark>오늘</mark>'}
+  if(d.shop){var s=d.shop;
+   $('shopBox').innerHTML=s.offer?'<div class="cpn"><small>'+esc(s.store)+(grp(s.mate).g[0]!=='가게'?' · '+grp(s.mate).g[0]:'')+'</small><h2>'+esc(s.offer)+'</h2>'+(s.terms?'<p>'+esc(s.terms)+'</p>':'')+'<hr><div class="act"><button id="cpSave">내 쿠폰에 저장</button><button class="l" id="cpShow">지금 보여 주기</button></div></div>':'<div class="cpn"><small>반가워요!</small><h2>'+esc(s.store)+'</h2><p>이 동네 가게들의 오늘 소식을 모아 봤어요.</p></div>';
+   $('shopBox').classList.remove('hidden');
    if(s.offer){$('cpSave').onclick=function(){saveCp(s)};$('cpShow').onclick=function(){showCp(s)}}}
-  var ns=d.news||[];
-  $('feed').innerHTML=ns.length?ns.map(card).join(''):'<div class="empty">아직 '+(area?esc(area)+'에 ':'')+'오늘 올라온 소식이 없어요.<br>사장님들이 소식을 올리면 여기에 떠요.'+(area?'<br><a href="#" id="seeAll">전체 동네 소식 보기 →</a>':'')+'</div>';
-  var sa=$('seeAll');if(sa)sa.onclick=function(e){e.preventDefault();setArea('')};
-  var cs=d.coupons||[];$('cpHead').classList.toggle('hidden',!cs.length);
-  $('cps').innerHTML=cs.map(cpCard).join('');
-  $('cps').querySelectorAll('.use').forEach(function(b){b.onclick=function(){saveCp(cs[+b.dataset.c])}});
- }).catch(function(){$('feed').innerHTML='<div class="empty">소식을 불러오지 못했어요.<br>잠시 뒤 다시 열어 주세요.</div>'});
+  NEWS=d.news||[];CPS=d.coupons||[];render();
+ }).catch(function(){$('feed').innerHTML='<div class="empty">'+CHICK.sleep(120)+'<b>소식을 불러오지 못했어요</b><p>잠시 뒤 다시 열어 주세요.</p></div>'});
 }
 // 홈 화면 추가
 var dp=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e});
 var ios=/iPhone|iPad|iPod/.test(navigator.userAgent);
-if(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)$('homeTip').classList.add('hidden');
-$('homeBtn').onclick=function(){if(dp){dp.prompt();dp=null;return}$('homeTx').textContent=ios?'사파리 아래 공유 버튼(네모에 화살표)을 누르고 "홈 화면에 추가"를 눌러 주세요.':'크롬 오른쪽 위 점 세 개 → "홈 화면에 추가" 또는 "설치"를 눌러 주세요.'};
+if((window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone)$('homeTip').classList.add('hidden');
+$('homeBtn').onclick=function(){if(dp){dp.prompt();dp=null;return}$('homeTx').textContent=ios?'사파리 아래 공유 버튼(네모에 화살표) → "홈 화면에 추가"':'크롬 오른쪽 위 점 세 개 → "홈 화면에 추가"'};
 renderMine();if(!area&&!code)$('pick').classList.remove('hidden'),loadAreas();load();
 })();
 </script>
