@@ -10,7 +10,7 @@
 <meta property="og:description" content="동네 사장님들이 직접 올린 오늘 특가·새 소식과 쿠폰을 한곳에서.">
 <meta property="og:image" content="https://alajoom.com/assets/og-alajoom.jpg?v=1127">
 <meta name="theme-color" content="#FFFCF5">
-<link rel="icon" href="/assets/icon-192.png">
+<link rel="icon" href="/assets/icon-192.png"><link rel="manifest" href="/dong/app.webmanifest"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><meta name="apple-mobile-web-app-title" content="알아줌 동네"><meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -34,8 +34,21 @@ h1{font-size:32px;font-weight:900;line-height:1.2;margin-top:4px;letter-spacing:
 h1 mark{background:linear-gradient(transparent 58%,#FFE27A 58%);color:inherit}
 .lead{font-size:15px;color:#5B6070;margin-top:6px}
 .dir{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13.5px;color:#5B6070;font-weight:600}.dir span{flex:none;padding:4px 10px;border-radius:999px;background:#E2ECFB;color:#2F5DA8;font-weight:800;font-size:12.5px}
-.acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:8px;margin-top:12px}.acts a{display:flex;align-items:center;justify-content:center;gap:6px;height:46px;border-radius:14px;background:#F6F2E7;color:var(--ink);text-decoration:none;font-weight:800;font-size:14.5px}
+.acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:8px;margin-top:12px}.acts a,.acts button{display:flex;border:0;cursor:pointer;align-items:center;justify-content:center;gap:6px;height:46px;border-radius:14px;background:#F6F2E7;color:var(--ink);text-decoration:none;font-weight:800;font-size:14.5px}
 .cpn .acts a{background:rgba(255,255,255,.7)}
+.acts .go2{background:var(--ink);color:#fff}.acts .go2[disabled]{background:#DDF5E6;color:#146C3B}
+.k-flash{background:#14161F;color:#FFD43B}
+.flash{position:relative;margin-top:10px;height:34px;border-radius:12px;background:#FFF1BF;overflow:hidden;display:flex;align-items:center;padding:0 12px;font-weight:900;font-size:14.5px;color:#7A2E00}
+.flash i{position:absolute;left:0;top:0;bottom:0;background:#FFD43B;border-radius:12px;transition:width .6s}.flash b{position:relative}
+.fav{flex:none;height:32px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-weight:800;font-size:13px;cursor:pointer}
+.fav.on{background:#FFE3E8;border-color:#FFB3C1;color:#C2185B}
+.going{color:#146C3B;font-weight:800}
+.card.hl{outline:3px solid var(--sun);outline-offset:2px}
+.favbig{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;height:52px;margin-top:12px;border-radius:16px;border:0;background:#fff;font-weight:900;font-size:16px;cursor:pointer}
+.favbig.on{background:#FFE3E8;color:#C2185B}
+.ntf{margin-top:14px;padding:16px;border-radius:20px;background:#fff;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center}
+.ntf div{flex:1}.ntf b{display:block;font-size:15.5px}.ntf p{font-size:13.5px;color:var(--mute);margin-top:2px}
+.ntf button{flex:none;height:44px;padding:0 16px;border-radius:14px;border:0;background:var(--ink);color:#fff;font-weight:800;cursor:pointer}
 .chips{display:flex;gap:8px;margin:16px -16px 0;padding:0 16px 4px;overflow-x:auto;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
 .chips button{flex:none;height:40px;padding:0 16px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:700;font-size:14px}
@@ -125,7 +138,8 @@ h1 mark{background:linear-gradient(transparent 58%,#FFE27A 58%);color:inherit}
 
 <div id="v-feed">
  <div class="hi"><small id="today"></small><h1 id="ttl">우리 동네 <mark>오늘</mark></h1><p class="lead">사장님이 직접 보내는 동네 소식이에요.</p><p class="dir"><span>직거래 구조예요</span> 손님이 가게로 직접 찾아가요</p></div>
- <div class="chips" id="flt"><button class="on" data-f="all">전체</button><button data-f="deal">특가</button><button data-f="new">새로 들어옴</button><button data-f="cp">쿠폰</button></div>
+ <div class="chips" id="flt"><button class="on" data-f="all">전체</button><button data-f="fav">♥ 내 단골<span id="favN"></span></button><button data-f="deal">특가</button><button data-f="new">새로 들어옴</button><button data-f="cp">쿠폰</button></div>
+ <div id="ntfBox"></div>
  <div id="jj"></div>
  <div class="feed" id="feed"></div>
  <h3 class="sec hidden" id="cpHead">동네 쿠폰</h3>
@@ -168,7 +182,39 @@ var CAT={fish:['market','수산'],meat:['market','정육'],fruit:['market','청�
 function grp(c){var x=CAT[c]||['etc',''];return {g:G[x[0]],p:P[x[0]],sub:x[1]}}
 function ic(c){var o=grp(c);return '<span class="ic" style="background:'+o.g[1]+'"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="'+o.g[2]+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+o.p+'</svg></span>'}
 function metaOf(c,extra){var o=grp(c);return [o.g[0],o.sub,extra].filter(Boolean).join(' · ')}
-function acts(x){var o=[];if(x.phone)o.push('<a href="tel:'+esc(String(x.phone).replace(/[^0-9]/g,''))+'"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>전화하기</a>');if(x.addr)o.push('<a href="https://map.kakao.com/?q='+encodeURIComponent(x.addr)+'" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>가게 위치 보기</a>');return o.length?'<div class="acts">'+o.join('')+'</div>':''}
+function acts(x){var o=[];if(x.phone)o.push('<a href="tel:'+esc(String(x.phone).replace(/[^0-9]/g,''))+'"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>전화하기</a>');if(x.addr)o.push('<a href="https://map.kakao.com/?q='+encodeURIComponent(x.addr)+'" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>위치 보기</a>');if(x.id&&x.kind!=='off'){var gone=goneGet().indexOf(x.id)>-1;o.push('<button class="go2" data-go="'+x.id+'"'+(gone?' disabled':'')+'>'+(gone?'가요! 알렸어요':'🏃 지금 가요')+'</button>')}return o.length?'<div class="acts">'+o.join('')+'</div>':''}
+// 단골 · 지금 가요 · 번개 시계
+function favGet(){try{var a=JSON.parse(ls('dn_follow')||'[]');return Array.isArray(a)?a:[]}catch(e){return[]}}
+function favCodes(){return favGet().map(function(x){return x.code})}
+function favBtn(x){if(!x.code)return '';var on=favCodes().indexOf(x.code)>-1;return '<button class="fav'+(on?' on':'')+'" data-fav="'+esc(x.code)+'" data-st="'+esc(x.store||'')+'">'+(on?'♥ 내 단골':'♡ 단골')+'</button>'}
+function favBig(x){if(!x.code)return '';var on=favCodes().indexOf(x.code)>-1;return '<button class="favbig'+(on?' on':'')+'" data-fav="'+esc(x.code)+'" data-st="'+esc(x.store||'')+'">'+(on?'♥ 내 단골 가게예요':'♡ 이 가게 단골 맺기')+'</button>'}
+function favN(){var n=favGet().length;$('favN').textContent=n?' '+n:''}
+function toggleFav(code,store){var a=favGet(),i=-1;a.forEach(function(x,j){if(x.code===code)i=j});
+ if(i>-1){a.splice(i,1);toast('단골에서 뺐어요')}else{a.unshift({code:code,store:store});toast('♥ '+(store||'이 가게')+' 단골이 됐어요');}
+ ls('dn_follow',JSON.stringify(a.slice(0,60)));favN();pushSync();render();if($('shopBox').innerHTML){$('shopBox').querySelectorAll('[data-fav]').forEach(function(b){var on=favCodes().indexOf(b.dataset.fav)>-1;b.classList.toggle('on',on);b.textContent=on?'♥ 내 단골 가게예요':'♡ 이 가게 단골 맺기'})}ntfBox()}
+function goneGet(){try{return JSON.parse(ls('dn_going')||'[]')}catch(e){return[]}}
+function dev(){var d=ls('dn_dev');if(!d){d='d'+Math.random().toString(36).slice(2)+Date.now().toString(36);ls('dn_dev',d)}return d}
+function going(id,b){b.disabled=true;rpc('news_going',{p_id:+id,p_dev:dev()}).then(function(r){var g=goneGet();g.unshift(+id);ls('dn_going',JSON.stringify(g.slice(0,50)));b.textContent='가요! 알렸어요';
+ NEWS.forEach(function(n){if(n.id==id)n.going=r.going});toast('사장님께 "가는 중"이라고 알렸어요');setTimeout(render,900)}).catch(function(){b.disabled=false;toast('이미 끝난 소식이에요')})}
+function wire(root){root.querySelectorAll('[data-fav]').forEach(function(b){b.onclick=function(){toggleFav(b.dataset.fav,b.dataset.st)}});root.querySelectorAll('[data-go]').forEach(function(b){if(!b.disabled)b.onclick=function(){going(b.dataset.go,b)}})}
+function tick(){document.querySelectorAll('.flash[data-until]').forEach(function(f){var a=new Date(f.dataset.from).getTime(),u=new Date(f.dataset.until).getTime(),n=Date.now(),m=Math.max(0,Math.round((u-n)/60000));
+ f.querySelector('i').style.width=Math.max(0,Math.min(100,(u-n)/(u-a)*100))+'%';f.querySelector('b').textContent=m<=0?'끝났어요':'⏱ '+(m>=60?Math.floor(m/60)+'시간 ':'')+(m%60?m%60+'분 ':'')+'남았어요'})}
+setInterval(tick,30000);
+// 알림 (단골 가게가 올리면)
+var VAPID='BDdcBY4HiY442KZ1r85u0KevYkFFEvSDkISitUvll1Ya0ECtBs0W6be_i3jBf0g8FQYeagXpGDMjpv6T9Foh9fk';
+var canPush='serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window,standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone;
+function u8(b){var p='='.repeat((4-b.length%4)%4),r=atob((b+p).replace(/-/g,'+').replace(/_/g,'/')),a=new Uint8Array(r.length);for(var i=0;i<r.length;i++)a[i]=r.charCodeAt(i);return a}
+function subSave(sub){var j=sub.toJSON();return rpc('push_save',{p_endpoint:j.endpoint,p_p256dh:j.keys.p256dh,p_auth:j.keys.auth,p_codes:favCodes()})}
+function pushSync(){if(!canPush||ls('dn_push')!=='1')return;navigator.serviceWorker.ready.then(function(r){return r.pushManager.getSubscription()}).then(function(s){if(s)return subSave(s)}).catch(function(){})}
+function pushOn(){Notification.requestPermission().then(function(p){if(p!=='granted'){toast('알림이 꺼져 있어요. 폰 설정에서 켜 주세요');return}
+ return navigator.serviceWorker.register('/dong/sw.js').then(function(){return navigator.serviceWorker.ready}).then(function(r){return r.pushManager.getSubscription().then(function(s){return s||r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(VAPID)})})})
+ .then(subSave).then(function(){ls('dn_push','1');toast('🔔 단골 가게 소식이 오면 알려 드릴게요');ntfBox()})}).catch(function(){toast('이 폰에서는 알림을 켤 수 없어요')})}
+function ntfBox(){var b=$('ntfBox');if(!b)return;var n=favGet().length;
+ if(!n||ls('dn_push')==='1'&&Notification.permission==='granted'){b.innerHTML='';return}
+ if(ios&&!standalone){b.innerHTML='<div class="ntf"><div><b>🔔 단골 소식 알림 받기</b><p>아이폰은 아래 \'홈 화면에 추가\'를 한 뒤, 홈 화면 아이콘으로 열면 켤 수 있어요</p></div></div>';return}
+ if(!canPush){b.innerHTML='';return}
+ b.innerHTML='<div class="ntf"><div><b>🔔 단골 가게 소식 알림</b><p>단골 '+n+'곳이 특가·번개를 올리면 바로 알려 드려요. 광고는 안 와요</p></div><button id="ntfOn">알림 켜기</button></div>';$('ntfOn').onclick=pushOn}
+var ios=/iPhone|iPad|iPod/.test(navigator.userAgent);
 var KIND={deal:['특가','k-deal'],new:['들어왔어요','k-new'],off:['쉬어요','k-off'],news:['소식','k-news']};
 function ago(t){var m=Math.max(0,Math.round((Date.now()-new Date(t))/60000));if(m<1)return'방금';if(m<60)return m+'분 전';var h=Math.round(m/60);if(h<24)return h+'시간 전';return Math.round(h/24)+'일 전'}
 function until(t){var d=new Date(t),n=new Date();return d.toDateString()===n.toDateString()?'오늘까지':(d.getMonth()+1)+'/'+d.getDate()+'까지'}
@@ -196,19 +242,20 @@ $('areaIn').onkeydown=function(e){if(e.key==='Enter')setArea($('areaIn').value)}
 function loadAreas(){rpc('town_areas').then(function(a){$('areaChips').innerHTML=(a||[]).map(function(x){return '<button data-a="'+esc(x.name)+'">'+esc(x.name)+'</button>'}).join('')+'<button data-a="">전체 보기</button>';$('areaChips').querySelectorAll('button').forEach(function(b){b.onclick=function(){setArea(b.dataset.a)}})}).catch(function(){})}
 // 골라 보기
 $('flt').querySelectorAll('button').forEach(function(b){b.onclick=function(){flt=b.dataset.f;$('flt').querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});render()}});
-function card(n){var k=KIND[n.kind]||KIND.news;return '<article class="card"><div class="ch">'+ic(n.cat||n.mate)+'<div class="nm"><b>'+esc(n.store||'')+'</b><small>'+esc(metaOf(n.cat||n.mate,ago(n.at)))+'</small></div><span class="bdg '+k[1]+'">'+k[0]+'</span></div><p class="bd">'+esc(n.body)+'</p>'+acts(n)+'<div class="ft"><span>'+until(n.until)+'</span>'+(n.area&&!area?'<span>'+esc(n.area)+'</span>':'')+'</div></article>'}
+function card(n){var k=n.flash?['⚡ 번개','k-flash']:(KIND[n.kind]||KIND.news);return '<article class="card" id="n'+n.id+'"><div class="ch">'+ic(n.cat||n.mate)+'<div class="nm"><b>'+esc(n.store||'')+'</b><small>'+esc(metaOf(n.cat||n.mate,ago(n.at)))+'</small></div><span class="bdg '+k[1]+'">'+k[0]+'</span></div><p class="bd">'+esc(n.body)+'</p>'+(n.flash?'<div class="flash" data-from="'+esc(n.at)+'" data-until="'+esc(n.until)+'"><i></i><b></b></div>':'')+acts(n)+'<div class="ft"><span>'+(n.flash?'':until(n.until))+(n.going>0?' <span class="going" data-gn="'+n.id+'">· '+n.going+'명 가는 중</span>':'')+(n.area&&!area?' · '+esc(n.area):'')+'</span>'+favBtn(n)+'</div></article>'}
 function render(){
- var ns=NEWS.filter(function(n){return flt==='all'||flt===n.kind}),showCps=flt==='all'||flt==='cp';
+ var fc=favCodes(),ns=NEWS.filter(function(n){return flt==='all'||flt===n.kind||(flt==='deal'&&n.flash)||(flt==='fav'&&fc.indexOf(n.code)>-1)}),showCps=flt==='all'||flt==='cp'||flt==='fav',cpl=flt==='fav'?CPS.filter(function(c){return fc.indexOf(c.code)>-1}):CPS;
  if(flt==='cp')ns=[];
  var latest=NEWS[0];
  $('jj').innerHTML=(flt==='all'&&latest)?'<button class="jj" id="jjBtn">'+CHICK.jjong(62)+'<span><b>쫑! '+(NEWS.length>1?'오늘 소식이 '+NEWS.length+'개 있어요':'새 소식이 왔어요')+'</b><small>'+esc(latest.store||'동네 가게')+'에서 '+ago(latest.at)+' 올렸어요</small></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>':'';
  var jb=$('jjBtn');if(jb)jb.onclick=function(){var f=document.querySelector('#feed .card');if(f)f.scrollIntoView({behavior:'smooth',block:'center'})};
- var none=!ns.length&&!(showCps&&CPS.length);
- $('feed').innerHTML=ns.map(card).join('')+(none?'<div class="empty">'+CHICK.sleep(140)+'<b>아직 조용해요</b><p>'+(flt==='all'?'오늘 '+(area?esc(area)+'에 ':'')+'올라온 소식이 없어요.<br>사장님들이 올리면 병아리가 깨워 줄게요.':'고른 소식이 아직 없어요.')+'</p>'+(area&&flt==='all'?'<a class="go" href="#" id="seeAll">전체 동네 소식 보기</a>':'')+'</div>':'');
+ var none=!ns.length&&!(showCps&&cpl.length);
+ $('feed').innerHTML=ns.map(card).join('')+(none?'<div class="empty">'+CHICK.sleep(140)+'<b>아직 조용해요</b><p>'+(flt==='fav'?(fc.length?'단골 가게의 오늘 소식이 아직 없어요.<br>올라오면 바로 여기에 보여요.':'아직 단골 가게가 없어요.<br>소식 아래 \'♡ 단골\'을 누르면 그 가게 소식만 모아 봐요.'):flt==='all'?'오늘 '+(area?esc(area)+'에 ':'')+'올라온 소식이 없어요.<br>사장님들이 올리면 병아리가 깨워 줄게요.':'고른 소식이 아직 없어요.')+'</p>'+(area&&flt==='all'?'<a class="go" href="#" id="seeAll">전체 동네 소식 보기</a>':'')+'</div>':'');
  var sa=$('seeAll');if(sa)sa.onclick=function(e){e.preventDefault();setArea('')};
- $('cpHead').classList.toggle('hidden',!(showCps&&CPS.length&&ns.length));
- $('cps').innerHTML=showCps?CPS.map(function(c,i){return cpCard(c,i,false)}).join(''):'';
- $('cps').querySelectorAll('[data-cp]').forEach(function(b){b.onclick=function(){saveCp(CPS[+b.dataset.cp])}});
+ $('cpHead').classList.toggle('hidden',!(showCps&&cpl.length&&ns.length));
+ $('cps').innerHTML=showCps?cpl.map(function(c,i){return cpCard(c,i,false)}).join(''):'';
+ $('cps').querySelectorAll('[data-cp]').forEach(function(b){b.onclick=function(){saveCp(cpl[+b.dataset.cp])}});
+ wire(document.getElementById('v-feed'));tick();
 }
 function load(){
  $('areaTx').textContent=area||'동네 고르기';
@@ -217,18 +264,20 @@ function load(){
  rpc('town_feed',{p_area:area,p_code:code}).then(function(d){
   if(d.shop&&!area&&d.area){area=d.area;$('areaTx').textContent=area;$('ttl').innerHTML=esc(area)+' <mark>오늘</mark>'}
   if(d.shop){var s=d.shop;
-   $('shopBox').innerHTML=s.offer?'<div class="cpn"><small>'+esc(s.store)+(grp(s.mate).g[0]!=='가게'?' · '+grp(s.mate).g[0]:'')+'</small><h2>'+esc(s.offer)+'</h2>'+(s.terms?'<p>'+esc(s.terms)+'</p>':'')+'<hr><div class="act"><button id="cpSave">내 쿠폰에 저장</button><button class="l" id="cpShow">지금 보여 주기</button></div>'+acts(s)+'</div>':'<div class="cpn"><small>반가워요!</small><h2>'+esc(s.store)+'</h2><p>이 동네 가게들의 오늘 소식을 모아 봤어요.</p>'+acts(s)+'</div>';
+   $('shopBox').innerHTML=s.offer?'<div class="cpn"><small>'+esc(s.store)+(grp(s.mate).g[0]!=='가게'?' · '+grp(s.mate).g[0]:'')+'</small><h2>'+esc(s.offer)+'</h2>'+(s.terms?'<p>'+esc(s.terms)+'</p>':'')+'<hr><div class="act"><button id="cpSave">내 쿠폰에 저장</button><button class="l" id="cpShow">지금 보여 주기</button></div>'+acts(s)+favBig(s)+'</div>':'<div class="cpn"><small>반가워요!</small><h2>'+esc(s.store)+'</h2><p>이 동네 가게들의 오늘 소식을 모아 봤어요.</p>'+acts(s)+favBig(s)+'</div>';
    $('shopBox').classList.remove('hidden');
-   if(s.offer){$('cpSave').onclick=function(){saveCp(s)};$('cpShow').onclick=function(){showCp(s)}}}
-  NEWS=d.news||[];CPS=d.coupons||[];render();
+   if(s.offer){$('cpSave').onclick=function(){saveCp(s)};$('cpShow').onclick=function(){showCp(s)}}wire($('shopBox'))}
+  NEWS=d.news||[];CPS=d.coupons||[];render();ntfBox();
+  var nid=q.get('n');if(nid){var el=$('n'+nid.replace(/[^0-9]/g,''));if(el){el.classList.add('hl');setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'center'})},300)}}
  }).catch(function(){$('feed').innerHTML='<div class="empty">'+CHICK.sleep(120)+'<b>소식을 불러오지 못했어요</b><p>잠시 뒤 다시 열어 주세요.</p></div>'});
 }
 // 홈 화면 추가
 var dp=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e});
-var ios=/iPhone|iPad|iPod/.test(navigator.userAgent);
 if((window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone)$('homeTip').classList.add('hidden');
+if(standalone)$('homeTip').classList.add('hidden');
 $('homeBtn').onclick=function(){if(dp){dp.prompt();dp=null;return}$('homeTx').textContent=ios?'사파리 아래 공유 버튼(네모에 화살표) → "홈 화면에 추가"':'크롬 오른쪽 위 점 세 개 → "홈 화면에 추가"'};
-renderMine();if(!area&&!code)$('pick').classList.remove('hidden'),loadAreas();load();
+if(canPush&&ls('dn_push')==='1')navigator.serviceWorker.register('/dong/sw.js').catch(function(){});
+renderMine();favN();if(!area&&!code)$('pick').classList.remove('hidden'),loadAreas();load();
 })();
 </script>
 </body>
