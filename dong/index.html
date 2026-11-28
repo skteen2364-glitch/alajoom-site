@@ -300,7 +300,7 @@ function ggCard(g,i){var left=g.qty?Math.max(0,g.qty-g.taken):null,pct=g.qty?Mat
  (g.my?'<div class="mycode"><small>예약했어요 · '+g.my.qty+'개 · 가게에서 이 번호를 말해 주세요</small><b>'+esc(g.my.code)+'</b><button data-cx="'+g.id+'">예약 취소</button></div>':soldout?'':'<div class="rsv"><div class="q"><button data-qm="'+g.id+'">−</button><b id="q'+g.id+'">'+(rq[g.id]||1)+'</b><button data-qp="'+g.id+'">＋</button></div><button class="go3" data-rv="'+g.id+'">예약하기</button></div>')+acts(g)+'</div>'}
 function renderGG(){var b=$('gg');if(!DONGS.length){b.innerHTML='';return}var gs=GG.filter(function(g){return g.d===area});
  var h='<h2>⏳ '+esc(area)+' 3일 특가</h2><p class="sub">'+esc(area)+' 사람만 예약해요 · 딱 2가지 · 3일 뒤 끝나요 · 돈은 가게에서 내요</p>';
- h+=gs.map(ggCard).join('');for(var k=gs.length;k<2;k++)h+='<div class="gempty">빈자리 '+(k+1)+' · '+esc(area)+' 사장님이 올리면 여기에 떠요</div>';
+ h+=gs.map(ggCard).join('');for(var k=gs.length;k<2;k++)h+='<div class="gempty"><b style="display:block;font-size:16px;color:#14161F">⏳ 특가 '+(k+1)+' · 준비 중이에요</b>곧 '+esc(area)+' 사장님 특가가 올라와요</div>';
  b.innerHTML=h;
  b.querySelectorAll('[data-qm],[data-qp]').forEach(function(x){x.onclick=function(){var id=x.dataset.qm||x.dataset.qp;rq[id]=Math.max(1,Math.min(5,(rq[id]||1)+(x.dataset.qm?-1:1)));$('q'+id).textContent=rq[id]}});
  b.querySelectorAll('[data-rv]').forEach(function(x){x.onclick=function(){var id=+x.dataset.rv;x.disabled=true;rpc('gonggu_reserve',{p_id:id,p_dev:dev(),p_qty:rq[id]||1}).then(function(r){GG.forEach(function(g){if(g.id===id){g.my=r;g.people+=1;g.taken+=r.qty}});renderGG();clap('',"예약했어요! 짝짝짝",'예약 번호 '+esc(r.code)+' · 가게에서 말해 주세요')}).catch(function(e){x.disabled=false;toast('다 예약됐거나 끝난 특가예요');load()})}});
