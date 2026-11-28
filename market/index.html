@@ -131,7 +131,7 @@ textarea{min-height:5.2rem;resize:vertical}
 </head>
 <body>
 <div class="w">
-<header><img src="/assets/icon-192.png" alt=""><b>알아줌 시장</b><button class="kind" id="kindBtn" data-go="kind" aria-label="가게 종류 바꾸기">🏪 가게 고르기</button>
+<header><img src="/assets/icon-192.png" alt=""><b id="brand">알아줌 시장</b><button class="kind" id="kindBtn" data-go="kind" aria-label="가게 종류 바꾸기">🏪 가게 고르기</button>
 <div class="fsz"><button id="fsp" aria-label="글씨 크기 바꾸기">가+</button></div></header>
 
 <!-- 가게 고르기 -->
@@ -163,7 +163,7 @@ textarea{min-height:5.2rem;resize:vertical}
 <a class="big" href="/tax/?utm_source=market" style="text-decoration:none;color:inherit"><i>🧾</i><b>세금<br>미리보기</b><small>올해 세금 대략</small></a>
 </div>
 <p class="note" id="homeEx">예) "통영 굴 들어왔어요, 오늘만 10% 할인" · "오늘 삼십만 원 팔았어" · "내일 하루 쉬어요"</p>
-<div class="hometip" id="homeTip"><b>📲 다음부터 바로 열려면</b><p id="homeTx">홈 화면에 추가해 두세요. 다음부터는 아이콘만 누르면 알아줌 시장이 바로 열려요.</p><button id="homeAdd">홈 화면에 추가</button></div>
+<div class="hometip" id="homeTip"><b>📲 다음부터 바로 열려면</b><p id="homeTx">홈 화면에 추가해 두세요. 다음부터는 아이콘만 누르면 알아줌이 바로 열려요.</p><button id="homeAdd">홈 화면에 추가</button></div>
 </section>
 
 <!-- 특가 -->
@@ -205,7 +205,7 @@ textarea{min-height:5.2rem;resize:vertical}
 <p class="q">몇 개 준비하세요? (안 적어도 돼요)</p>
 <input type="text" id="ggQ" inputmode="numeric" maxlength="3" placeholder="예) 30">
 <p class="q">한 줄 안내 (안 적어도 돼요)</p>
-<div class="inrow"><input type="text" id="ggN" maxlength="80" placeholder="예) 부전시장 2번 출구 바로 앞"><button class="smic" data-mic="ggN" aria-label="말하기"><svg viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2.4" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button></div>
+<div class="inrow"><input type="text" id="ggN" maxlength="80" placeholder="예) 2번 출구 바로 앞"><button class="smic" data-mic="ggN" aria-label="말하기"><svg viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2.4" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button></div>
 <button class="go" id="ggGo">3일 특가 올리기</button>
 <p class="note">올리면 바로 3일 시계가 시작돼요 · 한 가게는 한 번에 1개만</p>
 </div>
@@ -303,18 +303,29 @@ var K={
  rice:{n:'떡·방앗간',e:'🍡',ex:['꿀떡 한 팩 삼천 원','가래떡 두 줄 오천 원','절편 세 팩 만 원'],tag:'오늘 아침 뽑은',body:'오늘 아침에 뽑은 떡이에요.\n말랑할 때 드세요.',nw:'예) 쑥떡 나왔어요'},
  snack:{n:'분식·먹거리',e:'🍢',ex:['떡볶이 일 인분 삼천 원','어묵 다섯 개 이천 원','김밥 두 줄 오천 원'],tag:'지금 바로 만든',body:'지금 바로 만들어 드려요.\n포장도 돼요.',nw:'예) 오늘부터 팥죽 시작해요'},
  dry:{n:'건어물·젓갈',e:'🦐',ex:['멸치 한 봉지 만 원','오징어채 두 봉지 만오천 원','명란젓 한 통 이만 원'],tag:'좋은 물건만',body:'좋은 물건만 골라 놨어요.\n선물 포장도 돼요.',nw:'예) 햇멸치 들어왔어요'},
+ food:{n:'식당',e:'🍲',g:'d',ex:['점심 김치찌개 정식 팔천 원','삼겹살 이 인분 시키면 된장찌개 서비스','오늘 저녁 수육 반값'],tag:'오늘의 메뉴',body:'오늘 정성껏 준비했어요.\n포장도 돼요.',nw:'예) 겨울 굴국밥 시작했어요'},
+ cafe:{n:'카페',e:'☕',g:'d',ex:['아메리카노 두 잔 오천 원','유자차 한 잔 시키면 쿠키 하나 서비스','오후 세 시까지 라떼 천 원 할인'],tag:'오늘의 음료',body:'따뜻하게 한 잔 하고 가세요.',nw:'예) 겨울 한정 유자차 나왔어요'},
+ bakery:{n:'빵집',e:'🥐',g:'d',ex:['소금빵 세 개 오천 원','식빵 두 줄 칠천 원','저녁 일곱 시부터 빵 30% 할인'],tag:'오늘 구운 빵',body:'오늘 아침에 구운 빵이에요.',nw:'예) 크리스마스 케이크 예약 받아요'},
+ hair:{n:'미용실',e:'💇',g:'d',ex:['평일 커트 만 원','염색 하면 클리닉 서비스','이번 주 펌 20% 할인'],tag:'이번 주 특가',body:'예약하고 오시면 안 기다려요.',nw:'예) 새 디자이너 왔어요'},
+ nail:{n:'네일',e:'💅',g:'d',ex:['젤네일 이만오천 원','겨울 아트 오천 원 할인','두 분 같이 오시면 10% 할인'],tag:'이번 주 특가',body:'예약하고 오시면 안 기다려요.',nw:'예) 겨울 신상 디자인 나왔어요'},
+ skin:{n:'피부관리',e:'✨',g:'d',ex:['첫 방문 관리 삼만 원','수분 관리 1+1','이번 주 각질 관리 반값'],tag:'이번 주 특가',body:'예약하고 오시면 편하게 받으세요.',nw:'예) 새 관리 시작했어요'},
+ pilates:{n:'필라테스·운동',e:'🧘',g:'d',ex:['첫 체험 수업 만 원','두 분 같이 등록하면 10% 할인','이번 달 등록하면 한 달 더'],tag:'이번 달 특가',body:'처음이어도 천천히 알려 드려요.',nw:'예) 저녁반 새로 열었어요'},
+ academy:{n:'학원·공부방',e:'📚',g:'d',ex:['겨울방학 특강 접수','형제 같이 오면 10% 할인','무료 상담 받아요'],tag:'이번 달 소식',body:'상담은 언제든 편하게 오세요.',nw:'예) 겨울방학 특강 시작해요'},
+ flower:{n:'꽃집',e:'💐',g:'d',ex:['장미 한 다발 만 원','꽃바구니 예약 10% 할인','오늘 들어온 튤립 세 송이 오천 원'],tag:'오늘 들어온 꽃',body:'오늘 들어온 싱싱한 꽃이에요.',nw:'예) 크리스마스 리스 들어왔어요'},
  etc:{n:'그 밖의 가게',e:'🏪',ex:['양말 다섯 켤레 만 원','장갑 두 켤레 오천 원','수세미 세 개 이천 원'],tag:'오늘만 이 가격',body:'오늘만 이 가격이에요.\n구경 오세요.',nw:'예) 겨울 내복 들어왔어요'}
 };
+var FROMDONG=/dong/.test(new URLSearchParams(location.search).get('utm_source')||'')||ls('mk_from')==='dong';if(FROMDONG)ls('mk_from','dong');
 var kind0=(new URLSearchParams(location.search).get('k'))||ls('mk_kind')||'';if(!K[kind0])kind0='';
 function KD(){return K[kind0]||{n:'',e:'🏪',ex:['고등어 세 마리 만 원','사과 한 봉지 오천 원','반찬 세 가지 만 원'],tag:'오늘의 특가',body:'오늘 들어온 물건이라 좋아요.',nw:'예) 제철 물건 들어왔어요'}}
-function applyKind(){var d=KD();$('kindBtn').textContent=kind0?d.e+' '+d.n+' ▾':'🏪 가게 고르기';
+function applyKind(){var d=KD(),town=kind0?K[kind0].g==='d':FROMDONG;$('brand').textContent=town?'알아줌 가게':'알아줌 시장';document.title=town?'알아줌 가게 | 동네 사장님, 말만 하세요':'알아줌 시장 | 전통시장 사장님, 말만 하세요';$('shop0').placeholder=$('shop').placeholder=town?'예) 골목카페':'예) 부전시장 은혜수산';$('kindBtn').textContent=kind0?d.e+' '+d.n+' ▾':'🏪 가게 고르기';
  $('homeEx').textContent='예) "'+d.ex[0]+'" · "오늘 삼십만 원 팔았어" · "내일 하루 쉬어요"';
  $('dealIn').placeholder='예) '+d.ex[0];
  $('dealEx').innerHTML=d.ex.map(function(x){return '<button type="button">'+x+'</button>'}).join('');
  $('dealEx').querySelectorAll('button').forEach(function(b){b.onclick=function(){$('dealIn').value=b.textContent}});
  KQ.new[1]=d.nw;if(kind==='new')$('msgIn').placeholder=d.nw;
  $('kgrid').querySelectorAll('button').forEach(function(b){b.classList.toggle('sel',b.dataset.k===kind0)})}
-$('kgrid').innerHTML=Object.keys(K).map(function(k){return '<button type="button" data-k="'+k+'"><i>'+K[k].e+'</i>'+K[k].n+'</button>'}).join('');
+var kb=function(k){return '<button type="button" data-k="'+k+'"><i>'+K[k].e+'</i>'+K[k].n+'</button>'},ks=Object.keys(K),kd=ks.filter(function(k){return K[k].g==='d'}),km=ks.filter(function(k){return K[k].g!=='d'});
+$('kgrid').innerHTML=(FROMDONG?kd.concat(km):km.concat(kd)).map(kb).join('');
 $('kgrid').querySelectorAll('button').forEach(function(b){b.onclick=function(){kind0=b.dataset.k;ls('mk_kind',kind0);applyKind()}});
 $('shop0').value=ls('mk_shop')||'';
 $('kindGo').onclick=function(){var v=$('shop0').value.trim();if(v){ls('mk_shop',v);$('shop').value=v}ls('mk_seen','1');show('home')};
@@ -387,7 +398,7 @@ function seeAmt(){var n=parseWon($('amtIn').value);$('amtSee').textContent=n?'�
 $('amtIn').oninput=seeAmt;
 function ymd(d){d=d||new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 $('bookGo').onclick=function(){var n=parseWon($('amtIn').value);if(!n){toast('금액을 말씀해 주세요');return}
- var a=getL();a.push({id:Date.now(),date:ymd(),type:type,amount:n,memo:'시장 장부',paid:true});setL(a);$('amtIn').value='';$('amtSee').textContent='';renderBook();toast(won(n)+' 적었어요')};
+ var a=getL();a.push({id:Date.now(),date:ymd(),type:type,amount:n,memo:'장사 기록',paid:true});setL(a);$('amtIn').value='';$('amtSee').textContent='';renderBook();toast(won(n)+' 적었어요')};
 function renderBook(){var a=getL(),m=ymd().slice(0,7),s=0,b=0;a.forEach(function(r){if(String(r.date).slice(0,7)!==m)return;if(r.type==='매출')s+=+r.amount||0;else b+=+r.amount||0});
  $('sS').textContent=won(s);$('sB').textContent=won(b);$('sN').textContent=won(s-b);
  var h=a.slice(-8).reverse().map(function(r){return '<li><span>'+String(r.date).slice(5).replace('-','월 ')+'일 · '+(r.type==='매출'?'판 돈':'쓴 돈')+'</span><em style="color:'+(r.type==='매출'?'#1F8A4C':'#D62D2D')+'">'+won(+r.amount)+'</em><button data-del="'+r.id+'">지우기</button></li>'}).join('');
