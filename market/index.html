@@ -44,6 +44,14 @@ h1{font-size:1.75rem;font-weight:900;line-height:1.25;margin:6px 0 4px}
 .big b{font-size:1.1rem;font-weight:900;line-height:1.25}
 .big small{font-size:.72rem;color:#5A5F6C;font-weight:700}
 .big.y{background:var(--sun)}
+.big.gg{grid-column:1/-1;min-height:6rem;background:var(--ink);color:#fff;box-shadow:0 6px 0 #FFD84D}.big.gg small{color:#FFD84D}
+.ggs{margin-top:14px;padding:16px;border-radius:20px;background:#fff;border:3px solid var(--ink)}
+.ggs .slot{display:flex;justify-content:space-between;gap:8px;padding:10px 12px;margin-top:8px;border-radius:12px;background:#FFF8E7;font-weight:800;font-size:.95rem}
+.ggs .slot span:last-child{white-space:nowrap}.ggs .slot.mine{background:#FFD84D}.ggs .slot.free{background:#fff;border:2px dashed #CFC6AE;color:#6A6F7C}
+.ggs .big2{font-size:1.6rem;font-weight:900}
+.ggs .codes{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.ggs .codes span{padding:8px 12px;border-radius:12px;background:#14161F;color:#FFD84D;font-weight:900;font-size:1.05rem;letter-spacing:.06em}.ggs .codes span small{color:#fff;font-size:.75rem;margin-left:4px;letter-spacing:0}
+.ggs .sm{display:block;width:100%;height:3.2rem;margin-top:10px;border-radius:14px;background:#fff;border:2px solid var(--ink);font-weight:900}
+#v-gg input{margin-top:0}
 .view{display:none}.view.on{display:block}
 .back{height:56px;padding:0 18px;border-radius:14px;background:#fff;border:2px solid var(--ink);font-weight:900;font-size:.9rem;margin-bottom:14px}
 h2{font-size:1.4rem;font-weight:900;margin:4px 0 6px}
@@ -148,6 +156,7 @@ textarea{min-height:5.2rem;resize:vertical}
 <p class="heard" id="homeHeard"></p>
 </div>
 <div class="grid">
+<button class="big gg" data-go="gg"><i>⏳</i><b>우리 동네 3일 특가</b><small>동네마다 딱 2자리 · 우리 동네 손님만 예약</small></button>
 <button class="big y" data-go="deal"><i>📢</i><b>오늘의 특가<br>알리기</b><small>가게 앞 종이 · 당근 · 카톡</small></button>
 <button class="big" data-go="msg"><i>💬</i><b>단골에게<br>카톡 보내기</b><small>휴무 · 물건 들어옴 · 감사</small></button>
 <button class="big" data-go="book"><i>📒</i><b>오늘 장사<br>기록</b><small>판 돈 · 쓴 돈</small></button>
@@ -177,6 +186,28 @@ textarea{min-height:5.2rem;resize:vertical}
   <p class="note">보내기는 사장님이 직접 눌러야 나가요.</p>
   <button class="up" data-up="deal">📍 동네 손님들께도 알리기</button><div class="upwrap" data-upw="deal"></div>
  </div>
+</div>
+</section>
+
+<!-- 동네 3일 특가 -->
+<section class="view" id="v-gg">
+<button class="back" data-go="home">← 처음으로</button>
+<h2>⏳ 우리 동네 3일 특가</h2>
+<p class="lead">우리 동네 손님만 예약할 수 있어요. 동네마다 딱 2자리, 3일 동안 시간이 줄어들다 끝나요. 돈은 가게에서 직접 받아요.</p>
+<div id="ggBox"><p class="note">불러오는 중…</p></div>
+<div id="ggForm" class="hidden">
+<p class="q">무엇을 파세요?</p>
+<div class="inrow"><input type="text" id="ggT" maxlength="40" placeholder="예) 통영 생굴 1kg"><button class="smic" data-mic="ggT" aria-label="말하기"><svg viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2.4" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button></div>
+<p class="q">동네 특가 얼마예요?</p>
+<div class="inrow"><input type="text" id="ggP" maxlength="20" placeholder="예) 9,900원"><button class="smic" data-mic="ggP" aria-label="말하기"><svg viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2.4" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button></div>
+<p class="q">원래 값 (안 적어도 돼요)</p>
+<input type="text" id="ggO" maxlength="20" placeholder="예) 15,000원">
+<p class="q">몇 개 준비하세요? (안 적어도 돼요)</p>
+<input type="text" id="ggQ" inputmode="numeric" maxlength="3" placeholder="예) 30">
+<p class="q">한 줄 안내 (안 적어도 돼요)</p>
+<div class="inrow"><input type="text" id="ggN" maxlength="80" placeholder="예) 부전시장 2번 출구 바로 앞"><button class="smic" data-mic="ggN" aria-label="말하기"><svg viewBox="0 0 24 24" fill="none" stroke="#14161F" stroke-width="2.4" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button></div>
+<button class="go" id="ggGo">3일 특가 올리기</button>
+<p class="note">올리면 바로 3일 시계가 시작돼요 · 한 가게는 한 번에 1개만</p>
 </div>
 </section>
 
@@ -226,7 +257,7 @@ function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null
 var fs=+ls('mk_fs')||22;function setFs(n){fs=Math.max(18,Math.min(30,n));document.documentElement.style.setProperty('--fs',fs+'px');ls('mk_fs',fs)}setFs(fs);
 $('fsp').onclick=function(){setFs(fs>=30?20:fs+4);$('fsp').textContent=fs>=30?'가-':'가+';toast(fs>=30?'제일 크게 했어요':'글씨를 키웠어요')};
 // 화면 이동
-function show(v){document.querySelectorAll('.view').forEach(function(s){s.classList.toggle('on',s.id==='v-'+v)});window.scrollTo(0,0);if(v==='book')renderBook()}
+function show(v){document.querySelectorAll('.view').forEach(function(s){s.classList.toggle('on',s.id==='v-'+v)});window.scrollTo(0,0);if(v==='book')renderBook();if(v==='gg')ggLoad()}
 document.querySelectorAll('[data-go]').forEach(function(b){b.onclick=function(){show(b.dataset.go)}});
 // 말하기
 var SR=window.SpeechRecognition||window.webkitSpeechRecognition,rec=null,recBtn=null;
@@ -364,8 +395,38 @@ function renderBook(){var a=getL(),m=ymd().slice(0,7),s=0,b=0;a.forEach(function
  document.querySelectorAll('[data-del]').forEach(function(x){x.onclick=function(){var id=+x.dataset.del,all=getL(),r=all.filter(function(z){return z.id===id})[0];setL(all.filter(function(z){return z.id!==id}));renderBook();undo(r)}})}
 function undo(r){var e=$('toast');e.innerHTML='지웠어요 · <u style="cursor:pointer">되돌리기</u>';e.style.pointerEvents='auto';e.classList.add('on');e.onclick=function(){if(r){var a=getL();a.push(r);a.sort(function(x,y){return x.id-y.id});setL(a);renderBook()}e.classList.remove('on');e.style.pointerEvents='none';r=null};clearTimeout(toast.h);toast.h=setTimeout(function(){e.classList.remove('on');e.style.pointerEvents='none'},5000)}
 // 주소로 바로 열기 (#deal 등)
+// 동네 3일 특가 (사장님)
+function esc(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function kst(t){var d=new Date(t);return (d.getMonth()+1)+'/'+d.getDate()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}
+function lft(t){var m=Math.max(0,Math.round((new Date(t)-Date.now())/60000)),d=Math.floor(m/1440),h=Math.floor(m%1440/60);return (d?d+'일 ':'')+(h?h+'시간 ':'')+(d?'':m%60+'분 ')+'남았어요'}
+function ggLoad(){var AI=window.alajoomAI,box=$('ggBox');$('ggForm').classList.add('hidden');if(!AI){box.innerHTML='<p class="note">잠시 뒤 다시 열어 주세요</p>';return}
+ AI.loggedIn().then(function(ok){if(!ok){box.innerHTML='<div class="ggs"><b>먼저 로그인해요</b><p class="note" style="font-size:.85rem">우리 가게 특가라는 걸 확인하려고 한 번만 로그인해요.</p><button class="go" id="ggLogin">카카오로 3초 로그인</button></div>';$('ggLogin').onclick=function(){location.hash='gg';window.alajoomLogin()};return}
+  return AI.rpc('gonggu_status').then(ggDraw)}).catch(function(){box.innerHTML='<p class="note">불러오지 못했어요. 다시 열어 주세요</p>'})}
+function ggDraw(st){var box=$('ggBox');$('ggForm').classList.add('hidden');
+ if(!st.dong){box.innerHTML='<div class="ggs"><b>1단계 · 가게 위치 인증</b><p class="note" style="font-size:.85rem">우리 동네 사장님만 올릴 수 있어요. 가게 안에서 아래 버튼을 눌러 주세요. 한 번만 하면 돼요.</p><button class="go" id="ggLoc">📍 지금 가게 위치로 인증</button></div>';$('ggLoc').onclick=storeLoc;return}
+ var sl=st.slots||[],h='<div class="ggs"><div style="display:flex;justify-content:space-between;align-items:center"><b>📍 '+esc(st.dong)+'</b><button style="background:none;font-size:.8rem;font-weight:800;color:#2F55A4;text-decoration:underline" id="ggRe">가게 위치 다시 인증</button></div><p class="note" style="font-size:.85rem;margin-top:4px">'+esc(st.dong)+' 3일 특가 자리 '+sl.length+'/2</p>';
+ sl.forEach(function(x){h+='<div class="slot'+(x.mine?' mine':'')+'"><span>'+(x.mine?'⭐ 우리 가게 · ':'')+esc(x.title)+'</span><span>'+lft(x.ends)+'</span></div>'});
+ for(var k=sl.length;k<2;k++)h+='<div class="slot free"><span>빈자리</span><span>올릴 수 있어요</span></div>';
+ h+='</div>';
+ if(st.mine){var m=st.mine,l=m.list||[];h+='<div class="ggs"><b>⭐ 우리 가게 특가 · '+esc(m.title)+' '+esc(m.price)+'</b><p class="big2">예약 '+l.length+'명 · '+m.taken+'개'+(m.qty?' / '+m.qty+'개':'')+'</p><p class="note" style="font-size:.85rem">'+lft(m.ends)+' · 손님이 말하는 번호를 확인하고 물건을 주세요</p>'+
+  (l.length?'<div class="codes">'+l.map(function(r){return '<span>'+esc(r.code)+'<small>'+r.qty+'개</small></span>'}).join('')+'</div>':'<p class="note">아직 예약이 없어요</p>')+
+  '<button class="sm" id="ggRef">🔄 예약 새로 보기</button><button class="sm" id="ggEnd" style="border-color:#C9CCD6;color:#6A6F7C">일찍 끝내기</button></div>'}
+ box.innerHTML=h;$('ggRe').onclick=storeLoc;
+ if(st.mine){$('ggRef').onclick=ggLoad;$('ggEnd').onclick=function(){var b=$('ggEnd');if(b.dataset.ok!=='1'){b.dataset.ok='1';b.textContent='한 번 더 누르면 끝나요';return}window.alajoomAI.rpc('gonggu_end',{p_id:st.mine.id}).then(function(r){toast('특가를 끝냈어요');ggDraw(r)})}}
+ else if(sl.length>=2){box.insertAdjacentHTML('beforeend','<p class="note" style="font-size:.9rem">지금은 두 자리가 다 찼어요. '+kst(sl[0].ends)+'에 한 자리가 비어요.</p>')}
+ else $('ggForm').classList.remove('hidden')}
+function storeLoc(){var b=this;b.disabled=true;var t=b.textContent;b.textContent='위치 찾는 중…';
+ new Promise(function(res,rej){if(!navigator.geolocation)return rej('nogeo');navigator.geolocation.getCurrentPosition(function(p){res(p.coords)},function(e){rej(e&&e.code===1?'denied':'fail')},{enableHighAccuracy:true,timeout:20000})}).then(function(c){
+  return fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=16&addressdetails=1&accept-language=ko&lat='+c.latitude.toFixed(5)+'&lon='+c.longitude.toFixed(5)).then(function(r){return r.json()}).then(function(d){var a=d.address||{},pk=function(ks,re){for(var i=0;i<ks.length;i++){var v=a[ks[i]];if(typeof v==='string'&&re.test(v.trim()))return v.trim()}return null};
+   var dong=pk(['suburb','quarter','neighbourhood','village','town','hamlet'],/(동|읍|면|가|리)$/),gu=pk(['borough','city_district','county','city','town'],/(구|군|시)$/);if(!dong)throw 'nodong';
+   return window.alajoomAI.rpc('store_verify',{p_dong:dong,p_gu:gu,p_lat:c.latitude,p_lng:c.longitude})})}).then(function(r){toast('📍 '+r.dong+' 가게로 인증했어요');ggLoad()}).catch(function(e){b.disabled=false;b.textContent=t;toast(e==='denied'?'위치 권한을 허용해 주세요':'위치를 못 찾았어요. 다시 눌러 주세요')})}
+$('ggGo').onclick=function(){var t=$('ggT').value.trim(),pr=$('ggP').value.trim(),q=parseInt(($('ggQ').value||'').replace(/[^0-9]/g,''),10);
+ if(t.length<2){toast('무엇을 파시는지 적어 주세요');return}if(!pr){toast('동네 특가 값을 적어 주세요');return}
+ var b=$('ggGo');b.disabled=true;b.textContent='올리는 중…';
+ window.alajoomAI.rpc('gonggu_post',{p_title:t,p_price:pr,p_orig:$('ggO').value.trim(),p_qty:q>0?q:null,p_note:$('ggN').value.trim()}).then(function(st){b.disabled=false;b.textContent='3일 특가 올리기';['ggT','ggP','ggO','ggQ','ggN'].forEach(function(i){$(i).value=''});toast('⏳ 3일 특가를 올렸어요!');ggDraw(st);window.scrollTo(0,0)})
+ .catch(function(e){var m=String(e&&e.message||'');b.disabled=false;b.textContent='3일 특가 올리기';toast(/slots_full/.test(m)?'두 자리가 다 찼어요':/have_active/.test(m)?'이미 올린 특가가 있어요':/need_store_dong/.test(m)?'가게 위치를 먼저 인증해 주세요':'잠시 뒤 다시 눌러 주세요');ggLoad()})};
 function resume(){var p=ls('mk_pending');if(!p)return;try{p=JSON.parse(p)}catch(e){return}if(!window.alajoomAI)return;window.alajoomAI.loggedIn().then(function(ok){if(!ok){ls('mk_pending',null);return}if(p.w==='deal'){lastDeal=p.body;show('deal');$('dealIn').value=p.body;makeDeal()}else{lastMsg={kind:p.kind,body:p.body};show('msg');$('msgOut').style.display='block';$('msgTxt').textContent=p.body}setTimeout(function(){upPanel(p.w);toast('로그인됐어요. 올리기를 눌러 주세요')},300)})}
-function fromHash(){var h=location.hash.slice(1);if(/^(deal|msg|book)$/.test(h))show(h)}applyKind();if(!kind0&&!ls('mk_seen')&&!location.hash)show('kind');else fromHash();window.addEventListener('hashchange',fromHash);setTimeout(resume,400);
+function fromHash(){var h=location.hash.slice(1);if(/^(deal|msg|book|gg)$/.test(h))show(h)}applyKind();if(!kind0&&!ls('mk_seen')&&!location.hash)show('kind');else fromHash();window.addEventListener('hashchange',fromHash);setTimeout(resume,400);
 })();
 
 // 홈 화면에 추가
