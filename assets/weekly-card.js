@@ -1,4 +1,4 @@
-/* 알아줌 — 업종 화면 '오늘' 위쪽: 이번 주 인기 글 분석 카드 + 분석 보기(인스타·블로그·참고 자료) */
+/* 알아줌 — 업종 화면 '오늘' 위쪽: 이번 주 인기 글 분석 카드 + 분석 보기(인스타·블로그·플레이스 리뷰·참고 자료) */
 (function () {
   var M = (location.pathname.match(/^\/(food|pilates|skin|nail|hair|cafe|bakery|academy)\b/) || [])[1];
   if (!M) return;
@@ -66,7 +66,7 @@
     d.innerHTML = '<div class="in"><span class="tg">' + esc(when(data.updated_at)) + ' 분석 · 매주 월요일 새로</span>' +
       '<h3>' + esc(data.title || ('이번 주 ' + NAME + ' 인기 글 분석')) + '</h3>' +
       '<p class="sm">' + esc(data.summary || '') + '</p>' +
-      '<div class="tb" role="group" aria-label="채널"><button type="button" data-t="insta" aria-pressed="true">인스타</button><button type="button" data-t="blog" aria-pressed="false">네이버 블로그</button></div>' +
+      '<div class="tb" role="group" aria-label="채널"><button type="button" data-t="insta" aria-pressed="true">인스타</button><button type="button" data-t="blog" aria-pressed="false">네이버 블로그</button>' + (data.place ? '<button type="button" data-t="place" aria-pressed="false">플레이스 리뷰</button>' : '') + '</div>' +
       '<ul id="wkList">' + lines(data.insta) + '</ul>' +
       (src.length ? '<p class="src">이번 주 참고한 자료 ' + src.length + '곳<br>' + src.map(function (u) { return '<a href="' + esc(u) + '" target="_blank" rel="noopener nofollow">' + esc(host(u)) + '</a>'; }).join('') + '</p>' : '') +
       '<p class="src">공개된 인기 게시물·상위 글·마케팅 자료를 모아 업종별로 공통점을 뽑았어요.</p>' +
