@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="canonical" href="https://alajoom.com/dong/">
 <title>알아줌 동네 | 우리 동네 가게 오늘 소식</title>
-<meta name="description" content="우리 동네 식당·카페·시장·필라테스 사장님들이 직접 올린 오늘 특가·새 소식과 쿠폰을 한곳에서. 앱 설치 없이 바로 봐요.">
+<meta name="description" content="우리 동네 식당·카페·시장·필라테스 사장님들이 직접 보내는 오늘 특가·새 소식과 쿠폰. 직거래 구조라 손님이 가게로 직접 찾아가요. 앱 설치 없이 바로 봐요.">
 <meta property="og:title" content="알아줌 동네 | 우리 동네 가게 오늘 소식">
 <meta property="og:description" content="동네 사장님들이 직접 올린 오늘 특가·새 소식과 쿠폰을 한곳에서.">
 <meta property="og:image" content="https://alajoom.com/assets/og-alajoom.jpg?v=1127">
@@ -33,6 +33,9 @@ header b{font-size:16px;font-weight:800;white-space:nowrap}
 h1{font-size:32px;font-weight:900;line-height:1.2;margin-top:4px;letter-spacing:-1px}
 h1 mark{background:linear-gradient(transparent 58%,#FFE27A 58%);color:inherit}
 .lead{font-size:15px;color:#5B6070;margin-top:6px}
+.dir{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13.5px;color:#5B6070;font-weight:600}.dir span{flex:none;padding:4px 10px;border-radius:999px;background:#E2ECFB;color:#2F5DA8;font-weight:800;font-size:12.5px}
+.acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:8px;margin-top:12px}.acts a{display:flex;align-items:center;justify-content:center;gap:6px;height:46px;border-radius:14px;background:#F6F2E7;color:var(--ink);text-decoration:none;font-weight:800;font-size:14.5px}
+.cpn .acts a{background:rgba(255,255,255,.7)}
 .chips{display:flex;gap:8px;margin:16px -16px 0;padding:0 16px 4px;overflow-x:auto;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
 .chips button{flex:none;height:40px;padding:0 16px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:700;font-size:14px}
@@ -121,7 +124,7 @@ h1 mark{background:linear-gradient(transparent 58%,#FFE27A 58%);color:inherit}
 <section id="shopBox" class="hidden"></section>
 
 <div id="v-feed">
- <div class="hi"><small id="today"></small><h1 id="ttl">우리 동네 <mark>오늘</mark></h1><p class="lead">동네 사장님들이 직접 올린 오늘 소식이에요.</p></div>
+ <div class="hi"><small id="today"></small><h1 id="ttl">우리 동네 <mark>오늘</mark></h1><p class="lead">사장님이 직접 보내는 동네 소식이에요.</p><p class="dir"><span>직거래 구조예요</span> 손님이 가게로 직접 찾아가요</p></div>
  <div class="chips" id="flt"><button class="on" data-f="all">전체</button><button data-f="deal">특가</button><button data-f="new">새로 들어옴</button><button data-f="cp">쿠폰</button></div>
  <div id="jj"></div>
  <div class="feed" id="feed"></div>
@@ -165,6 +168,7 @@ var CAT={fish:['market','수산'],meat:['market','정육'],fruit:['market','청�
 function grp(c){var x=CAT[c]||['etc',''];return {g:G[x[0]],p:P[x[0]],sub:x[1]}}
 function ic(c){var o=grp(c);return '<span class="ic" style="background:'+o.g[1]+'"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="'+o.g[2]+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+o.p+'</svg></span>'}
 function metaOf(c,extra){var o=grp(c);return [o.g[0],o.sub,extra].filter(Boolean).join(' · ')}
+function acts(x){var o=[];if(x.phone)o.push('<a href="tel:'+esc(String(x.phone).replace(/[^0-9]/g,''))+'"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>전화하기</a>');if(x.addr)o.push('<a href="https://map.kakao.com/?q='+encodeURIComponent(x.addr)+'" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>가게 위치 보기</a>');return o.length?'<div class="acts">'+o.join('')+'</div>':''}
 var KIND={deal:['특가','k-deal'],new:['들어왔어요','k-new'],off:['쉬어요','k-off'],news:['소식','k-news']};
 function ago(t){var m=Math.max(0,Math.round((Date.now()-new Date(t))/60000));if(m<1)return'방금';if(m<60)return m+'분 전';var h=Math.round(m/60);if(h<24)return h+'시간 전';return Math.round(h/24)+'일 전'}
 function until(t){var d=new Date(t),n=new Date();return d.toDateString()===n.toDateString()?'오늘까지':(d.getMonth()+1)+'/'+d.getDate()+'까지'}
@@ -178,7 +182,7 @@ function clap(store){$('clapBox').innerHTML='<div class="clap" role="status">'+C
 function saveCp(c){var a=mineGet();if(a.some(function(x){return x.code===c.code}))return toast('이미 저장한 쿠폰이에요');a.unshift({code:c.code,store:c.store,mate:c.mate,offer:c.offer,terms:c.terms||'',area:c.area||'',at:Date.now()});mineSet(a);clap(c.store)}
 function showCp(c){$('shS').textContent=c.store;$('shO').textContent=c.offer;$('shT').textContent=c.terms||'';$('show').classList.add('on')}
 $('shX').onclick=function(){$('show').classList.remove('on')};
-function cpCard(c,i,mine){return '<div class="card"><div class="ch">'+ic(c.mate)+'<div class="nm"><b>'+esc(c.store)+'</b><small>'+esc(metaOf(c.mate,c.area))+'</small></div><span class="bdg k-cp">쿠폰</span></div><p class="bd">'+esc(c.offer)+'</p>'+(c.terms?'<p class="lead" style="margin-top:4px">'+esc(c.terms)+'</p>':'')+(mine?'<button class="cpb" data-use="'+i+'">가게에서 보여 주기</button>':'<button class="cpb" data-cp="'+i+'">쿠폰 받기</button>')+'</div>'}
+function cpCard(c,i,mine){return '<div class="card"><div class="ch">'+ic(c.mate)+'<div class="nm"><b>'+esc(c.store)+'</b><small>'+esc(metaOf(c.mate,c.area))+'</small></div><span class="bdg k-cp">쿠폰</span></div><p class="bd">'+esc(c.offer)+'</p>'+(c.terms?'<p class="lead" style="margin-top:4px">'+esc(c.terms)+'</p>':'')+(mine?'':acts(c))+(mine?'<button class="cpb" data-use="'+i+'">가게에서 보여 주기</button>':'<button class="cpb" data-cp="'+i+'">쿠폰 받기</button>')+'</div>'}
 function renderMine(){var a=mineGet();$('mineN').textContent=a.length;$('mineN').classList.toggle('hidden',!a.length);
  $('mine').innerHTML=a.length?a.map(function(c,i){return cpCard(c,i,true)}).join(''):'<div class="empty">'+CHICK.sleep(120)+'<b>아직 저장한 쿠폰이 없어요</b><p>동네 소식에서 \'쿠폰 받기\'를 누르거나<br>가게 QR을 찍으면 여기에 모여요.</p></div>';
  $('mine').querySelectorAll('[data-use]').forEach(function(b){b.onclick=function(){showCp(a[+b.dataset.use])}})}
@@ -192,7 +196,7 @@ $('areaIn').onkeydown=function(e){if(e.key==='Enter')setArea($('areaIn').value)}
 function loadAreas(){rpc('town_areas').then(function(a){$('areaChips').innerHTML=(a||[]).map(function(x){return '<button data-a="'+esc(x.name)+'">'+esc(x.name)+'</button>'}).join('')+'<button data-a="">전체 보기</button>';$('areaChips').querySelectorAll('button').forEach(function(b){b.onclick=function(){setArea(b.dataset.a)}})}).catch(function(){})}
 // 골라 보기
 $('flt').querySelectorAll('button').forEach(function(b){b.onclick=function(){flt=b.dataset.f;$('flt').querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});render()}});
-function card(n){var k=KIND[n.kind]||KIND.news;return '<article class="card"><div class="ch">'+ic(n.cat||n.mate)+'<div class="nm"><b>'+esc(n.store||'')+'</b><small>'+esc(metaOf(n.cat||n.mate,ago(n.at)))+'</small></div><span class="bdg '+k[1]+'">'+k[0]+'</span></div><p class="bd">'+esc(n.body)+'</p><div class="ft"><span>'+until(n.until)+'</span>'+(n.area&&!area?'<span>'+esc(n.area)+'</span>':'')+'</div></article>'}
+function card(n){var k=KIND[n.kind]||KIND.news;return '<article class="card"><div class="ch">'+ic(n.cat||n.mate)+'<div class="nm"><b>'+esc(n.store||'')+'</b><small>'+esc(metaOf(n.cat||n.mate,ago(n.at)))+'</small></div><span class="bdg '+k[1]+'">'+k[0]+'</span></div><p class="bd">'+esc(n.body)+'</p>'+acts(n)+'<div class="ft"><span>'+until(n.until)+'</span>'+(n.area&&!area?'<span>'+esc(n.area)+'</span>':'')+'</div></article>'}
 function render(){
  var ns=NEWS.filter(function(n){return flt==='all'||flt===n.kind}),showCps=flt==='all'||flt==='cp';
  if(flt==='cp')ns=[];
@@ -213,7 +217,7 @@ function load(){
  rpc('town_feed',{p_area:area,p_code:code}).then(function(d){
   if(d.shop&&!area&&d.area){area=d.area;$('areaTx').textContent=area;$('ttl').innerHTML=esc(area)+' <mark>오늘</mark>'}
   if(d.shop){var s=d.shop;
-   $('shopBox').innerHTML=s.offer?'<div class="cpn"><small>'+esc(s.store)+(grp(s.mate).g[0]!=='가게'?' · '+grp(s.mate).g[0]:'')+'</small><h2>'+esc(s.offer)+'</h2>'+(s.terms?'<p>'+esc(s.terms)+'</p>':'')+'<hr><div class="act"><button id="cpSave">내 쿠폰에 저장</button><button class="l" id="cpShow">지금 보여 주기</button></div></div>':'<div class="cpn"><small>반가워요!</small><h2>'+esc(s.store)+'</h2><p>이 동네 가게들의 오늘 소식을 모아 봤어요.</p></div>';
+   $('shopBox').innerHTML=s.offer?'<div class="cpn"><small>'+esc(s.store)+(grp(s.mate).g[0]!=='가게'?' · '+grp(s.mate).g[0]:'')+'</small><h2>'+esc(s.offer)+'</h2>'+(s.terms?'<p>'+esc(s.terms)+'</p>':'')+'<hr><div class="act"><button id="cpSave">내 쿠폰에 저장</button><button class="l" id="cpShow">지금 보여 주기</button></div>'+acts(s)+'</div>':'<div class="cpn"><small>반가워요!</small><h2>'+esc(s.store)+'</h2><p>이 동네 가게들의 오늘 소식을 모아 봤어요.</p>'+acts(s)+'</div>';
    $('shopBox').classList.remove('hidden');
    if(s.offer){$('cpSave').onclick=function(){saveCp(s)};$('cpShow').onclick=function(){showCp(s)}}}
   NEWS=d.news||[];CPS=d.coupons||[];render();

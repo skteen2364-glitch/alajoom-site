@@ -99,6 +99,7 @@ textarea{min-height:5.2rem;resize:vertical}
 .upbox label{display:block;font-size:.8rem;font-weight:900;margin:8px 0 4px}
 .upbox input{font-size:.95rem!important;padding:10px 12px!important}
 .upbox .ok{display:block;width:100%;height:3.4rem;margin-top:12px;border-radius:14px;background:var(--ink);color:var(--sun);font-weight:900;font-size:1rem}
+.upbox details{margin-top:4px}.upbox summary{font-size:.85rem;font-weight:900;color:#2F55A4;cursor:pointer;padding:6px 0}
 .upbox .done a{display:inline-block;margin-top:8px;font-weight:900;color:#2F55A4}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--sun);font-weight:900;font-size:1rem;padding:14px 22px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9;white-space:nowrap}
 .toast.on{opacity:1}
@@ -218,7 +219,7 @@ textarea{min-height:5.2rem;resize:vertical}
 (function(){
 var $=function(id){return document.getElementById(id)};
 function toast(t){var e=$('toast');e.onclick=null;e.style.pointerEvents='none';e.textContent=t;e.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(function(){e.classList.remove('on')},1800)}
-function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}}
 // 글씨 크기
 var fs=+ls('mk_fs')||22;function setFs(n){fs=Math.max(18,Math.min(30,n));document.documentElement.style.setProperty('--fs',fs+'px');ls('mk_fs',fs)}setFs(fs);
 $('fsp').onclick=function(){setFs(fs>=30?20:fs+4);$('fsp').textContent=fs>=30?'가-':'가+';toast(fs>=30?'제일 크게 했어요':'글씨를 키웠어요')};
@@ -293,7 +294,7 @@ function makeDeal(){var t=$('dealIn').value.trim();if(!t){toast('무엇을 얼�
  lastDeal=(p[0]+(p[1]?' '+p[1]:'')).slice(0,120);var d=KD();var foot=[d.tag==='오늘의 특가'?'':d.tag,shop].filter(Boolean).join(' · ');$('pp4').textContent=$('q4').textContent=foot;
  $('dealTxt').textContent='📢 오늘의 특가'+(shop?' | '+shop:'')+'\n\n'+p[0]+(p[1]?' '+p[1]:'')+'\n\n'+d.body+'\n다 팔리면 끝나요. 늦기 전에 들러 주세요!'+(shop?'\n\n📍 '+shop:'');
  $('q2').style.fontSize=Math.min(110,Math.floor(760/Math.max(1,p[0].length)))+'pt';$('q3').style.fontSize=Math.min(170,Math.floor(760/Math.max(1,p[1].length)))+'pt';
- $('dealOut').style.display='block';setTimeout(function(){$('dealOut').scrollIntoView({behavior:'smooth',block:'start'})},50)}
+ $('dealOut').style.display='block';setTimeout(function(){$('dealOut').scrollIntoView({behavior:'smooth',block:'start'})},50);upPanel('deal',true)}
 $('dealGo').onclick=makeDeal;
 $('printBtn').onclick=function(){window.print()};
 // 단골 카톡
@@ -305,29 +306,35 @@ function makeMsg(){var t=$('msgIn').value.trim().replace(/[.。]$/,''),shop=ls('
  else if(kind==='new'){if(!t){toast('무엇이 들어왔는지 말씀해 주세요');return}x=hi+t+'\n좋은 물건 먼저 챙겨 드리고 싶어서 연락드려요.\n오시기 전에 연락 주시면 따로 챙겨 둘게요!'}
  else{x=hi+(t?t+' ':'')+'늘 찾아 주셔서 정말 고맙습니다.\n앞으로도 좋은 물건, 좋은 값으로 보답할게요.\n건강하세요!'}
  lastMsg=kind==='thx'?{kind:'',body:''}:{kind:kind==='new'?'new':'off',body:(kind==='off'&&!/쉬|휴무|닫/.test(t)?t+' 쉬어요':t).slice(0,120)};$('msgUp').classList.toggle('hidden',kind==='thx');
- $('msgTxt').textContent=x;$('msgOut').style.display='block';setTimeout(function(){$('msgOut').scrollIntoView({behavior:'smooth',block:'start'})},50)}
+ $('msgTxt').textContent=x;$('msgOut').style.display='block';setTimeout(function(){$('msgOut').scrollIntoView({behavior:'smooth',block:'start'})},50);if(kind!=='thx')upPanel('msg',true)}
 $('msgGo').onclick=makeMsg;
 // 동네 소식에도 올리기 (알아줌 동네)
 var lastDeal='',lastMsg={kind:'',body:''};
 function upBody(w){if(w==='deal')return{kind:'deal',body:lastDeal};return lastMsg}
-function upPanel(w){var u=upBody(w),box=document.querySelector('[data-upw="'+w+'"]');if(!u.body){toast('먼저 글을 만들어 주세요');return}
- box.innerHTML='<div class="upbox"><b>동네 손님 화면에 이렇게 올라가요</b><div class="pv">'+u.body.replace(/</g,'&lt;')+'</div>'+
- '<label>가게 이름</label><input type="text" id="upShop" value="'+(ls('mk_shop')||'').replace(/"/g,'&quot;')+'" placeholder="예) 은혜수산">'+
- '<label>우리 가게 동네 (손님이 찾는 이름)</label><input type="text" id="upArea" value="'+(ls('mk_area')||'').replace(/"/g,'&quot;')+'" placeholder="예) 부전동">'+
- '<button class="ok" id="upOk">이대로 올리기</button><p class="note">하루 3개까지 · 특가는 오늘 하루만 보여요 · 언제든 지울 수 있어요</p></div>';
+function upPanel(w,auto){var u=upBody(w),box=document.querySelector('[data-upw="'+w+'"]');if(!u.body){if(!auto)toast('먼저 글을 만들어 주세요');return}
+ var q=function(k){return (ls(k)||'').replace(/"/g,'&quot;')},first=!(ls('mk_shop')&&ls('mk_area'));
+ box.innerHTML='<div class="upbox"><b>📍 동네 손님 화면에도 올릴까요?</b><p class="note">사장님이 직접 보내는 소식이에요 · 직거래 구조예요</p><div class="pv">'+u.body.replace(/</g,'&lt;')+'</div>'+
+ '<details'+(first?' open':'')+'><summary>가게 정보 '+(first?'(처음 한 번만 적어요)':'· '+(ls('mk_shop')||'')+' · '+(ls('mk_area')||''))+'</summary>'+
+ '<label>가게 이름</label><input type="text" id="upShop" value="'+q('mk_shop')+'" placeholder="예) 은혜수산">'+
+ '<label>우리 가게 동네 (손님이 찾는 이름)</label><input type="text" id="upArea" value="'+q('mk_area')+'" placeholder="예) 부전동">'+
+ '<label>가게 전화번호 (손님이 바로 전화해요 · 안 적어도 돼요)</label><input type="tel" id="upPhone" value="'+q('mk_phone')+'" placeholder="예) 051-000-0000">'+
+ '<label>가게 주소 (손님이 찾아와요 · 안 적어도 돼요)</label><input type="text" id="upAddr" value="'+q('mk_addr')+'" placeholder="예) 부산 부산진구 부전동 ○○ 부전시장 ○동"></details>'+
+ '<button class="ok" id="upOk">동네에 올리기</button><p class="note">하루 3개까지 · 특가는 오늘 하루만 보여요 · 언제든 지울 수 있어요</p></div>';
  $('upOk').onclick=function(){doUp(w)}}
-function doUp(w){var u=upBody(w),shop=$('upShop').value.trim(),ar=$('upArea').value.trim();
+function doUp(w){var u=upBody(w),shop=$('upShop').value.trim(),ar=$('upArea').value.trim(),ph=$('upPhone').value.trim(),ad=$('upAddr').value.trim();
  if(!shop||!ar){toast('가게 이름과 동네를 적어 주세요');return}
- ls('mk_shop',shop);ls('mk_area',ar);
+ if(ph&&!/^[0-9\- ]{8,15}$/.test(ph)){toast('전화번호를 숫자로 적어 주세요');return}
+ ls('mk_shop',shop);ls('mk_area',ar);ls('mk_phone',ph||null);ls('mk_addr',ad||null);
  var AI=window.alajoomAI;if(!AI){toast('잠시 뒤 다시 눌러 주세요');return}
  AI.loggedIn().then(function(ok){
   if(!ok){ls('mk_pending',JSON.stringify({w:w,kind:u.kind,body:u.body,t:Date.now()}));toast('카카오로 3초 로그인할게요');setTimeout(function(){window.alajoomLogin()},600);return}
   $('upOk').disabled=true;$('upOk').textContent='올리는 중…';
-  AI.rpc('news_post',{p_body:u.body,p_kind:u.kind,p_store:shop,p_area:ar,p_cat:kind0||'etc'}).then(function(){
+  var cKey=ph+'|'+ad,cp=(cKey!==(ls('mk_contact_sent')||''))?AI.rpc('store_contact_set',{p_phone:ph,p_addr:ad}).then(function(){ls('mk_contact_sent',cKey)}).catch(function(){}):Promise.resolve();
+  cp.then(function(){return AI.rpc('news_post',{p_body:u.body,p_kind:u.kind,p_store:shop,p_area:ar,p_cat:kind0||'etc'})}).then(function(){
    return AI.rpc('family_me').catch(function(){return null})}).then(function(me){
    var link='/dong/?s='+((me&&me.ref_code)||'');ls('mk_pending',null);
    document.querySelector('[data-upw="'+w+'"]').innerHTML='<div class="upbox done"><b>✔ 동네 손님 화면에 올렸어요</b><p class="note">우리 가게 QR·링크로 들어온 손님이 이 소식과 쿠폰을 봐요.</p><a href="'+link+'" target="_blank" rel="noopener">손님 화면 보기 →</a></div>'
-  }).catch(function(e){var m=String(e&&e.message||'');$('upOk').disabled=false;$('upOk').textContent='이대로 올리기';
+  }).catch(function(e){var m=String(e&&e.message||'');$('upOk').disabled=false;$('upOk').textContent='동네에 올리기';
    toast(/daily_limit/.test(m)?'오늘은 3개까지 올릴 수 있어요':/need_store_area/.test(m)?'가게 이름과 동네를 적어 주세요':'잠시 뒤 다시 눌러 주세요')})})}
 document.querySelectorAll('[data-up]').forEach(function(b){b.onclick=function(){upPanel(b.dataset.up)}});
 // 복사·보내기
